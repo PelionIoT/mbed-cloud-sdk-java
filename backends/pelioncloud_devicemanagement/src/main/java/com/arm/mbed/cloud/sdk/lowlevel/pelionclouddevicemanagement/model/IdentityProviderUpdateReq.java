@@ -98,7 +98,9 @@ public class IdentityProviderUpdateReq implements Serializable {
      */
     @JsonAdapter(TypeEnum.Adapter.class)
     public enum TypeEnum {
-        SAML2("SAML2");
+        SAML2("SAML2"),
+
+        OIDC("OIDC");
 
         private String value;
 

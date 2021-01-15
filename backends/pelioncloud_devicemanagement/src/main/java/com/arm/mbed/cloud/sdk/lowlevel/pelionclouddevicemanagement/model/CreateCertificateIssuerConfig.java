@@ -36,12 +36,11 @@ public class CreateCertificateIssuerConfig implements Serializable {
     }
 
     /**
-     * The ID of the certificate issuer.
+     * Certificate issuer ID.
      * 
      * @return certificateIssuerId
      **/
-    @ApiModelProperty(example = "01648415a2a30242ac18000500000000", required = true,
-                      value = "The ID of the certificate issuer. ")
+    @ApiModelProperty(example = "01648415a2a30242ac18000500000000", required = true, value = "Certificate issuer ID.")
     public String getCertificateIssuerId() {
         return certificateIssuerId;
     }
@@ -62,7 +61,7 @@ public class CreateCertificateIssuerConfig implements Serializable {
      * @return reference
      **/
     @ApiModelProperty(example = "customer.dlms", required = true,
-                      value = "The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP. ")
+                      value = "The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP.")
     public String getReference() {
         return reference;
     }

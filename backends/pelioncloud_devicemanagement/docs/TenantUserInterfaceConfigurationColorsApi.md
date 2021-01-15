@@ -25,7 +25,7 @@ Method | HTTP request | Description
 
 Updates an array of dark theme branding colors.
 
-Update an array of dark theme branding colors of a tenant account.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;: \&quot;primary\&quot;,    \&quot;color\&quot;: \&quot;#f3f93e\&quot; }]&#39; &#x60;&#x60;&#x60;
+Update an array of dark theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;: \&quot;primary\&quot;,    \&quot;color\&quot;: \&quot;#f3f93e\&quot; }]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -46,7 +46,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TenantUserInterfaceConfigurationColorsApi apiInstance = new TenantUserInterfaceConfigurationColorsApi();
 String accountId = "accountId_example"; // String | The ID of the account.
-List<BrandingColor> body = Arrays.asList(new BrandingColor()); // List<BrandingColor> | List of branding colors.
+List<BrandingColorUpdate> body = Arrays.asList(new BrandingColorUpdate()); // List<BrandingColorUpdate> | List of branding colors.
 try {
     Void result = apiInstance.bulkSetAccountDarkColors(accountId, body);
     System.out.println(result);
@@ -61,7 +61,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **body** | [**List&lt;BrandingColor&gt;**](BrandingColor.md)| List of branding colors. |
+ **body** | [**List&lt;BrandingColorUpdate&gt;**](BrandingColorUpdate.md)| List of branding colors. |
 
 ### Return type
 
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 Updates an array of light theme branding colors.
 
-Update an array of light theme branding colors of a tenant account.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;: \&quot;primary\&quot;,    \&quot;color\&quot;: \&quot;purple\&quot; }]&#39; &#x60;&#x60;&#x60;
+Update an array of light theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;: \&quot;primary\&quot;,    \&quot;color\&quot;: \&quot;purple\&quot; }]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -103,7 +103,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TenantUserInterfaceConfigurationColorsApi apiInstance = new TenantUserInterfaceConfigurationColorsApi();
 String accountId = "accountId_example"; // String | The ID of the account.
-List<BrandingColor> body = Arrays.asList(new BrandingColor()); // List<BrandingColor> | List of branding colors.
+List<BrandingColorUpdate> body = Arrays.asList(new BrandingColorUpdate()); // List<BrandingColorUpdate> | List of branding colors.
 try {
     Void result = apiInstance.bulkSetAccountLightColors(accountId, body);
     System.out.println(result);
@@ -118,7 +118,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **body** | [**List&lt;BrandingColor&gt;**](BrandingColor.md)| List of branding colors. |
+ **body** | [**List&lt;BrandingColorUpdate&gt;**](BrandingColorUpdate.md)| List of branding colors. |
 
 ### Return type
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 
 Delete all colors.
 
-Delete account branding colors for all themes.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Delete account branding colors for all themes. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;&#x60;
 
 ### Example
 ```java
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 
 Delete colors in the dark theme.
 
-Delete account dark theme branding colors.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Delete account dark theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;&#x60;
 
 ### Example
 ```java
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 Delete colors in the light theme.
 
-Delete account light theme branding colors.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Delete account light theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;&#x60;
 
 ### Example
 ```java
@@ -304,7 +304,7 @@ Name | Type | Description  | Notes
 
 Get dark theme branding color.
 
-Retrieve the requested dark theme branding color.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve the requested dark theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -340,7 +340,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color]
+ **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color, menu_background_color, menu_text_color, nav_menu_background, nav_menu_background_font_color, nav_menu_active_background, nav_menu_active_background_font_color, nav_menu_highlight, nav_menu_highlight_font_color]
 
 ### Return type
 
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 Get dark theme branding colors.
 
-Retrieve dark theme branding colors for an account.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve dark theme branding colors for an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
 
 Get light theme branding color.
 
-Retrieve the requested light theme branding color.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve the requested light theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -452,7 +452,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color]
+ **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color, menu_background_color, menu_text_color, nav_menu_background, nav_menu_background_font_color, nav_menu_active_background, nav_menu_active_background_font_color, nav_menu_highlight, nav_menu_highlight_font_color]
 
 ### Return type
 
@@ -473,7 +473,7 @@ Name | Type | Description  | Notes
 
 Get light theme branding colors.
 
-Retrieve light theme branding colors for an account.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve light theme branding colors for an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -528,7 +528,7 @@ Name | Type | Description  | Notes
 
 Reset branding color to default.
 
-Resets the branding color of a tenant account to its dark theme default.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Resets the branding color to its dark theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -564,7 +564,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color]
+ **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color, menu_background_color, menu_text_color, nav_menu_background, nav_menu_background_font_color, nav_menu_active_background, nav_menu_active_background_font_color, nav_menu_highlight, nav_menu_highlight_font_color]
 
 ### Return type
 
@@ -585,7 +585,7 @@ Name | Type | Description  | Notes
 
 Reset branding color to default.
 
-Resets the branding color of a tenant account to its light theme default.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Resets the branding color to its light theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -621,7 +621,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color]
+ **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color, menu_background_color, menu_text_color, nav_menu_background, nav_menu_background_font_color, nav_menu_active_background, nav_menu_active_background_font_color, nav_menu_highlight, nav_menu_highlight_font_color]
 
 ### Return type
 
@@ -642,7 +642,7 @@ Name | Type | Description  | Notes
 
 Updates a dark theme branding color.
 
-Update a dark theme branding color of a tenant account.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;color\&quot;: \&quot;#f3f93e\&quot; }&#39; &#x60;&#x60;&#x60;
+Update a dark theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;color\&quot;: \&quot;#f3f93e\&quot; }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -679,7 +679,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color]
+ **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color, menu_background_color, menu_text_color, nav_menu_background, nav_menu_background_font_color, nav_menu_active_background, nav_menu_active_background_font_color, nav_menu_highlight, nav_menu_highlight_font_color]
  **body** | [**BrandingColor**](BrandingColor.md)| The branding color. |
 
 ### Return type
@@ -701,7 +701,7 @@ Name | Type | Description  | Notes
 
 Updates light theme branding color.
 
-Update a light theme branding color of a tenant account.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;color\&quot;: \&quot;purple\&quot; }&#39; &#x60;&#x60;&#x60;
+Update a light theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;color\&quot;: \&quot;purple\&quot; }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -738,7 +738,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
- **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color]
+ **reference** | **String**| The name of the branding color. | [enum: error_color, primary, secondary, success_color, warning_color, canvas_background, canvas_background_font_color, workspace_background, workspace_background_font_color, info_color, info_font_color, primary_font_color, secondary_font_color, error_font_color, success_font_color, warning_font_color, menu_background_color, menu_text_color, nav_menu_background, nav_menu_background_font_color, nav_menu_active_background, nav_menu_active_background_font_color, nav_menu_highlight, nav_menu_highlight_font_color]
  **body** | [**BrandingColor**](BrandingColor.md)| The branding color. |
 
 ### Return type

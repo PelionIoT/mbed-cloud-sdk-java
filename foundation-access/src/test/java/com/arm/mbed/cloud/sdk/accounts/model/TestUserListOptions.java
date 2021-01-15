@@ -23,9 +23,9 @@ public class TestUserListOptions {
     @Test
     public void testClone() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-50), Long.valueOf(-8),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-122), Long.valueOf(-100),
                                                                    Order.getDefault(),
-                                                                   "04f83d7e-af2f-4448-ac8c-40247968b74e", null, null);
+                                                                   "1b04b5fb-dea4-4b80-8683-2bd8603865e6", null, null);
             UserListOptions userlistoptions2 = userlistoptions1.clone();
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
@@ -49,16 +49,12 @@ public class TestUserListOptions {
             UserListOptions option = new UserListOptions().equalToStatus(UserStatus.getDefault())
                                                           .inStatuses(Arrays.asList(UserStatus.getDefault(),
                                                                                     UserStatus.getDefault(),
-                                                                                    UserStatus.getDefault(),
                                                                                     UserStatus.getDefault()))
                                                           .notInStatuses(Arrays.asList(UserStatus.getDefault(),
                                                                                        UserStatus.getDefault(),
                                                                                        UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
                                                                                        UserStatus.getDefault()))
-                                                          .equalToEmail("cb77d.46311@20ec3.me");
+                                                          .equalToEmail("853e6.2c7e7@71c64.me");
             assertTrue(option.hasFilters());
             // Cannot test Filter [field=loginProfiles, spec field=loginProfiles, tag=TAG_FILTER_BY_LOGIN_PROFILES,
             // operator=equal to, type=List<LoginProfile>, isVerified=true] because the field is a list and the filter
@@ -72,22 +68,20 @@ public class TestUserListOptions {
             assertTrue(option.hasFilters(UserListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(UserListOptions.TAG_FILTER_BY_STATUS, FilterOperator.IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault(),
-                                       UserStatus.getDefault()),
+            assertEquals(Arrays.asList(UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(UserListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                  option));
             assertTrue(option.hasFilters(UserListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(UserListOptions.TAG_FILTER_BY_STATUS, FilterOperator.NOT_IN));
             assertNotNull(option.getStatusFilters());
             assertEquals(Arrays.asList(UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault(),
-                                       UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault(),
                                        UserStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                     option));
             assertTrue(option.hasFilters(UserListOptions.TAG_FILTER_BY_EMAIL));
             assertTrue(option.hasFilter(UserListOptions.TAG_FILTER_BY_EMAIL, FilterOperator.EQUAL));
             assertNotNull(option.getEmailFilters());
-            assertEquals("cb77d.46311@20ec3.me",
+            assertEquals("853e6.2c7e7@71c64.me",
                          ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_EMAIL, String.class,
                                                                     option));
         } catch (Exception exception) {
@@ -102,12 +96,12 @@ public class TestUserListOptions {
     @Test
     public void testHashCode() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(63), Long.valueOf(-5),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-33), Long.valueOf(-55),
                                                                    Order.getDefault(),
-                                                                   "450f98d0-0dc3-410a-bec5-21b12dd5c4dc", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(63), Long.valueOf(-5),
+                                                                   "173352e4-bff0-46de-b8c3-75f03627d759", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-33), Long.valueOf(-55),
                                                                    Order.getDefault(),
-                                                                   "450f98d0-0dc3-410a-bec5-21b12dd5c4dc", null, null);
+                                                                   "173352e4-bff0-46de-b8c3-75f03627d759", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotSame(userlistoptions2, userlistoptions1);
@@ -129,15 +123,15 @@ public class TestUserListOptions {
     @Test
     public void testEquals() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-106), Long.valueOf(-14),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-54), Long.valueOf(117),
                                                                    Order.getDefault(),
-                                                                   "cd6f8e52-5702-4f76-bd50-bde97305f83a", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-106), Long.valueOf(-14),
+                                                                   "dfd1b127-1497-44d5-a318-a79f803ff291", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-54), Long.valueOf(117),
                                                                    Order.getDefault(),
-                                                                   "cd6f8e52-5702-4f76-bd50-bde97305f83a", null, null);
-            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(55), Long.valueOf(-68),
+                                                                   "dfd1b127-1497-44d5-a318-a79f803ff291", null, null);
+            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(13), Long.valueOf(-118),
                                                                    Order.getDefault(),
-                                                                   "11b0edc1-aaa8-4f91-a10c-2ab7926245ea", null, null);
+                                                                   "304553d3-35b3-49da-9452-23950446ebf7", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotNull(userlistoptions3);

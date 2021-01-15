@@ -25,6 +25,7 @@ SUSPENDED | &quot;SUSPENDED&quot;
 Name | Value
 ---- | -----
 SAML2 | &quot;SAML2&quot;
+OIDC | &quot;OIDC&quot;
 
 
 

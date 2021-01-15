@@ -105,12 +105,12 @@ public class CertificateIssuerConfigResponse implements Serializable {
     }
 
     /**
-     * The ID of the certificate issuer. Null if Device Management internal HSM is used.
+     * Certificate issuer ID. Null if Device Management internal HSM is used.
      * 
      * @return certificateIssuerId
      **/
     @ApiModelProperty(example = "01648415a2a30242ac18000500000000",
-                      value = "The ID of the certificate issuer. Null if Device Management internal HSM is used. ")
+                      value = "Certificate issuer ID. Null if Device Management internal HSM is used.")
     public String getCertificateIssuerId() {
         return certificateIssuerId;
     }
@@ -163,12 +163,11 @@ public class CertificateIssuerConfigResponse implements Serializable {
     }
 
     /**
-     * The ID of the certificate issuer configuration.
+     * Certificate issuer ID. configuration.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "01648415a2a30242ac18000500000000",
-                      value = "The ID of the certificate issuer configuration. ")
+    @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "Certificate issuer ID. configuration.")
     public String getId() {
         return id;
     }

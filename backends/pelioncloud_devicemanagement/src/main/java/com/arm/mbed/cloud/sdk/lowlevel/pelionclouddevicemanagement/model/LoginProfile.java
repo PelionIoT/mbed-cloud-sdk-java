@@ -31,6 +31,9 @@ import java.io.Serializable;
 public class LoginProfile implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @SerializedName("foreign_id")
+    private String foreignId = null;
+
     @SerializedName("id")
     private String id = null;
 
@@ -91,6 +94,16 @@ public class LoginProfile implements Serializable {
     @SerializedName("type")
     private TypeEnum type = null;
 
+    /**
+     * The ID of the user in the identity provider&#39;s service.
+     * 
+     * @return foreignId
+     **/
+    @ApiModelProperty(example = "fed/user_007", value = "The ID of the user in the identity provider's service.")
+    public String getForeignId() {
+        return foreignId;
+    }
+
     public LoginProfile id(String id) {
         this.id = id;
         return this;
@@ -101,7 +114,8 @@ public class LoginProfile implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(required = true, value = "ID of the identity provider.")
+    @ApiModelProperty(example = "01619571f3c00242ac12000600000000", required = true,
+                      value = "ID of the identity provider.")
     public String getId() {
         return id;
     }
@@ -115,7 +129,7 @@ public class LoginProfile implements Serializable {
      * 
      * @return name
      **/
-    @ApiModelProperty(value = "Name of the identity provider.")
+    @ApiModelProperty(example = "Pelion", value = "Name of the identity provider.")
     public String getName() {
         return name;
     }
@@ -125,7 +139,7 @@ public class LoginProfile implements Serializable {
      * 
      * @return type
      **/
-    @ApiModelProperty(value = "Identity provider type.")
+    @ApiModelProperty(example = "NATIVE", value = "Identity provider type.")
     public TypeEnum getType() {
         return type;
     }
@@ -139,13 +153,13 @@ public class LoginProfile implements Serializable {
             return false;
         }
         LoginProfile loginProfile = (LoginProfile) o;
-        return Objects.equals(this.id, loginProfile.id) && Objects.equals(this.name, loginProfile.name)
-               && Objects.equals(this.type, loginProfile.type);
+        return Objects.equals(this.foreignId, loginProfile.foreignId) && Objects.equals(this.id, loginProfile.id)
+               && Objects.equals(this.name, loginProfile.name) && Objects.equals(this.type, loginProfile.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type);
+        return Objects.hash(foreignId, id, name, type);
     }
 
     @Override
@@ -153,6 +167,7 @@ public class LoginProfile implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class LoginProfile {\n");
 
+        sb.append("    foreignId: ").append(toIndentedString(foreignId)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");

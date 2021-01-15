@@ -100,7 +100,7 @@ public class ReportResponse implements Serializable {
     private ServicePackageReport servicePackage = null;
 
     @SerializedName("subtenants")
-    private List<SubtenantAccountReport> subtenants = new ArrayList<SubtenantAccountReport>();
+    private List<SubtenantAccountReport> subtenants = null;
 
     public ReportResponse account(ReportAccountContactInfo account) {
         this.account = account;
@@ -127,12 +127,11 @@ public class ReportResponse implements Serializable {
     }
 
     /**
-     * Aggregated report billing data including all subtenant accounts, if any.
+     * Aggregated report billing data including all tenant accounts, if any.
      * 
      * @return aggregated
      **/
-    @ApiModelProperty(required = true,
-                      value = "Aggregated report billing data including all subtenant accounts, if any.")
+    @ApiModelProperty(value = "Aggregated report billing data including all tenant accounts, if any.")
     public ReportBillingData getAggregated() {
         return aggregated;
     }
@@ -223,11 +222,11 @@ public class ReportResponse implements Serializable {
     }
 
     /**
-     * Report service package.
+     * Service package report.
      * 
      * @return servicePackage
      **/
-    @ApiModelProperty(value = "Report service package.")
+    @ApiModelProperty(value = "Service package report.")
     public ServicePackageReport getServicePackage() {
         return servicePackage;
     }
@@ -242,17 +241,19 @@ public class ReportResponse implements Serializable {
     }
 
     public ReportResponse addSubtenantsItem(SubtenantAccountReport subtenantsItem) {
+        if (this.subtenants == null) {
+            this.subtenants = new ArrayList<SubtenantAccountReport>();
+        }
         this.subtenants.add(subtenantsItem);
         return this;
     }
 
     /**
-     * List of billing reports for subtenant accounts. Empty list if account does not have any subtenant account.
+     * List of billing reports for tenant accounts. Empty list if account does not have any tenant account.
      * 
      * @return subtenants
      **/
-    @ApiModelProperty(required = true,
-                      value = "List of billing reports for subtenant accounts. Empty list if account does not have any subtenant account.")
+    @ApiModelProperty(value = "List of billing reports for tenant accounts. Empty list if account does not have any tenant account.")
     public List<SubtenantAccountReport> getSubtenants() {
         return subtenants;
     }

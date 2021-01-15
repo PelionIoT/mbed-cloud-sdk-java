@@ -50,6 +50,9 @@ public class DeviceData implements Serializable {
     @SerializedName("ca_id")
     private String caId = null;
 
+    @SerializedName("component_attributes")
+    private Map<String, String> componentAttributes = null;
+
     @SerializedName("connector_expiration_date")
     private LocalDate connectorExpirationDate = null;
 
@@ -170,7 +173,9 @@ public class DeviceData implements Serializable {
     private DateTime lastSystemSuspendedUpdatedAt = null;
 
     /**
-     * The lifecycle status of the device.
+     * The lifecycle status of the device. * Enabled: The device is allowed to connect to Pelion Device Management. *
+     * Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example,
+     * &#39;suspended&#39;.
      */
     @JsonAdapter(LifecycleStatusEnum.Adapter.class)
     public enum LifecycleStatusEnum {
@@ -226,7 +231,7 @@ public class DeviceData implements Serializable {
     private DateTime manifestTimestamp = null;
 
     /**
-     * The ID of the channel used to communicate with the device.
+     * NOT USED: The ID of the channel used to communicate with the device.
      */
     @JsonAdapter(MechanismEnum.Adapter.class)
     public enum MechanismEnum {
@@ -281,6 +286,9 @@ public class DeviceData implements Serializable {
     @SerializedName("name")
     private String name = null;
 
+    @SerializedName("net_id")
+    private String netId = "";
+
     @SerializedName("object")
     private String object = null;
 
@@ -291,7 +299,15 @@ public class DeviceData implements Serializable {
     private String serialNumber = null;
 
     /**
-     * The current state of the device.
+     * The current state of the device. * Unenrolled: The device has been created, but has not yet bootstrapped or
+     * connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the first time. This state is
+     * set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to
+     * bootstrap again after few seconds. * Bootstrapped: The device has bootstrapped, and has credentials to connect to
+     * Device Management. * Registered: The device has registered with Pelion Device Management. [Device
+     * commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device sends
+     * events for
+     * [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     * resources. * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     @JsonAdapter(StateEnum.Adapter.class)
     public enum StateEnum {
@@ -451,6 +467,35 @@ public class DeviceData implements Serializable {
         this.caId = caId;
     }
 
+    public DeviceData componentAttributes(Map<String, String> componentAttributes) {
+        this.componentAttributes = componentAttributes;
+        return this;
+    }
+
+    public DeviceData putComponentAttributesItem(String key, String componentAttributesItem) {
+        if (this.componentAttributes == null) {
+            this.componentAttributes = new HashMap<String, String>();
+        }
+        this.componentAttributes.put(key, componentAttributesItem);
+        return this;
+    }
+
+    /**
+     * Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
+     * limited to 128 characters. Updating this field replaces existing contents.
+     * 
+     * @return componentAttributes
+     **/
+    @ApiModelProperty(example = "{\"key\":\"value\"}",
+                      value = "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.")
+    public Map<String, String> getComponentAttributes() {
+        return componentAttributes;
+    }
+
+    public void setComponentAttributes(Map<String, String> componentAttributes) {
+        this.componentAttributes = componentAttributes;
+    }
+
     public DeviceData connectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
         return this;
@@ -567,7 +612,7 @@ public class DeviceData implements Serializable {
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "description", value = "The description of the device.")
+    @ApiModelProperty(example = "Temperature measuring device", value = "The description of the device.")
     public String getDescription() {
         return description;
     }
@@ -640,12 +685,13 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The endpoint name given to the device.
+     * The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory
+     * tool.
      * 
      * @return endpointName
      **/
     @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000",
-                      value = "The endpoint name given to the device.")
+                      value = "The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory tool.")
     public String getEndpointName() {
         return endpointName;
     }
@@ -760,11 +806,12 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The ID of the host gateway, if appropriate.
+     * The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      * 
      * @return hostGateway
      **/
-    @ApiModelProperty(example = "", value = "The ID of the host gateway, if appropriate.")
+    @ApiModelProperty(example = "",
+                      value = "The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.")
     public String getHostGateway() {
         return hostGateway;
     }
@@ -937,11 +984,14 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The lifecycle status of the device.
+     * The lifecycle status of the device. * Enabled: The device is allowed to connect to Pelion Device Management. *
+     * Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example,
+     * &#39;suspended&#39;.
      * 
      * @return lifecycleStatus
      **/
-    @ApiModelProperty(example = "enabled", value = "The lifecycle status of the device.")
+    @ApiModelProperty(example = "enabled",
+                      value = "The lifecycle status of the device. * Enabled: The device is allowed to connect to Pelion Device Management. * Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example, 'suspended'.")
     public LifecycleStatusEnum getLifecycleStatus() {
         return lifecycleStatus;
     }
@@ -994,11 +1044,11 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The ID of the channel used to communicate with the device.
+     * NOT USED: The ID of the channel used to communicate with the device.
      * 
      * @return mechanism
      **/
-    @ApiModelProperty(value = "The ID of the channel used to communicate with the device.")
+    @ApiModelProperty(value = "NOT USED: The ID of the channel used to communicate with the device.")
     public MechanismEnum getMechanism() {
         return mechanism;
     }
@@ -1013,11 +1063,11 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The address of the connector to use.
+     * NOT USED: The address of the connector to use.
      * 
      * @return mechanismUrl
      **/
-    @ApiModelProperty(example = "", value = "The address of the connector to use.")
+    @ApiModelProperty(example = "", value = "NOT USED: The address of the connector to use.")
     public String getMechanismUrl() {
         return mechanismUrl;
     }
@@ -1032,17 +1082,38 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The name of the device.
+     * The name given by the web application for the device. Device itself provides only the endpoint_name.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The name of the device.")
+    @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000",
+                      value = "The name given by the web application for the device. Device itself provides only the endpoint_name.")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public DeviceData netId(String netId) {
+        this.netId = netId;
+        return this;
+    }
+
+    /**
+     * Private network identifier. Used to group nodes connected to a specific border router.
+     * 
+     * @return netId
+     **/
+    @ApiModelProperty(example = "0000:0000:0000:0000:0000:0000:0000:0000",
+                      value = "Private network identifier. Used to group nodes connected to a specific border router.")
+    public String getNetId() {
+        return netId;
+    }
+
+    public void setNetId(String netId) {
+        this.netId = netId;
     }
 
     public DeviceData object(String object) {
@@ -1070,11 +1141,11 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * Is the device suspended by the operator?
+     * Device has been suspended by operator.
      * 
      * @return operatorSuspended
      **/
-    @ApiModelProperty(value = "Is the device suspended by the operator?")
+    @ApiModelProperty(value = "Device has been suspended by operator.")
     public Boolean isOperatorSuspended() {
         return operatorSuspended;
     }
@@ -1089,11 +1160,14 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The serial number of the device.
+     * The [serial
+     * number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
+     * of the device. The serial number is injected by the factory tool during manufacturing.
      * 
      * @return serialNumber
      **/
-    @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The serial number of the device.")
+    @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000",
+                      value = "The [serial number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number) of the device. The serial number is injected by the factory tool during manufacturing.")
     public String getSerialNumber() {
         return serialNumber;
     }
@@ -1108,11 +1182,19 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The current state of the device.
+     * The current state of the device. * Unenrolled: The device has been created, but has not yet bootstrapped or
+     * connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the first time. This state is
+     * set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to
+     * bootstrap again after few seconds. * Bootstrapped: The device has bootstrapped, and has credentials to connect to
+     * Device Management. * Registered: The device has registered with Pelion Device Management. [Device
+     * commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device sends
+     * events for
+     * [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     * resources. * Deregistered: The device has requested deregistration, or its registration has expired.
      * 
      * @return state
      **/
-    @ApiModelProperty(value = "The current state of the device.")
+    @ApiModelProperty(value = "The current state of the device. * Unenrolled: The device has been created, but has not yet bootstrapped or connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the first time. This state is set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to bootstrap again after few seconds. * Bootstrapped: The device has bootstrapped, and has credentials to connect to Device Management. * Registered: The device has registered with Pelion Device Management. [Device commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device sends events for [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html) resources. * Deregistered: The device has requested deregistration, or its registration has expired.")
     public StateEnum getState() {
         return state;
     }
@@ -1146,11 +1228,11 @@ public class DeviceData implements Serializable {
     }
 
     /**
-     * The time the object was updated.
+     * The time this data object was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated.")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time this data object was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -1192,6 +1274,7 @@ public class DeviceData implements Serializable {
                && Objects.equals(this.bootstrapExpirationDate, deviceData.bootstrapExpirationDate)
                && Objects.equals(this.bootstrappedTimestamp, deviceData.bootstrappedTimestamp)
                && Objects.equals(this.caId, deviceData.caId)
+               && Objects.equals(this.componentAttributes, deviceData.componentAttributes)
                && Objects.equals(this.connectorExpirationDate, deviceData.connectorExpirationDate)
                && Objects.equals(this.createdAt, deviceData.createdAt)
                && Objects.equals(this.customAttributes, deviceData.customAttributes)
@@ -1220,7 +1303,8 @@ public class DeviceData implements Serializable {
                && Objects.equals(this.manifestTimestamp, deviceData.manifestTimestamp)
                && Objects.equals(this.mechanism, deviceData.mechanism)
                && Objects.equals(this.mechanismUrl, deviceData.mechanismUrl)
-               && Objects.equals(this.name, deviceData.name) && Objects.equals(this.object, deviceData.object)
+               && Objects.equals(this.name, deviceData.name) && Objects.equals(this.netId, deviceData.netId)
+               && Objects.equals(this.object, deviceData.object)
                && Objects.equals(this.operatorSuspended, deviceData.operatorSuspended)
                && Objects.equals(this.serialNumber, deviceData.serialNumber)
                && Objects.equals(this.state, deviceData.state)
@@ -1232,13 +1316,13 @@ public class DeviceData implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId,
-                            connectorExpirationDate, createdAt, customAttributes, deployedState, deployment,
-                            description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType,
-                            enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, issuerFingerprint,
-                            lastOperatorSuspendedCategory, lastOperatorSuspendedDescription,
+                            componentAttributes, connectorExpirationDate, createdAt, customAttributes, deployedState,
+                            deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName,
+                            endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id,
+                            issuerFingerprint, lastOperatorSuspendedCategory, lastOperatorSuspendedDescription,
                             lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory, lastSystemSuspendedDescription,
                             lastSystemSuspendedUpdatedAt, lifecycleStatus, manifest, manifestTimestamp, mechanism,
-                            mechanismUrl, name, object, operatorSuspended, serialNumber, state, systemSuspended,
+                            mechanismUrl, name, netId, object, operatorSuspended, serialNumber, state, systemSuspended,
                             updatedAt, vendorId);
     }
 
@@ -1252,6 +1336,7 @@ public class DeviceData implements Serializable {
         sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
         sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");
         sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
+        sb.append("    componentAttributes: ").append(toIndentedString(componentAttributes)).append("\n");
         sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
@@ -1288,6 +1373,7 @@ public class DeviceData implements Serializable {
         sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
         sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    netId: ").append(toIndentedString(netId)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    operatorSuspended: ").append(toIndentedString(operatorSuspended)).append("\n");
         sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");

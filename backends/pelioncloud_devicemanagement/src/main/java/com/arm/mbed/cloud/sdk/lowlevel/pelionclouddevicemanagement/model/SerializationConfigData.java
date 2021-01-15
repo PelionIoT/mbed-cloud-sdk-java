@@ -18,19 +18,21 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * SerializationConfigData
+ * Serialization configuration for a channel.
  */
+@ApiModel(description = "Serialization configuration for a channel.")
 
 public class SerializationConfigData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("cfg")
-    private Object cfg = null;
+    private SerializationConfigObjectV2 cfg = null;
 
     @SerializedName("max_chunk_size")
     private Integer maxChunkSize = null;
@@ -83,22 +85,22 @@ public class SerializationConfigData implements Serializable {
     @SerializedName("type")
     private TypeEnum type = TypeEnum.V2;
 
-    public SerializationConfigData cfg(Object cfg) {
+    public SerializationConfigData cfg(SerializationConfigObjectV2 cfg) {
         this.cfg = cfg;
         return this;
     }
 
     /**
-     * Serialization configuration object according to configuration type.
+     * Get cfg
      * 
      * @return cfg
      **/
-    @ApiModelProperty(value = "Serialization configuration object according to configuration type.")
-    public Object getCfg() {
+    @ApiModelProperty(value = "")
+    public SerializationConfigObjectV2 getCfg() {
         return cfg;
     }
 
-    public void setCfg(Object cfg) {
+    public void setCfg(SerializationConfigObjectV2 cfg) {
         this.cfg = cfg;
     }
 
@@ -112,13 +114,13 @@ public class SerializationConfigData implements Serializable {
      * very low value for high troughput applications may cause lag in notification delivery, as a new chunk is sent
      * only after the previous one has been acknowledged. Using a high value is recommended and safe, as chunks are sent
      * quickly after notifications are received from devices. See [notification sending
-     * logic](../integrate-web-app/event-notification.html#notification-sending-logic) for more details. minimum: 100
-     * maximum: 10000
+     * logic](https://developer.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic)
+     * for more details. minimum: 100 maximum: 10000
      * 
      * @return maxChunkSize
      **/
     @ApiModelProperty(example = "500",
-                      value = "Maximum number of messages in NotificationMessage container delivered in one request. Default is 10000. Using a very low value for high troughput applications may cause lag in notification delivery, as a new chunk is sent only after the previous one has been acknowledged. Using a high value is recommended and safe, as chunks are sent quickly after notifications are received from devices. See [notification sending logic](../integrate-web-app/event-notification.html#notification-sending-logic) for more details.")
+                      value = "Maximum number of messages in NotificationMessage container delivered in one request. Default is 10000. Using a very low value for high troughput applications may cause lag in notification delivery, as a new chunk is sent only after the previous one has been acknowledged. Using a high value is recommended and safe, as chunks are sent quickly after notifications are received from devices. See [notification sending logic](https://developer.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html#notification-sending-logic) for more details.")
     public Integer getMaxChunkSize() {
         return maxChunkSize;
     }

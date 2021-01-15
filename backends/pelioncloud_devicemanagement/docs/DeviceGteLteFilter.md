@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**bootstrapExpirationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**bootstrapExpirationDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
 **bootstrappedTimestamp** | [**DateTime**](DateTime.md) |  |  [optional]
-**connectorExpirationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**connectorExpirationDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **enrolmentListTimestamp** | [**DateTime**](DateTime.md) |  |  [optional]
 **etag** | [**DateTime**](DateTime.md) |  |  [optional]

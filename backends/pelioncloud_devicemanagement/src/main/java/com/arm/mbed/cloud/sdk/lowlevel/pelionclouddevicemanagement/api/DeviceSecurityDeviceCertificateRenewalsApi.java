@@ -13,7 +13,7 @@ public interface DeviceSecurityDeviceCertificateRenewalsApi {
     /**
      * Get a certificate enrollment by ID. Get a certificate enrollment by ID. **Example:** &#x60;&#x60;&#x60; curl -X
      * GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param certificateEnrollmentId
      *            Certificate enrollment ID. (required)
@@ -27,9 +27,9 @@ public interface DeviceSecurityDeviceCertificateRenewalsApi {
     /**
      * Get certificate enrollments list. Get certificate enrollments list, optionally filtered. **Examples:**
      * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -X GET
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq&#x3D;01612df56f3b0a580a010fc700000000
-     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param deviceIdEq
      *            An optional filter for the device ID. (optional)
@@ -85,7 +85,7 @@ public interface DeviceSecurityDeviceCertificateRenewalsApi {
     /**
      * Request certificate renewal. Request a certificate renewal. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
-     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-length: 0&#39; &#x60;&#x60;&#x60;
+     * \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-length: 0&#39; &#x60;&#x60;&#x60;
      * 
      * @param deviceId
      *            The device ID. (required)

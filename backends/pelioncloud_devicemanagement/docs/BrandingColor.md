@@ -37,6 +37,14 @@ SECONDARY_FONT_COLOR | &quot;secondary_font_color&quot;
 ERROR_FONT_COLOR | &quot;error_font_color&quot;
 SUCCESS_FONT_COLOR | &quot;success_font_color&quot;
 WARNING_FONT_COLOR | &quot;warning_font_color&quot;
+MENU_BACKGROUND_COLOR | &quot;menu_background_color&quot;
+MENU_TEXT_COLOR | &quot;menu_text_color&quot;
+NAV_MENU_BACKGROUND | &quot;nav_menu_background&quot;
+NAV_MENU_BACKGROUND_FONT_COLOR | &quot;nav_menu_background_font_color&quot;
+NAV_MENU_ACTIVE_BACKGROUND | &quot;nav_menu_active_background&quot;
+NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR | &quot;nav_menu_active_background_font_color&quot;
+NAV_MENU_HIGHLIGHT | &quot;nav_menu_highlight&quot;
+NAV_MENU_HIGHLIGHT_FONT_COLOR | &quot;nav_menu_highlight_font_color&quot;
 
 
 

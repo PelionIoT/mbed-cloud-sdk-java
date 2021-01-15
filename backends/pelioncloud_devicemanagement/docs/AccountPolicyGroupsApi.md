@@ -6,17 +6,20 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addApiKeysToGroup**](AccountPolicyGroupsApi.md#addApiKeysToGroup) | **POST** v3/policy-groups/{group_id}/api-keys | Add API keys to the group.
 [**addListedApiKeysToGroup**](AccountPolicyGroupsApi.md#addListedApiKeysToGroup) | **POST** v3/policy-groups/{group_id}/api-keys/add | Add API Keys to the group.
+[**addListedApplicationsToGroup**](AccountPolicyGroupsApi.md#addListedApplicationsToGroup) | **POST** v3/policy-groups/{group_id}/applications/add | Add applications to the group.
 [**addListedUsersToGroup_**](AccountPolicyGroupsApi.md#addListedUsersToGroup_) | **POST** v3/policy-groups/{group_id}/users/add | Add users to the group.
 [**addSubjectsToGroup**](AccountPolicyGroupsApi.md#addSubjectsToGroup) | **POST** v3/policy-groups/{group_id} | Add members to a group.
 [**addUsersToGroup_**](AccountPolicyGroupsApi.md#addUsersToGroup_) | **POST** v3/policy-groups/{group_id}/users | Add users to the group.
 [**createGroup**](AccountPolicyGroupsApi.md#createGroup) | **POST** v3/policy-groups | Create a new group.
 [**deleteGroup**](AccountPolicyGroupsApi.md#deleteGroup) | **DELETE** v3/policy-groups/{group_id} | Delete a group.
-[**getAllGroups**](AccountPolicyGroupsApi.md#getAllGroups) | **GET** v3/policy-groups | Get all group information.
-[**getApiKeysOfGroup**](AccountPolicyGroupsApi.md#getApiKeysOfGroup) | **GET** v3/policy-groups/{group_id}/api-keys | Get the API keys of a group.
-[**getGroupSummary**](AccountPolicyGroupsApi.md#getGroupSummary) | **GET** v3/policy-groups/{group_id} | Get group information.
-[**getUsersOfGroup**](AccountPolicyGroupsApi.md#getUsersOfGroup) | **GET** v3/policy-groups/{group_id}/users | Get users of a group.
+[**getAllGroups**](AccountPolicyGroupsApi.md#getAllGroups) | **GET** v3/policy-groups | Get policy groups.
+[**getApiKeysOfGroup**](AccountPolicyGroupsApi.md#getApiKeysOfGroup) | **GET** v3/policy-groups/{group_id}/api-keys | Get the API keys of a policy group.
+[**getApplicationsOfGroup**](AccountPolicyGroupsApi.md#getApplicationsOfGroup) | **GET** v3/policy-groups/{group_id}/applications | Get the applications of a policy group.
+[**getGroupSummary**](AccountPolicyGroupsApi.md#getGroupSummary) | **GET** v3/policy-groups/{group_id} | Get a policy group.
+[**getUsersOfGroup**](AccountPolicyGroupsApi.md#getUsersOfGroup) | **GET** v3/policy-groups/{group_id}/users | Get users of a policy group.
 [**removeApiKeysFromGroup**](AccountPolicyGroupsApi.md#removeApiKeysFromGroup) | **DELETE** v3/policy-groups/{group_id}/api-keys | Remove API keys from a group.
 [**removeListedApiKeysFromGroup**](AccountPolicyGroupsApi.md#removeListedApiKeysFromGroup) | **POST** v3/policy-groups/{group_id}/api-keys/remove | Remove API keys from a group.
+[**removeListedApplicationsFromGroup**](AccountPolicyGroupsApi.md#removeListedApplicationsFromGroup) | **POST** v3/policy-groups/{group_id}/applications/remove | Remove applications from a group.
 [**removeListedUsersFromGroup**](AccountPolicyGroupsApi.md#removeListedUsersFromGroup) | **POST** v3/policy-groups/{group_id}/users/remove | Remove users from a group.
 [**removeUsersFromGroup**](AccountPolicyGroupsApi.md#removeUsersFromGroup) | **DELETE** v3/policy-groups/{group_id}/users | Remove users from a group.
 [**updateGroupName**](AccountPolicyGroupsApi.md#updateGroupName) | **PUT** v3/policy-groups/{group_id} | Update the group name.
@@ -28,7 +31,7 @@ Method | HTTP request | Description
 
 Add API keys to the group.
 
-Add API keys to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Add API keys to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; : [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -85,7 +88,7 @@ Name | Type | Description  | Notes
 
 Add API Keys to the group.
 
-Add API keys to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Add API keys to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/add \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; : [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -136,13 +139,70 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="addListedApplicationsToGroup"></a>
+# **addListedApplicationsToGroup**
+> GroupSummary addListedApplicationsToGroup(groupId, body)
+
+Add applications to the group.
+
+Add applications to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;applications\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of applications to add to the group.
+try {
+    GroupSummary result = apiInstance.addListedApplicationsToGroup(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#addListedApplicationsToGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of applications to add to the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="addListedUsersToGroup_"></a>
 # **addListedUsersToGroup_**
 > GroupSummary addListedUsersToGroup_(groupId, body)
 
 Add users to the group.
 
-Add users to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Add users to the group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -199,7 +259,7 @@ Name | Type | Description  | Notes
 
 Add members to a group.
 
-Add users and API keys to a group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;users\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]}&#39; &#x60;&#x60;&#x60;
+Add users and API keys to a group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;users\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -256,7 +316,7 @@ Name | Type | Description  | Notes
 
 Add users to the group.
 
-Add users to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Add users to the group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -313,7 +373,7 @@ Name | Type | Description  | Notes
 
 Create a new group.
 
-Create a new group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; &#x60;&#x60;&#x60;
+Create a new group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -368,7 +428,7 @@ Name | Type | Description  | Notes
 
 Delete a group.
 
-Delete a group.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Delete a group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -421,9 +481,9 @@ Name | Type | Description  | Notes
 # **getAllGroups**
 > GroupSummaryList getAllGroups(limit, after, order, include, nameEq)
 
-Get all group information.
+Get policy groups.
 
-Retrieve all group information.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of policy groups.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -444,8 +504,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 String nameEq = "nameEq_example"; // String | Filter for group name.
 try {
@@ -462,8 +522,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
  **nameEq** | **String**| Filter for group name. | [optional]
 
@@ -484,9 +544,9 @@ Name | Type | Description  | Notes
 # **getApiKeysOfGroup**
 > ApiKeyInfoRespList getApiKeysOfGroup(groupId, limit, after, order, include)
 
-Get the API keys of a group.
+Get the API keys of a policy group.
 
-Manage policy groups.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of API keys associated with a policy group.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -508,8 +568,8 @@ Bearer.setApiKey("YOUR API KEY");
 AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 String groupId = "groupId_example"; // String | The ID of the group.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 try {
     ApiKeyInfoRespList result = apiInstance.getApiKeysOfGroup(groupId, limit, after, order, include);
@@ -526,8 +586,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **String**| The ID of the group. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
 
 ### Return type
@@ -543,13 +603,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getGroupSummary"></a>
-# **getGroupSummary**
-> GroupSummary getGroupSummary(groupId)
+<a name="getApplicationsOfGroup"></a>
+# **getApplicationsOfGroup**
+> ApplicationList getApplicationsOfGroup(groupId, limit, after, order, include)
 
-Get group information.
+Get the applications of a policy group.
 
-Retrieve general information about a group.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of applications associated with a policy group.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -569,7 +629,70 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
-String groupId = "groupId_example"; // String | The ID of the group to retrieve.
+String groupId = "groupId_example"; // String | The ID of the group.
+Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
+String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
+try {
+    ApplicationList result = apiInstance.getApplicationsOfGroup(groupId, limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#getApplicationsOfGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
+
+### Return type
+
+[**ApplicationList**](ApplicationList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getGroupSummary"></a>
+# **getGroupSummary**
+> GroupSummary getGroupSummary(groupId)
+
+Get a policy group.
+
+Retrieve a policy group.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the policy group to retrieve.
 try {
     GroupSummary result = apiInstance.getGroupSummary(groupId);
     System.out.println(result);
@@ -583,7 +706,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupId** | **String**| The ID of the group to retrieve. |
+ **groupId** | **String**| The ID of the policy group to retrieve. |
 
 ### Return type
 
@@ -602,9 +725,9 @@ Name | Type | Description  | Notes
 # **getUsersOfGroup**
 > UserInfoRespList getUsersOfGroup(groupId, limit, after, order, include, statusEq, statusIn, statusNin)
 
-Get users of a group.
+Get users of a policy group.
 
-Retrieve users of a group with details.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of users associated with a policy group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -626,8 +749,8 @@ Bearer.setApiKey("YOUR API KEY");
 AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 String groupId = "groupId_example"; // String | The ID of the group.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 String statusEq = "statusEq_example"; // String | An optional filter to retrieve users by status.
 String statusIn = "statusIn_example"; // String | An optional filter to retrieve users with a specified set of statuses.
@@ -647,8 +770,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupId** | **String**| The ID of the group. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
  **statusEq** | **String**| An optional filter to retrieve users by status. | [optional]
  **statusIn** | **String**| An optional filter to retrieve users with a specified set of statuses. | [optional]
@@ -673,7 +796,7 @@ Name | Type | Description  | Notes
 
 Remove API keys from a group.
 
-Remove API keys from groups.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove API keys from groups.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -730,7 +853,7 @@ Name | Type | Description  | Notes
 
 Remove API keys from a group.
 
-Remove API keys from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove API keys from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; : [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -781,13 +904,70 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="removeListedApplicationsFromGroup"></a>
+# **removeListedApplicationsFromGroup**
+> GroupSummary removeListedApplicationsFromGroup(groupId, body)
+
+Remove applications from a group.
+
+Remove applications from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;applications\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of applications to remove from the group.
+try {
+    GroupSummary result = apiInstance.removeListedApplicationsFromGroup(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#removeListedApplicationsFromGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of applications to remove from the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="removeListedUsersFromGroup"></a>
 # **removeListedUsersFromGroup**
 > GroupSummary removeListedUsersFromGroup(groupId, body)
 
 Remove users from a group.
 
-Manage policy groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove users from a policy group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -844,7 +1024,7 @@ Name | Type | Description  | Notes
 
 Remove users from a group.
 
-Manage policy groups.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Manage policy groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;: [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -901,7 +1081,7 @@ Name | Type | Description  | Notes
 
 Update the group name.
 
-Update a group name.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; &#x60;&#x60;&#x60;
+Update a group name. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java

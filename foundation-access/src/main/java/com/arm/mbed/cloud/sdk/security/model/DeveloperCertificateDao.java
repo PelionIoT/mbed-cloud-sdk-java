@@ -178,7 +178,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Get trusted certificate by ID.
+     * Get a trusted certificate.
      * 
      * 
      * <p>
@@ -196,7 +196,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Get trusted certificate by ID.
+     * Get a trusted certificate.
      * 
      * 
      * <p>
@@ -215,7 +215,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Get trusted certificate by ID.
+     * Get a trusted certificate.
      * 
      * 
      * <p>

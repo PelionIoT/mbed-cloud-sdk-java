@@ -16,9 +16,10 @@ import java.util.List;
 
 public interface TenantAccountsApiKeysApi {
     /**
-     * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add API key to a list of groups. Add API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -38,9 +39,10 @@ public interface TenantAccountsApiKeysApi {
                                  @retrofit2.http.Body List<String> body);
 
     /**
-     * Add API key to a list of groups. Add an API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add API key to a list of groups. Add an API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -61,9 +63,10 @@ public interface TenantAccountsApiKeysApi {
 
     /**
      * Create a new API key. Create a new API key. There is no default value for the owner ID, and it must be from the
-     * same account where the new API key is created. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * same account where the new API key is created. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
      * \&quot;MyKey1\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
@@ -79,9 +82,10 @@ public interface TenantAccountsApiKeysApi {
                             @retrofit2.http.Body ApiKeyInfoReq body);
 
     /**
-     * Delete the API key. Delete an API key. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Delete the API key. Delete an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -94,9 +98,10 @@ public interface TenantAccountsApiKeysApi {
                                    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId);
 
     /**
-     * Get API key details. Retrieve API key details. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Get API key details. Retrieve details of an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -109,19 +114,19 @@ public interface TenantAccountsApiKeysApi {
                                           @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId);
 
     /**
-     * Get all API keys. Retrieve API keys in an array, optionally filtered by the owner. **Example:**
-     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get all API keys. Retrieve an array of API keys, optionally filtered by the owner. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @param keyEq
@@ -140,10 +145,10 @@ public interface TenantAccountsApiKeysApi {
                              @retrofit2.http.Query("owner__eq") String ownerEq);
 
     /**
-     * Get groups associated with the API key. Retrieve groups associated with the API key. **Example:**
-     * &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get policy groups of an API key. Retrieve an array of policy groups associated with an API key.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -152,10 +157,9 @@ public interface TenantAccountsApiKeysApi {
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @return Call&lt;GroupSummaryList&gt;
@@ -170,9 +174,10 @@ public interface TenantAccountsApiKeysApi {
                                  @retrofit2.http.Query("include") String include);
 
     /**
-     * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Remove API key from groups. Remove API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -192,9 +197,10 @@ public interface TenantAccountsApiKeysApi {
                                       @retrofit2.http.Body List<String> body);
 
     /**
-     * Remove API key from groups. Remove an API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Remove API key from groups. Remove an API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -214,9 +220,10 @@ public interface TenantAccountsApiKeysApi {
                                             @retrofit2.http.Body GroupIdList body);
 
     /**
-     * Reset the secret key. Reset the secret key of the API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Reset the secret key. Reset the secret key of the API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -233,9 +240,10 @@ public interface TenantAccountsApiKeysApi {
                                  @retrofit2.http.Body ApiKeyUpdateReq body);
 
     /**
-     * Update API key details. Update API key details. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update API key details. Update API key details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
      * \&quot;TestApiKey25\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId

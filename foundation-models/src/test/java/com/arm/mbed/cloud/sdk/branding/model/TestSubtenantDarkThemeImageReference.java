@@ -25,13 +25,13 @@ public class TestSubtenantDarkThemeImageReference {
                                                                                                                          .getString());
             assertNotNull(subtenantdarkthemeimagereference);
             assertTrue(subtenantdarkthemeimagereference.isDefault());
-            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("BRAND_LOGO_EMAIL");
+            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("APP_LOGO_LANDSCAPE");
             assertNotNull(subtenantdarkthemeimagereference);
             assertTrue(subtenantdarkthemeimagereference.isDefault());
-            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("brand_logo_landscape");
+            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("app_logo_portrait");
             assertNotNull(subtenantdarkthemeimagereference);
             assertFalse(subtenantdarkthemeimagereference.isDefault());
-            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("a7f5714a-6711-4ad6-a9a2-c93ff1bd493c");
+            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("1c3f0874-a230-4c27-b47c-46c6b11f1311");
             assertNotNull(subtenantdarkthemeimagereference);
             assertTrue(subtenantdarkthemeimagereference.isDefault());
         } catch (Exception exception) {

@@ -23,7 +23,7 @@ public class DeviceUpdateFirmwareManifestsApiTest {
      *
      * Upload a firmware manifest. The API enforces a maximum manifest size of 2KB. &lt;br&gt; **Usage example:**
      * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; \\ -H &#39;Content-Type: multipart/form-data&#39; \\ -F
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;Content-Type: multipart/form-data&#39; \\ -F
      * &#39;datafile&#x3D;@myimage.bin;type&#x3D;application/octet-stream&#39; \\ -F &#39;description&#x3D;bla bla&#39;
      * \\ -F &#39;key_table&#x3D;@myKeyTable.proto;type&#x3D;&#39; \\ -F &#39;name&#x3D;My Manifest&#39;
      * &#x60;&#x60;&#x60;
@@ -31,10 +31,10 @@ public class DeviceUpdateFirmwareManifestsApiTest {
     @Test
     public void firmwareManifestCreateTest() {
         File datafile = null;
+        String name = null;
         String description = null;
         File keyTable = null;
-        String name = null;
-        // FirmwareManifest response = api.firmwareManifestCreate(datafile, description, keyTable, name);
+        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description, keyTable);
 
         // TODO: test validations
     }
@@ -43,8 +43,8 @@ public class DeviceUpdateFirmwareManifestsApiTest {
      * Delete a manifest
      *
      * Delete a firmware manifest. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void firmwareManifestDestroyTest() {
@@ -58,8 +58,8 @@ public class DeviceUpdateFirmwareManifestsApiTest {
      * List all firmware manifests.
      *
      * List all firmware manifests. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\ -H &#39;Authorization: &lt;valid access
-     * token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void firmwareManifestListTest() {
@@ -118,8 +118,8 @@ public class DeviceUpdateFirmwareManifestsApiTest {
      * Get a manifest
      *
      * Retrieve a firmware manifest. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void firmwareManifestRetrieveTest() {

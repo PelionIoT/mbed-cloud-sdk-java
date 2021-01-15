@@ -131,7 +131,7 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * Note: uses internal data model
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao#create(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao#create(boolean, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
      * 
      * @param discovery
      *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
@@ -140,15 +140,12 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
      *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
      *            jwks_uri * keys
-     * @param oidcAttributes
-     *            Represents OIDC specific attributes.
      * @return an added identity provider
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public IdentityProvider create(@Nullable boolean discovery,
-                                   @Nullable OidcRequest oidcAttributes) throws MbedCloudException {
-        return create(discovery, oidcAttributes, getModel());
+    public IdentityProvider create(@Nullable boolean discovery) throws MbedCloudException {
+        return create(discovery, getModel());
     }
 
     /**
@@ -156,7 +153,7 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * 
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#createIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
      * 
      * @param discovery
      *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
@@ -165,18 +162,15 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
      *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
      *            jwks_uri * keys
-     * @param oidcAttributes
-     *            Represents OIDC specific attributes.
      * @param identityProvider
      *            an identity provider.
      * @return an added identity provider
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public IdentityProvider create(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+    public IdentityProvider create(@Nullable boolean discovery,
                                    @NonNull IdentityProvider identityProvider) throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).createIdentityProvider(discovery, oidcAttributes,
-                                                                                     identityProvider));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createIdentityProvider(discovery, identityProvider));
     }
 
     /**
@@ -701,7 +695,7 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * Note: uses internal data model
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao#update(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao#update(boolean, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
      * 
      * @param discovery
      *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
@@ -710,15 +704,12 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
      *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
      *            jwks_uri * keys
-     * @param oidcAttributes
-     *            Represents OIDC specific attributes.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public IdentityProvider update(@Nullable boolean discovery,
-                                   @Nullable OidcRequest oidcAttributes) throws MbedCloudException {
-        return update(discovery, oidcAttributes, getModel());
+    public IdentityProvider update(@Nullable boolean discovery) throws MbedCloudException {
+        return update(discovery, getModel());
     }
 
     /**
@@ -726,7 +717,7 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * 
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#updateIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updateIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
      * 
      * @param discovery
      *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
@@ -735,18 +726,15 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
      *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
      *            jwks_uri * keys
-     * @param oidcAttributes
-     *            Represents OIDC specific attributes.
      * @param identityProvider
      *            an identity provider.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public IdentityProvider update(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+    public IdentityProvider update(@Nullable boolean discovery,
                                    @NonNull IdentityProvider identityProvider) throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).updateIdentityProvider(discovery, oidcAttributes,
-                                                                                     identityProvider));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateIdentityProvider(discovery, identityProvider));
     }
 
     /**
@@ -756,7 +744,7 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * Note: uses internal data model
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao#update(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao#update(boolean, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
      * 
      * @param discovery
      *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
@@ -765,17 +753,14 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
      *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
      *            jwks_uri * keys
-     * @param oidcAttributes
-     *            Represents OIDC specific attributes.
      * @param id
      *            Entity ID.
      * @return an updated identity provider
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public IdentityProvider update(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
-                                   @NonNull String id) throws MbedCloudException {
-        return update(discovery, oidcAttributes, id, getModel());
+    public IdentityProvider update(@Nullable boolean discovery, @NonNull String id) throws MbedCloudException {
+        return update(discovery, id, getModel());
     }
 
     /**
@@ -783,7 +768,7 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * 
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#updateIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updateIdentityProvider(boolean, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
      * 
      * @param discovery
      *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
@@ -792,8 +777,6 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
      *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
      *            jwks_uri * keys
-     * @param oidcAttributes
-     *            Represents OIDC specific attributes.
      * @param id
      *            Entity ID.
      * @param identityProvider
@@ -802,10 +785,8 @@ public class IdentityProviderDao extends AbstractModelDao<IdentityProvider> impl
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public IdentityProvider update(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
-                                   @NonNull String id,
+    public IdentityProvider update(@Nullable boolean discovery, @NonNull String id,
                                    @NonNull IdentityProvider identityProvider) throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).updateIdentityProvider(discovery, oidcAttributes, id,
-                                                                                     identityProvider));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateIdentityProvider(discovery, id, identityProvider));
     }
 }

@@ -18,20 +18,20 @@ public class TestOidcRequest {
     @Test
     public void testClone() {
         try {
-            OidcRequest oidcrequest1 = new OidcRequest("16f9b809-272d-48f9-9066-f578c953818e", true,
+            OidcRequest oidcrequest1 = new OidcRequest("b8918018-e96f-45d5-9784-426944692539", false,
                                                        new OidcRequestClaimMapping(),
-                                                       "1674fbd0-ab1b-4917-b29e-de19c617eaa1",
-                                                       "6032562f-3a00-4f45-8e23-57cb363423c3",
-                                                       "746b5d2b-bc5c-49af-8dd9-b769431b2252",
-                                                       "cf4617e3-ab85-40fc-ad83-9be61d1b97ff",
-                                                       "5a763cf4-c3d3-42a7-bf61-ec52c0b45238", null,
-                                                       "abcab24b-b84e-4cff-ba33-d429b7839575",
-                                                       "464aba74-bc57-4a8b-b9d5-019c78c857f6",
-                                                       "13353538-8642-4881-a251-bf2df074e31f",
-                                                       "aa5c1a41-b16a-463d-b542-af4a6fd974ed",
+                                                       "ec944608-bb98-42a3-9f02-65970de6e04c",
+                                                       "cf7b9574-728e-4b59-b2fe-c73849cfd6fc",
+                                                       "7c53a04a-1298-4481-86ee-24336fbc75c7",
+                                                       "500bdefd-cc40-4425-86d8-53a2f69c4af9",
+                                                       "a22edb84-32f6-46f2-9f1c-6e17724f6d51", null,
+                                                       "d0c7838e-02fe-41a9-8cb3-3b665cb08a5a",
+                                                       "81064e28-f67f-4e41-9db5-488f848ca16b",
+                                                       "08a0236b-6cd7-4780-a727-5bf096e95536",
+                                                       "8f0fbeff-f5c1-41d4-8c5a-714f4d1f02ac",
                                                        OidcRequestTokenMode.getDefault(),
-                                                       "62a5b1a3-c017-4b36-a61f-16e279453d9d",
-                                                       "a257fbf8-917b-4e44-b46b-2ff3a70dcb09");
+                                                       "f45df80a-755d-407a-b392-af471ff6547c",
+                                                       "cc34cfd2-7480-423c-870d-2cb1aee08dc8");
             OidcRequest oidcrequest2 = oidcrequest1.clone();
             assertNotNull(oidcrequest1);
             assertNotNull(oidcrequest2);
@@ -49,34 +49,34 @@ public class TestOidcRequest {
     @Test
     public void testHashCode() {
         try {
-            OidcRequest oidcrequest1 = new OidcRequest("75dffa42-ff65-45a0-8b61-f527f00bbf5a", true,
+            OidcRequest oidcrequest1 = new OidcRequest("3ecb1c24-1125-4d74-9994-a8b2ac8fb7f5", true,
                                                        new OidcRequestClaimMapping(),
-                                                       "b6b7903f-6f09-4148-af5c-98baee4e9604",
-                                                       "95509e58-1fc3-4661-ad8b-7fd521847e6e",
-                                                       "aa1bb34b-00f3-4d3f-9acc-cb82b79a9c93",
-                                                       "8ac53045-aa86-477f-9a22-2600fccbc1d5",
-                                                       "fc14ba14-6b0d-49a5-9a7b-dda0ac58e305", null,
-                                                       "2db3eadf-04f4-459d-a4b0-f406c2fdd8af",
-                                                       "dfaca63b-dab3-4567-afe8-6a93d142a480",
-                                                       "69a40763-8bf1-4c57-915b-90959cbd16ae",
-                                                       "f59b0201-9a37-4c24-8659-6ce7c5e99d79",
+                                                       "decfbe23-3dc5-4acd-bb20-5e660b2939d2",
+                                                       "2460ddf8-56a3-4036-83a4-3d4ff8cb3ae5",
+                                                       "7c2c2179-cb8c-47bc-9da3-27c9e09ecc89",
+                                                       "302374b6-56c8-4274-9d17-a3d12b88c770",
+                                                       "842635bf-7a2e-4db0-a2ad-d1745f10ad34", null,
+                                                       "e661f3cc-1a11-4393-bf7e-b434099d1ba2",
+                                                       "04c2b43e-25c8-44f1-8de6-ffa9d287620c",
+                                                       "af9ed2ce-2fad-4d2d-b3b8-3ec34f241543",
+                                                       "52a3743e-210a-43af-9869-4ab2da91516c",
                                                        OidcRequestTokenMode.getDefault(),
-                                                       "0157c9c2-8156-4b8d-acb9-0bcba168c3e4",
-                                                       "cbedf335-c0a5-4610-8d9b-0cafee914bdf");
-            OidcRequest oidcrequest2 = new OidcRequest("75dffa42-ff65-45a0-8b61-f527f00bbf5a", true,
+                                                       "5e5550c4-0a06-4804-b859-2226865bb884",
+                                                       "9fe6b206-9f77-4704-9a6a-aafdacb509ed");
+            OidcRequest oidcrequest2 = new OidcRequest("3ecb1c24-1125-4d74-9994-a8b2ac8fb7f5", true,
                                                        new OidcRequestClaimMapping(),
-                                                       "b6b7903f-6f09-4148-af5c-98baee4e9604",
-                                                       "95509e58-1fc3-4661-ad8b-7fd521847e6e",
-                                                       "aa1bb34b-00f3-4d3f-9acc-cb82b79a9c93",
-                                                       "8ac53045-aa86-477f-9a22-2600fccbc1d5",
-                                                       "fc14ba14-6b0d-49a5-9a7b-dda0ac58e305", null,
-                                                       "2db3eadf-04f4-459d-a4b0-f406c2fdd8af",
-                                                       "dfaca63b-dab3-4567-afe8-6a93d142a480",
-                                                       "69a40763-8bf1-4c57-915b-90959cbd16ae",
-                                                       "f59b0201-9a37-4c24-8659-6ce7c5e99d79",
+                                                       "decfbe23-3dc5-4acd-bb20-5e660b2939d2",
+                                                       "2460ddf8-56a3-4036-83a4-3d4ff8cb3ae5",
+                                                       "7c2c2179-cb8c-47bc-9da3-27c9e09ecc89",
+                                                       "302374b6-56c8-4274-9d17-a3d12b88c770",
+                                                       "842635bf-7a2e-4db0-a2ad-d1745f10ad34", null,
+                                                       "e661f3cc-1a11-4393-bf7e-b434099d1ba2",
+                                                       "04c2b43e-25c8-44f1-8de6-ffa9d287620c",
+                                                       "af9ed2ce-2fad-4d2d-b3b8-3ec34f241543",
+                                                       "52a3743e-210a-43af-9869-4ab2da91516c",
                                                        OidcRequestTokenMode.getDefault(),
-                                                       "0157c9c2-8156-4b8d-acb9-0bcba168c3e4",
-                                                       "cbedf335-c0a5-4610-8d9b-0cafee914bdf");
+                                                       "5e5550c4-0a06-4804-b859-2226865bb884",
+                                                       "9fe6b206-9f77-4704-9a6a-aafdacb509ed");
             assertNotNull(oidcrequest1);
             assertNotNull(oidcrequest2);
             assertNotSame(oidcrequest2, oidcrequest1);
@@ -97,19 +97,19 @@ public class TestOidcRequest {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        OidcRequest oidcrequest = new OidcRequest("9852b3d1-d6bb-440e-866e-379edad39f8c", true,
-                                                  new OidcRequestClaimMapping(), "848b621f-cc66-4c57-99a1-f3cb473963fa",
-                                                  "b5acf8ef-a24b-4784-b630-c800ca4ef593",
-                                                  "3bda90c9-c729-4940-ab63-ffa85d566e36",
-                                                  "8a76ffc9-2bee-49e9-ad35-b484eab8bf1c",
-                                                  "bab95ff7-677c-46d5-b477-7295a4d600e2", null,
-                                                  "4a813340-c5d5-42a8-9b23-01697de7f0fb",
-                                                  "949af1f0-12b6-4b19-b676-865b93dd27ba",
-                                                  "5f3e4ba8-2ee9-4988-942f-14ebaaf155bc",
-                                                  "2dfd01fc-24c4-4142-9390-e2c492f24432",
+        OidcRequest oidcrequest = new OidcRequest("0618dae8-0de4-421d-a187-49d23493f6ad", false,
+                                                  new OidcRequestClaimMapping(), "15313427-3227-4f09-953c-398c75c2dd7a",
+                                                  "33e5408f-3433-4a3e-b3f9-2d5f0e260e83",
+                                                  "85a9b712-9037-479e-83a0-5baf62fa5662",
+                                                  "24098ee0-fbad-48eb-9822-879badae232e",
+                                                  "da4ecbbb-f020-47b9-8187-60532f2f3c45", null,
+                                                  "270a5c63-cb12-4788-bb43-2ea834271ad6",
+                                                  "db683450-0778-497c-bdfd-032dcb383e43",
+                                                  "7b3e497a-eb73-4b89-b8fe-bb44d9c95ffd",
+                                                  "0bc7fc96-6e5f-42bc-b1c2-b53699aede93",
                                                   OidcRequestTokenMode.getDefault(),
-                                                  "83085449-7b72-4bbb-a650-8e57276e9e09",
-                                                  "591311f8-e341-4fa6-aa47-0e6ddab582c3");
+                                                  "aa56a154-9146-42f1-8cf2-e765fc0e73d0",
+                                                  "f072c0a9-9e6d-4748-9856-afe91985537d");
         assertTrue(oidcrequest.isValid());
     }
 
@@ -120,48 +120,48 @@ public class TestOidcRequest {
     @Test
     public void testEquals() {
         try {
-            OidcRequest oidcrequest1 = new OidcRequest("cb5800ff-96d9-483a-b90f-edb4dabc5fff", false,
+            OidcRequest oidcrequest1 = new OidcRequest("b13bfc3c-c867-45b2-8f58-6a8ca82146b1", true,
                                                        new OidcRequestClaimMapping(),
-                                                       "56cd96c2-6606-483a-81ed-832a2b7a4505",
-                                                       "a2633e19-4547-4ab5-8378-bfc73c310e36",
-                                                       "1a6dcede-e747-4fd6-8d36-1a573a0322ea",
-                                                       "767e9c37-d214-4f16-8ef1-a4dcce476b05",
-                                                       "1ccce46d-ccd5-4ca3-b267-3e809463eee8", null,
-                                                       "3843c655-0da6-4564-9fe4-007b3a37f6f9",
-                                                       "af9ea8eb-48a5-4f1d-913c-8af8f2374f96",
-                                                       "b87b633c-90f5-48ea-a116-931765f0e116",
-                                                       "f8ad74b3-a4fa-4452-9370-187eea6253a0",
+                                                       "61a10cfb-b95c-45a5-804f-15ac814a7b83",
+                                                       "49e03cb0-b98b-49eb-b1c0-20986ab6adba",
+                                                       "6045904e-f332-46b8-841f-5289752656d5",
+                                                       "51f24ece-7a05-45c6-b6cf-68cf1313c260",
+                                                       "b7675a1c-c5cd-4115-a088-672db74bd257", null,
+                                                       "b3757ee1-2ebf-4797-8be7-4d302172d97f",
+                                                       "74d670b8-36a7-45b6-8019-30302f7530f3",
+                                                       "082e7f9e-f12d-4daf-8c5e-f96d0dddd5dd",
+                                                       "5ea220b5-3a39-4022-92bc-1525ce61358f",
                                                        OidcRequestTokenMode.getDefault(),
-                                                       "cd989ee2-1504-4bee-b26e-e2e31cd2a847",
-                                                       "647d89be-5c4e-44aa-9fd2-3a13b83044f1");
-            OidcRequest oidcrequest2 = new OidcRequest("cb5800ff-96d9-483a-b90f-edb4dabc5fff", false,
+                                                       "cf562ebe-1e35-4c7c-9653-1d136c02810c",
+                                                       "a2e42df5-3eb5-48c7-860c-6979465e0829");
+            OidcRequest oidcrequest2 = new OidcRequest("b13bfc3c-c867-45b2-8f58-6a8ca82146b1", true,
                                                        new OidcRequestClaimMapping(),
-                                                       "56cd96c2-6606-483a-81ed-832a2b7a4505",
-                                                       "a2633e19-4547-4ab5-8378-bfc73c310e36",
-                                                       "1a6dcede-e747-4fd6-8d36-1a573a0322ea",
-                                                       "767e9c37-d214-4f16-8ef1-a4dcce476b05",
-                                                       "1ccce46d-ccd5-4ca3-b267-3e809463eee8", null,
-                                                       "3843c655-0da6-4564-9fe4-007b3a37f6f9",
-                                                       "af9ea8eb-48a5-4f1d-913c-8af8f2374f96",
-                                                       "b87b633c-90f5-48ea-a116-931765f0e116",
-                                                       "f8ad74b3-a4fa-4452-9370-187eea6253a0",
+                                                       "61a10cfb-b95c-45a5-804f-15ac814a7b83",
+                                                       "49e03cb0-b98b-49eb-b1c0-20986ab6adba",
+                                                       "6045904e-f332-46b8-841f-5289752656d5",
+                                                       "51f24ece-7a05-45c6-b6cf-68cf1313c260",
+                                                       "b7675a1c-c5cd-4115-a088-672db74bd257", null,
+                                                       "b3757ee1-2ebf-4797-8be7-4d302172d97f",
+                                                       "74d670b8-36a7-45b6-8019-30302f7530f3",
+                                                       "082e7f9e-f12d-4daf-8c5e-f96d0dddd5dd",
+                                                       "5ea220b5-3a39-4022-92bc-1525ce61358f",
                                                        OidcRequestTokenMode.getDefault(),
-                                                       "cd989ee2-1504-4bee-b26e-e2e31cd2a847",
-                                                       "647d89be-5c4e-44aa-9fd2-3a13b83044f1");
-            OidcRequest oidcrequest3 = new OidcRequest("b8d0e141-1bf4-41ae-bd2f-bee7cd0a9987", false,
+                                                       "cf562ebe-1e35-4c7c-9653-1d136c02810c",
+                                                       "a2e42df5-3eb5-48c7-860c-6979465e0829");
+            OidcRequest oidcrequest3 = new OidcRequest("e52498d7-ce32-408f-90ef-589195bca110", true,
                                                        new OidcRequestClaimMapping(),
-                                                       "f1651b14-5a31-46c7-b88c-76584fdb6508",
-                                                       "0aac3416-b808-498b-bb65-5cb0a9c77707",
-                                                       "35fd2214-2774-4b6c-b194-d45ca2c6d779",
-                                                       "976aee66-5b86-495e-953d-b3dd7ad2cdb9",
-                                                       "cde441bb-51ee-4813-b445-b5fb6973afa1", null,
-                                                       "7ee6bfac-85f0-44b2-88df-042f108558eb",
-                                                       "6fee7644-31a7-4dc2-b27b-5ace04ee0ef2",
-                                                       "c16a2157-ad65-4647-b075-a238dc610937",
-                                                       "90072a13-c1c7-403a-83cb-2254bfe269e5",
+                                                       "e5ede658-efd3-446f-8dab-7ea4f52a0b94",
+                                                       "7d7ff51e-5292-432a-ae6e-b2f2c48528b0",
+                                                       "41432c70-a750-49bf-9bc5-cac5f7ece1d6",
+                                                       "84d167b0-461a-4c60-83b5-7b720c1804d2",
+                                                       "4f078c14-fd12-492d-a696-105d984ab981", null,
+                                                       "24f80652-37a9-4831-8214-5c3d65717cdf",
+                                                       "2e7aec32-1c5d-4b8f-9996-1ed5a04bfd6a",
+                                                       "08f21158-9dc7-464f-b1d5-5033be944203",
+                                                       "9f87b62d-b765-4342-a5bf-b1a141ece154",
                                                        OidcRequestTokenMode.getDefault(),
-                                                       "7cf1e23f-0b18-4e59-a6c7-0db931780182",
-                                                       "4f67a4f7-23f9-4dbb-bd39-3a36abb133ef");
+                                                       "c1cf4be2-1347-4dc6-8e7b-e434f6ea02b8",
+                                                       "f5c463c8-d5cd-49fb-94af-4c735df8546f");
             assertNotNull(oidcrequest1);
             assertNotNull(oidcrequest2);
             assertNotNull(oidcrequest3);

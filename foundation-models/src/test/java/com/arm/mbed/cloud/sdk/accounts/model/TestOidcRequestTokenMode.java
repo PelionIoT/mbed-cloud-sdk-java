@@ -30,7 +30,7 @@ public class TestOidcRequestTokenMode {
             oidcrequesttokenmode = OidcRequestTokenMode.getValue("POST");
             assertNotNull(oidcrequesttokenmode);
             assertFalse(oidcrequesttokenmode.isDefault());
-            oidcrequesttokenmode = OidcRequestTokenMode.getValue("33f6d39f-a03c-41ed-815a-55d98c3d3f4b");
+            oidcrequesttokenmode = OidcRequestTokenMode.getValue("d32c937e-1d17-40cb-8d87-ce4ea05a553c");
             assertNotNull(oidcrequesttokenmode);
             assertTrue(oidcrequesttokenmode.isDefault());
         } catch (Exception exception) {

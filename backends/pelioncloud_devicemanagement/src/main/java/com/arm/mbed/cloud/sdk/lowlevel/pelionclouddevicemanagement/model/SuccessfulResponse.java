@@ -50,11 +50,11 @@ public class SuccessfulResponse implements Serializable {
     }
 
     /**
-     * The metric ID included in the request or null.
+     * The metric ID included in the request, or null.
      * 
      * @return after
      **/
-    @ApiModelProperty(value = "The metric ID included in the request or null.")
+    @ApiModelProperty(value = "The metric ID included in the request, or null.")
     public String getAfter() {
         return after;
     }

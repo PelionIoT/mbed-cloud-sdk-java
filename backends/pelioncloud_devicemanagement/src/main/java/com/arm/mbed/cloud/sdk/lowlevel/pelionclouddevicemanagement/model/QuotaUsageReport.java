@@ -56,7 +56,9 @@ public class QuotaUsageReport implements Serializable {
 
         PACKAGE_CREATION("package_creation"),
 
-        PACKAGE_TERMINATION("package_termination");
+        PACKAGE_TERMINATION("package_termination"),
+
+        PACKAGE_TOKENS_EDIT("package_tokens_edit");
 
         private String value;
 

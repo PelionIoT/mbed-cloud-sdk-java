@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * Describes the credentials required when using CFSSL authenticated signing.
  */
-@ApiModel(description = "Describes the credentials required when using CFSSL authenticated signing. ")
+@ApiModel(description = "Describes the credentials required when using CFSSL authenticated signing.")
 
 public class CfsslAuthCredentials implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class CfsslAuthCredentials implements Serializable {
      * @return hmacHexKey
      **/
     @ApiModelProperty(example = "0010203ABCD708EF", required = true,
-                      value = "The key that is used to compute the HMAC of the request using the HMAC-SHA-256 algorithm. Must contain an even number of hexadecimal characters. ")
+                      value = "The key that is used to compute the HMAC of the request using the HMAC-SHA-256 algorithm. Must contain an even number of hexadecimal characters.")
     public String getHmacHexKey() {
         return hmacHexKey;
     }

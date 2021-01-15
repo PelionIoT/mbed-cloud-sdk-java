@@ -17,9 +17,10 @@ public class TenantAccountsEmailNotificationLogsApiTest {
     }
 
     /**
-     * Get the notification events of an account.
+     * Get email notifications.
      *
-     * Retrieve notifications.
+     * Retrieve an array of email notification logs. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators.
      */
     @Test
     public void getAccountNofificationEntriesTest() {
@@ -28,6 +29,21 @@ public class TenantAccountsEmailNotificationLogsApiTest {
         String after = null;
         String order = null;
         // NotificationEntryList response = api.getAccountNofificationEntries(accountId, limit, after, order);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get an email notification.
+     *
+     * Retrieve an email notifications log entry. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators.
+     */
+    @Test
+    public void getAccountNofificationEntryTest() {
+        String accountId = null;
+        String notificationId = null;
+        // NotificationEntry response = api.getAccountNofificationEntry(accountId, notificationId);
 
         // TODO: test validations
     }

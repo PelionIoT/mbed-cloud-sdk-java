@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accountId** | **String** | The ID of the account this group belongs to. | 
 **apikeyCount** | **Integer** | The number of API keys in this group. | 
+**applicationCount** | **Integer** | The number of applications in this group. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **etag** | **String** | API resource entity version. | 
 **id** | **String** | The ID of the group. | 

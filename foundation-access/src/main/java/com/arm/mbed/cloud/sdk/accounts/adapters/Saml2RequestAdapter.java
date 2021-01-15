@@ -15,7 +15,7 @@ public final class Saml2RequestAdapter {
     /**
      * Constructor.
      */
-    private Saml2RequestAdapter() {
+    public Saml2RequestAdapter() {
         super();
         // Nothing to do;
     }

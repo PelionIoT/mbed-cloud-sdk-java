@@ -30,7 +30,7 @@ public class TestUpdateCampaignPhase {
             updatecampaignphase = UpdateCampaignPhase.getValue("archived");
             assertNotNull(updatecampaignphase);
             assertFalse(updatecampaignphase.isDefault());
-            updatecampaignphase = UpdateCampaignPhase.getValue("fd76e791-e9cf-4075-96cb-1d23b06453ef");
+            updatecampaignphase = UpdateCampaignPhase.getValue("1cc35c38-491b-417c-ac52-158ec2ed8423");
             assertNotNull(updatecampaignphase);
             assertTrue(updatecampaignphase.isDefault());
         } catch (Exception exception) {

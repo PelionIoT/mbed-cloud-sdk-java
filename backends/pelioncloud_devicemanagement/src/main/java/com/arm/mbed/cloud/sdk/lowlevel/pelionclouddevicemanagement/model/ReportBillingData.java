@@ -26,13 +26,22 @@ public class ReportBillingData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("active_devices")
-    private Long activeDevices = null;
+    private Integer activeDevices = null;
+
+    @SerializedName("device_to_pelion_messages")
+    private DeviceToPelionMessagesCounter deviceToPelionMessages = null;
 
     @SerializedName("firmware_updates")
-    private Long firmwareUpdates = null;
+    private Integer firmwareUpdates = null;
 
     @SerializedName("generated")
     private DateTime generated = null;
+
+    @SerializedName("pelion_to_device_messages")
+    private PelionToDeviceMessagesCounter pelionToDeviceMessages = null;
+
+    @SerializedName("pelion_to_webapp_notifications")
+    private Integer pelionToWebappNotifications = null;
 
     @SerializedName("period_end")
     private DateTime periodEnd = null;
@@ -40,44 +49,69 @@ public class ReportBillingData implements Serializable {
     @SerializedName("period_start")
     private DateTime periodStart = null;
 
-    @SerializedName("sda_tokens")
-    private Long sdaTokens = null;
+    @SerializedName("rest_api_requests_with_api_key_token")
+    private Integer restApiRequestsWithApiKeyToken = null;
 
-    public ReportBillingData activeDevices(Long activeDevices) {
+    @SerializedName("rest_api_requests_with_user_token")
+    private Integer restApiRequestsWithUserToken = null;
+
+    @SerializedName("sda_tokens")
+    private Integer sdaTokens = null;
+
+    public ReportBillingData activeDevices(Integer activeDevices) {
         this.activeDevices = activeDevices;
         return this;
     }
 
     /**
-     * Get activeDevices minimum: 0
+     * Get activeDevices
      * 
      * @return activeDevices
      **/
     @ApiModelProperty(required = true, value = "")
-    public Long getActiveDevices() {
+    public Integer getActiveDevices() {
         return activeDevices;
     }
 
-    public void setActiveDevices(Long activeDevices) {
+    public void setActiveDevices(Integer activeDevices) {
         this.activeDevices = activeDevices;
     }
 
-    public ReportBillingData firmwareUpdates(Long firmwareUpdates) {
+    public ReportBillingData deviceToPelionMessages(DeviceToPelionMessagesCounter deviceToPelionMessages) {
+        this.deviceToPelionMessages = deviceToPelionMessages;
+        return this;
+    }
+
+    /**
+     * Get deviceToPelionMessages
+     * 
+     * @return deviceToPelionMessages
+     **/
+    @ApiModelProperty(value = "")
+    public DeviceToPelionMessagesCounter getDeviceToPelionMessages() {
+        return deviceToPelionMessages;
+    }
+
+    public void setDeviceToPelionMessages(DeviceToPelionMessagesCounter deviceToPelionMessages) {
+        this.deviceToPelionMessages = deviceToPelionMessages;
+    }
+
+    public ReportBillingData firmwareUpdates(Integer firmwareUpdates) {
         this.firmwareUpdates = firmwareUpdates;
         return this;
     }
 
     /**
-     * Get firmwareUpdates minimum: 0
+     * Get firmwareUpdates
      * 
      * @return firmwareUpdates
      **/
     @ApiModelProperty(required = true, value = "")
-    public Long getFirmwareUpdates() {
+    public Integer getFirmwareUpdates() {
         return firmwareUpdates;
     }
 
-    public void setFirmwareUpdates(Long firmwareUpdates) {
+    public void setFirmwareUpdates(Integer firmwareUpdates) {
         this.firmwareUpdates = firmwareUpdates;
     }
 
@@ -99,6 +133,44 @@ public class ReportBillingData implements Serializable {
 
     public void setGenerated(DateTime generated) {
         this.generated = generated;
+    }
+
+    public ReportBillingData pelionToDeviceMessages(PelionToDeviceMessagesCounter pelionToDeviceMessages) {
+        this.pelionToDeviceMessages = pelionToDeviceMessages;
+        return this;
+    }
+
+    /**
+     * Get pelionToDeviceMessages
+     * 
+     * @return pelionToDeviceMessages
+     **/
+    @ApiModelProperty(value = "")
+    public PelionToDeviceMessagesCounter getPelionToDeviceMessages() {
+        return pelionToDeviceMessages;
+    }
+
+    public void setPelionToDeviceMessages(PelionToDeviceMessagesCounter pelionToDeviceMessages) {
+        this.pelionToDeviceMessages = pelionToDeviceMessages;
+    }
+
+    public ReportBillingData pelionToWebappNotifications(Integer pelionToWebappNotifications) {
+        this.pelionToWebappNotifications = pelionToWebappNotifications;
+        return this;
+    }
+
+    /**
+     * Get pelionToWebappNotifications
+     * 
+     * @return pelionToWebappNotifications
+     **/
+    @ApiModelProperty(value = "")
+    public Integer getPelionToWebappNotifications() {
+        return pelionToWebappNotifications;
+    }
+
+    public void setPelionToWebappNotifications(Integer pelionToWebappNotifications) {
+        this.pelionToWebappNotifications = pelionToWebappNotifications;
     }
 
     public ReportBillingData periodEnd(DateTime periodEnd) {
@@ -141,22 +213,60 @@ public class ReportBillingData implements Serializable {
         this.periodStart = periodStart;
     }
 
-    public ReportBillingData sdaTokens(Long sdaTokens) {
+    public ReportBillingData restApiRequestsWithApiKeyToken(Integer restApiRequestsWithApiKeyToken) {
+        this.restApiRequestsWithApiKeyToken = restApiRequestsWithApiKeyToken;
+        return this;
+    }
+
+    /**
+     * Get restApiRequestsWithApiKeyToken
+     * 
+     * @return restApiRequestsWithApiKeyToken
+     **/
+    @ApiModelProperty(value = "")
+    public Integer getRestApiRequestsWithApiKeyToken() {
+        return restApiRequestsWithApiKeyToken;
+    }
+
+    public void setRestApiRequestsWithApiKeyToken(Integer restApiRequestsWithApiKeyToken) {
+        this.restApiRequestsWithApiKeyToken = restApiRequestsWithApiKeyToken;
+    }
+
+    public ReportBillingData restApiRequestsWithUserToken(Integer restApiRequestsWithUserToken) {
+        this.restApiRequestsWithUserToken = restApiRequestsWithUserToken;
+        return this;
+    }
+
+    /**
+     * Get restApiRequestsWithUserToken
+     * 
+     * @return restApiRequestsWithUserToken
+     **/
+    @ApiModelProperty(value = "")
+    public Integer getRestApiRequestsWithUserToken() {
+        return restApiRequestsWithUserToken;
+    }
+
+    public void setRestApiRequestsWithUserToken(Integer restApiRequestsWithUserToken) {
+        this.restApiRequestsWithUserToken = restApiRequestsWithUserToken;
+    }
+
+    public ReportBillingData sdaTokens(Integer sdaTokens) {
         this.sdaTokens = sdaTokens;
         return this;
     }
 
     /**
-     * Get sdaTokens minimum: 0
+     * Get sdaTokens
      * 
      * @return sdaTokens
      **/
     @ApiModelProperty(required = true, value = "")
-    public Long getSdaTokens() {
+    public Integer getSdaTokens() {
         return sdaTokens;
     }
 
-    public void setSdaTokens(Long sdaTokens) {
+    public void setSdaTokens(Integer sdaTokens) {
         this.sdaTokens = sdaTokens;
     }
 
@@ -170,16 +280,23 @@ public class ReportBillingData implements Serializable {
         }
         ReportBillingData reportBillingData = (ReportBillingData) o;
         return Objects.equals(this.activeDevices, reportBillingData.activeDevices)
+               && Objects.equals(this.deviceToPelionMessages, reportBillingData.deviceToPelionMessages)
                && Objects.equals(this.firmwareUpdates, reportBillingData.firmwareUpdates)
                && Objects.equals(this.generated, reportBillingData.generated)
+               && Objects.equals(this.pelionToDeviceMessages, reportBillingData.pelionToDeviceMessages)
+               && Objects.equals(this.pelionToWebappNotifications, reportBillingData.pelionToWebappNotifications)
                && Objects.equals(this.periodEnd, reportBillingData.periodEnd)
                && Objects.equals(this.periodStart, reportBillingData.periodStart)
+               && Objects.equals(this.restApiRequestsWithApiKeyToken, reportBillingData.restApiRequestsWithApiKeyToken)
+               && Objects.equals(this.restApiRequestsWithUserToken, reportBillingData.restApiRequestsWithUserToken)
                && Objects.equals(this.sdaTokens, reportBillingData.sdaTokens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(activeDevices, firmwareUpdates, generated, periodEnd, periodStart, sdaTokens);
+        return Objects.hash(activeDevices, deviceToPelionMessages, firmwareUpdates, generated, pelionToDeviceMessages,
+                            pelionToWebappNotifications, periodEnd, periodStart, restApiRequestsWithApiKeyToken,
+                            restApiRequestsWithUserToken, sdaTokens);
     }
 
     @Override
@@ -188,10 +305,18 @@ public class ReportBillingData implements Serializable {
         sb.append("class ReportBillingData {\n");
 
         sb.append("    activeDevices: ").append(toIndentedString(activeDevices)).append("\n");
+        sb.append("    deviceToPelionMessages: ").append(toIndentedString(deviceToPelionMessages)).append("\n");
         sb.append("    firmwareUpdates: ").append(toIndentedString(firmwareUpdates)).append("\n");
         sb.append("    generated: ").append(toIndentedString(generated)).append("\n");
+        sb.append("    pelionToDeviceMessages: ").append(toIndentedString(pelionToDeviceMessages)).append("\n");
+        sb.append("    pelionToWebappNotifications: ").append(toIndentedString(pelionToWebappNotifications))
+          .append("\n");
         sb.append("    periodEnd: ").append(toIndentedString(periodEnd)).append("\n");
         sb.append("    periodStart: ").append(toIndentedString(periodStart)).append("\n");
+        sb.append("    restApiRequestsWithApiKeyToken: ").append(toIndentedString(restApiRequestsWithApiKeyToken))
+          .append("\n");
+        sb.append("    restApiRequestsWithUserToken: ").append(toIndentedString(restApiRequestsWithUserToken))
+          .append("\n");
         sb.append("    sdaTokens: ").append(toIndentedString(sdaTokens)).append("\n");
         sb.append("}");
         return sb.toString();

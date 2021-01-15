@@ -6,14 +6,14 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersActivationApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityCertificatesApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeveloperClassCertificatesApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeviceCertificateRenewalsApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PreSharedKeysApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.ServiceSecurityServerCredentialsApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantDeviceSecurityCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SecurityAndIdentityCertificateIssuerConfigurationsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SecurityAndIdentityCertificateIssuersApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SecurityAndIdentityCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SecurityAndIdentityDeveloperClassCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SecurityAndIdentityPreSharedKeysApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SecurityAndIdentityServerCredentialsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantSecurityAndIdentityCertificatesApi;
 
 /**
  * Endpoints for Security APIs module.
@@ -29,46 +29,46 @@ public class SecurityEndpoints extends AbstractEndpoints {
     private final DeviceSecurityDeviceCertificateRenewalsApi deviceSecurityDeviceCertificateRenewalsApi;
 
     /**
-     * Low level endpoints for certificate issuers apis.
+     * Low level endpoints for security and identity certificate issuers apis.
      */
     @Internal
-    private final CertificateIssuersApi certificateIssuersApi;
+    private final SecurityAndIdentityCertificateIssuersApi securityAndIdentityCertificateIssuersApi;
 
     /**
-     * Low level endpoints for certificate issuers activation apis.
+     * Low level endpoints for security and identity certificate issuer configurations apis.
      */
     @Internal
-    private final CertificateIssuersActivationApi certificateIssuersActivationApi;
+    private final SecurityAndIdentityCertificateIssuerConfigurationsApi securityAndIdentityCertificateIssuerConfigurationsApi;
 
     /**
-     * Low level endpoints for device security developer class certificates apis.
+     * Low level endpoints for security and identity developer class certificates apis.
      */
     @Internal
-    private final DeviceSecurityDeveloperClassCertificatesApi deviceSecurityDeveloperClassCertificatesApi;
+    private final SecurityAndIdentityDeveloperClassCertificatesApi securityAndIdentityDeveloperClassCertificatesApi;
 
     /**
-     * Low level endpoints for device security certificates apis.
+     * Low level endpoints for security and identity certificates apis.
      */
     @Internal
-    private final DeviceSecurityCertificatesApi deviceSecurityCertificatesApi;
+    private final SecurityAndIdentityCertificatesApi securityAndIdentityCertificatesApi;
 
     /**
-     * Low level endpoints for pre shared keys apis.
+     * Low level endpoints for security and identity pre shared keys apis.
      */
     @Internal
-    private final PreSharedKeysApi preSharedKeysApi;
+    private final SecurityAndIdentityPreSharedKeysApi securityAndIdentityPreSharedKeysApi;
 
     /**
-     * Low level endpoints for service security server credentials apis.
+     * Low level endpoints for security and identity server credentials apis.
      */
     @Internal
-    private final ServiceSecurityServerCredentialsApi serviceSecurityServerCredentialsApi;
+    private final SecurityAndIdentityServerCredentialsApi securityAndIdentityServerCredentialsApi;
 
     /**
-     * Low level endpoints for tenant device security certificates apis.
+     * Low level endpoints for tenant security and identity certificates apis.
      */
     @Internal
-    private final TenantDeviceSecurityCertificatesApi tenantDeviceSecurityCertificatesApi;
+    private final TenantSecurityAndIdentityCertificatesApi tenantSecurityAndIdentityCertificatesApi;
 
     /**
      * Constructor.
@@ -79,83 +79,84 @@ public class SecurityEndpoints extends AbstractEndpoints {
     public SecurityEndpoints(ServiceRegistry services) {
         super(services);
         this.deviceSecurityDeviceCertificateRenewalsApi = initialiseService(DeviceSecurityDeviceCertificateRenewalsApi.class);
-        this.certificateIssuersApi = initialiseService(CertificateIssuersApi.class);
-        this.certificateIssuersActivationApi = initialiseService(CertificateIssuersActivationApi.class);
-        this.deviceSecurityDeveloperClassCertificatesApi = initialiseService(DeviceSecurityDeveloperClassCertificatesApi.class);
-        this.deviceSecurityCertificatesApi = initialiseService(DeviceSecurityCertificatesApi.class);
-        this.preSharedKeysApi = initialiseService(PreSharedKeysApi.class);
-        this.serviceSecurityServerCredentialsApi = initialiseService(ServiceSecurityServerCredentialsApi.class);
-        this.tenantDeviceSecurityCertificatesApi = initialiseService(TenantDeviceSecurityCertificatesApi.class);
+        this.securityAndIdentityCertificateIssuersApi = initialiseService(SecurityAndIdentityCertificateIssuersApi.class);
+        this.securityAndIdentityCertificateIssuerConfigurationsApi = initialiseService(SecurityAndIdentityCertificateIssuerConfigurationsApi.class);
+        this.securityAndIdentityDeveloperClassCertificatesApi = initialiseService(SecurityAndIdentityDeveloperClassCertificatesApi.class);
+        this.securityAndIdentityCertificatesApi = initialiseService(SecurityAndIdentityCertificatesApi.class);
+        this.securityAndIdentityPreSharedKeysApi = initialiseService(SecurityAndIdentityPreSharedKeysApi.class);
+        this.securityAndIdentityServerCredentialsApi = initialiseService(SecurityAndIdentityServerCredentialsApi.class);
+        this.tenantSecurityAndIdentityCertificatesApi = initialiseService(TenantSecurityAndIdentityCertificatesApi.class);
     }
 
     /**
-     * Gets low level endpoints for certificate issuers apis.
+     * Gets low level endpoints for security and identity certificate issuers apis.
      * 
-     * @return certificateIssuersApi
+     * @return securityAndIdentityCertificateIssuersApi
      */
     @Internal
-    public CertificateIssuersApi getCertificateIssuersApi() {
-        return certificateIssuersApi;
+    public SecurityAndIdentityCertificateIssuersApi getSecurityAndIdentityCertificateIssuersApi() {
+        return securityAndIdentityCertificateIssuersApi;
     }
 
     /**
-     * Gets low level endpoints for certificate issuers activation apis.
+     * Gets low level endpoints for security and identity certificate issuer configurations apis.
      * 
-     * @return certificateIssuersActivationApi
+     * @return securityAndIdentityCertificateIssuerConfigurationsApi
      */
     @Internal
-    public CertificateIssuersActivationApi getCertificateIssuersActivationApi() {
-        return certificateIssuersActivationApi;
+    public SecurityAndIdentityCertificateIssuerConfigurationsApi
+           getSecurityAndIdentityCertificateIssuerConfigurationsApi() {
+        return securityAndIdentityCertificateIssuerConfigurationsApi;
     }
 
     /**
-     * Gets low level endpoints for device security developer class certificates apis.
+     * Gets low level endpoints for security and identity developer class certificates apis.
      * 
-     * @return deviceSecurityDeveloperClassCertificatesApi
+     * @return securityAndIdentityDeveloperClassCertificatesApi
      */
     @Internal
-    public DeviceSecurityDeveloperClassCertificatesApi getDeviceSecurityDeveloperClassCertificatesApi() {
-        return deviceSecurityDeveloperClassCertificatesApi;
+    public SecurityAndIdentityDeveloperClassCertificatesApi getSecurityAndIdentityDeveloperClassCertificatesApi() {
+        return securityAndIdentityDeveloperClassCertificatesApi;
     }
 
     /**
-     * Gets low level endpoints for device security certificates apis.
+     * Gets low level endpoints for security and identity certificates apis.
      * 
-     * @return deviceSecurityCertificatesApi
+     * @return securityAndIdentityCertificatesApi
      */
     @Internal
-    public DeviceSecurityCertificatesApi getDeviceSecurityCertificatesApi() {
-        return deviceSecurityCertificatesApi;
+    public SecurityAndIdentityCertificatesApi getSecurityAndIdentityCertificatesApi() {
+        return securityAndIdentityCertificatesApi;
     }
 
     /**
-     * Gets low level endpoints for pre shared keys apis.
+     * Gets low level endpoints for security and identity pre shared keys apis.
      * 
-     * @return preSharedKeysApi
+     * @return securityAndIdentityPreSharedKeysApi
      */
     @Internal
-    public PreSharedKeysApi getPreSharedKeysApi() {
-        return preSharedKeysApi;
+    public SecurityAndIdentityPreSharedKeysApi getSecurityAndIdentityPreSharedKeysApi() {
+        return securityAndIdentityPreSharedKeysApi;
     }
 
     /**
-     * Gets low level endpoints for service security server credentials apis.
+     * Gets low level endpoints for security and identity server credentials apis.
      * 
-     * @return serviceSecurityServerCredentialsApi
+     * @return securityAndIdentityServerCredentialsApi
      */
     @Internal
-    public ServiceSecurityServerCredentialsApi getServiceSecurityServerCredentialsApi() {
-        return serviceSecurityServerCredentialsApi;
+    public SecurityAndIdentityServerCredentialsApi getSecurityAndIdentityServerCredentialsApi() {
+        return securityAndIdentityServerCredentialsApi;
     }
 
     /**
-     * Gets low level endpoints for tenant device security certificates apis.
+     * Gets low level endpoints for tenant security and identity certificates apis.
      * 
-     * @return tenantDeviceSecurityCertificatesApi
+     * @return tenantSecurityAndIdentityCertificatesApi
      */
     @Internal
-    public TenantDeviceSecurityCertificatesApi getTenantDeviceSecurityCertificatesApi() {
-        return tenantDeviceSecurityCertificatesApi;
+    public TenantSecurityAndIdentityCertificatesApi getTenantSecurityAndIdentityCertificatesApi() {
+        return tenantSecurityAndIdentityCertificatesApi;
     }
 
     /**

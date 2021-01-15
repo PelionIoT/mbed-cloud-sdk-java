@@ -19,9 +19,9 @@ public class TestLoginHistory {
     @Test
     public void testClone() {
         try {
-            LoginHistory loginhistory1 = new LoginHistory(new Date(1574704667255L),
-                                                          "f29bf97d-2793-4039-8346-bcc1684d2549", true,
-                                                          "ae1725cf-015b-4c24-8ca0-fc3cc2d31e5a");
+            LoginHistory loginhistory1 = new LoginHistory(new Date(1610683993287L),
+                                                          "3815d951-6d65-4e4b-a415-734b57268190", false,
+                                                          "8585a03c-06d8-4dad-ab43-bff46877a58b");
             LoginHistory loginhistory2 = loginhistory1.clone();
             assertNotNull(loginhistory1);
             assertNotNull(loginhistory2);
@@ -39,12 +39,12 @@ public class TestLoginHistory {
     @Test
     public void testHashCode() {
         try {
-            LoginHistory loginhistory1 = new LoginHistory(new Date(1574704667446L),
-                                                          "64135e92-9e84-498e-9bb6-e2af728bd245", true,
-                                                          "9cfe0485-0630-4b0f-aab0-b3c53db89c37");
-            LoginHistory loginhistory2 = new LoginHistory(new Date(1574704667446L),
-                                                          "64135e92-9e84-498e-9bb6-e2af728bd245", true,
-                                                          "9cfe0485-0630-4b0f-aab0-b3c53db89c37");
+            LoginHistory loginhistory1 = new LoginHistory(new Date(1610683986301L),
+                                                          "be826a47-5bd7-429c-a8ae-04848d2fc319", false,
+                                                          "ca9798d3-33e3-4093-873d-49732cb045ec");
+            LoginHistory loginhistory2 = new LoginHistory(new Date(1610683986301L),
+                                                          "be826a47-5bd7-429c-a8ae-04848d2fc319", false,
+                                                          "ca9798d3-33e3-4093-873d-49732cb045ec");
             assertNotNull(loginhistory1);
             assertNotNull(loginhistory2);
             assertNotSame(loginhistory2, loginhistory1);
@@ -65,8 +65,8 @@ public class TestLoginHistory {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        LoginHistory loginhistory = new LoginHistory(new Date(1574704667164L), "be132299-2540-42fd-a22c-0a780c7dfdc5",
-                                                     false, "6bc6ee8e-9797-4038-9d4f-6182ea06fa5d");
+        LoginHistory loginhistory = new LoginHistory(new Date(1610683989292L), "7b05728b-bc6c-4f92-8041-06e52a01c17a",
+                                                     true, "ed0fbfe8-f656-49c4-8d52-b0ca007b65c1");
         assertTrue(loginhistory.isValid());
     }
 
@@ -77,15 +77,15 @@ public class TestLoginHistory {
     @Test
     public void testEquals() {
         try {
-            LoginHistory loginhistory1 = new LoginHistory(new Date(1574704669265L),
-                                                          "4a4cc5b1-4511-46d0-a119-ed114cbbb456", false,
-                                                          "88319b51-7532-4d00-8f16-cad5ece86613");
-            LoginHistory loginhistory2 = new LoginHistory(new Date(1574704669265L),
-                                                          "4a4cc5b1-4511-46d0-a119-ed114cbbb456", false,
-                                                          "88319b51-7532-4d00-8f16-cad5ece86613");
-            LoginHistory loginhistory3 = new LoginHistory(new Date(1574704665356L),
-                                                          "61f32415-d6f4-454c-b200-9a8d38710cc4", false,
-                                                          "41e50b34-3229-48d5-84fd-22e9cecdc7f9");
+            LoginHistory loginhistory1 = new LoginHistory(new Date(1610683993727L),
+                                                          "a68eb840-83de-4b31-a447-7000bff5a5e4", true,
+                                                          "cb51353a-3eec-4d72-9ea0-5b5188dee8f1");
+            LoginHistory loginhistory2 = new LoginHistory(new Date(1610683993727L),
+                                                          "a68eb840-83de-4b31-a447-7000bff5a5e4", true,
+                                                          "cb51353a-3eec-4d72-9ea0-5b5188dee8f1");
+            LoginHistory loginhistory3 = new LoginHistory(new Date(1610683991898L),
+                                                          "3dc35c40-791d-4d24-a3fb-bc697f08c7a1", true,
+                                                          "7d776c5d-7a54-48b7-b52d-a0bcb78e9c1b");
             assertNotNull(loginhistory1);
             assertNotNull(loginhistory2);
             assertNotNull(loginhistory3);

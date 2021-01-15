@@ -150,12 +150,12 @@ public class GroupSummaryList implements Serializable {
     }
 
     /**
-     * The entity ID to fetch after the given one.
+     * The entity ID to retrieve after the given one.
      * 
      * @return after
      **/
     @ApiModelProperty(example = "01619571f3c00242ac12000600000000",
-                      value = "The entity ID to fetch after the given one.")
+                      value = "The entity ID to retrieve after the given one.")
     public String getAfter() {
         return after;
     }

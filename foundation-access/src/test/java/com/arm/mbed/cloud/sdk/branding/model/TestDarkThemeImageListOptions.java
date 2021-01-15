@@ -19,10 +19,10 @@ public class TestDarkThemeImageListOptions {
     @Test
     public void testClone() {
         try {
-            DarkThemeImageListOptions darkthemeimagelistoptions1 = new DarkThemeImageListOptions(Integer.valueOf(83),
-                                                                                                 Long.valueOf(-47),
+            DarkThemeImageListOptions darkthemeimagelistoptions1 = new DarkThemeImageListOptions(Integer.valueOf(-83),
+                                                                                                 Long.valueOf(32),
                                                                                                  Order.getDefault(),
-                                                                                                 "48cfac6f-839a-473f-8758-d508923bf51a",
+                                                                                                 "9ecbd923-d8f8-498a-b240-ed2d1a158fb5",
                                                                                                  null, null);
             DarkThemeImageListOptions darkthemeimagelistoptions2 = darkthemeimagelistoptions1.clone();
             assertNotNull(darkthemeimagelistoptions1);
@@ -41,15 +41,15 @@ public class TestDarkThemeImageListOptions {
     @Test
     public void testHashCode() {
         try {
-            DarkThemeImageListOptions darkthemeimagelistoptions1 = new DarkThemeImageListOptions(Integer.valueOf(0),
-                                                                                                 Long.valueOf(80),
+            DarkThemeImageListOptions darkthemeimagelistoptions1 = new DarkThemeImageListOptions(Integer.valueOf(-39),
+                                                                                                 Long.valueOf(-13),
                                                                                                  Order.getDefault(),
-                                                                                                 "9932fffe-29c3-42ff-8483-e578b75847e1",
+                                                                                                 "9dd01f1e-3207-400f-ac98-9a602263c4fc",
                                                                                                  null, null);
-            DarkThemeImageListOptions darkthemeimagelistoptions2 = new DarkThemeImageListOptions(Integer.valueOf(0),
-                                                                                                 Long.valueOf(80),
+            DarkThemeImageListOptions darkthemeimagelistoptions2 = new DarkThemeImageListOptions(Integer.valueOf(-39),
+                                                                                                 Long.valueOf(-13),
                                                                                                  Order.getDefault(),
-                                                                                                 "9932fffe-29c3-42ff-8483-e578b75847e1",
+                                                                                                 "9dd01f1e-3207-400f-ac98-9a602263c4fc",
                                                                                                  null, null);
             assertNotNull(darkthemeimagelistoptions1);
             assertNotNull(darkthemeimagelistoptions2);
@@ -72,20 +72,20 @@ public class TestDarkThemeImageListOptions {
     @Test
     public void testEquals() {
         try {
-            DarkThemeImageListOptions darkthemeimagelistoptions1 = new DarkThemeImageListOptions(Integer.valueOf(46),
-                                                                                                 Long.valueOf(3),
+            DarkThemeImageListOptions darkthemeimagelistoptions1 = new DarkThemeImageListOptions(Integer.valueOf(64),
+                                                                                                 Long.valueOf(108),
                                                                                                  Order.getDefault(),
-                                                                                                 "85e99437-3b6d-479e-b531-ebab72bbf20f",
+                                                                                                 "06fc5db2-02a9-4502-8247-5b62a80c0a58",
                                                                                                  null, null);
-            DarkThemeImageListOptions darkthemeimagelistoptions2 = new DarkThemeImageListOptions(Integer.valueOf(46),
-                                                                                                 Long.valueOf(3),
+            DarkThemeImageListOptions darkthemeimagelistoptions2 = new DarkThemeImageListOptions(Integer.valueOf(64),
+                                                                                                 Long.valueOf(108),
                                                                                                  Order.getDefault(),
-                                                                                                 "85e99437-3b6d-479e-b531-ebab72bbf20f",
+                                                                                                 "06fc5db2-02a9-4502-8247-5b62a80c0a58",
                                                                                                  null, null);
-            DarkThemeImageListOptions darkthemeimagelistoptions3 = new DarkThemeImageListOptions(Integer.valueOf(-64),
-                                                                                                 Long.valueOf(-103),
+            DarkThemeImageListOptions darkthemeimagelistoptions3 = new DarkThemeImageListOptions(Integer.valueOf(-38),
+                                                                                                 Long.valueOf(-79),
                                                                                                  Order.getDefault(),
-                                                                                                 "5fad5c74-dd14-4f50-b6a5-d5033ab1ec6f",
+                                                                                                 "c8667735-bfb4-42c7-ab39-1ec86eab438f",
                                                                                                  null, null);
             assertNotNull(darkthemeimagelistoptions1);
             assertNotNull(darkthemeimagelistoptions2);

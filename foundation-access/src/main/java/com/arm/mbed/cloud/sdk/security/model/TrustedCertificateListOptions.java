@@ -39,21 +39,9 @@ import java.util.List;
  * <td style="background-color:#dae8fc;text-align:center;width:10%;">not in</td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">service</td>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">valid</td>
  * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SERVICE</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * </tr>
- * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
- * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATUS</td>
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_VALID</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
@@ -75,33 +63,33 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">subject</td>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">certificateFingerprint</td>
  * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SUBJECT</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CERTIFICATE_FINGERPRINT</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">issuer</td>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">enrollmentMode</td>
  * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ISSUER</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ENROLLMENT_MODE</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">valid</td>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
  * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_VALID</td>
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATUS</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
@@ -123,14 +111,38 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">enrollmentMode</td>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">issuer</td>
  * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ENROLLMENT_MODE</td>
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ISSUER</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">service</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SERVICE</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">subject</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SUBJECT</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
@@ -141,6 +153,11 @@ import java.util.List;
 @Preamble(description = "Options to use when listing trusted certificates.")
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TrustedCertificateListOptions extends ListOptions {
+    /**
+     * Tag for filter by certificateFingerprint.
+     */
+    public static final String TAG_FILTER_BY_CERTIFICATE_FINGERPRINT = "certificateFingerprint";
+
     /**
      * Tag for filter by deviceExecutionMode.
      */
@@ -330,6 +347,45 @@ public class TrustedCertificateListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToName(String filterByName) {
         addEqualToNameFilter(filterByName);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code certificateFingerprint}.
+     * 
+     * @return All the filters by {@code certificateFingerprint}
+     */
+    public List<Filter> getCertificateFingerprintFilters() {
+        return fetchFilters(TAG_FILTER_BY_CERTIFICATE_FINGERPRINT);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code certificateFingerprint}.
+     * 
+     * @param filterByCertificateFingerprint
+     *            filter value.
+     */
+    public void addEqualToCertificateFingerprintFilter(String filterByCertificateFingerprint) {
+        addEqualFilter(TAG_FILTER_BY_CERTIFICATE_FINGERPRINT, filterByCertificateFingerprint);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code certificateFingerprint}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToCertificateFingerprintFilter(String)}
+     * 
+     * @param filterByCertificateFingerprint
+     *            filter value.
+     * @param <T>
+     *            type of a trusted certificate list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T
+           equalToCertificateFingerprint(String filterByCertificateFingerprint) {
+        addEqualToCertificateFingerprintFilter(filterByCertificateFingerprint);
         return (T) this;
     }
 

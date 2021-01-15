@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 List all device block categories
 
-List all device block categories. A block category is a short description of why a device was suspended or returned to service.  **Example:** Get all defined categories of why device is blocked from the device management &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-block-categories \\ -H &#39;Authorization: Bearer &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
+List all device block categories. A block category is a short description of why a device was suspended or returned to service.  **Example:** Get all defined device suspension categories: &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-block-categories \\ -H &#39;Authorization: Bearer &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -36,9 +36,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeviceDirectoryLifecycleApi apiInstance = new DeviceDirectoryLifecycleApi();
-Integer limit = 56; // Integer | This endpoint doesn't support paging. Parameter is accepted for API compatibility. Value is ignored
+Integer limit = 56; // Integer | This endpoint doesn't support paging. Parameter is accepted for API compatibility. Value is ignored.
 String order = "order_example"; // String | Record order. Acceptable values: ASC, DESC. Default: ASC.
-String after = "after_example"; // String | This endpoint doesn't support paging. Parameter is accepted for API compatibility. Value is ignored
+String after = "after_example"; // String | This endpoint doesn't support paging. Parameter is accepted for API compatibility. Value is ignored.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
 String referenceEq = "referenceEq_example"; // String | eq filter for the \"reference\" field
 String referenceNeq = "referenceNeq_example"; // String | neq filter for the \"reference\" field
@@ -61,9 +61,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| This endpoint doesn&#39;t support paging. Parameter is accepted for API compatibility. Value is ignored | [optional]
+ **limit** | **Integer**| This endpoint doesn&#39;t support paging. Parameter is accepted for API compatibility. Value is ignored. | [optional]
  **order** | **String**| Record order. Acceptable values: ASC, DESC. Default: ASC. | [optional]
- **after** | **String**| This endpoint doesn&#39;t support paging. Parameter is accepted for API compatibility. Value is ignored | [optional]
+ **after** | **String**| This endpoint doesn&#39;t support paging. Parameter is accepted for API compatibility. Value is ignored. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
  **referenceEq** | **String**| eq filter for the \&quot;reference\&quot; field | [optional]
  **referenceNeq** | **String**| neq filter for the \&quot;reference\&quot; field | [optional]
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 Return a device to service.
 
-Returning a device to service restores connectivity to the device. All API functionality is restored.  **Example:** Following example enables device to connect again to Pelion Device Management. Note that the category must match the reason why device was suspended. This device was reported stolen but was now found. &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/&lt;device_id&gt;/resume \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;category\&quot;: \&quot;lost_or_stolen\&quot;, \&quot;description\&quot;: \&quot;Was found, was not stolen but miss placed\&quot;}&#39; &#x60;&#x60;&#x60;
+[Returning a device to service](https://developer.pelion.com/docs/device-management/current/device-management/managing-devices-in-your-account.html#using-the-api-suspending-and-resuming-devices) allows the device to connect to Device Management again. The connection is established according to the device&#39;s reconnection logic. The device reports a [registration event](https://developer.pelion.com/docs/device-management-api/connect/) through a [notification channel](https://developer.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html).  The default reconnection logic is a progressive back-off for 2, 4, 8, or 16 seconds, up to one week. All API functionality is restored.  **Example:**  The following example enables a device to reconnect to Pelion Device Management. The category must match the reason device was suspended. This device was reported stolen, but was found: &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/&lt;device_id&gt;/resume \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;category\&quot;: \&quot;lost_or_stolen\&quot;, \&quot;description\&quot;: \&quot;Was found, was not stolen but miss placed\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -205,7 +205,7 @@ Name | Type | Description  | Notes
 
 Suspend a device.
 
-Suspending a device prevents it from connecting to Device Management. If a device is currently connected, it will be disconnected. Some API operations will fail while a device is suspended.  ***Example:* Following example suspends a device with category \&quot;Lost or stolen\&quot;. You can see available categories with &#39;/v3/device-block-categories/&#39;. &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/&lt;device_id&gt;/suspend \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;category\&quot;: \&quot;lost_or_stolen\&quot;, \&quot;description\&quot;: \&quot;EXAMPLE: Customer contacted via phone and reported device being stolen. Specific time of the theft was not know. Device last used in May/2019\&quot;}&#39; &#x60;&#x60;&#x60;
+[Suspending a device](https://developer.pelion.com/docs/device-management/current/device-management/managing-devices-in-your-account.html#suspending-and-resuming-devices) prevents it from connecting to Device Management. If a device is currently connected, it disconnects and shows as deregistered.  You can also receive [deregistration events](https://developer.pelion.com/docs/device-management-api/connect/) in [notification channels](https://developer.pelion.com/docs/device-management/current/integrate-web-app/event-notification.html).  API operations needing device transactions fail while a device is suspended.  Example use case to use suspending is that device is reported lost or stolen. You can block the device to connect and this way prevent  device to cause unreliable data to your system.   ***Example:*   The following example suspends a device with category \&quot;Lost or stolen\&quot;. You can see available categories with &#39;/v3/device-block-categories/&#39;.  &#x60;&#x60;&#x60;  curl -X POST https://api.us-east-1.mbedcloud.com/v3/devices/&lt;device_id&gt;/suspend \\  -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\  -H &#39;content-type: application/json&#39; \\  -d &#39;{ \&quot;category\&quot;: \&quot;lost_or_stolen\&quot;, \&quot;description\&quot;: \&quot;EXAMPLE: Customer contacted via phone and reported device being stolen. Specific time of the theft was not know. Device last used in May/2019\&quot;}&#39;  &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -225,7 +225,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeviceDirectoryLifecycleApi apiInstance = new DeviceDirectoryLifecycleApi();
-String id = "id_example"; // String | The ID of the device.
+String id = "id_example"; // String | The [Device ID](https://developer.pelion.com/docs/device-management/current/connecting/device-identity.html) created by Device Management.
 Block1 block = new Block1(); // Block1 | The device block.
 try {
     Void result = apiInstance.deviceSuspend(id, block);
@@ -240,7 +240,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| The ID of the device. |
+ **id** | **String**| The [Device ID](https://developer.pelion.com/docs/device-management/current/connecting/device-identity.html) created by Device Management. |
  **block** | [**Block1**](Block1.md)| The device block. |
 
 ### Return type

@@ -116,7 +116,23 @@ public class BrandingColor implements Serializable {
 
         SUCCESS_FONT_COLOR("success_font_color"),
 
-        WARNING_FONT_COLOR("warning_font_color");
+        WARNING_FONT_COLOR("warning_font_color"),
+
+        MENU_BACKGROUND_COLOR("menu_background_color"),
+
+        MENU_TEXT_COLOR("menu_text_color"),
+
+        NAV_MENU_BACKGROUND("nav_menu_background"),
+
+        NAV_MENU_BACKGROUND_FONT_COLOR("nav_menu_background_font_color"),
+
+        NAV_MENU_ACTIVE_BACKGROUND("nav_menu_active_background"),
+
+        NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR("nav_menu_active_background_font_color"),
+
+        NAV_MENU_HIGHLIGHT("nav_menu_highlight"),
+
+        NAV_MENU_HIGHLIGHT_FONT_COLOR("nav_menu_highlight_font_color");
 
         private String value;
 

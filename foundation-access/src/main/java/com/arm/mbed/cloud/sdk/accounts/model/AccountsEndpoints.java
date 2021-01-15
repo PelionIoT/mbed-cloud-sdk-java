@@ -18,7 +18,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAcc
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsPolicyGroupsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUserInvitationsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUsersApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantDeviceSecurityCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantSecurityAndIdentityCertificatesApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationColorsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationImagesApi;
 
@@ -54,16 +54,28 @@ public class AccountsEndpoints extends AbstractEndpoints {
     private final TenantUserInterfaceConfigurationImagesApi tenantUserInterfaceConfigurationImagesApi;
 
     /**
+     * Low level endpoints for tenant accounts identity providers apis.
+     */
+    @Internal
+    private final TenantAccountsIdentityProvidersApi tenantAccountsIdentityProvidersApi;
+
+    /**
      * Low level endpoints for account profile apis.
      */
     @Internal
     private final AccountProfileApi accountProfileApi;
 
     /**
-     * Low level endpoints for tenant device security certificates apis.
+     * Low level endpoints for tenant accounts policy groups apis.
      */
     @Internal
-    private final TenantDeviceSecurityCertificatesApi tenantDeviceSecurityCertificatesApi;
+    private final TenantAccountsPolicyGroupsApi tenantAccountsPolicyGroupsApi;
+
+    /**
+     * Low level endpoints for tenant security and identity certificates apis.
+     */
+    @Internal
+    private final TenantSecurityAndIdentityCertificatesApi tenantSecurityAndIdentityCertificatesApi;
 
     /**
      * Low level endpoints for tenant accounts user invitations apis.
@@ -96,18 +108,6 @@ public class AccountsEndpoints extends AbstractEndpoints {
     private final AccountPolicyGroupsApi accountPolicyGroupsApi;
 
     /**
-     * Low level endpoints for tenant accounts identity providers apis.
-     */
-    @Internal
-    private final TenantAccountsIdentityProvidersApi tenantAccountsIdentityProvidersApi;
-
-    /**
-     * Low level endpoints for tenant accounts policy groups apis.
-     */
-    @Internal
-    private final TenantAccountsPolicyGroupsApi tenantAccountsPolicyGroupsApi;
-
-    /**
      * Low level endpoints for account users apis.
      */
     @Internal
@@ -131,15 +131,15 @@ public class AccountsEndpoints extends AbstractEndpoints {
         this.tenantAccountsAccountsApi = initialiseService(TenantAccountsAccountsApi.class);
         this.tenantUserInterfaceConfigurationColorsApi = initialiseService(TenantUserInterfaceConfigurationColorsApi.class);
         this.tenantUserInterfaceConfigurationImagesApi = initialiseService(TenantUserInterfaceConfigurationImagesApi.class);
+        this.tenantAccountsIdentityProvidersApi = initialiseService(TenantAccountsIdentityProvidersApi.class);
         this.accountProfileApi = initialiseService(AccountProfileApi.class);
-        this.tenantDeviceSecurityCertificatesApi = initialiseService(TenantDeviceSecurityCertificatesApi.class);
+        this.tenantAccountsPolicyGroupsApi = initialiseService(TenantAccountsPolicyGroupsApi.class);
+        this.tenantSecurityAndIdentityCertificatesApi = initialiseService(TenantSecurityAndIdentityCertificatesApi.class);
         this.tenantAccountsUserInvitationsApi = initialiseService(TenantAccountsUserInvitationsApi.class);
         this.tenantAccountsUsersApi = initialiseService(TenantAccountsUsersApi.class);
         this.accountApiKeysApi = initialiseService(AccountApiKeysApi.class);
         this.accountIdentityProvidersApi = initialiseService(AccountIdentityProvidersApi.class);
         this.accountPolicyGroupsApi = initialiseService(AccountPolicyGroupsApi.class);
-        this.tenantAccountsIdentityProvidersApi = initialiseService(TenantAccountsIdentityProvidersApi.class);
-        this.tenantAccountsPolicyGroupsApi = initialiseService(TenantAccountsPolicyGroupsApi.class);
         this.accountUsersApi = initialiseService(AccountUsersApi.class);
         this.accountUserInvitationsApi = initialiseService(AccountUserInvitationsApi.class);
     }
@@ -285,13 +285,13 @@ public class AccountsEndpoints extends AbstractEndpoints {
     }
 
     /**
-     * Gets low level endpoints for tenant device security certificates apis.
+     * Gets low level endpoints for tenant security and identity certificates apis.
      * 
-     * @return tenantDeviceSecurityCertificatesApi
+     * @return tenantSecurityAndIdentityCertificatesApi
      */
     @Internal
-    public TenantDeviceSecurityCertificatesApi getTenantDeviceSecurityCertificatesApi() {
-        return tenantDeviceSecurityCertificatesApi;
+    public TenantSecurityAndIdentityCertificatesApi getTenantSecurityAndIdentityCertificatesApi() {
+        return tenantSecurityAndIdentityCertificatesApi;
     }
 
     /**

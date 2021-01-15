@@ -24,9 +24,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Add API key to a list of groups.
      *
-     * Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -43,9 +44,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Add API key to a list of groups.
      *
-     * Add an API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add an API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -63,10 +65,10 @@ public class TenantAccountsApiKeysApiTest {
      * Create a new API key.
      *
      * Create a new API key. There is no default value for the owner ID, and it must be from the same account where the
-     * new API key is created. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
-     * \&quot;MyKey1\&quot;}&#39; &#x60;&#x60;&#x60;
+     * new API key is created. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void createAccountApiKeyTest() {
@@ -80,9 +82,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Delete the API key.
      *
-     * Delete an API key. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Delete an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void deleteAccountApiKeyTest() {
@@ -96,9 +99,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Get API key details.
      *
-     * Retrieve API key details. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve details of an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountApiKeyTest() {
@@ -112,9 +116,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Get all API keys.
      *
-     * Retrieve API keys in an array, optionally filtered by the owner. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve an array of API keys, optionally filtered by the owner. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAllAccountApiKeysTest() {
@@ -132,11 +137,12 @@ public class TenantAccountsApiKeysApiTest {
     }
 
     /**
-     * Get groups associated with the API key.
+     * Get policy groups of an API key.
      *
-     * Retrieve groups associated with the API key. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve an array of policy groups associated with an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getGroupsOfAccountApikeyTest() {
@@ -154,9 +160,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Remove API key from groups.
      *
-     * Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Remove API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -173,9 +180,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Remove API key from groups.
      *
-     * Remove an API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Remove an API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -192,9 +200,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Reset the secret key.
      *
-     * Reset the secret key of the API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Reset the secret key of the API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void resetAccountApiKeySecretTest() {
@@ -209,10 +218,10 @@ public class TenantAccountsApiKeysApiTest {
     /**
      * Update API key details.
      *
-     * Update API key details. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
-     * \&quot;TestApiKey25\&quot;}&#39; &#x60;&#x60;&#x60;
+     * Update API key details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}
+     * \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateAccountApiKeyTest() {

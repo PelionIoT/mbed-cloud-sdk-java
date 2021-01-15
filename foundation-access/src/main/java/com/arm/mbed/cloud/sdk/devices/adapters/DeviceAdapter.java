@@ -103,6 +103,7 @@ public final class DeviceAdapter {
         }
         final Device device = new Device(toBeMapped.getAccountId(),
                                          TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()),
+                                         toBeMapped.getComponentAttributes(),
                                          TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                          translateToDeviceDeployedState(toBeMapped.getDeployedState()),
                                          toBeMapped.getEndpointName(),
@@ -116,6 +117,7 @@ public final class DeviceAdapter {
                                          TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()),
                                          translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()),
                                          TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
+                                         toBeMapped.getNetId(),
                                          TranslationUtils.toBool(toBeMapped.isOperatorSuspended()),
                                          TranslationUtils.toBool(toBeMapped.isSystemSuspended()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));

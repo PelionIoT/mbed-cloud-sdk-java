@@ -53,6 +53,11 @@ public class SubtenantIdentityProvider implements SdkModel {
     private String name;
 
     /**
+     * Represents OIDC specific attributes.
+     */
+    private OidcRequest oidcAttributes;
+
+    /**
      * Represents SAML2 specific attributes in responses.
      */
     private Object saml2Attributes;
@@ -87,6 +92,8 @@ public class SubtenantIdentityProvider implements SdkModel {
      *            Flag indicating whether this is the global default identity provider.
      * @param name
      *            Name of the identity provider.
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
      * @param saml2Attributes
      *            Represents SAML2 specific attributes in responses.
      * @param status
@@ -97,8 +104,8 @@ public class SubtenantIdentityProvider implements SdkModel {
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public SubtenantIdentityProvider(String accountId, Date createdAt, String description, String id, boolean isDefault,
-                                     String name, Object saml2Attributes, SubtenantIdentityProviderStatus status,
-                                     Date updatedAt) {
+                                     String name, OidcRequest oidcAttributes, Object saml2Attributes,
+                                     SubtenantIdentityProviderStatus status, Date updatedAt) {
         super();
         this.createdAt = createdAt;
         this.isDefault = isDefault;
@@ -107,6 +114,7 @@ public class SubtenantIdentityProvider implements SdkModel {
         setDescription(description);
         setId(id);
         setName(name);
+        setOidcAttributes(oidcAttributes);
         setSaml2Attributes(saml2Attributes);
         setStatus(status);
     }
@@ -130,6 +138,7 @@ public class SubtenantIdentityProvider implements SdkModel {
              subtenantIdentityProvider == null ? (String) null : subtenantIdentityProvider.id,
              subtenantIdentityProvider != null && subtenantIdentityProvider.isDefault,
              subtenantIdentityProvider == null ? (String) null : subtenantIdentityProvider.name,
+             subtenantIdentityProvider == null ? (OidcRequest) null : subtenantIdentityProvider.oidcAttributes,
              subtenantIdentityProvider == null ? (Object) null : subtenantIdentityProvider.saml2Attributes,
              subtenantIdentityProvider == null ? SubtenantIdentityProviderStatus.getDefault()
                                                : subtenantIdentityProvider.status,
@@ -140,8 +149,8 @@ public class SubtenantIdentityProvider implements SdkModel {
      * Constructor.
      */
     public SubtenantIdentityProvider() {
-        this((String) null, new Date(), (String) null, (String) null, false, (String) null, (Object) null,
-             SubtenantIdentityProviderStatus.getDefault(), new Date());
+        this((String) null, new Date(), (String) null, (String) null, false, (String) null, (OidcRequest) null,
+             (Object) null, SubtenantIdentityProviderStatus.getDefault(), new Date());
     }
 
     /**
@@ -176,8 +185,8 @@ public class SubtenantIdentityProvider implements SdkModel {
      */
     @Internal
     public SubtenantIdentityProvider(Date createdAt, boolean isDefault, Date updatedAt) {
-        this((String) null, createdAt, (String) null, (String) null, isDefault, (String) null, (Object) null,
-             SubtenantIdentityProviderStatus.getDefault(), updatedAt);
+        this((String) null, createdAt, (String) null, (String) null, isDefault, (String) null, (OidcRequest) null,
+             (Object) null, SubtenantIdentityProviderStatus.getDefault(), updatedAt);
     }
 
     /**
@@ -193,7 +202,7 @@ public class SubtenantIdentityProvider implements SdkModel {
      *            Name of the identity provider.
      */
     public SubtenantIdentityProvider(String accountId, String name) {
-        this(accountId, new Date(), (String) null, (String) null, false, name, (Object) null,
+        this(accountId, new Date(), (String) null, (String) null, false, name, (OidcRequest) null, (Object) null,
              SubtenantIdentityProviderStatus.getDefault(), new Date());
     }
 
@@ -364,6 +373,25 @@ public class SubtenantIdentityProvider implements SdkModel {
     }
 
     /**
+     * Gets represents oidc specific attributes.
+     * 
+     * @return oidcAttributes
+     */
+    public OidcRequest getOidcAttributes() {
+        return oidcAttributes;
+    }
+
+    /**
+     * Sets represents oidc specific attributes.
+     * 
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     */
+    public void setOidcAttributes(OidcRequest oidcAttributes) {
+        this.oidcAttributes = oidcAttributes;
+    }
+
+    /**
      * Gets represents saml2 specific attributes in responses.
      * 
      * @return saml2Attributes
@@ -435,8 +463,9 @@ public class SubtenantIdentityProvider implements SdkModel {
     @Override
     public String toString() {
         return "SubtenantIdentityProvider [accountId=" + accountId + ", createdAt=" + createdAt + ", description="
-               + description + ", id=" + id + ", isDefault=" + isDefault + ", name=" + name + ", saml2Attributes="
-               + saml2Attributes + ", status=" + status + ", updatedAt=" + updatedAt + "]";
+               + description + ", id=" + id + ", isDefault=" + isDefault + ", name=" + name + ", oidcAttributes="
+               + oidcAttributes + ", saml2Attributes=" + saml2Attributes + ", status=" + status + ", updatedAt="
+               + updatedAt + "]";
     }
 
     /**
@@ -457,6 +486,7 @@ public class SubtenantIdentityProvider implements SdkModel {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + Objects.hashCode(Boolean.valueOf(isDefault));
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((oidcAttributes == null) ? 0 : oidcAttributes.hashCode());
         result = prime * result + ((saml2Attributes == null) ? 0 : saml2Attributes.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -539,6 +569,13 @@ public class SubtenantIdentityProvider implements SdkModel {
                 return false;
             }
         } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (oidcAttributes == null) {
+            if (other.oidcAttributes != null) {
+                return false;
+            }
+        } else if (!oidcAttributes.equals(other.oidcAttributes)) {
             return false;
         }
         if (saml2Attributes == null) {

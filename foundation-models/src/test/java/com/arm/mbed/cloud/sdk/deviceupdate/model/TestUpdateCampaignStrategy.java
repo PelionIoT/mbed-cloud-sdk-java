@@ -30,7 +30,7 @@ public class TestUpdateCampaignStrategy {
             updatecampaignstrategy = UpdateCampaignStrategy.getValue("one-shot");
             assertNotNull(updatecampaignstrategy);
             assertFalse(updatecampaignstrategy.isDefault());
-            updatecampaignstrategy = UpdateCampaignStrategy.getValue("5150b1f2-cacb-4391-ad27-56627f43ac2e");
+            updatecampaignstrategy = UpdateCampaignStrategy.getValue("cfe453ca-f122-415e-b179-9887a95ae786");
             assertNotNull(updatecampaignstrategy);
             assertTrue(updatecampaignstrategy.isDefault());
         } catch (Exception exception) {

@@ -46,7 +46,7 @@ public final class SubtenantIdentityProviderAdapter {
         final IdentityProviderCreationReq identityProviderCreationReq = new IdentityProviderCreationReq();
         identityProviderCreationReq.setDescription(toBeMapped.getDescription());
         identityProviderCreationReq.setName(toBeMapped.getName());
-        // No field equivalent to oidcAttributes in IdentityProviderCreationReq was found in SubtenantIdentityProvider
+        identityProviderCreationReq.setOidcAttributes(OidcRequestAdapter.reverseMapAddRequest(toBeMapped.getOidcAttributes()));
         // No adapter method was found in order to perform a translation from Object to SAML2Req for field:
         // saml2Attributes
         identityProviderCreationReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelIdentityprovidercreationreqStatusenum(toBeMapped.getStatus()));
@@ -73,6 +73,7 @@ public final class SubtenantIdentityProviderAdapter {
         subtenantIdentityProvider.setDescription(toBeMapped.getDescription());
         subtenantIdentityProvider.setId(toBeMapped.getId());
         subtenantIdentityProvider.setName(toBeMapped.getName());
+        subtenantIdentityProvider.setOidcAttributes(OidcRequestAdapter.map(toBeMapped.getOidcAttributes()));
         subtenantIdentityProvider.setSaml2Attributes(toBeMapped.getSaml2Attributes());
         subtenantIdentityProvider.setStatus(translateToSubtenantIdentityProviderStatus(toBeMapped.getStatus()));
         return subtenantIdentityProvider;
@@ -240,7 +241,7 @@ public final class SubtenantIdentityProviderAdapter {
         final IdentityProviderUpdateReq identityProviderUpdateReq = new IdentityProviderUpdateReq();
         identityProviderUpdateReq.setDescription(toBeMapped.getDescription());
         identityProviderUpdateReq.setName(toBeMapped.getName());
-        // No field equivalent to oidcAttributes in IdentityProviderUpdateReq was found in SubtenantIdentityProvider
+        identityProviderUpdateReq.setOidcAttributes(OidcRequestAdapter.reverseMapUpdateRequest(toBeMapped.getOidcAttributes()));
         // No adapter method was found in order to perform a translation from Object to SAML2Req for field:
         // saml2Attributes
         identityProviderUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelIdentityproviderupdatereqStatusenum(toBeMapped.getStatus()));

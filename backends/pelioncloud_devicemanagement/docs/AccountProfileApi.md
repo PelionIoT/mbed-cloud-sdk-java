@@ -4,7 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getMyAccountInfo**](AccountProfileApi.md#getMyAccountInfo) | **GET** v3/accounts/me | Get account info.
+[**getMyAccountInfo**](AccountProfileApi.md#getMyAccountInfo) | **GET** v3/accounts/me | Get account information.
 [**updateMyAccount**](AccountProfileApi.md#updateMyAccount) | **PUT** v3/accounts/me | Updates attributes of the account.
 
 
@@ -12,9 +12,9 @@ Method | HTTP request | Description
 # **getMyAccountInfo**
 > AccountInfo getMyAccountInfo(include, properties)
 
-Get account info.
+Get account information.
 
-Retrieve detailed information about the account.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve information about the account.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 Updates attributes of the account.
 
-Update the account.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
+Update the account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java

@@ -61,6 +61,7 @@ public final class PolicyGroupAdapter {
         }
         final PolicyGroup policyGroup = new PolicyGroup(toBeMapped.getAccountId(),
                                                         TranslationUtils.toInt(toBeMapped.getApikeyCount()),
+                                                        TranslationUtils.toInt(toBeMapped.getApplicationCount()),
                                                         TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                         TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
                                                         TranslationUtils.toInt(toBeMapped.getUserCount()));

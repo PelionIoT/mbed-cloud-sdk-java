@@ -52,12 +52,12 @@ public class DeviceQuery implements Serializable {
     }
 
     /**
-     * The timestamp of when the device was created in Device Directory.
+     * The timestamp of when the query was created.
      * 
      * @return createdAt
      **/
     @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true,
-                      value = "The timestamp of when the device was created in Device Directory.")
+                      value = "The timestamp of when the query was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -96,7 +96,7 @@ public class DeviceQuery implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The ID of the query.")
+    @ApiModelProperty(example = "015c30671894000000000001001001e9", required = true, value = "The ID of the query.")
     public String getId() {
         return id;
     }
@@ -115,7 +115,7 @@ public class DeviceQuery implements Serializable {
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The name of the query.")
+    @ApiModelProperty(example = "example-stored-device-query", required = true, value = "The name of the query.")
     public String getName() {
         return name;
     }
@@ -153,7 +153,7 @@ public class DeviceQuery implements Serializable {
      * 
      * @return query
      **/
-    @ApiModelProperty(example = "id=00000000000000000000000000000000", required = true, value = "The device query.")
+    @ApiModelProperty(example = "id=0158d38771f70000000000010010038c", required = true, value = "The device query.")
     public String getQuery() {
         return query;
     }

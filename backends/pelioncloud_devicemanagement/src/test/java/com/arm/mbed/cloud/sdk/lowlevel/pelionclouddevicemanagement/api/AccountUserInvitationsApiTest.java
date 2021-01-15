@@ -20,10 +20,10 @@ public class AccountUserInvitationsApiTest {
     /**
      * Create a user invitation.
      *
-     * Invite a new or existing user. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\
-     * -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;}
-     * &#x60;&#x60;&#x60;
+     * Invite a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
      */
     @Test
     public void createInvitationTest() {
@@ -36,9 +36,10 @@ public class AccountUserInvitationsApiTest {
     /**
      * Delete a user invitation.
      *
-     * Delete an active user invitation sent to a new or existing user. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Delete an active user invitation sent to a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void deleteInvitationTest() {
@@ -49,10 +50,11 @@ public class AccountUserInvitationsApiTest {
     }
 
     /**
-     * Get the details of all user invitations.
+     * Get user invitations.
      *
-     * Retrieve details for all the active user invitations. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * Retrieve an array of active user invitations sent by email. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -69,9 +71,10 @@ public class AccountUserInvitationsApiTest {
     /**
      * Details of a user invitation.
      *
-     * Retrieve the details of an active user invitation. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve the details of an active user invitation. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getInvitationTest() {

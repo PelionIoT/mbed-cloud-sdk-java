@@ -133,6 +133,22 @@ public final class SubtenantDarkThemeColorAdapter {
                 return SubtenantDarkThemeColorReference.SUCCESS_FONT_COLOR;
             case WARNING_FONT_COLOR:
                 return SubtenantDarkThemeColorReference.WARNING_FONT_COLOR;
+            case MENU_BACKGROUND_COLOR:
+                return SubtenantDarkThemeColorReference.MENU_BACKGROUND_COLOR;
+            case MENU_TEXT_COLOR:
+                return SubtenantDarkThemeColorReference.MENU_TEXT_COLOR;
+            case NAV_MENU_BACKGROUND:
+                return SubtenantDarkThemeColorReference.NAV_MENU_BACKGROUND;
+            case NAV_MENU_BACKGROUND_FONT_COLOR:
+                return SubtenantDarkThemeColorReference.NAV_MENU_BACKGROUND_FONT_COLOR;
+            case NAV_MENU_ACTIVE_BACKGROUND:
+                return SubtenantDarkThemeColorReference.NAV_MENU_ACTIVE_BACKGROUND;
+            case NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR:
+                return SubtenantDarkThemeColorReference.NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR;
+            case NAV_MENU_HIGHLIGHT:
+                return SubtenantDarkThemeColorReference.NAV_MENU_HIGHLIGHT;
+            case NAV_MENU_HIGHLIGHT_FONT_COLOR:
+                return SubtenantDarkThemeColorReference.NAV_MENU_HIGHLIGHT_FONT_COLOR;
             default:
                 return SubtenantDarkThemeColorReference.getUnknownEnum();
         }
@@ -291,6 +307,22 @@ public final class SubtenantDarkThemeColorAdapter {
                 return BrandingColor.ReferenceEnum.SUCCESS_FONT_COLOR;
             case WARNING_FONT_COLOR:
                 return BrandingColor.ReferenceEnum.WARNING_FONT_COLOR;
+            case MENU_BACKGROUND_COLOR:
+                return BrandingColor.ReferenceEnum.MENU_BACKGROUND_COLOR;
+            case MENU_TEXT_COLOR:
+                return BrandingColor.ReferenceEnum.MENU_TEXT_COLOR;
+            case NAV_MENU_BACKGROUND:
+                return BrandingColor.ReferenceEnum.NAV_MENU_BACKGROUND;
+            case NAV_MENU_BACKGROUND_FONT_COLOR:
+                return BrandingColor.ReferenceEnum.NAV_MENU_BACKGROUND_FONT_COLOR;
+            case NAV_MENU_ACTIVE_BACKGROUND:
+                return BrandingColor.ReferenceEnum.NAV_MENU_ACTIVE_BACKGROUND;
+            case NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR:
+                return BrandingColor.ReferenceEnum.NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR;
+            case NAV_MENU_HIGHLIGHT:
+                return BrandingColor.ReferenceEnum.NAV_MENU_HIGHLIGHT;
+            case NAV_MENU_HIGHLIGHT_FONT_COLOR:
+                return BrandingColor.ReferenceEnum.NAV_MENU_HIGHLIGHT_FONT_COLOR;
             default:
                 return null;
         }

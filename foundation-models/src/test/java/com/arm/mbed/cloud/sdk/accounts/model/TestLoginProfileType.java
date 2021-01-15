@@ -30,7 +30,7 @@ public class TestLoginProfileType {
             loginprofiletype = LoginProfileType.getValue("NATIVE");
             assertNotNull(loginprofiletype);
             assertFalse(loginprofiletype.isDefault());
-            loginprofiletype = LoginProfileType.getValue("7b299d14-f28b-49d9-8382-f9db200806d2");
+            loginprofiletype = LoginProfileType.getValue("ad2b0abe-d878-4ca2-8110-954245f3a5bb");
             assertNotNull(loginprofiletype);
             assertTrue(loginprofiletype.isDefault());
         } catch (Exception exception) {

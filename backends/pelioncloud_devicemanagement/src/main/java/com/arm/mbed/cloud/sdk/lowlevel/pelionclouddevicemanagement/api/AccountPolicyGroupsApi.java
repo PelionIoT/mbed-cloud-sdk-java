@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApplicationList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
@@ -17,7 +18,9 @@ public interface AccountPolicyGroupsApi {
     /**
      * Add API keys to the group. Add API keys to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; :
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group. (required)
@@ -31,8 +34,10 @@ public interface AccountPolicyGroupsApi {
 
     /**
      * Add API Keys to the group. Add API keys to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/add \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; :
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group. (required)
@@ -45,9 +50,31 @@ public interface AccountPolicyGroupsApi {
                                                @retrofit2.http.Body SubjectList body);
 
     /**
-     * Add users to the group. Add users to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add applications to the group. Add applications to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications/remove \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;applications\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param groupId
+     *            The ID of the group. (required)
+     * @param body
+     *            A list of applications to add to the group. (required)
+     * @return Call&lt;GroupSummary&gt;
+     */
+    @POST("v3/policy-groups/{group_id}/applications/add")
+    Call<GroupSummary>
+        addListedApplicationsToGroup(@retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                     @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Add users to the group. Add users to the group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group. (required)
@@ -60,9 +87,10 @@ public interface AccountPolicyGroupsApi {
                                               @retrofit2.http.Body SubjectList body);
 
     /**
-     * Add members to a group. Add users and API keys to a group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add members to a group. Add users and API keys to a group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;users\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;users\&quot;:
      * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]}&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -78,9 +106,12 @@ public interface AccountPolicyGroupsApi {
                                           @retrofit2.http.Body SubjectList body);
 
     /**
-     * Add users to the group. Add users to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add users to the group. Add users to the group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group. (required)
@@ -93,10 +124,10 @@ public interface AccountPolicyGroupsApi {
                                         @retrofit2.http.Body SubjectList body);
 
     /**
-     * Create a new group. Create a new group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
-     * &#39;content-type: application/json&#39; -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39;
-     * &#x60;&#x60;&#x60;
+     * Create a new group. Create a new group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; -d
+     * &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param body
      *            Details of the group to create. (required)
@@ -107,9 +138,9 @@ public interface AccountPolicyGroupsApi {
     Call<GroupSummary> createGroup(@retrofit2.http.Body GroupCreationInfo body);
 
     /**
-     * Delete a group. Delete a group. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Delete a group. Delete a group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\
+     * -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group to delete. (required)
@@ -119,17 +150,16 @@ public interface AccountPolicyGroupsApi {
     Call<Void> deleteGroup(@retrofit2.http.Path(value = "group_id", encoded = true) String groupId);
 
     /**
-     * Get all group information. Retrieve all group information. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * Get policy groups. Retrieve an array of policy groups. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @param nameEq
@@ -143,19 +173,18 @@ public interface AccountPolicyGroupsApi {
                      @retrofit2.http.Query("name__eq") String nameEq);
 
     /**
-     * Get the API keys of a group. Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get the API keys of a policy group. Retrieve an array of API keys associated with a policy group. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @return Call&lt;ApiKeyInfoRespList&gt;
@@ -167,31 +196,56 @@ public interface AccountPolicyGroupsApi {
                           @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include);
 
     /**
-     * Get group information. Retrieve general information about a group. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
-     * 
-     * @param groupId
-     *            The ID of the group to retrieve. (required)
-     * @return Call&lt;GroupSummary&gt;
-     */
-    @GET("v3/policy-groups/{group_id}")
-    Call<GroupSummary> getGroupSummary(@retrofit2.http.Path(value = "group_id", encoded = true) String groupId);
-
-    /**
-     * Get users of a group. Retrieve users of a group with details. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get the applications of a policy group. Retrieve an array of applications associated with a policy group.
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param groupId
      *            The ID of the group. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
+     * @param include
+     *            Comma-separated additional data to return. Currently supported: total_count. (optional)
+     * @return Call&lt;ApplicationList&gt;
+     */
+    @GET("v3/policy-groups/{group_id}/applications")
+    Call<ApplicationList>
+        getApplicationsOfGroup(@retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                               @retrofit2.http.Query("limit") Integer limit,
+                               @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order,
+                               @retrofit2.http.Query("include") String include);
+
+    /**
+     * Get a policy group. Retrieve a policy group. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param groupId
+     *            The ID of the policy group to retrieve. (required)
+     * @return Call&lt;GroupSummary&gt;
+     */
+    @GET("v3/policy-groups/{group_id}")
+    Call<GroupSummary> getGroupSummary(@retrofit2.http.Path(value = "group_id", encoded = true) String groupId);
+
+    /**
+     * Get users of a policy group. Retrieve an array of users associated with a policy group. &lt;b&gt;Note:&lt;/b&gt;
+     * This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param groupId
+     *            The ID of the group. (required)
+     * @param limit
+     *            The number of results to return (2-1000). Default 50. (optional, default to 50)
+     * @param after
+     *            The entity ID to retrieve after the given one. (optional)
+     * @param order
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @param statusEq
@@ -214,8 +268,8 @@ public interface AccountPolicyGroupsApi {
     /**
      * Remove API keys from a group. Remove API keys from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @param groupId
@@ -232,8 +286,8 @@ public interface AccountPolicyGroupsApi {
     /**
      * Remove API keys from a group. Remove API keys from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; :
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @param groupId
@@ -249,10 +303,31 @@ public interface AccountPolicyGroupsApi {
                                      @retrofit2.http.Body SubjectList body);
 
     /**
-     * Remove users from a group. Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Remove applications from a group. Remove applications from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications/remove \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;applications\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param groupId
+     *            The ID of the group. (required)
+     * @param body
+     *            A list of applications to remove from the group. (required)
+     * @return Call&lt;GroupSummary&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/policy-groups/{group_id}/applications/remove")
+    Call<GroupSummary>
+        removeListedApplicationsFromGroup(@retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                          @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Remove users from a group. Remove users from a policy group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @param groupId
@@ -268,10 +343,11 @@ public interface AccountPolicyGroupsApi {
                                    @retrofit2.http.Body SubjectList body);
 
     /**
-     * Remove users from a group. Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Remove users from a group. Manage policy groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @param groupId
@@ -286,9 +362,10 @@ public interface AccountPolicyGroupsApi {
                                             @retrofit2.http.Body SubjectList body);
 
     /**
-     * Update the group name. Update a group name. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update the group name. Update a group name. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
      * \&quot;TestGroup2\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param groupId

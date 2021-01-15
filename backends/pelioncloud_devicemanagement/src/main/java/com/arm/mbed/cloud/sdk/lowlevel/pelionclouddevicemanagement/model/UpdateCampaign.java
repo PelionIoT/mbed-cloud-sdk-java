@@ -479,12 +479,12 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The filter for the devices the campaign is targeting at.
+     * The filter for the devices the campaign targets. Refer to this using the filter ID.
      * 
      * @return deviceFilter
      **/
-    @ApiModelProperty(example = "id__eq=00000000000000000000000000000000",
-                      value = "The filter for the devices the campaign is targeting at.")
+    @ApiModelProperty(example = "state__eq=registered",
+                      value = "The filter for the devices the campaign targets. Refer to this using the filter ID.")
     public String getDeviceFilter() {
         return deviceFilter;
     }
@@ -541,7 +541,7 @@ public class UpdateCampaign implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The campaign ID.")
+    @ApiModelProperty(example = "016e83ddc648000000000001001000f5", value = "The campaign ID.")
     public String getId() {
         return id;
     }
@@ -579,7 +579,7 @@ public class UpdateCampaign implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name: always 'update-campaign'.")
+    @ApiModelProperty(example = "update-campaign", value = "Entity name: always 'update-campaign'.")
     public String getObject() {
         return object;
     }
@@ -617,7 +617,7 @@ public class UpdateCampaign implements Serializable {
      * 
      * @return rootManifestId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000",
+    @ApiModelProperty(example = "016e83dce36a00000000000100100102",
                       value = "The ID of the manifest that will be sent to the device as part of the campaign.")
     public String getRootManifestId() {
         return rootManifestId;
@@ -637,7 +637,7 @@ public class UpdateCampaign implements Serializable {
      * 
      * @return rootManifestUrl
      **/
-    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000",
+    @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/016e83dce36a00000000000100100102",
                       value = "The URL for the manifest that will be sent to the device as part of the campaign.")
     public String getRootManifestUrl() {
         return rootManifestUrl;

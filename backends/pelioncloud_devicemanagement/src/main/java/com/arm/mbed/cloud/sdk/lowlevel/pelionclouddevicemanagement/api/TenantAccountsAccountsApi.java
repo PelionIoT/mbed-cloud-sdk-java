@@ -6,15 +6,17 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountCreationReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateRootReq;
 
 public interface TenantAccountsAccountsApi {
     /**
-     * Create a new account. Create a new account. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
-     * &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;,
+     * Create a new account. Create a new account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \\
+     * -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;, \&quot;aliases\&quot;: [ \&quot;my-account\&quot; ],
      * \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;:
      * \&quot;example_admin@myaccount.info\&quot;, \&quot;country\&quot;: \&quot;United Kingdom\&quot;,
      * \&quot;end_market\&quot;: \&quot;Smart City\&quot;, \&quot;address_line1\&quot;: \&quot;110 Fulbourn Rd\&quot;,
@@ -31,20 +33,21 @@ public interface TenantAccountsAccountsApi {
      *            its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to
      *            finish enrollment or notify the existing user about the new account is sent to the
      *            &#x60;admin_email&#x60; defined in the request. &lt;/li&gt;&lt;/ul&gt; (optional, default to create)
-     * @return Call&lt;AccountInfo&gt;
+     * @return Call&lt;AccountCreationResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/accounts")
-    Call<AccountInfo> createAccount(@retrofit2.http.Body AccountCreationReq body,
-                                    @retrofit2.http.Query("action") String action);
+    Call<AccountCreationResp> createAccount(@retrofit2.http.Body AccountCreationReq body,
+                                            @retrofit2.http.Query("action") String action);
 
     /**
-     * Get account info. Retrieve detailed information about an account. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Get account information. Retrieve detailed information about an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint
+     * is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            The ID of the account to fetch. (required)
+     *            The ID of the account to retrieve. (required)
      * @param include
      *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
      *            history. (optional)
@@ -58,9 +61,10 @@ public interface TenantAccountsAccountsApi {
                                      @retrofit2.http.Query("properties") String properties);
 
     /**
-     * Get all accounts. Returns an array of account objects, optionally filtered by status and tier level. **Example:**
-     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get all accounts. Retrieve an array of tenant accounts, optionally filtered by status and tier level.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * GET https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param statusEq
      *            An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED, or SUSPENDED. (optional)
@@ -80,7 +84,7 @@ public interface TenantAccountsAccountsApi {
      * @param limit
      *            The number of results to return (2-1000). Default 1000. (optional, default to 1000)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
      *            Record order. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
@@ -107,9 +111,10 @@ public interface TenantAccountsAccountsApi {
                        @retrofit2.http.Query("properties") String properties);
 
     /**
-     * Update attributes of an existing account. Update an account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update attributes of an existing account. Update an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;:
      * \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId

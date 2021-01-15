@@ -25,13 +25,13 @@ public class TestLightThemeImageReference {
                                                                                                  .getString());
             assertNotNull(lightthemeimagereference);
             assertTrue(lightthemeimagereference.isDefault());
-            lightthemeimagereference = LightThemeImageReference.getValue("BRAND_LOGO_EMAIL");
+            lightthemeimagereference = LightThemeImageReference.getValue("APP_LOGO_LANDSCAPE");
             assertNotNull(lightthemeimagereference);
             assertTrue(lightthemeimagereference.isDefault());
-            lightthemeimagereference = LightThemeImageReference.getValue("brand_logo_landscape");
+            lightthemeimagereference = LightThemeImageReference.getValue("app_logo_portrait");
             assertNotNull(lightthemeimagereference);
             assertFalse(lightthemeimagereference.isDefault());
-            lightthemeimagereference = LightThemeImageReference.getValue("1452df61-509b-4c6b-a7da-117dd8cbd865");
+            lightthemeimagereference = LightThemeImageReference.getValue("6380064a-ff44-4779-9372-21fa8c7f7370");
             assertNotNull(lightthemeimagereference);
             assertTrue(lightthemeimagereference.isDefault());
         } catch (Exception exception) {

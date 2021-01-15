@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **createdAt** | [**DateTime**](DateTime.md) | The time the entity was created. |  [optional]
-**datafile** | **String** | The firmware image file URL |  [optional]
+**datafile** | **String** | The firmware image file URL. |  [optional]
 **datafileChecksum** | **String** | The checksum (sha256) generated for the datafile. |  [optional]
 **datafileSize** | **Long** | The size of the datafile in bytes. |  [optional]
 **description** | **String** | The description of the object. |  [optional]

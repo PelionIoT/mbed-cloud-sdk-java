@@ -80,12 +80,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The firmware image file URL
+     * The firmware image file URL.
      * 
      * @return datafile
      **/
-    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000",
-                      value = "The firmware image file URL")
+    @ApiModelProperty(example = "http://bucket.com/myimage.elf", value = "The firmware image file URL.")
     public String getDatafile() {
         return datafile;
     }
@@ -104,7 +103,7 @@ public class FirmwareImage implements Serializable {
      * 
      * @return datafileChecksum
      **/
-    @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000",
+    @ApiModelProperty(example = "e979fe432d6a19b0e70a93b33ac29094cd5fe35a8fd5fbedfd383d8d107d6a7e",
                       value = "The checksum (sha256) generated for the datafile.")
     public String getDatafileChecksum() {
         return datafileChecksum;
@@ -181,7 +180,7 @@ public class FirmwareImage implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The firmware image ID.")
+    @ApiModelProperty(example = "016e652be671000000000001001001e5", value = "The firmware image ID.")
     public String getId() {
         return id;
     }
@@ -219,7 +218,7 @@ public class FirmwareImage implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name: always 'firmware-image'.")
+    @ApiModelProperty(example = "firmware-image", value = "Entity name: always 'firmware-image'.")
     public String getObject() {
         return object;
     }

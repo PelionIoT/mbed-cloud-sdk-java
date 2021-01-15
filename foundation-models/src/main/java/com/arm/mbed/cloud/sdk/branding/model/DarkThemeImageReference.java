@@ -13,6 +13,12 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
  */
 @Preamble(description = "Dark theme image reference.")
 public enum DarkThemeImageReference implements SdkEnum {
+    APP_LOGO_LANDSCAPE("app_logo_landscape"),
+
+    APP_LOGO_PORTRAIT("app_logo_portrait"),
+
+    APP_LOGO_SQUARE("app_logo_square"),
+
     BRAND_LOGO_EMAIL("brand_logo_email"),
 
     BRAND_LOGO_LANDSCAPE("brand_logo_landscape"),
@@ -99,7 +105,7 @@ public enum DarkThemeImageReference implements SdkEnum {
      */
     @Internal
     @Required
-    @DefaultValue("BRAND_LOGO_EMAIL")
+    @DefaultValue("APP_LOGO_LANDSCAPE")
     private final String string;
 
     /**
@@ -109,7 +115,7 @@ public enum DarkThemeImageReference implements SdkEnum {
      *            string representation.
      */
     @Internal
-    DarkThemeImageReference(@DefaultValue("BRAND_LOGO_EMAIL") String string) {
+    DarkThemeImageReference(@DefaultValue("APP_LOGO_LANDSCAPE") String string) {
         this.string = string;
     }
 
@@ -169,7 +175,7 @@ public enum DarkThemeImageReference implements SdkEnum {
      * @return default dark theme image reference
      */
     public static DarkThemeImageReference getDefault() {
-        return BRAND_LOGO_EMAIL;
+        return APP_LOGO_LANDSCAPE;
     }
 
     /**

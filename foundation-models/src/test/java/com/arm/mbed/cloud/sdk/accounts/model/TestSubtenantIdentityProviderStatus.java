@@ -31,7 +31,7 @@ public class TestSubtenantIdentityProviderStatus {
             subtenantidentityproviderstatus = SubtenantIdentityProviderStatus.getValue("SUSPENDED");
             assertNotNull(subtenantidentityproviderstatus);
             assertFalse(subtenantidentityproviderstatus.isDefault());
-            subtenantidentityproviderstatus = SubtenantIdentityProviderStatus.getValue("b4409688-5c99-46f8-acd8-93dc2a1fd4fd");
+            subtenantidentityproviderstatus = SubtenantIdentityProviderStatus.getValue("27aef724-14ec-41b5-9c43-d054d3d35b47");
             assertNotNull(subtenantidentityproviderstatus);
             assertTrue(subtenantidentityproviderstatus.isDefault());
         } catch (Exception exception) {

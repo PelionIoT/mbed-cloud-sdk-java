@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -102,6 +103,59 @@ public class UpdateCampaignPostRequest implements Serializable {
 
     @SerializedName("root_manifest_id")
     private String rootManifestId = null;
+
+    /**
+     * DEPRECATED: The state of the campaign (use phase instead)
+     */
+    @JsonAdapter(StateEnum.Adapter.class)
+    public enum StateEnum {
+        DRAFT("draft"),
+
+        SCHEDULED("scheduled");
+
+        private String value;
+
+        StateEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static StateEnum fromValue(String text) {
+            for (StateEnum b : StateEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<StateEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final StateEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public StateEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return StateEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
+    @SerializedName("state")
+    private StateEnum state = null;
+
+    @SerializedName("when")
+    private DateTime when = null;
 
     public UpdateCampaignPostRequest approvalRequired(Boolean approvalRequired) {
         this.approvalRequired = approvalRequired;
@@ -206,12 +260,12 @@ public class UpdateCampaignPostRequest implements Serializable {
     }
 
     /**
-     * The filter for the devices the campaign is targeted at.
+     * The filter for the devices the campaign targets. Refer to this using the filter ID.
      * 
      * @return deviceFilter
      **/
-    @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", required = true,
-                      value = "The filter for the devices the campaign is targeted at.")
+    @ApiModelProperty(example = "state__eq=registered", required = true,
+                      value = "The filter for the devices the campaign targets. Refer to this using the filter ID.")
     public String getDeviceFilter() {
         return deviceFilter;
     }
@@ -249,13 +303,52 @@ public class UpdateCampaignPostRequest implements Serializable {
      * 
      * @return rootManifestId
      **/
-    @ApiModelProperty(example = "12345678901234567890123456789012", value = "")
+    @ApiModelProperty(example = "016e83b46477000000000001001001f3", value = "")
     public String getRootManifestId() {
         return rootManifestId;
     }
 
     public void setRootManifestId(String rootManifestId) {
         this.rootManifestId = rootManifestId;
+    }
+
+    public UpdateCampaignPostRequest state(StateEnum state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * DEPRECATED: The state of the campaign (use phase instead)
+     * 
+     * @return state
+     **/
+    @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead)")
+    public StateEnum getState() {
+        return state;
+    }
+
+    public void setState(StateEnum state) {
+        this.state = state;
+    }
+
+    public UpdateCampaignPostRequest when(DateTime when) {
+        this.when = when;
+        return this;
+    }
+
+    /**
+     * The scheduled start time for the update campaign. Not in use.
+     * 
+     * @return when
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
+                      value = "The scheduled start time for the update campaign. Not in use.")
+    public DateTime getWhen() {
+        return when;
+    }
+
+    public void setWhen(DateTime when) {
+        this.when = when;
     }
 
     @Override
@@ -274,13 +367,15 @@ public class UpdateCampaignPostRequest implements Serializable {
                && Objects.equals(this.description, updateCampaignPostRequest.description)
                && Objects.equals(this.deviceFilter, updateCampaignPostRequest.deviceFilter)
                && Objects.equals(this.name, updateCampaignPostRequest.name)
-               && Objects.equals(this.rootManifestId, updateCampaignPostRequest.rootManifestId);
+               && Objects.equals(this.rootManifestId, updateCampaignPostRequest.rootManifestId)
+               && Objects.equals(this.state, updateCampaignPostRequest.state)
+               && Objects.equals(this.when, updateCampaignPostRequest.when);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(approvalRequired, autostop, autostopSuccessPercent, campaignStrategy, description,
-                            deviceFilter, name, rootManifestId);
+                            deviceFilter, name, rootManifestId, state, when);
     }
 
     @Override
@@ -296,6 +391,8 @@ public class UpdateCampaignPostRequest implements Serializable {
         sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
+        sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("    when: ").append(toIndentedString(when)).append("\n");
         sb.append("}");
         return sb.toString();
     }

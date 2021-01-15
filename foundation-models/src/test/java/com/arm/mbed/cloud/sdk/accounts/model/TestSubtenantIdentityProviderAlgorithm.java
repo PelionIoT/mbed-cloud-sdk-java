@@ -31,7 +31,7 @@ public class TestSubtenantIdentityProviderAlgorithm {
             subtenantidentityprovideralgorithm = SubtenantIdentityProviderAlgorithm.getValue("EC256");
             assertNotNull(subtenantidentityprovideralgorithm);
             assertFalse(subtenantidentityprovideralgorithm.isDefault());
-            subtenantidentityprovideralgorithm = SubtenantIdentityProviderAlgorithm.getValue("1f35350d-2c3d-46e6-9ffc-f5bd5d5adc60");
+            subtenantidentityprovideralgorithm = SubtenantIdentityProviderAlgorithm.getValue("0c39eaac-c33e-4c67-a917-bae0b9b396b1");
             assertNotNull(subtenantidentityprovideralgorithm);
             assertTrue(subtenantidentityprovideralgorithm.isDefault());
         } catch (Exception exception) {

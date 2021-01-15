@@ -63,14 +63,15 @@ public class Resource implements Serializable {
     }
 
     /**
-     * Application-specific resource type that describes this resource. It is created by the [client side
-     * application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable
-     * name for the resource. Multiple resource types may be included, separated by a space.
+     * Application-specific resource type that describes this resource, created by the [client
+     * application](https://developer.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html).
+     * Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a
+     * space.
      * 
      * @return rt
      **/
     @ApiModelProperty(example = "light_sensor",
-                      value = "Application-specific resource type that describes this resource. It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a space.")
+                      value = "Application-specific resource type that describes this resource, created by the [client application](https://developer.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a space.")
     public String getRt() {
         return rt;
     }
@@ -85,13 +86,13 @@ public class Resource implements Serializable {
     }
 
     /**
-     * The content type of the resource. We recommend you use the **resource types** listed in the [LwM2M
-     * specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).
+     * The content type of the resource. We recommend you use the content types listed in the [LwM2M
+     * specification](http://www.openmobilealliance.org/wp/omna/lwm2m/lwm2mregistry.html).
      * 
      * @return type
      **/
     @ApiModelProperty(example = "text/plain",
-                      value = "The content type of the resource.  We recommend you use the **resource types** listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).")
+                      value = "The content type of the resource.  We recommend you use the content types listed in the [LwM2M specification](http://www.openmobilealliance.org/wp/omna/lwm2m/lwm2mregistry.html).")
     public String getType() {
         return type;
     }
@@ -106,11 +107,15 @@ public class Resource implements Serializable {
     }
 
     /**
-     * The resource URL.
+     * The resource URL. This can be the path to: - An object; for example, &#x60;3303&#x60;. - An object instance; for
+     * example &#x60;3303/0&#x60;. - A resource; for example &#x60;3303/0/5602&#x60;. For more information about the
+     * Device Management resource model, please see the [Device Management
+     * documentation](https://developer.pelion.com/docs/device-management/current/resources/resource-model.html).
      * 
      * @return uri
      **/
-    @ApiModelProperty(example = "/sen/light", required = true, value = "The resource URL.")
+    @ApiModelProperty(example = "/sen/light", required = true,
+                      value = "The resource URL. This can be the path to:  - An object; for example, `3303`. - An object instance; for example `3303/0`. - A resource; for example `3303/0/5602`.  For more information about the Device Management resource model, please see the [Device Management documentation](https://developer.pelion.com/docs/device-management/current/resources/resource-model.html).")
     public String getUri() {
         return uri;
     }

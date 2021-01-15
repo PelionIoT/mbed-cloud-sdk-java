@@ -350,11 +350,12 @@ public class TrustedCertificateResp implements Serializable {
     }
 
     /**
-     * If true, signature is not required. Default value false.
+     * DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      * 
      * @return enrollmentMode
      **/
-    @ApiModelProperty(example = "false", value = "If true, signature is not required. Default value false.")
+    @ApiModelProperty(example = "false",
+                      value = "DEPRECATED: Certificate is used in enrollment mode. Default value is false.")
     public Boolean isEnrollmentMode() {
         return enrollmentMode;
     }

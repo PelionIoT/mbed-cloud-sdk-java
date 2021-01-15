@@ -42,24 +42,6 @@ public class AccountInfo implements Serializable {
     @SerializedName("address_line2")
     private String addressLine2 = null;
 
-    @SerializedName("admin_email")
-    private String adminEmail = null;
-
-    @SerializedName("admin_full_name")
-    private String adminFullName = null;
-
-    @SerializedName("admin_id")
-    private String adminId = null;
-
-    @SerializedName("admin_key")
-    private String adminKey = null;
-
-    @SerializedName("admin_name")
-    private String adminName = null;
-
-    @SerializedName("admin_password")
-    private String adminPassword = null;
-
     @SerializedName("aliases")
     private List<String> aliases = null;
 
@@ -320,6 +302,9 @@ public class AccountInfo implements Serializable {
     @SerializedName("tier")
     private String tier = null;
 
+    @SerializedName("tier_history")
+    private List<TierHistory> tierHistory = null;
+
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
 
@@ -364,117 +349,6 @@ public class AccountInfo implements Serializable {
         this.addressLine2 = addressLine2;
     }
 
-    public AccountInfo adminEmail(String adminEmail) {
-        this.adminEmail = adminEmail;
-        return this;
-    }
-
-    /**
-     * The email address of the admin user created for this account. Present only in the response for account creation.
-     * 
-     * @return adminEmail
-     **/
-    @ApiModelProperty(example = "admin@arm.com",
-                      value = "The email address of the admin user created for this account. Present only in the response for account creation.")
-    public String getAdminEmail() {
-        return adminEmail;
-    }
-
-    public void setAdminEmail(String adminEmail) {
-        this.adminEmail = adminEmail;
-    }
-
-    public AccountInfo adminFullName(String adminFullName) {
-        this.adminFullName = adminFullName;
-        return this;
-    }
-
-    /**
-     * The full name of the admin user created for this account. Present only in the response for account creation.
-     * 
-     * @return adminFullName
-     **/
-    @ApiModelProperty(example = "Admin Doe",
-                      value = "The full name of the admin user created for this account. Present only in the response for account creation.")
-    public String getAdminFullName() {
-        return adminFullName;
-    }
-
-    public void setAdminFullName(String adminFullName) {
-        this.adminFullName = adminFullName;
-    }
-
-    public AccountInfo adminId(String adminId) {
-        this.adminId = adminId;
-        return this;
-    }
-
-    /**
-     * The ID of the admin user created for this account. Present only in the response for the account creation.
-     * 
-     * @return adminId
-     **/
-    @ApiModelProperty(example = "01619571e2e89242ac12000600000000",
-                      value = "The ID of the admin user created for this account. Present only in the response for the account creation.")
-    public String getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(String adminId) {
-        this.adminId = adminId;
-    }
-
-    /**
-     * The admin API key created for this account. Present only in the response for account creation.
-     * 
-     * @return adminKey
-     **/
-    @ApiModelProperty(example = "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                      value = "The admin API key created for this account. Present only in the response for account creation.")
-    public String getAdminKey() {
-        return adminKey;
-    }
-
-    public AccountInfo adminName(String adminName) {
-        this.adminName = adminName;
-        return this;
-    }
-
-    /**
-     * The username of the admin user created for this account. Present only in the response for account creation.
-     * 
-     * @return adminName
-     **/
-    @ApiModelProperty(example = "admin",
-                      value = "The username of the admin user created for this account. Present only in the response for account creation.")
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
-
-    public AccountInfo adminPassword(String adminPassword) {
-        this.adminPassword = adminPassword;
-        return this;
-    }
-
-    /**
-     * The password of the admin user created for this account. Present only in the response for account creation.
-     * 
-     * @return adminPassword
-     **/
-    @ApiModelProperty(example = "PZf9eEUH43DAPE9ULINFeuj",
-                      value = "The password of the admin user created for this account. Present only in the response for account creation.")
-    public String getAdminPassword() {
-        return adminPassword;
-    }
-
-    public void setAdminPassword(String adminPassword) {
-        this.adminPassword = adminPassword;
-    }
-
     public AccountInfo aliases(List<String> aliases) {
         this.aliases = aliases;
         return this;
@@ -489,11 +363,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * An array of aliases.
+     * An array of aliases for the tenant account ID. The aliases must be globally unique.
      * 
      * @return aliases
      **/
-    @ApiModelProperty(value = "An array of aliases.")
+    @ApiModelProperty(value = "An array of aliases for the tenant account ID. The aliases must be globally unique.")
     public List<String> getAliases() {
         return aliases;
     }
@@ -573,11 +447,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The name of the company.
+     * The name of the company used in billing.
      * 
      * @return company
      **/
-    @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company.")
+    @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company used in billing.")
     public String getCompany() {
         return company;
     }
@@ -714,11 +588,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The display name for the account.
+     * The display name for the tenant account.
      * 
      * @return displayName
      **/
-    @ApiModelProperty(example = "ARM", value = "The display name for the account.")
+    @ApiModelProperty(example = "ARM", value = "The display name for the tenant account.")
     public String getDisplayName() {
         return displayName;
     }
@@ -902,11 +776,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * List of limits as key-value pairs if requested.
+     * DEPRECATED: Replaced by the limitations parameter.
      * 
      * @return limits
      **/
-    @ApiModelProperty(value = "List of limits as key-value pairs if requested.")
+    @ApiModelProperty(value = "DEPRECATED: Replaced by the limitations parameter.")
     public Map<String, String> getLimits() {
         return limits;
     }
@@ -1283,6 +1157,33 @@ public class AccountInfo implements Serializable {
         this.tier = tier;
     }
 
+    public AccountInfo tierHistory(List<TierHistory> tierHistory) {
+        this.tierHistory = tierHistory;
+        return this;
+    }
+
+    public AccountInfo addTierHistoryItem(TierHistory tierHistoryItem) {
+        if (this.tierHistory == null) {
+            this.tierHistory = new ArrayList<TierHistory>();
+        }
+        this.tierHistory.add(tierHistoryItem);
+        return this;
+    }
+
+    /**
+     * Tier history for this account.
+     * 
+     * @return tierHistory
+     **/
+    @ApiModelProperty(value = "Tier history for this account.")
+    public List<TierHistory> getTierHistory() {
+        return tierHistory;
+    }
+
+    public void setTierHistory(List<TierHistory> tierHistory) {
+        this.tierHistory = tierHistory;
+    }
+
     public AccountInfo updatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
@@ -1333,12 +1234,6 @@ public class AccountInfo implements Serializable {
         AccountInfo accountInfo = (AccountInfo) o;
         return Objects.equals(this.addressLine1, accountInfo.addressLine1)
                && Objects.equals(this.addressLine2, accountInfo.addressLine2)
-               && Objects.equals(this.adminEmail, accountInfo.adminEmail)
-               && Objects.equals(this.adminFullName, accountInfo.adminFullName)
-               && Objects.equals(this.adminId, accountInfo.adminId)
-               && Objects.equals(this.adminKey, accountInfo.adminKey)
-               && Objects.equals(this.adminName, accountInfo.adminName)
-               && Objects.equals(this.adminPassword, accountInfo.adminPassword)
                && Objects.equals(this.aliases, accountInfo.aliases)
                && Objects.equals(this.businessModel, accountInfo.businessModel)
                && Objects.equals(this.businessModelHistory, accountInfo.businessModelHistory)
@@ -1372,19 +1267,20 @@ public class AccountInfo implements Serializable {
                && Objects.equals(this.state, accountInfo.state) && Objects.equals(this.status, accountInfo.status)
                && Objects.equals(this.subAccounts, accountInfo.subAccounts)
                && Objects.equals(this.templateId, accountInfo.templateId) && Objects.equals(this.tier, accountInfo.tier)
+               && Objects.equals(this.tierHistory, accountInfo.tierHistory)
                && Objects.equals(this.updatedAt, accountInfo.updatedAt)
                && Objects.equals(this.upgradedAt, accountInfo.upgradedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(addressLine1, addressLine2, adminEmail, adminFullName, adminId, adminKey, adminName,
-                            adminPassword, aliases, businessModel, businessModelHistory, city, company, contact,
-                            contractNumber, country, createdAt, customFields, customerNumber, displayName, email,
-                            endMarket, etag, expiration, expirationWarningThreshold, id, idleTimeout, limitations,
-                            limits, mfaStatus, notificationEmails, object, parentAccount, parentId, passwordPolicy,
-                            passwordRecoveryExpiration, phoneNumber, policies, postalCode, reason, referenceNote,
-                            salesContact, state, status, subAccounts, templateId, tier, updatedAt, upgradedAt);
+        return Objects.hash(addressLine1, addressLine2, aliases, businessModel, businessModelHistory, city, company,
+                            contact, contractNumber, country, createdAt, customFields, customerNumber, displayName,
+                            email, endMarket, etag, expiration, expirationWarningThreshold, id, idleTimeout,
+                            limitations, limits, mfaStatus, notificationEmails, object, parentAccount, parentId,
+                            passwordPolicy, passwordRecoveryExpiration, phoneNumber, policies, postalCode, reason,
+                            referenceNote, salesContact, state, status, subAccounts, templateId, tier, tierHistory,
+                            updatedAt, upgradedAt);
     }
 
     @Override
@@ -1394,12 +1290,6 @@ public class AccountInfo implements Serializable {
 
         sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
         sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
-        sb.append("    adminEmail: ").append(toIndentedString(adminEmail)).append("\n");
-        sb.append("    adminFullName: ").append(toIndentedString(adminFullName)).append("\n");
-        sb.append("    adminId: ").append(toIndentedString(adminId)).append("\n");
-        sb.append("    adminKey: ").append(toIndentedString(adminKey)).append("\n");
-        sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
-        sb.append("    adminPassword: ").append(toIndentedString(adminPassword)).append("\n");
         sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
         sb.append("    businessModel: ").append(toIndentedString(businessModel)).append("\n");
         sb.append("    businessModelHistory: ").append(toIndentedString(businessModelHistory)).append("\n");
@@ -1439,6 +1329,7 @@ public class AccountInfo implements Serializable {
         sb.append("    subAccounts: ").append(toIndentedString(subAccounts)).append("\n");
         sb.append("    templateId: ").append(toIndentedString(templateId)).append("\n");
         sb.append("    tier: ").append(toIndentedString(tier)).append("\n");
+        sb.append("    tierHistory: ").append(toIndentedString(tierHistory)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    upgradedAt: ").append(toIndentedString(upgradedAt)).append("\n");
         sb.append("}");

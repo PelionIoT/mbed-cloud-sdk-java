@@ -85,4 +85,34 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         return store.get(ModelAdapter.generateName(correspondingModelIdentifier));
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((modelFetcher == null) ? 0 : modelFetcher.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ModelAdapterFetcher other = (ModelAdapterFetcher) obj;
+        if (modelFetcher == null) {
+            if (other.modelFetcher != null)
+                return false;
+        } else if (!modelFetcher.equals(other.modelFetcher))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "{\"ModelAdapterFetcher\": {\"modelFetcher\":\"" + modelFetcher + "\", \"store\":\"" + store + "\"}}";
+    }
+
 }

@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createInvitation**](AccountUserInvitationsApi.md#createInvitation) | **POST** v3/user-invitations | Create a user invitation.
 [**deleteInvitation**](AccountUserInvitationsApi.md#deleteInvitation) | **DELETE** v3/user-invitations/{invitation_id} | Delete a user invitation.
-[**getAllInvitations**](AccountUserInvitationsApi.md#getAllInvitations) | **GET** v3/user-invitations | Get the details of all user invitations.
+[**getAllInvitations**](AccountUserInvitationsApi.md#getAllInvitations) | **GET** v3/user-invitations | Get user invitations.
 [**getInvitation**](AccountUserInvitationsApi.md#getInvitation) | **GET** v3/user-invitations/{invitation_id} | Details of a user invitation.
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 Create a user invitation.
 
-Invite a new or existing user.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
+Invite a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 Delete a user invitation.
 
-Delete an active user invitation sent to a new or existing user.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Delete an active user invitation sent to a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -124,9 +124,9 @@ Name | Type | Description  | Notes
 # **getAllInvitations**
 > UserInvitationRespList getAllInvitations(limit, after, order, loginProfilesEq)
 
-Get the details of all user invitations.
+Get user invitations.
 
-Retrieve details for all the active user invitations.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of active user invitations sent by email. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -147,8 +147,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 AccountUserInvitationsApi apiInstance = new AccountUserInvitationsApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String loginProfilesEq = "loginProfilesEq_example"; // String | Filter to retrieve user invitations by a specified login profile.
 try {
     UserInvitationRespList result = apiInstance.getAllInvitations(limit, after, order, loginProfilesEq);
@@ -164,8 +164,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **loginProfilesEq** | **String**| Filter to retrieve user invitations by a specified login profile. | [optional]
 
 ### Return type
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 
 Details of a user invitation.
 
-Retrieve the details of an active user invitation.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve the details of an active user invitation. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java

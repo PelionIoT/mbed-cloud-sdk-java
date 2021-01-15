@@ -31,6 +31,9 @@ public class SubjectList implements Serializable {
     @SerializedName("apikeys")
     private List<String> apikeys = null;
 
+    @SerializedName("applications")
+    private List<String> applications = null;
+
     @SerializedName("users")
     private List<String> users = null;
 
@@ -59,6 +62,33 @@ public class SubjectList implements Serializable {
 
     public void setApikeys(List<String> apikeys) {
         this.apikeys = apikeys;
+    }
+
+    public SubjectList applications(List<String> applications) {
+        this.applications = applications;
+        return this;
+    }
+
+    public SubjectList addApplicationsItem(String applicationsItem) {
+        if (this.applications == null) {
+            this.applications = new ArrayList<String>();
+        }
+        this.applications.add(applicationsItem);
+        return this;
+    }
+
+    /**
+     * An array of applicationIDs.
+     * 
+     * @return applications
+     **/
+    @ApiModelProperty(value = "An array of applicationIDs.")
+    public List<String> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<String> applications) {
+        this.applications = applications;
     }
 
     public SubjectList users(List<String> users) {
@@ -97,12 +127,14 @@ public class SubjectList implements Serializable {
             return false;
         }
         SubjectList subjectList = (SubjectList) o;
-        return Objects.equals(this.apikeys, subjectList.apikeys) && Objects.equals(this.users, subjectList.users);
+        return Objects.equals(this.apikeys, subjectList.apikeys)
+               && Objects.equals(this.applications, subjectList.applications)
+               && Objects.equals(this.users, subjectList.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(apikeys, users);
+        return Objects.hash(apikeys, applications, users);
     }
 
     @Override
@@ -111,6 +143,7 @@ public class SubjectList implements Serializable {
         sb.append("class SubjectList {\n");
 
         sb.append("    apikeys: ").append(toIndentedString(apikeys)).append("\n");
+        sb.append("    applications: ").append(toIndentedString(applications)).append("\n");
         sb.append("    users: ").append(toIndentedString(users)).append("\n");
         sb.append("}");
         return sb.toString();

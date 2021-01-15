@@ -89,8 +89,6 @@ public class SubtenantIdentityProviderListDao extends AbstractSubtenantIdentityP
      * Lists subtenant identity providers matching filter options.
      * 
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#listSubtenantIdentityProviders(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderListOptions)}
      * 
      * @param options
      *            list options.

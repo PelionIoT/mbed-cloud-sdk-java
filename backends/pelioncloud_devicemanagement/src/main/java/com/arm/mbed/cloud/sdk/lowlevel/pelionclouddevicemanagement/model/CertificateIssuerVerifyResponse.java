@@ -40,8 +40,8 @@ public class CertificateIssuerVerifyResponse implements Serializable {
      * 
      * @return message
      **/
-    @ApiModelProperty(example = "message describing the verification failure",
-                      value = "Provides details in case of failure. ")
+    @ApiModelProperty(example = "Message describing the verification failure",
+                      value = "Provides details in case of failure.")
     public String getMessage() {
         return message;
     }
@@ -60,7 +60,7 @@ public class CertificateIssuerVerifyResponse implements Serializable {
      * 
      * @return successful
      **/
-    @ApiModelProperty(example = "false", value = "Indicates whether the certificate issuer was verified successfully. ")
+    @ApiModelProperty(example = "false", value = "Indicates whether the certificate issuer was verified successfully.")
     public Boolean isSuccessful() {
         return successful;
     }

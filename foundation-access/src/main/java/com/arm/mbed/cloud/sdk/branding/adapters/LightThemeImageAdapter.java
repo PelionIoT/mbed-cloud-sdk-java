@@ -197,6 +197,12 @@ public final class LightThemeImageAdapter {
                 return LightThemeImageReference.BRAND_LOGO_LANDSCAPE;
             case BRAND_LOGO_EMAIL:
                 return LightThemeImageReference.BRAND_LOGO_EMAIL;
+            case APP_LOGO_LANDSCAPE:
+                return LightThemeImageReference.APP_LOGO_LANDSCAPE;
+            case APP_LOGO_PORTRAIT:
+                return LightThemeImageReference.APP_LOGO_PORTRAIT;
+            case APP_LOGO_SQUARE:
+                return LightThemeImageReference.APP_LOGO_SQUARE;
             case DESKTOP_BACKGROUND_LANDSCAPE:
                 return LightThemeImageReference.DESKTOP_BACKGROUND_LANDSCAPE;
             case DESKTOP_BACKGROUND_SQUARE:

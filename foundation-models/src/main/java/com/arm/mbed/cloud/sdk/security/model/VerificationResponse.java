@@ -20,13 +20,11 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Provides details in case of failure.
-     * 
      */
     private final String message;
 
     /**
      * Indicates whether the certificate issuer was verified successfully.
-     * 
      */
     private final boolean successful;
 
@@ -40,10 +38,8 @@ public class VerificationResponse implements SdkModel {
      * 
      * @param message
      *            Provides details in case of failure.
-     * 
      * @param successful
      *            Indicates whether the certificate issuer was verified successfully.
-     * 
      */
     @Internal
     public VerificationResponse(String message, boolean successful) {

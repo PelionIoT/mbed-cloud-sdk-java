@@ -13,7 +13,7 @@ import java.util.Objects;
  * Model for a subtenant policy group.
  */
 @Preamble(description = "Model for a subtenant policy group.")
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class SubtenantPolicyGroup implements SdkModel {
     /**
      * Serialisation Id.
@@ -28,8 +28,19 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * The number of API keys in this group.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This property is deprecated. See 'application_count' property.
      */
+    @Deprecated
     private final int apikeyCount;
+
+    /**
+     * The number of applications in this group.
+     */
+    private final int applicationCount;
 
     /**
      * Creation UTC time RFC3339.
@@ -69,6 +80,8 @@ public class SubtenantPolicyGroup implements SdkModel {
      *            The ID of the account this group belongs to.
      * @param apikeyCount
      *            The number of API keys in this group.
+     * @param applicationCount
+     *            The number of applications in this group.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param id
@@ -81,10 +94,12 @@ public class SubtenantPolicyGroup implements SdkModel {
      *            The number of users in this group.
      */
     @Internal
-    public SubtenantPolicyGroup(String accountId, int apikeyCount, Date createdAt, String id, String name,
-                                Date updatedAt, int userCount) {
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public SubtenantPolicyGroup(String accountId, int apikeyCount, int applicationCount, Date createdAt, String id,
+                                String name, Date updatedAt, int userCount) {
         super();
         this.apikeyCount = apikeyCount;
+        this.applicationCount = applicationCount;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.userCount = userCount;
@@ -108,6 +123,7 @@ public class SubtenantPolicyGroup implements SdkModel {
     public SubtenantPolicyGroup(SubtenantPolicyGroup subtenantPolicyGroup) {
         this(subtenantPolicyGroup == null ? (String) null : subtenantPolicyGroup.accountId,
              subtenantPolicyGroup == null ? 0 : subtenantPolicyGroup.apikeyCount,
+             subtenantPolicyGroup == null ? 0 : subtenantPolicyGroup.applicationCount,
              subtenantPolicyGroup == null ? new Date() : subtenantPolicyGroup.createdAt,
              subtenantPolicyGroup == null ? (String) null : subtenantPolicyGroup.id,
              subtenantPolicyGroup == null ? (String) null : subtenantPolicyGroup.name,
@@ -119,7 +135,7 @@ public class SubtenantPolicyGroup implements SdkModel {
      * Constructor.
      */
     public SubtenantPolicyGroup() {
-        this((String) null, 0, new Date(), (String) null, (String) null, new Date(), 0);
+        this((String) null, 0, 0, new Date(), (String) null, (String) null, new Date(), 0);
     }
 
     /**
@@ -147,6 +163,8 @@ public class SubtenantPolicyGroup implements SdkModel {
      * 
      * @param apikeyCount
      *            The number of API keys in this group.
+     * @param applicationCount
+     *            The number of applications in this group.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param updatedAt
@@ -155,8 +173,9 @@ public class SubtenantPolicyGroup implements SdkModel {
      *            The number of users in this group.
      */
     @Internal
-    public SubtenantPolicyGroup(int apikeyCount, Date createdAt, Date updatedAt, int userCount) {
-        this((String) null, apikeyCount, createdAt, (String) null, (String) null, updatedAt, userCount);
+    public SubtenantPolicyGroup(int apikeyCount, int applicationCount, Date createdAt, Date updatedAt, int userCount) {
+        this((String) null, apikeyCount, applicationCount, createdAt, (String) null, (String) null, updatedAt,
+             userCount);
     }
 
     /**
@@ -172,7 +191,7 @@ public class SubtenantPolicyGroup implements SdkModel {
      *            The name of the group.
      */
     public SubtenantPolicyGroup(String accountId, String name) {
-        this(accountId, 0, new Date(), (String) null, name, new Date(), 0);
+        this(accountId, 0, 0, new Date(), (String) null, name, new Date(), 0);
     }
 
     /**
@@ -211,10 +230,25 @@ public class SubtenantPolicyGroup implements SdkModel {
     /**
      * Gets the number of api keys in this group.
      * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This property is deprecated. See 'application_count' property.
+     * 
      * @return apikeyCount
      */
+    @Deprecated
     public int getApikeyCount() {
         return apikeyCount;
+    }
+
+    /**
+     * Gets the number of applications in this group.
+     * 
+     * @return applicationCount
+     */
+    public int getApplicationCount() {
+        return applicationCount;
     }
 
     /**
@@ -337,9 +371,9 @@ public class SubtenantPolicyGroup implements SdkModel {
      */
     @Override
     public String toString() {
-        return "SubtenantPolicyGroup [accountId=" + accountId + ", apikeyCount=" + apikeyCount + ", createdAt="
-               + createdAt + ", id=" + id + ", name=" + name + ", updatedAt=" + updatedAt + ", userCount=" + userCount
-               + "]";
+        return "SubtenantPolicyGroup [accountId=" + accountId + ", apikeyCount=" + apikeyCount + ", applicationCount="
+               + applicationCount + ", createdAt=" + createdAt + ", id=" + id + ", name=" + name + ", updatedAt="
+               + updatedAt + ", userCount=" + userCount + "]";
     }
 
     /**
@@ -356,6 +390,7 @@ public class SubtenantPolicyGroup implements SdkModel {
         int result = 1;
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
         result = prime * result + Objects.hashCode(Integer.valueOf(apikeyCount));
+        result = prime * result + Objects.hashCode(Integer.valueOf(applicationCount));
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -389,6 +424,7 @@ public class SubtenantPolicyGroup implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -411,6 +447,9 @@ public class SubtenantPolicyGroup implements SdkModel {
             return false;
         }
         if (apikeyCount != other.apikeyCount) {
+            return false;
+        }
+        if (applicationCount != other.applicationCount) {
             return false;
         }
         if (createdAt == null) {

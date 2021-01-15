@@ -23,9 +23,12 @@ public class DeviceUpdateFirmwareImagesApiTest {
     /**
      * Create an image
      *
-     * Create a firmware image. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \\ -H &#39;Authorization: &lt;valid access token&gt;&#39;
-     * \\ -H &#39;Content-Type: multipart/form-data&#39; \\ -F
+     * Create a firmware image. &lt;BR/&gt; **Note:** Only use this API for images smaller than 100 MB. For larger
+     * images, [upload in
+     * chunks](https://developer.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-firmware-image.html).
+     * &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\
+     * -H &#39;Content-Type: multipart/form-data&#39; \\ -F
      * &#39;datafile&#x3D;@myimage.bin;type&#x3D;application/octet-stream&#39; -F &#39;description&#x3D;bla bla&#39; \\
      * -F &#39;name&#x3D;My Linux Image&#39; &#x60;&#x60;&#x60;
      */
@@ -43,8 +46,8 @@ public class DeviceUpdateFirmwareImagesApiTest {
      * Delete an image
      *
      * Delete a firmware image. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \\ -H &#39;Authorization:
-     * &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012 \\ -H &#39;Authorization:
+     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void firmwareImageDestroyTest() {
@@ -58,7 +61,7 @@ public class DeviceUpdateFirmwareImagesApiTest {
      * List all images
      *
      * List all firmware images. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \\ -H &#39;Authorization: &lt;valid access token&gt;&#39;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -114,8 +117,8 @@ public class DeviceUpdateFirmwareImagesApiTest {
      * Get an image.
      *
      * Retrieve a firmware image. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \\ -H &#39;Authorization:
-     * &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012 \\ -H &#39;Authorization:
+     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void firmwareImageRetrieveTest() {
@@ -128,14 +131,12 @@ public class DeviceUpdateFirmwareImagesApiTest {
     /**
      * Append a chunk to an upload job
      *
-     * Append a chunk to an upload job. To finish a job, upload a zero-length chunk. &lt;br&gt; **Usage example:**
-     * &#x60;&#x60;&#x60; curl -X POST
+     * Append a chunk to an upload job. To finish a job, upload a zero-length chunk. &lt;BR/&gt; **Note:** Chunk size
+     * must be between 5MB and 100MB, the last chunk can be less than 5MB; the maximum number of chunks is limited to
+     * 10,000. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; \\ -H &#39;Content-MD5:
-     * Q2h1Y2sgSW51ZwDIAXR5IQ&#x3D;&#x3D;&#39; \\ -H &#39;Content-Type: binary/octet-stream&#39; \\ -H
-     * &#39;Content-Length: 999&#39; \\ -d &#39;{
-     * \&quot;IGh0dHBzOi8vYXBpLnVzLWVhc3QtMS5tYmVkY2xvdWQuY29tLy92My9maXJtd2FyZS1pbWFnZXMvdXBsb2FkLWpvYnMve3VwbG9hZF9qb2JfaWR9W5rcw&#x3D;&#x3D;\&quot;
-     * }&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;Content-MD5: Q2h1Y2sgSW51ZwDIAXR5IQ&#x3D;&#x3D;&#39;
+     * \\ -H &#39;Content-Type: binary/octet-stream&#39; \\ --data-binary &#39;@chunkfile.bin&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobChunkCreateTest() {
@@ -153,7 +154,7 @@ public class DeviceUpdateFirmwareImagesApiTest {
      *
      * List all metadata for uploaded chunks. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobChunkListTest() {
@@ -198,7 +199,7 @@ public class DeviceUpdateFirmwareImagesApiTest {
      *
      * Get metadata about a chunk. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012/chunks/12345678901234567890123456789012
-     * \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobChunkRetreiveTest() {
@@ -213,10 +214,10 @@ public class DeviceUpdateFirmwareImagesApiTest {
      * Create a new upload job.
      *
      * Create a new upload job &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs \\ -H &#39;Authorization: &lt;valid access
-     * token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ -d &#39;{ \&quot;name\&quot;:
-     * \&quot;New Linux update\&quot;, \&quot;description\&quot;: \&quot;New Linux update for my devices\&quot; }&#39;
-     * &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ -d &#39;{
+     * \&quot;name\&quot;: \&quot;New Linux update\&quot;, \&quot;description\&quot;: \&quot;New Linux update for my
+     * devices\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobCreateTest() {
@@ -231,7 +232,7 @@ public class DeviceUpdateFirmwareImagesApiTest {
      *
      * Delete an upload job. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobDeleteTest() {
@@ -245,8 +246,8 @@ public class DeviceUpdateFirmwareImagesApiTest {
      * Get all upload jobs
      *
      * Get all upload jobs. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs \\ -H &#39;Authorization: &lt;valid access
-     * token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobListTest() {
@@ -294,7 +295,7 @@ public class DeviceUpdateFirmwareImagesApiTest {
      *
      * Get an upload job. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobRetrieveTest() {
@@ -309,9 +310,8 @@ public class DeviceUpdateFirmwareImagesApiTest {
      *
      * Update an upload job. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/firmware-images/upload-jobs/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; \\ -d &#39;{ \&quot;name\&quot;: \&quot;New Linux
-     * update\&quot;, \&quot;description\&quot;: \&quot;New Linux update for my class XX devices\&quot; }&#39;
-     * &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -d &#39;{ \&quot;name\&quot;: \&quot;New Linux update\&quot;,
+     * \&quot;description\&quot;: \&quot;New Linux update for my class XX devices\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadJobUpdateTest() {

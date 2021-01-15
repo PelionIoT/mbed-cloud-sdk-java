@@ -321,7 +321,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     }
 
     /**
-     * Get groups of the user.
+     * Get policy groups for a user.
      * 
      * 
      * <p>
@@ -341,7 +341,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     }
 
     /**
-     * Get groups of the user.
+     * Get policy groups for a user.
      * 
      * 
      * <p>
@@ -362,7 +362,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     }
 
     /**
-     * Get groups of the user.
+     * Get policy groups for a user.
      * 
      * 
      * <p>

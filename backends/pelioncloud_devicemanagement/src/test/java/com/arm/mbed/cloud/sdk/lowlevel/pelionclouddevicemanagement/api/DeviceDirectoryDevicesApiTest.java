@@ -23,7 +23,8 @@ public class DeviceDirectoryDevicesApiTest {
     /**
      * Create a device.
      *
-     * Create a new device.
+     * Create a new device in Device Management. Usually you do not need to create a device this way, as it is
+     * automatically created when it bootstraps or connects to Device Management.
      */
     @Test
     public void deviceCreateTest() {
@@ -37,7 +38,7 @@ public class DeviceDirectoryDevicesApiTest {
      * Delete a device.
      *
      * Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a
-     * production certicate returns a 400 response.
+     * production certificate returns a 400 response.
      */
     @Test
     public void deviceDestroyTest() {
@@ -50,8 +51,11 @@ public class DeviceDirectoryDevicesApiTest {
     /**
      * List all devices.
      *
-     * List all devices. **Example:** Following example filters devices according to state field and returns only
-     * devices in &#39;registered&#39; state: &#x60;&#x60;&#x60; curl -X GET
+     * List all devices enrolled to Device Management for the account. The URL length must be fewer than 4096
+     * characters. Requests that exceed this limit, such as those including too many query parameters in a filter, fail
+     * with a bad request response. devices with too long list of query parameters, the request is deemed as bad
+     * request. **Example:** Following example filters devices according to state field and returns only devices in
+     * &#39;registered&#39; state: &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/devices?filter&#x3D;state%3Dregistered \\ -H &#39;Authorization: Bearer
      * &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
      */
@@ -60,6 +64,7 @@ public class DeviceDirectoryDevicesApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
+        String filter = null;
         String include = null;
         String lifecycleStatusEq = null;
         String lifecycleStatusNeq = null;
@@ -179,6 +184,10 @@ public class DeviceDirectoryDevicesApiTest {
         String nameNeq = null;
         String nameIn = null;
         String nameNin = null;
+        String netIdEq = null;
+        String netIdNeq = null;
+        String netIdIn = null;
+        String netIdNin = null;
         String serialNumberEq = null;
         String serialNumberNeq = null;
         String serialNumberIn = null;
@@ -195,8 +204,8 @@ public class DeviceDirectoryDevicesApiTest {
         String vendorIdNeq = null;
         String vendorIdIn = null;
         String vendorIdNin = null;
-        // DevicePage response = api.deviceList(limit, order, after, include, lifecycleStatusEq, lifecycleStatusNeq,
-        // lifecycleStatusIn, lifecycleStatusNin, operatorSuspendedEq, operatorSuspendedNeq,
+        // DevicePage response = api.deviceList(limit, order, after, filter, include, lifecycleStatusEq,
+        // lifecycleStatusNeq, lifecycleStatusIn, lifecycleStatusNin, operatorSuspendedEq, operatorSuspendedNeq,
         // lastOperatorSuspendedCategoryEq, lastOperatorSuspendedCategoryNeq, lastOperatorSuspendedCategoryIn,
         // lastOperatorSuspendedCategoryNin, lastOperatorSuspendedUpdatedAtIn, lastOperatorSuspendedUpdatedAtNin,
         // lastOperatorSuspendedUpdatedAtLte, lastOperatorSuspendedUpdatedAtGte, systemSuspendedEq, systemSuspendedNeq,
@@ -218,9 +227,9 @@ public class DeviceDirectoryDevicesApiTest {
         // hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq,
         // manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte,
         // manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq,
-        // mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, serialNumberEq, serialNumberNeq,
-        // serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin,
-        // updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
+        // mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, netIdEq, netIdNeq, netIdIn, netIdNin,
+        // serialNumberEq, serialNumberNeq, serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin,
+        // updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
 
         // TODO: test validations
     }
@@ -228,10 +237,13 @@ public class DeviceDirectoryDevicesApiTest {
     /**
      * Get a device.
      *
-     * Retrieve information about a specific device. **Example:** Following example must be updated with the
-     * device&#39;s ID to the URL. The id is from of \&quot;01667c6e992c00000000000100100370\&quot; &#x60;&#x60;&#x60;
-     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/&lt;device_ID&gt; \\ -H &#39;Authorization: Bearer
-     * &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
+     * Retrieve information about a specific device. This API returns
+     * [DeviceData](https://developer.pelion.com/docs/device-management-api/device-directory/). If you want to see the
+     * structure of resources in the device or the actual resource values, use the [Connect
+     * API](https://developer.pelion.com/docs/device-management-api/connect/). **Example:** Following example must be
+     * updated with the device&#39;s ID to the URL. The id is from of \&quot;01667c6e992c00000000000100100370\&quot;
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/&lt;device_ID&gt; \\ -H
+     * &#39;Authorization: Bearer &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void deviceRetrieveTest() {

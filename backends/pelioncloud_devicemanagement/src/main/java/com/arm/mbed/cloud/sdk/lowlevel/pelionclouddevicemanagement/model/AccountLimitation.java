@@ -53,11 +53,63 @@ public class AccountLimitation implements Serializable {
     @SerializedName("inherited_from")
     private String inheritedFrom = null;
 
+    /**
+     * Indicates the type of the entity where the limitation is inherited from.
+     */
+    @JsonAdapter(InheritedTypeEnum.Adapter.class)
+    public enum InheritedTypeEnum {
+        ACCOUNT("account"),
+
+        TEMPLATE("template"),
+
+        TIER_TEMPLATE("tier_template");
+
+        private String value;
+
+        InheritedTypeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static InheritedTypeEnum fromValue(String text) {
+            for (InheritedTypeEnum b : InheritedTypeEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<InheritedTypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final InheritedTypeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public InheritedTypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return InheritedTypeEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
     @SerializedName("inherited_type")
-    private String inheritedType = null;
+    private InheritedTypeEnum inheritedType = null;
+
+    @SerializedName("inherited_value")
+    private AccountLimitationInheritedValue inheritedValue = null;
 
     @SerializedName("limit")
-    private Integer limit = null;
+    private Long limit = null;
 
     @SerializedName("name")
     private String name = null;
@@ -67,41 +119,7 @@ public class AccountLimitation implements Serializable {
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
-        USER("user"),
-
-        API_KEY("api-key"),
-
-        GROUP("group"),
-
-        ACCOUNT("account"),
-
-        ACCOUNT_TEMPLATE("account_template"),
-
-        TRUSTED_CERT("trusted_cert"),
-
-        LIST("list"),
-
-        ERROR("error"),
-
-        AGREEMENT("agreement"),
-
-        SIGNED_AGREEMENT("signed_agreement"),
-
-        POLICY("policy"),
-
-        LIMITATION("limitation"),
-
-        IDENTITY_PROVIDER("identity_provider"),
-
-        USER_SESSION("user_session"),
-
-        USER_INVITATION("user_invitation"),
-
-        NOTIFICATION_ENTRY("notification_entry"),
-
-        BRANDING_COLOR("branding_color"),
-
-        BRANDING_IMAGE("branding_image");
+        LIMITATION("limitation");
 
         private String value;
 
@@ -145,7 +163,7 @@ public class AccountLimitation implements Serializable {
     private ObjectEnum object = null;
 
     @SerializedName("quota")
-    private Integer quota = null;
+    private Long quota = null;
 
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
@@ -156,22 +174,17 @@ public class AccountLimitation implements Serializable {
     }
 
     /**
-     * Billing period of the account limitation.
+     * Billing period of the account limitation. minimum: 1 maximum: 120
      * 
      * @return billingPeriod
      **/
-    @ApiModelProperty(value = "Billing period of the account limitation.")
+    @ApiModelProperty(example = "1", value = "Billing period of the account limitation.")
     public Integer getBillingPeriod() {
         return billingPeriod;
     }
 
     public void setBillingPeriod(Integer billingPeriod) {
         this.billingPeriod = billingPeriod;
-    }
-
-    public AccountLimitation createdAt(DateTime createdAt) {
-        this.createdAt = createdAt;
-        return this;
     }
 
     /**
@@ -184,10 +197,6 @@ public class AccountLimitation implements Serializable {
         return createdAt;
     }
 
-    public void setCreatedAt(DateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     /**
      * Description of the account limitation.
      * 
@@ -196,11 +205,6 @@ public class AccountLimitation implements Serializable {
     @ApiModelProperty(value = "Description of the account limitation.")
     public String getDescription() {
         return description;
-    }
-
-    public AccountLimitation etag(String etag) {
-        this.etag = etag;
-        return this;
     }
 
     /**
@@ -213,15 +217,6 @@ public class AccountLimitation implements Serializable {
         return etag;
     }
 
-    public void setEtag(String etag) {
-        this.etag = etag;
-    }
-
-    public AccountLimitation id(String id) {
-        this.id = id;
-        return this;
-    }
-
     /**
      * Entity ID.
      * 
@@ -230,10 +225,6 @@ public class AccountLimitation implements Serializable {
     @ApiModelProperty(example = "01619571d01d0242ac12000600000000", value = "Entity ID.")
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     /**
@@ -262,11 +253,30 @@ public class AccountLimitation implements Serializable {
      * @return inheritedType
      **/
     @ApiModelProperty(value = "Indicates the type of the entity where the limitation is inherited from.")
-    public String getInheritedType() {
+    public InheritedTypeEnum getInheritedType() {
         return inheritedType;
     }
 
-    public AccountLimitation limit(Integer limit) {
+    public AccountLimitation inheritedValue(AccountLimitationInheritedValue inheritedValue) {
+        this.inheritedValue = inheritedValue;
+        return this;
+    }
+
+    /**
+     * Get inheritedValue
+     * 
+     * @return inheritedValue
+     **/
+    @ApiModelProperty(value = "")
+    public AccountLimitationInheritedValue getInheritedValue() {
+        return inheritedValue;
+    }
+
+    public void setInheritedValue(AccountLimitationInheritedValue inheritedValue) {
+        this.inheritedValue = inheritedValue;
+    }
+
+    public AccountLimitation limit(Long limit) {
         this.limit = limit;
         return this;
     }
@@ -276,12 +286,12 @@ public class AccountLimitation implements Serializable {
      * 
      * @return limit
      **/
-    @ApiModelProperty(value = "The value of the limit.")
-    public Integer getLimit() {
+    @ApiModelProperty(example = "25", value = "The value of the limit.")
+    public Long getLimit() {
         return limit;
     }
 
-    public void setLimit(Integer limit) {
+    public void setLimit(Long limit) {
         this.limit = limit;
     }
 
@@ -295,18 +305,13 @@ public class AccountLimitation implements Serializable {
      * 
      * @return name
      **/
-    @ApiModelProperty(value = "Name of the account limitation.")
+    @ApiModelProperty(example = "iam_limit_user_count", value = "Name of the account limitation.")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public AccountLimitation object(ObjectEnum object) {
-        this.object = object;
-        return this;
     }
 
     /**
@@ -319,11 +324,7 @@ public class AccountLimitation implements Serializable {
         return object;
     }
 
-    public void setObject(ObjectEnum object) {
-        this.object = object;
-    }
-
-    public AccountLimitation quota(Integer quota) {
+    public AccountLimitation quota(Long quota) {
         this.quota = quota;
         return this;
     }
@@ -333,18 +334,13 @@ public class AccountLimitation implements Serializable {
      * 
      * @return quota
      **/
-    @ApiModelProperty(value = "Quota of the account limitation.")
-    public Integer getQuota() {
+    @ApiModelProperty(example = "0", value = "Quota of the account limitation.")
+    public Long getQuota() {
         return quota;
     }
 
-    public void setQuota(Integer quota) {
+    public void setQuota(Long quota) {
         this.quota = quota;
-    }
-
-    public AccountLimitation updatedAt(DateTime updatedAt) {
-        this.updatedAt = updatedAt;
-        return this;
     }
 
     /**
@@ -355,10 +351,6 @@ public class AccountLimitation implements Serializable {
     @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
     public DateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(DateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     @Override
@@ -377,6 +369,7 @@ public class AccountLimitation implements Serializable {
                && Objects.equals(this.inherited, accountLimitation.inherited)
                && Objects.equals(this.inheritedFrom, accountLimitation.inheritedFrom)
                && Objects.equals(this.inheritedType, accountLimitation.inheritedType)
+               && Objects.equals(this.inheritedValue, accountLimitation.inheritedValue)
                && Objects.equals(this.limit, accountLimitation.limit)
                && Objects.equals(this.name, accountLimitation.name)
                && Objects.equals(this.object, accountLimitation.object)
@@ -387,7 +380,7 @@ public class AccountLimitation implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(billingPeriod, createdAt, description, etag, id, inherited, inheritedFrom, inheritedType,
-                            limit, name, object, quota, updatedAt);
+                            inheritedValue, limit, name, object, quota, updatedAt);
     }
 
     @Override
@@ -403,6 +396,7 @@ public class AccountLimitation implements Serializable {
         sb.append("    inherited: ").append(toIndentedString(inherited)).append("\n");
         sb.append("    inheritedFrom: ").append(toIndentedString(inheritedFrom)).append("\n");
         sb.append("    inheritedType: ").append(toIndentedString(inheritedType)).append("\n");
+        sb.append("    inheritedValue: ").append(toIndentedString(inheritedValue)).append("\n");
         sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");

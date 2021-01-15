@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorUpdate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,14 +23,15 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Updates an array of dark theme branding colors.
      *
-     * Update an array of dark theme branding colors. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;: \&quot;primary\&quot;,
-     * \&quot;color\&quot;: \&quot;#f3f93e\&quot; }]&#39; &#x60;&#x60;&#x60;
+     * Update an array of dark theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
+     * \&quot;primary\&quot;, \&quot;color\&quot;: \&quot;#f3f93e\&quot; }]&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void bulkSetDarkColorsTest() {
-        List<BrandingColor> body = null;
+        List<BrandingColorUpdate> body = null;
         // Void response = api.bulkSetDarkColors(body);
 
         // TODO: test validations
@@ -38,14 +40,15 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Updates an array of light theme branding colors.
      *
-     * Update an array of light theme branding colors. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update an array of light theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
      * \&quot;primary\&quot;, \&quot;color\&quot;: \&quot;purple\&quot; }]&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void bulkSetLightColorsTest() {
-        List<BrandingColor> body = null;
+        List<BrandingColorUpdate> body = null;
         // Void response = api.bulkSetLightColors(body);
 
         // TODO: test validations
@@ -54,8 +57,9 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Delete all colors.
      *
-     * Delete account branding colors for all themes. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete account branding colors for all themes. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllColorsTest() {
@@ -67,8 +71,10 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Delete colors in the dark theme.
      *
-     * Delete account dark theme branding colors. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete account dark theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllDarkColorsTest() {
@@ -80,8 +86,10 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Delete colors in the light theme.
      *
-     * Delete account light theme branding colors. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete account light theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllLightColorsTest() {
@@ -95,7 +103,7 @@ public class UserInterfaceConfigurationColorsApiTest {
      *
      * Retrieve the requested dark theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getDarkColorTest() {
@@ -109,8 +117,8 @@ public class UserInterfaceConfigurationColorsApiTest {
      * Get dark theme branding colors.
      *
      * Retrieve the dark theme branding colors. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getDarkColorsTest() {
@@ -124,7 +132,7 @@ public class UserInterfaceConfigurationColorsApiTest {
      *
      * Retrieve the requested light theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getLightColorTest() {
@@ -139,7 +147,7 @@ public class UserInterfaceConfigurationColorsApiTest {
      *
      * Retrieve the light theme branding colors. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getLightColorsTest() {
@@ -151,9 +159,10 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Reset branding color to default.
      *
-     * Resets the branding color to its dark theme default. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Resets the branding color to its dark theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void resetDarkColorTest() {
@@ -166,9 +175,10 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Reset branding color to default.
      *
-     * Resets the branding color to its light theme default. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Resets the branding color to its light theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void resetLightColorTest() {
@@ -181,10 +191,10 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Updates a dark theme branding color.
      *
-     * Update a dark theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;color\&quot;:
-     * \&quot;#f3f93e\&quot; }&#39; &#x60;&#x60;&#x60;
+     * Update a dark theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary
+     * \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{ \&quot;color\&quot;: \&quot;#f3f93e\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void setDarkColorTest() {
@@ -198,10 +208,10 @@ public class UserInterfaceConfigurationColorsApiTest {
     /**
      * Updates light theme branding color.
      *
-     * Update light theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;color\&quot;:
-     * \&quot;purple\&quot; }&#39; &#x60;&#x60;&#x60;
+     * Update light theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary
+     * \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{ \&quot;color\&quot;: \&quot;purple\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void setLightColorTest() {

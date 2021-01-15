@@ -10,9 +10,9 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Account
 
 public interface AccountProfileApi {
     /**
-     * Get account info. Retrieve detailed information about the account. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Get account information. Retrieve information about the account. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param include
      *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
@@ -26,10 +26,10 @@ public interface AccountProfileApi {
                                        @retrofit2.http.Query("properties") String properties);
 
     /**
-     * Updates attributes of the account. Update the account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/me \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
-     * &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39;
-     * &#x60;&#x60;&#x60;
+     * Updates attributes of the account. Update the account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me \\
+     * -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param body
      *            Details of the account to update. (required)

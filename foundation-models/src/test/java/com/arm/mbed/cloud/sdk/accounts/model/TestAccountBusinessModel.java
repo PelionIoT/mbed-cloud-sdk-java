@@ -30,7 +30,7 @@ public class TestAccountBusinessModel {
             accountbusinessmodel = AccountBusinessModel.getValue("api_calls_1_business_model");
             assertNotNull(accountbusinessmodel);
             assertFalse(accountbusinessmodel.isDefault());
-            accountbusinessmodel = AccountBusinessModel.getValue("7e56caf8-079d-41b1-bfe9-3971ec442ef2");
+            accountbusinessmodel = AccountBusinessModel.getValue("a69ebec2-3006-4c3f-8b02-c4ed36ebe0fb");
             assertNotNull(accountbusinessmodel);
             assertTrue(accountbusinessmodel.isDefault());
         } catch (Exception exception) {

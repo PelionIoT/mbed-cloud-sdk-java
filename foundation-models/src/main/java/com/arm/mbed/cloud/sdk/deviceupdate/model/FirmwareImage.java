@@ -262,6 +262,9 @@ public class FirmwareImage implements SdkModel {
     /**
      * Sets the firmware image id.
      * 
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
+     * 
      * @param id
      *            The firmware image ID.
      */
@@ -275,6 +278,8 @@ public class FirmwareImage implements SdkModel {
      * 
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
      * 
      * @param firmwareImageId
      *            The firmware image ID.
@@ -282,6 +287,16 @@ public class FirmwareImage implements SdkModel {
     @Internal
     public void setFirmwareImageId(String firmwareImageId) {
         setId(firmwareImageId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[A-Fa-f0-9]{32}"));
     }
 
     /**
@@ -483,7 +498,7 @@ public class FirmwareImage implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isDescriptionValid() && isNameValid();
+        return isDescriptionValid() && isIdValid() && isNameValid();
     }
 
     /**

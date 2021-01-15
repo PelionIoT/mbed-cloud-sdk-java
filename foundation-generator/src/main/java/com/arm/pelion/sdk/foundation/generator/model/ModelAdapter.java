@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.arm.pelion.sdk.foundation.generator.util.Logger;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -179,6 +180,10 @@ public class ModelAdapter extends Model {
         }
     }
 
+    public Map<String, Conversion> getConversions() {
+        return conversions;
+    }
+
     public static class Conversion {
         private final Model from;
         private final Model to;
@@ -283,45 +288,51 @@ public class ModelAdapter extends Model {
                 // Nothing to do.
                 exception.printStackTrace();
             }
-            if (isEnum) {
-                boolean isFromModel = fromType.isModelEnum();
 
-                MethodMapperEnum enumMapping = new MethodMapperEnum((ModelEnum) (isFromModel ? fromToConsider
-                                                                                             : toToConsider),
-                                                                    (isFromModel ? toType : fromType).getClazz(),
-                                                                    isFromModel);
-                adapter.addMethod(enumMapping);
-            } else if (isList) {
-                final MethodListMapper listMapping = new MethodListMapper(FUNCTION_NAME_MAP_LIST,
-                                                                          FUNCTION_NAME_GET_MAPPER, true,
-                                                                          toContentToConsider, fromToConsider,
-                                                                          fromContentToConsider, adapter);
-                adapter.addMethod(listMapping);
-                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_LIST_MAPPER, true, adapter,
-                                                                      determineListType(toToConsider.toType(),
-                                                                                        toContentToConsider),
-                                                                      determineListType(fromType,
-                                                                                        fromContentToConsider),
-                                                                      false, listMapping.getName());
-                adapter.addMethod(getMapper);
-            } else if (fromType.isList() && toType.isList()) {
-                final TypeParameter fromSubType = ((TypeCompose) fromType).getContentType();
-                final TypeParameter toSubType = ((TypeCompose) toType).getContentType();
-                addSimpleListMethods(adapter, fromToConsider, toToConsider, fromContentToConsider, toContentToConsider,
-                                     fromType, toType, fromSubType.isModel());
-                if (adapter.fetcher != null) {
-                    addBasicMappingMethods(adapter,
-                                           TypeUtils.checkIfCollectionOfModel(fromSubType) ? adapter.fetcher.fetchModel(fromSubType)
-                                                                                           : new Model(fromSubType.getClazz(),
-                                                                                                       fromSubType),
-                                           TypeUtils.checkIfCollectionOfModel(toSubType) ? adapter.fetcher.fetchModel(toSubType)
-                                                                                         : new Model(toSubType.getClazz(),
-                                                                                                     toSubType),
-                                           renames, fromSubType,
-                                           action == MethodAction.CREATE || action == MethodAction.UPDATE);
+            try {
+                if (isEnum) {
+                    boolean isFromModel = fromType.isModelEnum();
+
+                    MethodMapperEnum enumMapping = new MethodMapperEnum((ModelEnum) (isFromModel ? fromToConsider
+                                                                                                 : toToConsider),
+                                                                        (isFromModel ? toType : fromType).getClazz(),
+                                                                        isFromModel);
+                    adapter.addMethod(enumMapping);
+                } else if (isList) {
+                    final MethodListMapper listMapping = new MethodListMapper(FUNCTION_NAME_MAP_LIST,
+                                                                              FUNCTION_NAME_GET_MAPPER, true,
+                                                                              toContentToConsider, fromToConsider,
+                                                                              fromContentToConsider, adapter);
+                    adapter.addMethod(listMapping);
+                    final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_LIST_MAPPER, true, adapter,
+                                                                          determineListType(toToConsider.toType(),
+                                                                                            toContentToConsider),
+                                                                          determineListType(fromType,
+                                                                                            fromContentToConsider),
+                                                                          false, listMapping.getName());
+                    adapter.addMethod(getMapper);
+                } else if (fromType.isList() && toType.isList()) {
+                    final TypeParameter fromSubType = ((TypeCompose) fromType).getContentType();
+                    final TypeParameter toSubType = ((TypeCompose) toType).getContentType();
+                    addSimpleListMethods(adapter, fromToConsider, toToConsider, fromContentToConsider,
+                                         toContentToConsider, fromType, toType, fromSubType.isModel());
+                    if (adapter.fetcher != null) {
+                        addBasicMappingMethods(adapter,
+                                               TypeUtils.checkIfCollectionOfModel(fromSubType) ? adapter.fetcher.fetchModel(fromSubType)
+                                                                                               : new Model(fromSubType.getClazz(),
+                                                                                                           fromSubType),
+                                               TypeUtils.checkIfCollectionOfModel(toSubType) ? adapter.fetcher.fetchModel(toSubType)
+                                                                                             : new Model(toSubType.getClazz(),
+                                                                                                         toSubType),
+                                               renames, fromSubType,
+                                               action == MethodAction.CREATE || action == MethodAction.UPDATE);
+                    }
+                } else {// TODO mapping for Hashtable
+                    addBasicMappingMethods(adapter, fromToConsider, toToConsider, renames, fromType, false);
                 }
-            } else {// TODO mapping for Hashtable
-                addBasicMappingMethods(adapter, fromToConsider, toToConsider, renames, fromType, false);
+            } catch (Exception e) {
+                Logger.getLogger().logWarn("adapter=" + adapter.toString() + ", renames=" + renames.toString(), e);
+                e.printStackTrace();
             }
 
         }

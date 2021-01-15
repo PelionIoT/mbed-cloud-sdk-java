@@ -11,8 +11,11 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceE
 
 public interface DeviceDirectoryEventsApi {
     /**
-     * List all device events. List all device events for an account. **Example:** Following example gets device-events
-     * limiting returned results to max 5 events &#x60;&#x60;&#x60; curl -X GET
+     * List all device events. List all or a filtered list of device events for the account. Device events are events
+     * significant to operation or lifetime, such as creation, firmware update, and suspension. To see statistics for
+     * device connectivity and usage, use the [Statistics
+     * API](https://developer.pelion.com/docs/device-management-api/connect-statistics/). **Example:** Following example
+     * gets device-events limiting returned results to max 5 events &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/device-events?limit&#x3D;5 \\ -H &#39;Authorization: Bearer &lt;API
      * key&gt;&#39; &#x60;&#x60;&#x60; or to get events for certain device filter based on device_id: &#x60;&#x60;&#x60;
      * curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events?device_id&#x3D;&lt;device_id&gt; \\ -H
@@ -31,9 +34,9 @@ public interface DeviceDirectoryEventsApi {
      * @param filter
      *            URL-encoded query string parameter to filter returned data. ##### Filtering &#x60;?filter&#x3D;{URL
      *            encoded query string}&#x60; The query string is made up of key/value pairs separated by ampersands. So
-     *            for a query of &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;, this would be
-     *            encoded as &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;. ###### Filterable
-     *            fields: The below table lists all filterable fields: &lt;table&gt; &lt;thead&gt; &lt;tr&gt;
+     *            for a query of &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;, this is encoded
+     *            as &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;. ###### Filterable fields:
+     *            The below table lists all filterable fields: &lt;table&gt; &lt;thead&gt; &lt;tr&gt;
      *            &lt;th&gt;Field&lt;/th&gt; &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt; &lt;th&gt;__in /
      *            __nin&lt;/th&gt; &lt;th&gt;__lte / __gte&lt;/th&gt; &lt;tr&gt; &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt;
      *            &lt;td&gt;date_time&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
@@ -138,10 +141,12 @@ public interface DeviceDirectoryEventsApi {
                         @retrofit2.http.Query("state_change__neq") Boolean stateChangeNeq);
 
     /**
-     * Retrieve a device event. Retrieve a specific device event. **Example:** To fetch a specific event you can use the
-     * &#39;id&#39; field form the &#39;/v3/device-events&#39;. Form of &#39;016c03d40a4e000000000001001003b4&#39;
-     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/device-events/&lt;device_event_id&gt; \\ -H
-     * &#39;Authorization: Bearer &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
+     * Retrieve a device event. \&quot;Retrieve a specific device event. See &#39;/v3/device-events/&#39; for
+     * information on device events, and how to get the device_event_id.\&quot; **Example:** To fetch a specific event
+     * you can use the &#39;id&#39; field from &#39;/v3/device-events&#39;. Form of
+     * &#39;016c03d40a4e000000000001001003b4&#39; &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/device-events/&lt;device_event_id&gt; \\ -H &#39;Authorization: Bearer
+     * &lt;API key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param deviceEventId
      *            (required)
@@ -152,8 +157,7 @@ public interface DeviceDirectoryEventsApi {
         deviceEventRetrieve(@retrofit2.http.Path(value = "device_event_id", encoded = true) String deviceEventId);
 
     /**
-     * DEPRECATED: List all device events. DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60;
-     * instead.
+     * DEPRECATED: List all device events. DEPRECATED: This API is replaced with &#x60;/v3/device-events/&#x60;.
      * 
      * @param limit
      *            How many objects to retrieve in the page (2-1000). Limit values outside of this range are set to the
@@ -281,8 +285,8 @@ public interface DeviceDirectoryEventsApi {
                       @retrofit2.http.Query("state_change__nin") String stateChangeNin);
 
     /**
-     * DEPRECATED: Retrieve a device event. Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/
-     * instead).
+     * DEPRECATED: Retrieve a device event. DEPRECATED: This API is replaced by &#x60;/v3/device-events/&#x60; and
+     * &#x60;/v3/device-events/{device_event_id}/&#x60;.
      * 
      * @param deviceEventId
      *            (required)

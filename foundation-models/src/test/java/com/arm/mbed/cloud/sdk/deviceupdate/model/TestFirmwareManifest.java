@@ -19,15 +19,21 @@ public class TestFirmwareManifest {
     @Test
     public void testClone() {
         try {
-            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1574704667537L), 18,
-                                                                      "d453b5fc-88ed-4940-91c0-574240b03680",
-                                                                      "8fc254b8-8415-433b-8db0-c560f9f54aec",
-                                                                      "c938deb1-b4c7-496e-b604-9071c90ed818",
-                                                                      "333fbe27-2dc6-443e-abb6-0b70e906cc58",
-                                                                      "73947814-18ec-493b-b9f8-03dade49faa8",
-                                                                      "c66c0c1c-b3ce-4476-9764-5a49cef89c8a",
-                                                                      new Date(1574704662851L),
-                                                                      new Date(1574704666832L));
+            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1610683989587L), -83,
+                                                                      "0b18171e-4a27-4e03-933e-85bc7b51e040",
+                                                                      "e6f96b4b-a6b3-4ac7-b2d3-fc1d9b90546b", -33,
+                                                                      FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                      "0528f01f-1ebb-4b4d-8c7a-ff1c36a0c5f8",
+                                                                      "840f205f-1cc4-4598-b8c7-28146b8d6396",
+                                                                      "b53932e9-958d-482f-95ee-6a4c6830bff2",
+                                                                      "def6dac1-d3cd-4b46-b5c0-ca50b44f0aa9",
+                                                                      "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                      "c483e11d-5a9f-4bcb-89d5-6210994f8ce5",
+                                                                      FirmwareManifestSchemaVersion.getDefault(),
+                                                                      "99da7822-cff9-4ea8-8b96-4086e11065d1", null,
+                                                                      "0f049b24-d51e-446d-86ee-a0da22ede2b5",
+                                                                      new Date(1610683985588L), 88,
+                                                                      new Date(1610683986382L));
             FirmwareManifest firmwaremanifest2 = firmwaremanifest1.clone();
             assertNotNull(firmwaremanifest1);
             assertNotNull(firmwaremanifest2);
@@ -45,24 +51,36 @@ public class TestFirmwareManifest {
     @Test
     public void testHashCode() {
         try {
-            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1574704661370L), 37,
-                                                                      "7d7884d2-ff99-45d5-9ca1-e08cce0c19b9",
-                                                                      "83d6e69d-1cd1-4611-b2df-c11102d7f57e",
-                                                                      "e127bb34-7c72-4a6f-9e18-8042b54e9336",
-                                                                      "24c8c848-3fe2-4ea1-bafe-45064674369d",
-                                                                      "37b9c082-6593-445f-a3bc-b71b24243069",
-                                                                      "b3952d9f-3bce-454c-b7f9-bdf451860fad",
-                                                                      new Date(1574704666256L),
-                                                                      new Date(1574704663871L));
-            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1574704661370L), 37,
-                                                                      "7d7884d2-ff99-45d5-9ca1-e08cce0c19b9",
-                                                                      "83d6e69d-1cd1-4611-b2df-c11102d7f57e",
-                                                                      "e127bb34-7c72-4a6f-9e18-8042b54e9336",
-                                                                      "24c8c848-3fe2-4ea1-bafe-45064674369d",
-                                                                      "37b9c082-6593-445f-a3bc-b71b24243069",
-                                                                      "b3952d9f-3bce-454c-b7f9-bdf451860fad",
-                                                                      new Date(1574704666256L),
-                                                                      new Date(1574704663871L));
+            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1610683986567L), 105,
+                                                                      "1694ffcb-775a-42d3-9213-22eee6cb170e",
+                                                                      "e55d837e-a9f7-4dbb-bdf8-0243f985be51", -66,
+                                                                      FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                      "7d0979e3-8979-4d11-b701-49d6ab5b81e7",
+                                                                      "7d57ca89-ef9e-472f-9cb1-c15b9efe6dd7",
+                                                                      "bb6a37d0-a39f-45f9-ada0-78a28bacaa03",
+                                                                      "5680505c-a0aa-45ef-a71f-fe0b9d96e107",
+                                                                      "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                      "18ae683b-77a1-4e8a-bb6f-1902cb701786",
+                                                                      FirmwareManifestSchemaVersion.getDefault(),
+                                                                      "b6d66659-2ffc-42bf-bd70-97ba3dc25418", null,
+                                                                      "75fd62db-fcde-4a78-8542-6bf9c0bb251b",
+                                                                      new Date(1610683991312L), 0,
+                                                                      new Date(1610683992914L));
+            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1610683986567L), 105,
+                                                                      "1694ffcb-775a-42d3-9213-22eee6cb170e",
+                                                                      "e55d837e-a9f7-4dbb-bdf8-0243f985be51", -66,
+                                                                      FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                      "7d0979e3-8979-4d11-b701-49d6ab5b81e7",
+                                                                      "7d57ca89-ef9e-472f-9cb1-c15b9efe6dd7",
+                                                                      "bb6a37d0-a39f-45f9-ada0-78a28bacaa03",
+                                                                      "5680505c-a0aa-45ef-a71f-fe0b9d96e107",
+                                                                      "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                      "18ae683b-77a1-4e8a-bb6f-1902cb701786",
+                                                                      FirmwareManifestSchemaVersion.getDefault(),
+                                                                      "b6d66659-2ffc-42bf-bd70-97ba3dc25418", null,
+                                                                      "75fd62db-fcde-4a78-8542-6bf9c0bb251b",
+                                                                      new Date(1610683991312L), 0,
+                                                                      new Date(1610683992914L));
             assertNotNull(firmwaremanifest1);
             assertNotNull(firmwaremanifest2);
             assertNotSame(firmwaremanifest2, firmwaremanifest1);
@@ -83,24 +101,37 @@ public class TestFirmwareManifest {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        FirmwareManifest firmwaremanifest = new FirmwareManifest(new Date(1574704662820L), -36,
-                                                                 "29315c45-145d-44fd-a136-b671268019ad",
-                                                                 "87e556a5-0ae0-46ca-a12f-096c25147212",
-                                                                 "b6446e8d-3d56-4f41-8348-9a3902652e6a",
-                                                                 "8094af9c-17b9-4005-aec9-0fb50432616f",
-                                                                 "1992369e-4278-4a54-b0b0-c46b5d3222b0",
-                                                                 "a2b89234-c175-4c69-a097-3d82c567a59b",
-                                                                 new Date(1574704665142L), new Date(1574704665086L));
+        FirmwareManifest firmwaremanifest = new FirmwareManifest(new Date(1610683993266L), -80,
+                                                                 "4e016a02-6bfc-4390-8743-b3ae14be36f7",
+                                                                 "5fd45d9f-408f-440a-826b-26f8286dcbc1", 41,
+                                                                 FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                 "17c7e97e-e733-453d-9199-df0cb1b5995a",
+                                                                 "e3f772ac-1738-4b88-957b-633a0c79c705",
+                                                                 "dd01d470-178b-4d1b-8a2d-d2ed1aa95e12",
+                                                                 "b501b90b-1b8d-4a61-b5c5-141b621ace6a",
+                                                                 "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                 "dd6222d1-188c-4494-a428-8b4aed0a2dc7",
+                                                                 FirmwareManifestSchemaVersion.getDefault(),
+                                                                 "7a593bac-63d6-4ca8-b37f-56b00e039b71", null,
+                                                                 "f1dcb2f2-f91d-4efe-a255-a34b1807aa35",
+                                                                 new Date(1610683985714L), 120,
+                                                                 new Date(1610683991197L));
         assertTrue(firmwaremanifest.isValid());
-        FirmwareManifest firmwaremanifestInvalid = new FirmwareManifest(new Date(1574704661396L), -74,
-                                                                        "10ed6698-b18e-463f-9694-2cbc4766b952",
-                                                                        "ee80b8cb-2a27-4e6a-9b77-4aaf52f0e706e8bc7df1-bf7e-43e1-9730-961fcd19ef08247116fa-ffc4-4e53-ad67-58b71e5066fbed0ae127-b962-4c16-b50f-83aeebf21c491ec6a698-b4a2-4a5f-bd17-8a78adcedd4114dd83db-0ec8-4f82-b935-549ebd4a850c112beb90-701b-4e31-9872-77dcde32e39e3a7d5585-9a6c-47bf-a1f9-bdc4a922d0264748eaf5-4f68-408a-a92e-9586fd4710afc3db80b0-c67d-4bcf-9cd4-bbc12bbe0d7037a51f54-9b2b-4f20-9897-ee0fc2e45e29e3a22454-ace9-4600-9b25-9e89e6c082ec8161bc93-6823-4e61-8589-b342df13239ca73e0eab-220f-494b-8265-f790671606736cf76cc7-95bb-4c13-8b45-22ad8bd8ef9a4e4b49d8-1dac-40a7-9a08-6f33f8f2915b6cdd9251-633a-4eb6-8a65-fcf1ebf43fc08a16a6ac-1adf-45a2-afbf-459297316a4336e2fee7-895b-406a-a365-e2526ee20009d1569f15-dc4b-443c-b2d7-3f7ac5e011af931808aa-4424-4815-b1de-03e469de78e1339aee42-8a38-4669-bb45-107a50fba759e744c187-f066-474a-bc56-5c93b400ed8723467ea5-7d55-4ce9-8d8c-2a243a9013b5dade024e-591a-499c-8450-ecd1476a5fe043fba6de-5178-4c72-8a0f-62d06c24a1ad6130a9fb-f3f5-4838-b8b3-81d0c37ef66853bd2a09-869a-4b00-a9fe-7ee7aa645e02624589ee-b115-45f3-b972-8b257d91d22d9082f4ce-e0f9-4a9c-903e-f9184dc8333537667f56-6c95-42f1-9269-0a0ae32eaf49b88063d5-28aa-419a-8c36-2eb9f258709b1f55de97-7f4e-42bd-adb9-46bf93f0ef86f21f0138-0077-4206-bcbd-8686e5c20a0f0721ff38-f783-4ddd-b331-a06a17408a7dd18b8728-ab71-4d75-8969-17f3aa820c3f5bfc8272-a69f-4312-bb5c-ee472732eca2e45a5670-dbc2-48ab-9ace-374319a231f314b2eeb7-6525-432b-8b11-f4a9422387857e12db85-7c52-4acf-a3bc-b65cd78e94beeb96f9e4-fce0-4c0b-87e7-5399368eaed58bdcb502-475d-4f3c-811c-c70453c802922688a1d6-a3ad-49bc-9995-04f5458b887e9588b819-2b3c-4b4e-91aa-dd8f70eb1cd86eba883c-c6be-4323-9051-93bde4394a065194a963-3abe-4cdc-a786-e96b0c90e4fd899b06f0-049c-4e8a-bdac-3f1c6f267cf67f2496c5-d763-452a-8ee5-b3bdc3426f9da18165f5-1736-461e-af08-86b8a81458ee9d685e58-823a-41d4-af98-2dd9dfa0d0b20cd6f96e-c4bc-4d9d-9858-7bfc160b928699c174f8-22cf-43b1-b4af-404bc2fbb123dd4b2dfe-2094-44eb-bee5-8c1ac9e51385d2ddd798-fd83-4b11-b65a-3be00ce0ec44bda93c9f-1469-4d66-af47-7bce7dfb0074b1d8ad51-f889-4f79-b601-68722ba4e8c5",
-                                                                        "d6a66f58-ecf9-4cc6-9a84-f5e610036c70",
-                                                                        "e0ce0814-1368-4978-ac6c-a130a102488f",
-                                                                        "bc3911cc-929e-4171-a1f1-54a1383ffd60",
-                                                                        "8411e4d1-4175-41e3-8783-36f83ae65cee970adbb6-241b-4003-82fe-ae78a488bc76c1aad530-4841-449c-ac8a-51df5eb763a0aeced7e5-0b8c-4921-be93-7187e0585335",
-                                                                        new Date(1574704663225L),
-                                                                        new Date(1574704665223L));
+        FirmwareManifest firmwaremanifestInvalid = new FirmwareManifest(new Date(1610683988399L), 60,
+                                                                        "04d7783e-1677-479a-8496-6070fd0162e5",
+                                                                        "ead47ffe-0496-4981-a46c-4dc13f4c06f0", -53,
+                                                                        FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                        "656096d6-1d56-46c6-8d36-7f7ad7665803",
+                                                                        "ebce9f78-19e5-4a2c-85e0-07f58250c6a54d416f53-ca60-4c20-8a30-b54063a24dfc7934778b-89c2-4473-9a7b-2c3ea4e858df4d3b5738-01e7-4127-9b6a-ed67f4cfd51f025fc4bf-f557-47a5-8715-fcabf990afca7825736c-1642-429e-8701-01e110f1717262829d6d-5c84-417a-ad83-09fb23447b1a9dfbba35-ce13-4119-8ca7-721c526d9df06ea8c804-586a-457d-95dd-2f4dea467b72b77a3ed3-a3cb-44fc-9efa-06a10fb46776c512899d-767e-421d-a7b1-4e575dc380dcd2a026de-8841-4aec-b642-da921b234c7fb898cfaf-8111-4b90-9668-8d00b816120a0f3f543e-1335-4f05-9729-c3c7509829cfadf3aff9-7da5-4256-988d-e0334a7a66cdabad233f-020a-4de2-a9be-f8405d4fe543e9c17cbd-9893-48f0-bba9-530543f38f952e55d6f1-1798-4ee7-9807-08b6345bf87420135d94-749d-4409-a5ed-8215d760b306a72130be-a54e-4b3a-841c-0731a39c8e4a3d8bcee8-41b6-4835-bd76-1d958d63199c14ba0f3c-b658-4fb5-923c-26f523ae01ca6b44e763-e2bc-4aed-be3f-2c6a3f92dc274dccc58a-1b99-4e20-a3f1-7a96e8275a49dddd4e13-55ef-4c5c-b73a-9b7109756226c68283a7-68d9-4671-820a-9b5b59f116914169d6b9-b828-4a42-bf21-36aa1572a2bb5d912d99-3c54-4153-b18d-b88c9cd0a42a54053d4e-594c-47cf-ac31-906354e84c7479ae88a4-bfd6-4fc6-a8f7-8fdce34d9940e2304eab-f548-4c80-bed7-34cc16736b3e0346f35a-22ba-4a9e-bf10-7871d3ec970776473912-988a-4e34-aa4e-e55faa218f049ca511b2-ddd5-4c21-b6fa-1c04ff610730e0c09662-9a67-4266-979c-68dbb3383c9e20f95b87-3d2c-47de-a7a1-07a5a559738e12b0b986-19cc-45eb-8f0d-3e00cf7573f9c4f19d4e-99a7-4fb2-ae75-b11d847084122f0fc44b-1c8b-43d6-ba3e-d088efe7eaca7202b184-0ce1-465a-a571-1c822bf557a88dc6709d-672a-4c79-a71b-b455b962890d76f98c8e-ecd8-4394-9fce-f885e2a4f1d88c7ac741-317c-41d3-8ee5-48ab39d10a8cf1d07051-8cba-44fd-b789-42f8d2790e38ae916be5-1d41-4123-8a6f-c1f8a33742d1ebf07ab6-e8cb-40ad-b5e6-680c3908470d42f458de-fe5f-4389-a197-4edf725005ee32b22a0a-b849-4d01-9032-efa684c36517962edd73-bdf9-48d7-9956-9d40bda3db10abd12345-6362-471f-b592-e4181d059ac8a46bc212-3ffc-417d-a543-4fd531983641f03d5906-543c-471b-a5f0-38878a46c7c036ed0ace-c14b-4cb8-839a-3364a2719c0d458f0820-b9f7-4449-aa17-50754636c72174e81d1c-bc14-420c-b2aa-18ad7aa13fd14ef50785-b121-4e6f-a1d2-690bd0f65e4f",
+                                                                        "942e8652-2c3d-42e8-8b26-0ceeee18308c",
+                                                                        "5b4c7c0e-afa4-4de0-bb2a-2818b57adddd",
+                                                                        "5Eá‰¶\u0006;<Z57\u001cV77*RL\b;7Ué‚?î§ƒEí‹º5E_<TZ5T5ê?žQç?®E\u00015\u000fL77QE\u0006E 7Jå™¥Eî€˜577\u0012è?º\u0005!IU7",
+                                                                        "271a5bf6-c894-420e-828a-9211017004a9",
+                                                                        FirmwareManifestSchemaVersion.getDefault(),
+                                                                        null, null,
+                                                                        "b6b72c59-3003-4e4c-bf25-b1184c6e55f3",
+                                                                        new Date(1610683988574L), 72,
+                                                                        new Date(1610683991339L));
         assertFalse(firmwaremanifestInvalid.isValid());
     }
 
@@ -111,33 +142,51 @@ public class TestFirmwareManifest {
     @Test
     public void testEquals() {
         try {
-            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1574704664568L), -120,
-                                                                      "bb471a51-a8ff-4345-a7f8-6d24f3b4816b",
-                                                                      "d2dd5238-d13c-4dd1-b1b3-6c2a46618f16",
-                                                                      "74b66b34-09d6-4b2c-9139-2cff4e805e65",
-                                                                      "7cc36127-401e-4171-b356-8dfd4e5af936",
-                                                                      "7d4670c3-a8fc-4ad9-a1e3-936d729b0ca4",
-                                                                      "09c10169-24ca-4714-85bb-2447d2fd9f3c",
-                                                                      new Date(1574704670478L),
-                                                                      new Date(1574704667189L));
-            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1574704664568L), -120,
-                                                                      "bb471a51-a8ff-4345-a7f8-6d24f3b4816b",
-                                                                      "d2dd5238-d13c-4dd1-b1b3-6c2a46618f16",
-                                                                      "74b66b34-09d6-4b2c-9139-2cff4e805e65",
-                                                                      "7cc36127-401e-4171-b356-8dfd4e5af936",
-                                                                      "7d4670c3-a8fc-4ad9-a1e3-936d729b0ca4",
-                                                                      "09c10169-24ca-4714-85bb-2447d2fd9f3c",
-                                                                      new Date(1574704670478L),
-                                                                      new Date(1574704667189L));
-            FirmwareManifest firmwaremanifest3 = new FirmwareManifest(new Date(1574704660554L), 102,
-                                                                      "62b4b837-7779-475d-b79d-224a165cf4e3",
-                                                                      "c696925b-7c5b-43f5-bc3d-2bf5b6ae8ba2",
-                                                                      "81c218ee-61be-4c0b-adde-97e62c8ebacc",
-                                                                      "dab045f4-b37d-46eb-86f8-bcd733445f14",
-                                                                      "107fa1ba-1a2e-4af7-92c0-5358490b353e",
-                                                                      "89108451-8579-4799-9015-89f921929ce3",
-                                                                      new Date(1574704666960L),
-                                                                      new Date(1574704662251L));
+            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1610683986671L), -90,
+                                                                      "f027c0a4-9bd4-469b-baa9-7fd44bedc822",
+                                                                      "969a953a-922a-49b3-824b-44a82fc8fdcc", -101,
+                                                                      FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                      "de9a0691-ccde-4ff0-a12b-85166ff40c2c",
+                                                                      "da2cbe00-4d73-4929-a28d-54f5bc3060bb",
+                                                                      "3f3ba19b-4624-4b82-af4a-fb90fd80c3db",
+                                                                      "c09f881a-52a9-4359-bebd-fd171081f988",
+                                                                      "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                      "795cb2cb-77b3-44cb-b910-22554da022b2",
+                                                                      FirmwareManifestSchemaVersion.getDefault(),
+                                                                      "ade56c9d-4c7f-4b87-a661-96a6b8684f3f", null,
+                                                                      "f809dec9-b66a-4963-af44-bd6f5aeaa8e5",
+                                                                      new Date(1610683988617L), 55,
+                                                                      new Date(1610683990028L));
+            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1610683986671L), -90,
+                                                                      "f027c0a4-9bd4-469b-baa9-7fd44bedc822",
+                                                                      "969a953a-922a-49b3-824b-44a82fc8fdcc", -101,
+                                                                      FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                      "de9a0691-ccde-4ff0-a12b-85166ff40c2c",
+                                                                      "da2cbe00-4d73-4929-a28d-54f5bc3060bb",
+                                                                      "3f3ba19b-4624-4b82-af4a-fb90fd80c3db",
+                                                                      "c09f881a-52a9-4359-bebd-fd171081f988",
+                                                                      "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                      "795cb2cb-77b3-44cb-b910-22554da022b2",
+                                                                      FirmwareManifestSchemaVersion.getDefault(),
+                                                                      "ade56c9d-4c7f-4b87-a661-96a6b8684f3f", null,
+                                                                      "f809dec9-b66a-4963-af44-bd6f5aeaa8e5",
+                                                                      new Date(1610683988617L), 55,
+                                                                      new Date(1610683990028L));
+            FirmwareManifest firmwaremanifest3 = new FirmwareManifest(new Date(1610683992673L), -96,
+                                                                      "f554714e-b547-4467-9c9d-bd09ecc3f784",
+                                                                      "4dd84409-9245-4d07-ba74-ccbd0feef5f0", -95,
+                                                                      FirmwareManifestDeliveredPayloadType.getDefault(),
+                                                                      "3e0a731b-cd3c-4a4b-b425-36b71ecc68a2",
+                                                                      "41dc845d-7147-49b0-83d3-68b8c40c345e",
+                                                                      "07184951-aca1-40cb-9e50-9be4961b36bf",
+                                                                      "9c557fbf-3586-47c8-affb-c2db8de61357",
+                                                                      "2D8edCD964DCD3cfaCA9bfF2C99DA2dB",
+                                                                      "88fc8290-b49c-4a6c-a4ec-04f86c68a090",
+                                                                      FirmwareManifestSchemaVersion.getDefault(),
+                                                                      "81305f9e-a4b8-40e8-9096-4243d1e8e548", null,
+                                                                      "fad71f67-ee19-40c1-815b-8be6def7f98e",
+                                                                      new Date(1610683992413L), -123,
+                                                                      new Date(1610683995112L));
             assertNotNull(firmwaremanifest1);
             assertNotNull(firmwaremanifest2);
             assertNotNull(firmwaremanifest3);

@@ -16,9 +16,10 @@ import java.util.List;
 
 public interface AccountApiKeysApi {
     /**
-     * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add API key to a list of groups. Add API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -34,9 +35,10 @@ public interface AccountApiKeysApi {
                                            @retrofit2.http.Body List<String> body);
 
     /**
-     * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add API key to a list of groups. Add API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/add \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -54,8 +56,8 @@ public interface AccountApiKeysApi {
 
     /**
      * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * \\ -H &#39;content-type: application/json&#39; \\ -d
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -70,7 +72,7 @@ public interface AccountApiKeysApi {
     /**
      * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/add/ \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -85,7 +87,8 @@ public interface AccountApiKeysApi {
     /**
      * Create a new API key. Create a new API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param body
      *            The details of the API key to create. (required)
@@ -97,8 +100,8 @@ public interface AccountApiKeysApi {
 
     /**
      * Delete API key. Delete the API key. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param apikeyId
      *            The ID of the API key to delete. (required)
@@ -108,23 +111,22 @@ public interface AccountApiKeysApi {
     Call<Void> deleteApiKey(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId);
 
     /**
-     * Get all API keys. Retrieve API keys in an array, optionally filtered by the owner. **Example:**
+     * Get all API keys. Retrieve an array of API keys, optionally filtered by the owner. **Example:**
      * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @param keyEq
      *            API key filter. Do not include the private portion of the API key (the last 32 characters). (optional)
      * @param ownerEq
-     *            Owner name filter. (optional)
+     *            Owner name filter. &lt;b&gt;Note:&lt;/b&gt; This parameter is restricted to administrators. (optional)
      * @return Call&lt;ApiKeyInfoRespList&gt;
      */
     @GET("v3/api-keys")
@@ -134,9 +136,9 @@ public interface AccountApiKeysApi {
                       @retrofit2.http.Query("key__eq") String keyEq, @retrofit2.http.Query("owner__eq") String ownerEq);
 
     /**
-     * Get API key details. Retrieve API key details. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * Get API key. Retrieve details of an API key. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param apikeyId
      *            The ID of the API key to retrieve. (required)
@@ -146,19 +148,19 @@ public interface AccountApiKeysApi {
     Call<ApiKeyInfoResp> getApiKey(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId);
 
     /**
-     * Get groups of the API key. Retrieve groups associated with the API key. **Example:** &#x60;&#x60;&#x60; curl -X
+     * Get policy groups of an API key. Retrieve an array of policy groups associated with an API key.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
      * GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param apikeyId
      *            The ID of the API key. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @return Call&lt;GroupSummaryList&gt;
@@ -170,17 +172,16 @@ public interface AccountApiKeysApi {
                           @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include);
 
     /**
-     * Get groups of the API key. Retrieve groups associated with the API key. **Example:** &#x60;&#x60;&#x60; curl -X
-     * GET https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get policy groups of the current API key. Retrieve an array of policy groups associated with the current API key.
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @return Call&lt;GroupSummaryList&gt;
@@ -192,8 +193,8 @@ public interface AccountApiKeysApi {
                                                @retrofit2.http.Query("include") String include);
 
     /**
-     * Get API key details. Retrieve API key details. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * Get current API key. Retrieve details of current API key. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @return Call&lt;ApiKeyInfoResp&gt;
@@ -202,9 +203,10 @@ public interface AccountApiKeysApi {
     Call<ApiKeyInfoResp> getMyApiKey();
 
     /**
-     * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Remove API key from groups. Remove API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -221,9 +223,10 @@ public interface AccountApiKeysApi {
                                @retrofit2.http.Body List<String> body);
 
     /**
-     * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Remove API key from groups. Remove API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -242,7 +245,7 @@ public interface AccountApiKeysApi {
     /**
      * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -256,8 +259,8 @@ public interface AccountApiKeysApi {
 
     /**
      * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * \\ -H &#39;content-type: application/json&#39; \\ -d
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -272,7 +275,7 @@ public interface AccountApiKeysApi {
     /**
      * Reset the secret key. Reset the secret key of the API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/reset-secret \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param apikeyId
      *            The ID of the API key to reset. (required)
@@ -286,9 +289,9 @@ public interface AccountApiKeysApi {
 
     /**
      * Update API key details. Update API key details. **Example:** &#x60;curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39;
-     * &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
+     * \&quot;TestApiKey25\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param apikeyId
      *            The ID of the API key to update. (required)
@@ -302,7 +305,7 @@ public interface AccountApiKeysApi {
 
     /**
      * Update API key details. Update API key details. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H
      * &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39;
      * &#x60;&#x60;&#x60;
      * 

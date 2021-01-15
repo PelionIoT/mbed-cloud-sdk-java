@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorUpdate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,15 +23,16 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Updates an array of dark theme branding colors.
      *
-     * Update an array of dark theme branding colors of a tenant account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update an array of dark theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
      * \&quot;primary\&quot;, \&quot;color\&quot;: \&quot;#f3f93e\&quot; }]&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void bulkSetAccountDarkColorsTest() {
         String accountId = null;
-        List<BrandingColor> body = null;
+        List<BrandingColorUpdate> body = null;
         // Void response = api.bulkSetAccountDarkColors(accountId, body);
 
         // TODO: test validations
@@ -39,15 +41,16 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Updates an array of light theme branding colors.
      *
-     * Update an array of light theme branding colors of a tenant account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update an array of light theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ &#39;[{ \&quot;reference\&quot;:
      * \&quot;primary\&quot;, \&quot;color\&quot;: \&quot;purple\&quot; }]&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void bulkSetAccountLightColorsTest() {
         String accountId = null;
-        List<BrandingColor> body = null;
+        List<BrandingColorUpdate> body = null;
         // Void response = api.bulkSetAccountLightColors(accountId, body);
 
         // TODO: test validations
@@ -56,9 +59,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Delete all colors.
      *
-     * Delete account branding colors for all themes. **Example usage:** &#x60;curl -X DELETE
+     * Delete account branding colors for all themes. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors -H &#39;Authorization: Bearer
-     * API_KEY&#39;&#x60;
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllAccountColorsTest() {
@@ -71,9 +75,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Delete colors in the dark theme.
      *
-     * Delete account dark theme branding colors. **Example usage:** &#x60;curl -X DELETE
+     * Delete account dark theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark -H &#39;Authorization: Bearer
-     * API_KEY&#39;&#x60;
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllAccountDarkColorsTest() {
@@ -86,9 +91,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Delete colors in the light theme.
      *
-     * Delete account light theme branding colors. **Example usage:** &#x60;curl -X DELETE
+     * Delete account light theme branding colors. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light -H &#39;Authorization: Bearer
-     * API_KEY&#39;&#x60;
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllAccountLightColorsTest() {
@@ -101,9 +107,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Get dark theme branding color.
      *
-     * Retrieve the requested dark theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve the requested dark theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountDarkColorTest() {
@@ -117,9 +124,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Get dark theme branding colors.
      *
-     * Retrieve dark theme branding colors for an account. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve dark theme branding colors for an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountDarkColorsTest() {
@@ -132,9 +140,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Get light theme branding color.
      *
-     * Retrieve the requested light theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve the requested light theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountLightColorTest() {
@@ -148,9 +157,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Get light theme branding colors.
      *
-     * Retrieve light theme branding colors for an account. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve light theme branding colors for an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountLightColorsTest() {
@@ -163,9 +173,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Reset branding color to default.
      *
-     * Resets the branding color of a tenant account to its dark theme default. **Example:** &#x60;&#x60;&#x60; curl -X
-     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Resets the branding color to its dark theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void resetAccountDarkColorTest() {
@@ -179,9 +190,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Reset branding color to default.
      *
-     * Resets the branding color of a tenant account to its light theme default. **Example:** &#x60;&#x60;&#x60; curl -X
-     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Resets the branding color to its light theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void resetAccountLightColorTest() {
@@ -195,9 +207,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Updates a dark theme branding color.
      *
-     * Update a dark theme branding color of a tenant account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update a dark theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
      * \&quot;color\&quot;: \&quot;#f3f93e\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
@@ -213,9 +226,10 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     /**
      * Updates light theme branding color.
      *
-     * Update a light theme branding color of a tenant account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update a light theme branding color. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
      * \&quot;color\&quot;: \&quot;purple\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test

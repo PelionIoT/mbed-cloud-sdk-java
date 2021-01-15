@@ -18,15 +18,15 @@ public class TestOidcRequestClaimMapping {
     @Test
     public void testClone() {
         try {
-            OidcRequestClaimMapping oidcrequestclaimmapping1 = new OidcRequestClaimMapping("baebf.62d5e@3fb09.fr",
-                                                                                           "a5930.2bfac@132ea.me",
-                                                                                           "a7b3add1-e71a-4159-805a-062bd23f998e",
-                                                                                           "c368ce2c-46e8-4e2b-8c37-c6a3713c6b1b",
-                                                                                           "afdc3dd6-1e9d-4c55-a035-ece967b374a7",
-                                                                                           "d28be750-354a-4392-9d3b-ea1d7857e554",
-                                                                                           "feb679ab-730f-4571-a913-ff037093d8b0",
-                                                                                           "dff21d0a-bd07-45e0-bcb0-3a026bb88667",
-                                                                                           "607e6bdb-0593-490c-b5fb-bf05265cce2c");
+            OidcRequestClaimMapping oidcrequestclaimmapping1 = new OidcRequestClaimMapping("59585.6c5f7@51ee9.me",
+                                                                                           "c3cc4.515f8@2d905.fr",
+                                                                                           "cfc1edf7-3537-4443-80fd-a1ff0d60ea7a",
+                                                                                           "ba9b3622-4d18-49ec-b455-779cdd72410a",
+                                                                                           "9d9ea707-b697-468c-8922-026d3e785d21",
+                                                                                           "d7854364-9b30-4afb-923f-f92851b746bc",
+                                                                                           "3e3316aa-dcc3-4a30-a88b-11028eff8def",
+                                                                                           "28d895f1-216e-4b6b-b3da-35e56fc4cdc4",
+                                                                                           "bbc72be4-e0c3-4b5b-8d87-088c9003ce47");
             OidcRequestClaimMapping oidcrequestclaimmapping2 = oidcrequestclaimmapping1.clone();
             assertNotNull(oidcrequestclaimmapping1);
             assertNotNull(oidcrequestclaimmapping2);
@@ -44,24 +44,24 @@ public class TestOidcRequestClaimMapping {
     @Test
     public void testHashCode() {
         try {
-            OidcRequestClaimMapping oidcrequestclaimmapping1 = new OidcRequestClaimMapping("49ea7.2b041@55bb8.me",
-                                                                                           "faa57.f9ded@03b8b.fr",
-                                                                                           "3b91a1b1-98a4-4cf5-9d68-16560b1256dc",
-                                                                                           "a00b2cc9-b1c8-40dd-9aac-301bf5a624bb",
-                                                                                           "51737f15-9362-49fc-9c31-07f5d2da016a",
-                                                                                           "01a47c2d-3404-4e37-af5d-c659ecbd32cd",
-                                                                                           "f52867d0-e4ac-4727-8507-351eaf00fd45",
-                                                                                           "6d1fc624-cefd-4c0a-9790-121fefe47b6e",
-                                                                                           "57433ae8-5dfb-4058-a020-15d5343a8d8d");
-            OidcRequestClaimMapping oidcrequestclaimmapping2 = new OidcRequestClaimMapping("49ea7.2b041@55bb8.me",
-                                                                                           "faa57.f9ded@03b8b.fr",
-                                                                                           "3b91a1b1-98a4-4cf5-9d68-16560b1256dc",
-                                                                                           "a00b2cc9-b1c8-40dd-9aac-301bf5a624bb",
-                                                                                           "51737f15-9362-49fc-9c31-07f5d2da016a",
-                                                                                           "01a47c2d-3404-4e37-af5d-c659ecbd32cd",
-                                                                                           "f52867d0-e4ac-4727-8507-351eaf00fd45",
-                                                                                           "6d1fc624-cefd-4c0a-9790-121fefe47b6e",
-                                                                                           "57433ae8-5dfb-4058-a020-15d5343a8d8d");
+            OidcRequestClaimMapping oidcrequestclaimmapping1 = new OidcRequestClaimMapping("5212b.fa342@91018.me",
+                                                                                           "95fe3.62196@60d81.fr",
+                                                                                           "1333ca67-253b-4a1b-adfa-c607b9284217",
+                                                                                           "41aa1d93-0dc9-425e-8c35-23a91e006d57",
+                                                                                           "75c73d18-4025-46a4-9aa3-b696b33ad861",
+                                                                                           "6e90d31b-796d-4222-b6fe-ccd5d0877bea",
+                                                                                           "44ac672e-81c4-43c1-8b39-47a828e17020",
+                                                                                           "3570a1c7-38c1-4bee-9147-960f5b523af1",
+                                                                                           "4ffb1d26-896d-44c3-b993-68b9ac78b3a8");
+            OidcRequestClaimMapping oidcrequestclaimmapping2 = new OidcRequestClaimMapping("5212b.fa342@91018.me",
+                                                                                           "95fe3.62196@60d81.fr",
+                                                                                           "1333ca67-253b-4a1b-adfa-c607b9284217",
+                                                                                           "41aa1d93-0dc9-425e-8c35-23a91e006d57",
+                                                                                           "75c73d18-4025-46a4-9aa3-b696b33ad861",
+                                                                                           "6e90d31b-796d-4222-b6fe-ccd5d0877bea",
+                                                                                           "44ac672e-81c4-43c1-8b39-47a828e17020",
+                                                                                           "3570a1c7-38c1-4bee-9147-960f5b523af1",
+                                                                                           "4ffb1d26-896d-44c3-b993-68b9ac78b3a8");
             assertNotNull(oidcrequestclaimmapping1);
             assertNotNull(oidcrequestclaimmapping2);
             assertNotSame(oidcrequestclaimmapping2, oidcrequestclaimmapping1);
@@ -82,15 +82,15 @@ public class TestOidcRequestClaimMapping {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        OidcRequestClaimMapping oidcrequestclaimmapping = new OidcRequestClaimMapping("079cd.714c0@bfd20.me",
-                                                                                      "b62ac.34f9b@55254.me",
-                                                                                      "5d97015a-883c-4494-b6cf-d7eb9dbad273",
-                                                                                      "126584e2-78cc-46fe-b559-7ee67f7bd349",
-                                                                                      "7c63106e-10fe-4144-ba8d-e343bdb0739f",
-                                                                                      "69492f4c-a0ba-41ae-9137-7cd3d02c10b1",
-                                                                                      "b45c3653-d42b-4d33-b762-a6e2a0203e5a",
-                                                                                      "8ae0fc1e-8168-4272-bb1e-b5e4c807817e",
-                                                                                      "623672f3-3b48-4cf8-9552-7befefe65ebb");
+        OidcRequestClaimMapping oidcrequestclaimmapping = new OidcRequestClaimMapping("d65a6.1788b@ad8d2.me",
+                                                                                      "bb043.5217f@ee9b7.me",
+                                                                                      "c54e682e-e049-41d8-bc5d-9be60a10a80e",
+                                                                                      "f9b5088c-827e-4102-8301-6dcb4bbd0272",
+                                                                                      "d5738047-ee03-4ed3-96bf-0908f5c3afb1",
+                                                                                      "3da7de18-4bac-44c8-be89-9f620b781100",
+                                                                                      "6c6e71a6-4eb9-47f5-831c-7069da356643",
+                                                                                      "32cadc56-9263-4fb7-a74f-2081f618d8d8",
+                                                                                      "1bcf2c19-9075-4c3f-9dc4-caa53bc290cd");
         assertTrue(oidcrequestclaimmapping.isValid());
     }
 
@@ -101,33 +101,33 @@ public class TestOidcRequestClaimMapping {
     @Test
     public void testEquals() {
         try {
-            OidcRequestClaimMapping oidcrequestclaimmapping1 = new OidcRequestClaimMapping("d34ac.c1939@8b9ed.me",
-                                                                                           "e21c3.67dc9@efc6f.fr",
-                                                                                           "fe4fb58e-fb67-4d57-b304-fb15ef9b456b",
-                                                                                           "0fa538b1-0c30-44f4-9eb0-a222bff5b7df",
-                                                                                           "f3bb6399-f32c-4b84-ab1f-d211548170ac",
-                                                                                           "b6c5f50c-4724-4731-8314-78273937b02b",
-                                                                                           "e566ae74-7370-4220-bd6a-427f2dfcb045",
-                                                                                           "ef580b8f-6397-4021-8436-afea80e0b6b6",
-                                                                                           "da878a6b-46de-41d4-9d6e-5b3386e23301");
-            OidcRequestClaimMapping oidcrequestclaimmapping2 = new OidcRequestClaimMapping("d34ac.c1939@8b9ed.me",
-                                                                                           "e21c3.67dc9@efc6f.fr",
-                                                                                           "fe4fb58e-fb67-4d57-b304-fb15ef9b456b",
-                                                                                           "0fa538b1-0c30-44f4-9eb0-a222bff5b7df",
-                                                                                           "f3bb6399-f32c-4b84-ab1f-d211548170ac",
-                                                                                           "b6c5f50c-4724-4731-8314-78273937b02b",
-                                                                                           "e566ae74-7370-4220-bd6a-427f2dfcb045",
-                                                                                           "ef580b8f-6397-4021-8436-afea80e0b6b6",
-                                                                                           "da878a6b-46de-41d4-9d6e-5b3386e23301");
-            OidcRequestClaimMapping oidcrequestclaimmapping3 = new OidcRequestClaimMapping("be060.4cbb6@cc55b.me",
-                                                                                           "1bf8a.87dc6@87d43.fr",
-                                                                                           "fcb18e64-8ee3-442d-a2ed-2d7f75131114",
-                                                                                           "2a6bba5a-bcc4-47c8-9cb4-d7d089905523",
-                                                                                           "314aa58f-b12a-46d8-846b-ecfe2d59db44",
-                                                                                           "20ec1737-fa9e-4d22-a6aa-470e0c0761be",
-                                                                                           "47d68a84-1d57-4db8-9ecf-fe79c8dcd4c0",
-                                                                                           "7a92bb43-aadf-4e85-8b39-42e7433ee23e",
-                                                                                           "86158d90-8349-42bd-a337-ded74432fff3");
+            OidcRequestClaimMapping oidcrequestclaimmapping1 = new OidcRequestClaimMapping("0a4d3.47300@21c35.fr",
+                                                                                           "d78a2.44df6@a544a.me",
+                                                                                           "dd33b46e-402b-4206-a45e-c0b2edf985a5",
+                                                                                           "c4fa7fcb-b5fa-4a14-859a-894919470c7b",
+                                                                                           "6fb31765-5a8e-4a20-a6e8-4db5e3eb2e70",
+                                                                                           "fa3921db-d5cb-40c3-bfcf-d011d11b92dd",
+                                                                                           "eab5a7d6-b11a-4768-8b46-78d514252c45",
+                                                                                           "e9377f60-6f11-475d-9f5e-73bb7535d3db",
+                                                                                           "26c21693-d79e-4c14-8dce-4d7ff57fe581");
+            OidcRequestClaimMapping oidcrequestclaimmapping2 = new OidcRequestClaimMapping("0a4d3.47300@21c35.fr",
+                                                                                           "d78a2.44df6@a544a.me",
+                                                                                           "dd33b46e-402b-4206-a45e-c0b2edf985a5",
+                                                                                           "c4fa7fcb-b5fa-4a14-859a-894919470c7b",
+                                                                                           "6fb31765-5a8e-4a20-a6e8-4db5e3eb2e70",
+                                                                                           "fa3921db-d5cb-40c3-bfcf-d011d11b92dd",
+                                                                                           "eab5a7d6-b11a-4768-8b46-78d514252c45",
+                                                                                           "e9377f60-6f11-475d-9f5e-73bb7535d3db",
+                                                                                           "26c21693-d79e-4c14-8dce-4d7ff57fe581");
+            OidcRequestClaimMapping oidcrequestclaimmapping3 = new OidcRequestClaimMapping("ab1c4.caeb0@1a281.me",
+                                                                                           "da040.fb202@136bf.me",
+                                                                                           "42a6619f-629b-46ea-a6df-65c81aa28483",
+                                                                                           "b99f38c9-cc06-4595-ae2b-6a8981da67a0",
+                                                                                           "95035939-af30-488f-ba9a-c4137491be1e",
+                                                                                           "9350153d-ef84-46c7-beca-f9c04347923e",
+                                                                                           "7e85236c-b958-44bc-90fb-d949b951dede",
+                                                                                           "32aeab42-a7ae-4376-8e7c-d35e2ead722e",
+                                                                                           "5f6db9e2-034a-4bb3-bba6-5affef907408");
             assertNotNull(oidcrequestclaimmapping1);
             assertNotNull(oidcrequestclaimmapping2);
             assertNotNull(oidcrequestclaimmapping3);

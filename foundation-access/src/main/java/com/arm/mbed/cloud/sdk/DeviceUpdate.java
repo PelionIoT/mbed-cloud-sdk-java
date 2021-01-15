@@ -133,6 +133,12 @@ public class DeviceUpdate extends AbstractModule {
      * Parameter name.
      */
     @Internal
+    private static final String TAG_NAME = "name";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
     private static final String TAG_SUMMARY_STATUS_ID = "summaryStatusId";
 
     /**
@@ -322,12 +328,12 @@ public class DeviceUpdate extends AbstractModule {
     @API
     @Nullable
     public Paginator<CampaignStatisticsEvents>
-           allEvents(@NonNull String campaignId, @NonNull String id,
+           allEvents(@NonNull String campaignId, @NonNull CampaignStatisticsId id,
                      @Nullable CampaignStatisticsEventsListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         checkNotNull(id, TAG_ID);
         final String finalCampaignId = campaignId;
-        final String finalId = id;
+        final CampaignStatisticsId finalId = id;
         final CampaignStatisticsEventsListOptions finalOptions = (options == null) ? new CampaignStatisticsEventsListOptions()
                                                                                    : options;
         return new Paginator<CampaignStatisticsEvents>(finalOptions, new PageRequester<CampaignStatisticsEvents>() {
@@ -349,13 +355,28 @@ public class DeviceUpdate extends AbstractModule {
     }
 
     /**
+     * Adds a subtenant identity provider. Add manually to fix compile error
+     * 
+     */
+    @API
+    @Nullable
+    public Paginator<CampaignStatisticsEvents>
+           allEvents(@NonNull String campaignId, @NonNull String id,
+                     @Nullable CampaignStatisticsEventsListOptions options) throws MbedCloudException {
+        checkNotNull(campaignId, TAG_CAMPAIGN_ID);
+        checkNotNull(id, TAG_ID);
+
+        return allEvents(campaignId, CampaignStatisticsId.valueOf(id), options);
+    }
+
+    /**
      * Archive a campaign.
      * 
      * 
      * <p>
      * Archive a campaign. [br] **Usage example:** ``` curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive \ -H
-     * 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive \ -H
+     * 'Authorization: Bearer [api_key]' ```
      * 
      * @param id
      *            The campaign ID.
@@ -417,7 +438,7 @@ public class DeviceUpdate extends AbstractModule {
      * Similar to {@link #createFirmwareImage(com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload.
+     *            The firmware image file to upload. File name must not exceed 166 characters.
      * @return an added firmware image
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -436,7 +457,7 @@ public class DeviceUpdate extends AbstractModule {
      * Similar to {@link #createFirmwareImage(com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload.
+     *            The firmware image file to upload. File name must not exceed 166 characters.
      * @param firmwareImage
      *            a firmware image.
      * @return something
@@ -458,16 +479,19 @@ public class DeviceUpdate extends AbstractModule {
      * Adds a firmware image.
      * 
      * <p>
-     * Create a firmware image. [br] **Usage example:** ``` curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \ -H 'Authorization: [valid access token]' \ -H
-     * 'Content-Type: multipart/form-data' \ -F 'datafile=@myimage.bin;type=application/octet-stream' -F
-     * 'description=bla bla' \ -F 'name=My Linux Image' ```
+     * Create a firmware image. [BR/] **Note:** Only use this API for images smaller than 100 MB. For larger images,
+     * [upload in
+     * chunks](https://developer.pelion.com/docs/device-management/current/updating-firmware/uploading-a-large-
+     * firmware-image.html). [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \ -H 'Authorization: Bearer [api_key]' \ -H 'Content-Type:
+     * multipart/form-data' \ -F 'datafile=@myimage.bin;type=application/octet-stream' -F 'description=bla bla' \ -F
+     * 'name=My Linux Image' ```
      * 
      * This is not a standard create method as it uploads a file which creates an entity which contains URIs to the
      * uploaded file.
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload.
+     *            The firmware image file to upload. File name must not exceed 166 characters.
      * @param description
      *            The description of the object.
      * @param name
@@ -511,29 +535,11 @@ public class DeviceUpdate extends AbstractModule {
      * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
      * 
      * @param firmwareManifestFile
-     *            The manifest file to create. The API gateway enforces the account-specific file size.
-     * @return an added firmware manifest
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public FirmwareManifest createFirmwareManifest(@NonNull DataFile firmwareManifestFile) throws MbedCloudException {
-        checkNotNull(firmwareManifestFile, TAG_FIRMWARE_MANIFEST_FILE);
-        return createFirmwareManifest(firmwareManifestFile, (DataFile) null, (String) null, (String) null);
-    }
-
-    /**
-     * Adds a firmware manifest.
-     * 
-     * <p>
-     * Similar to
-     * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
-     * 
-     * @param firmwareManifestFile
-     *            The manifest file to create. The API gateway enforces the account-specific file size.
+     *            The manifest file to create. The API gateway enforces the account-specific file size. File name must
+     *            not exceed 100 characters.
      * @param keyTableFile
-     *            The key table of pre-shared keys for devices. The table is generated by the manifest tool.
+     *            The key table of pre-shared keys for devices. The table is generated by the manifest tool. File name
+     *            must not exceed 100 characters.
      * @param firmwareManifest
      *            a firmware manifest.
      * @return something
@@ -550,8 +556,8 @@ public class DeviceUpdate extends AbstractModule {
         checkModelValidity(firmwareManifestFile, TAG_FIRMWARE_MANIFEST_FILE);
         checkModelValidity(keyTableFile, TAG_KEY_TABLE_FILE);
         checkModelValidity(firmwareManifest, TAG_FIRMWARE_MANIFEST);
-        return createFirmwareManifest(firmwareManifestFile, keyTableFile, firmwareManifest.getDescription(),
-                                      firmwareManifest.getName());
+        return createFirmwareManifest(firmwareManifestFile, keyTableFile, firmwareManifest.getName(),
+                                      firmwareManifest.getDescription());
     }
 
     /**
@@ -559,7 +565,7 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Upload a firmware manifest. The API enforces a maximum manifest size of 2KB. [br] **Usage example:** ``` curl -X
-     * POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \ -H 'Authorization: [valid access token]' \ -H
+     * POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \ -H 'Authorization: Bearer [api_key]' \ -H
      * 'Content-Type: multipart/form-data' \ -F 'datafile=@myimage.bin;type=application/octet-stream' \ -F
      * 'description=bla bla' \ -F 'key_table=@myKeyTable.proto;type=' \ -F 'name=My Manifest' ```
      * 
@@ -567,13 +573,15 @@ public class DeviceUpdate extends AbstractModule {
      * to the uploaded file(s).
      * 
      * @param firmwareManifestFile
-     *            The manifest file to create. The API gateway enforces the account-specific file size.
+     *            The manifest file to create. The API gateway enforces the account-specific file size. File name must
+     *            not exceed 100 characters.
      * @param keyTableFile
-     *            The key table of pre-shared keys for devices. The table is generated by the manifest tool.
+     *            The key table of pre-shared keys for devices. The table is generated by the manifest tool. File name
+     *            must not exceed 100 characters.
+     * @param name
+     *            The name of the manifest.
      * @param description
      *            The description of the firmware manifest.
-     * @param name
-     *            The name of the object.
      * @return an added firmware manifest
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -581,15 +589,16 @@ public class DeviceUpdate extends AbstractModule {
     @API
     @Nullable
     public FirmwareManifest createFirmwareManifest(@NonNull DataFile firmwareManifestFile,
-                                                   @Nullable DataFile keyTableFile, @Nullable String description,
-                                                   @Nullable String name) throws MbedCloudException {
+                                                   @Nullable DataFile keyTableFile, @NonNull String name,
+                                                   @Nullable String description) throws MbedCloudException {
         checkNotNull(firmwareManifestFile, TAG_FIRMWARE_MANIFEST_FILE);
+        checkNotNull(name, TAG_NAME);
         checkModelValidity(firmwareManifestFile, TAG_FIRMWARE_MANIFEST_FILE);
         checkModelValidity(keyTableFile, TAG_KEY_TABLE_FILE);
         final DataFile finalFirmwareManifestFile = firmwareManifestFile;
         final DataFile finalKeyTableFile = keyTableFile;
-        final String finalDescription = description;
         final String finalName = name;
+        final String finalDescription = description;
         return CloudCaller.call(this, "createFirmwareManifest()", FirmwareManifestAdapter.getMapper(),
                                 new CloudRequest.CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>() {
                                     /**
@@ -603,10 +612,9 @@ public class DeviceUpdate extends AbstractModule {
                                         return endpoints.getDeviceUpdateFirmwareManifestsApi()
                                                         .firmwareManifestCreate(DataFileAdapter.reverseMap("datafile",
                                                                                                            finalFirmwareManifestFile),
-                                                                                finalDescription,
+                                                                                finalName, finalDescription,
                                                                                 DataFileAdapter.reverseMap("key_table",
-                                                                                                           finalKeyTableFile),
-                                                                                finalName);
+                                                                                                           finalKeyTableFile));
                                     }
                                 }, true);
     }
@@ -619,7 +627,8 @@ public class DeviceUpdate extends AbstractModule {
      * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifest)}
      * 
      * @param firmwareManifestFile
-     *            The manifest file to create. The API gateway enforces the account-specific file size.
+     *            The manifest file to create. The API gateway enforces the account-specific file size. File name must
+     *            not exceed 100 characters.
      * @param firmwareManifest
      *            a firmware manifest.
      * @return something
@@ -637,14 +646,41 @@ public class DeviceUpdate extends AbstractModule {
     }
 
     /**
+     * Adds a firmware manifest.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
+     * 
+     * @param firmwareManifestFile
+     *            The manifest file to create. The API gateway enforces the account-specific file size. File name must
+     *            not exceed 100 characters.
+     * @param name
+     *            The name of the manifest.
+     * @return an added firmware manifest
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public FirmwareManifest createFirmwareManifest(@NonNull DataFile firmwareManifestFile,
+                                                   @NonNull String name) throws MbedCloudException {
+        checkNotNull(firmwareManifestFile, TAG_FIRMWARE_MANIFEST_FILE);
+        checkNotNull(name, TAG_NAME);
+        return createFirmwareManifest(firmwareManifestFile, (DataFile) null, name, (String) null);
+    }
+
+    /**
      * Adds an update campaign.
      * 
      * <p>
-     * Create an update campaign. [br] **Usage example:** ``` curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \ -H 'Authorization: [valid access token]' \ -H
-     * 'content-type: application/json;charset=UTF-8' \ -d '{ "campaign_strategy": "one-shot", "description": "Campaign
-     * is for ...", "device_filter": "id__eq=123400000000000000000000000ae45", "name": "campaign", "root_manifest_id":
-     * "5678000000000000000000000000bd98", }' ```
+     * Create an update campaign.
+     * 
+     * To include a filter for targeted devices, refer to the filter using `[filter_id]` in the message body. [br]
+     * **Usage example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \ -H 'Authorization:
+     * Bearer [api_key]' \ -H 'content-type: application/json;charset=UTF-8' \ -d '{ "campaign_strategy": "one-shot",
+     * "description": "Campaign is for ...", "device_filter": "[filter_id]", "name": "campaign", "root_manifest_id":
+     * "56780000000000a5b70000000000bd98" }' ```
      * 
      * @param campaign
      *            an update campaign.
@@ -696,8 +732,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Delete a firmware image. [br] **Usage example:** ``` curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/11234567f9012ab56790120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' ```
      * 
      * @param id
      *            The firmware image ID.
@@ -743,8 +779,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Delete a firmware manifest. [br] **Usage example:** ``` curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/11234567f9012ab56780120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' ```
      * 
      * @param id
      *            The firmware manifest ID.
@@ -773,8 +809,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Delete an update campaign. [br] **Usage example:** ``` curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' ```
      * 
      * @param id
      *            The campaign ID.
@@ -845,8 +881,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Get metadata for all devices in a campaign. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata
-     * \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata
+     * \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param id
      *            The campaign ID.
@@ -888,7 +924,7 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Similar to
-     * {@link #events(String, String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions)}
+     * {@link #events(String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsId, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions)}
      * 
      * @param options
      *            list options.
@@ -905,7 +941,8 @@ public class DeviceUpdate extends AbstractModule {
                   @NonNull CampaignStatistics campaignStatistics) throws MbedCloudException {
         checkNotNull(campaignStatistics, TAG_CAMPAIGN_STATISTICS);
         checkModelValidity(campaignStatistics, TAG_CAMPAIGN_STATISTICS);
-        return events(campaignStatistics.getCampaignId(), campaignStatistics.getId(), options);
+        return events(campaignStatistics.getCampaignId(), CampaignStatisticsId.getValue(campaignStatistics.getId()),
+                      options);
     }
 
     /**
@@ -913,8 +950,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Get a list of events grouped by summary. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types
-     * \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types
+     * \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param campaignId
      *            The campaign ID.
@@ -929,12 +966,12 @@ public class DeviceUpdate extends AbstractModule {
     @API
     @Nullable
     public ListResponse<CampaignStatisticsEvents>
-           events(@NonNull String campaignId, @NonNull String id,
+           events(@NonNull String campaignId, @NonNull CampaignStatisticsId id,
                   @Nullable CampaignStatisticsEventsListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         checkNotNull(id, TAG_ID);
         final String finalCampaignId = campaignId;
-        final String finalId = id;
+        final CampaignStatisticsId finalId = id;
         final CampaignStatisticsEventsListOptions finalOptions = (options == null) ? new CampaignStatisticsEventsListOptions()
                                                                                    : options;
         return CloudCaller.call(this, "events()", CampaignStatisticsEventsAdapter.getListMapper(),
@@ -947,9 +984,26 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<EventTypeList> call() {
                                         return endpoints.getDeviceUpdateCampaignsApi()
-                                                        .updateCampaignEventTypesList(finalCampaignId, finalId);
+                                                        .updateCampaignEventTypesList(finalCampaignId,
+                                                                                      finalId == null ? null
+                                                                                                      : finalId.getString());
                                     }
                                 });
+    }
+
+    /**
+     * Adds a subtenant identity provider. Add manually to fix compile error
+     * 
+     */
+    @API
+    @Nullable
+    public ListResponse<CampaignStatisticsEvents>
+           events(@NonNull String campaignId, @NonNull String id,
+                  @Nullable CampaignStatisticsEventsListOptions options) throws MbedCloudException {
+        checkNotNull(campaignId, TAG_CAMPAIGN_ID);
+        checkNotNull(id, TAG_ID);
+
+        return events(campaignId, CampaignStatisticsId.valueOf(id), options);
     }
 
     /**
@@ -1161,8 +1215,8 @@ public class DeviceUpdate extends AbstractModule {
      * <p>
      * Get a list of statistics for a campaign, including the number of devices reporting specific event codes. [br]
      * **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics \ -H
-     * 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics \ -H
+     * 'Authorization: Bearer [api_key]' ```
      * 
      * @param campaignId
      *            The campaign ID.
@@ -1201,7 +1255,7 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * List all firmware images. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param options
      *            list options.
@@ -1309,7 +1363,7 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * List all firmware manifests. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param options
      *            list options.
@@ -1428,7 +1482,7 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Get update campaigns for devices specified by a filter. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param stateEq
      *            a string
@@ -1613,8 +1667,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Get update campaign metadata for a specific device. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012
-     * \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
+     * \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param campaignId
      *            The device's campaign ID.
@@ -1675,8 +1729,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Get the count of successfully updated, skipped, and failed devices. [br] **Usage example:** ``` curl
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012
-     * \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail \ -H
+     * 'Authorization: Bearer [api_key]' ```
      * 
      * @param campaignId
      *            ID of the associated campaign.
@@ -1737,10 +1791,10 @@ public class DeviceUpdate extends AbstractModule {
      * Gets a campaign statistics events.
      * 
      * <p>
-     * Get the count for a specific event type; for example, succeeded, failed, or skipped. [br] **Usage example:** ```
+     * Get the count for a specific event type, for example, succeeded, failed or skipped. [br] **Usage example:** ```
      * curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types/12345678901234567890123456789012
-     * \ -H 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112
+     * \ -H 'Authorization: Bearer [api_key]' ```
      * 
      * @param campaignId
      *            ID of the associated campaign.
@@ -1804,8 +1858,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Retrieve a firmware image. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/1123456f9012ab567890120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' ```
      * 
      * @param id
      *            The firmware image ID.
@@ -1858,8 +1912,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Retrieve a firmware manifest. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/1123467f9012ab567890120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' ```
      * 
      * @param id
      *            The firmware manifest ID.
@@ -1893,8 +1947,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Get an update campaign. [br] **Usage example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' ```
      * 
      * @param id
      *            The campaign ID.
@@ -1947,8 +2001,8 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Start a campaign. [br] **Usage example:** ``` curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start \ -H
-     * 'Authorization: [valid access token]' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start \ -H
+     * 'Authorization: Bearer [api_key]' ```
      * 
      * @param id
      *            The campaign ID.
@@ -1996,9 +2050,10 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Stop a campaign. Stopping is a process that requires the campaign go through several
-     * [phases](../updating-firmware/running-update-campaigns.html#stopping). [br] **Usage example:** ``` curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop \ -H
-     * 'Authorization: [valid access token]' ```
+     * [phases](https://developer.pelion.com/docs/device-management/current/updating-firmware/device-management-update-usi
+     * ng-the-apis.html). [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \ -H
+     * 'Authorization: Bearer [api_key]' ```
      * 
      * @param id
      *            The campaign ID.
@@ -2045,10 +2100,10 @@ public class DeviceUpdate extends AbstractModule {
      * 
      * <p>
      * Modify an update campaign. [br] **Usage example:** ``` curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \ -H 'Authorization:
-     * [valid access token]' \ d '{ "description": "Campaign is for ...", "device_filter":
-     * "id__eq=123400000000000000000000000ae45", "name": "campaign", "root_manifest_id":
-     * "5678000000000000000000000000bd98", }' ```
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012 \ -H 'Authorization:
+     * Bearer [api_key]' \ d '{ "description": "Campaign is for ...", "device_filter":
+     * "123400000000000000000000000ae45", "name": "campaign", "root_manifest_id": "5678000000000000000000000000bd98", }'
+     * ```
      * 
      * @param id
      *            The campaign ID.
@@ -2103,4 +2158,5 @@ public class DeviceUpdate extends AbstractModule {
         checkModelValidity(updateCampaign, TAG_UPDATE_CAMPAIGN);
         return updateUpdateCampaign(updateCampaign.getId(), updateCampaign);
     }
+
 }

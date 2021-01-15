@@ -12,9 +12,10 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Brandin
 
 public interface UserInterfaceConfigurationImagesApi {
     /**
-     * Revert an image to dark theme default. Revert an account branding image to dark theme default. **Example:**
-     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear \\
-     * -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Revert an image to dark theme default. Revert an account branding image to dark theme default.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)
@@ -24,9 +25,10 @@ public interface UserInterfaceConfigurationImagesApi {
     Call<Void> clearDarkImage(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
-     * Revert an image to light theme default. Revert an account branding image to light theme default. **Example:**
-     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear \\
-     * -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Revert an image to light theme default. Revert an account branding image to light theme default.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)
@@ -36,9 +38,10 @@ public interface UserInterfaceConfigurationImagesApi {
     Call<Void> clearLightImage(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
-     * Delete images in the dark theme. Delete account dark theme branding images. **Example usage:** &#x60;curl -X
-     * DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer
-     * API_KEY&#39;&#x60;
+     * Delete images in the dark theme. Delete account dark theme branding images. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      * 
      * @return Call&lt;Void&gt;
      */
@@ -46,8 +49,10 @@ public interface UserInterfaceConfigurationImagesApi {
     Call<Void> deleteAllDarkImages();
 
     /**
-     * Delete all images. Delete account branding images for all themes. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-images -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete all images. Delete account branding images for all themes. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      * 
      * @return Call&lt;Void&gt;
      */
@@ -55,9 +60,10 @@ public interface UserInterfaceConfigurationImagesApi {
     Call<Void> deleteAllImages();
 
     /**
-     * Delete images in the light theme. Delete account light theme branding images. **Example usage:** &#x60;curl -X
-     * DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer
-     * API_KEY&#39;&#x60;
+     * Delete images in the light theme. Delete account light theme branding images. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      * 
      * @return Call&lt;Void&gt;
      */
@@ -67,7 +73,7 @@ public interface UserInterfaceConfigurationImagesApi {
     /**
      * Get metadata of all dark theme images. Retrieve metadata for all dark theme branding images. **Example:**
      * &#x60;curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @return Call&lt;BrandingImageList&gt;
      */
@@ -77,7 +83,7 @@ public interface UserInterfaceConfigurationImagesApi {
     /**
      * Get metadata of all light theme images. Retrieve the metadata of all light theme branding images. **Example:**
      * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @return Call&lt;BrandingImageList&gt;
      */
@@ -87,7 +93,7 @@ public interface UserInterfaceConfigurationImagesApi {
     /**
      * Get metadata of a dark theme image. Retrieve metadata for one account dark theme branding image. **Example:**
      * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)
@@ -99,7 +105,7 @@ public interface UserInterfaceConfigurationImagesApi {
     /**
      * Get metadata of a light theme image. Retrieve metadata for one account light theme branding image. **Example:**
      * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)
@@ -110,9 +116,9 @@ public interface UserInterfaceConfigurationImagesApi {
 
     /**
      * Upload a dark theme image. Upload a new account branding image in the dark theme in PNG or JPEG format.
-     * **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
      * &#x60;&#x60;&#x60;
      * 
      * @param reference
@@ -128,7 +134,7 @@ public interface UserInterfaceConfigurationImagesApi {
 
     /**
      * Upload a dark theme image. Upload a new account branding image as form data in the dark theme in PNG or JPEG
-     * format.
+     * format. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)
@@ -143,10 +149,11 @@ public interface UserInterfaceConfigurationImagesApi {
                                  @retrofit2.http.Part() MultipartBody.Part image);
 
     /**
-     * Upload a light theme image. Upload a new account light theme branding image in PNG or JPEG format. **Example:**
-     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload
-     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary
-     * &#39;@myimage.png&#39; &#x60;&#x60;&#x60;
+     * Upload a light theme image. Upload a new account light theme branding image in PNG or JPEG format.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
+     * &#x60;&#x60;&#x60;
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)
@@ -161,7 +168,7 @@ public interface UserInterfaceConfigurationImagesApi {
 
     /**
      * Upload a light theme image. Upload a new account branding image as form data in the light theme in PNG or JPEG
-     * format.
+     * format. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      * 
      * @param reference
      *            Name of the branding images (icon or picture). (required)

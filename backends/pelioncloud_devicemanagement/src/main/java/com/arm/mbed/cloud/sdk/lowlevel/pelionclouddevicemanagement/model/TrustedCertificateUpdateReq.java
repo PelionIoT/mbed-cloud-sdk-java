@@ -44,7 +44,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
     private String name = null;
 
     /**
-     * Service name where the certificate must be used.
+     * Service name where the certificate must be used. Service cannot be updated for developer certificates.
      */
     @JsonAdapter(ServiceEnum.Adapter.class)
     public enum ServiceEnum {
@@ -229,11 +229,11 @@ public class TrustedCertificateUpdateReq implements Serializable {
     }
 
     /**
-     * Service name where the certificate must be used.
+     * Service name where the certificate must be used. Service cannot be updated for developer certificates.
      * 
      * @return service
      **/
-    @ApiModelProperty(value = "Service name where the certificate must be used.")
+    @ApiModelProperty(value = "Service name where the certificate must be used. Service cannot be updated for developer certificates.")
     public ServiceEnum getService() {
         return service;
     }

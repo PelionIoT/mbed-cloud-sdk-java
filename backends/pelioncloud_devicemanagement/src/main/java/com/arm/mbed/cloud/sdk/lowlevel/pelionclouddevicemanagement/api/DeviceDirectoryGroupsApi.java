@@ -26,7 +26,7 @@ public interface DeviceDirectoryGroupsApi {
     Call<DeviceGroup> groupCreate(@retrofit2.http.Body Group group);
 
     /**
-     * Delete a group. Delete a group.
+     * Delete a group. Delete a group. This deletes the group, but not the devices in the group.
      * 
      * @param deviceGroupId
      *            The ID of the group. (required)
@@ -62,7 +62,9 @@ public interface DeviceDirectoryGroupsApi {
      *            &lt;td&gt;name&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;custom_attributes&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;tr&gt; &lt;td&gt;component_attributes&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;etag&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
@@ -77,8 +79,11 @@ public interface DeviceDirectoryGroupsApi {
      *            suffixed with &#x60;__lte&#x60;. Lower and upper limits to a date-time range may be specified by
      *            including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter: &#x60;{field
      *            name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60; ###### By device group custom attributes:
-     *            &#x60;custom_attributes__{param}&#x3D;{value}&#x60; &#x60;custom_attributes__tag&#x3D;TAG1&#x60; #####
-     *            Multi-field example
+     *            &#x60;custom_attributes__{param}&#x3D;{value}&#x60; &#x60;custom_attributes__tag&#x3D;TAG1&#x60;
+     *            ###### By device group component attributes: &#x60;component_attributes__{name}&#x3D;{version}&#x60;
+     *            &#x60;component_attributes__{name}__{operator}&#x3D;{version}&#x60;
+     *            &#x60;component_attributes__ble&#x3D;1.2.3&#x60; &#x60;component_attributes__main__gt&#x3D;1.2.3&#x60;
+     *            ##### Multi-field example
      *            &#x60;name__eq&#x3D;mygroup&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;
      *            Encoded:
      *            &#x60;?filter&#x3D;name__eq%3Dmygroup%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-12-30T00%3A00%3A00Z&#x60;
@@ -157,7 +162,7 @@ public interface DeviceDirectoryGroupsApi {
                   @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
-     * Add a device to a group. Add one device to a group.
+     * Add a device to a group. Add one device to a group. A device can be in multiple groups.
      * 
      * @param deviceGroupId
      *            The ID of the group. (required)
@@ -183,7 +188,7 @@ public interface DeviceDirectoryGroupsApi {
                                   @retrofit2.http.Body DeviceGroupManipulation body);
 
     /**
-     * Get a page of devices. Get a page of devices.
+     * Get a page of devices. Get a page of devices in a specified group.
      * 
      * @param deviceGroupId
      *            (required)
@@ -433,6 +438,14 @@ public interface DeviceDirectoryGroupsApi {
      *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
      *            nin filter for the \&quot;name\&quot; field (optional)
+     * @param netIdEq
+     *            eq filter for the \&quot;net_id\&quot; field (optional)
+     * @param netIdNeq
+     *            neq filter for the \&quot;net_id\&quot; field (optional)
+     * @param netIdIn
+     *            in filter for the \&quot;net_id\&quot; field (optional)
+     * @param netIdNin
+     *            nin filter for the \&quot;net_id\&quot; field (optional)
      * @param serialNumberEq
      *            eq filter for the \&quot;serial_number\&quot; field (optional)
      * @param serialNumberNeq
@@ -589,6 +602,10 @@ public interface DeviceDirectoryGroupsApi {
                              @retrofit2.http.Query("name__neq") String nameNeq,
                              @retrofit2.http.Query("name__in") String nameIn,
                              @retrofit2.http.Query("name__nin") String nameNin,
+                             @retrofit2.http.Query("net_id__eq") String netIdEq,
+                             @retrofit2.http.Query("net_id__neq") String netIdNeq,
+                             @retrofit2.http.Query("net_id__in") String netIdIn,
+                             @retrofit2.http.Query("net_id__nin") String netIdNin,
                              @retrofit2.http.Query("serial_number__eq") String serialNumberEq,
                              @retrofit2.http.Query("serial_number__neq") String serialNumberNeq,
                              @retrofit2.http.Query("serial_number__in") String serialNumberIn,
@@ -607,7 +624,9 @@ public interface DeviceDirectoryGroupsApi {
                              @retrofit2.http.Query("vendor_id__nin") String vendorIdNin);
 
     /**
-     * Get a group. Get a group.
+     * Get a group. Returns [DeviceGroup](https://developer.pelion.com/docs/device-management-api/device-directory/)
+     * info what contains info of the group, for example, name and updated date. To list the devices in the group, use
+     * &#39;/v3/device-groups/{device-group-id}/devices/&#39;.
      * 
      * @param deviceGroupId
      *            The group ID (required)
@@ -618,7 +637,7 @@ public interface DeviceDirectoryGroupsApi {
         groupRetrieve(@retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId);
 
     /**
-     * Modify the attributes of a group. Modify the attributes of a group.
+     * Modify the attributes of a group. Modify the attributes of a group, such as the description.
      * 
      * @param deviceGroupId
      *            (required)

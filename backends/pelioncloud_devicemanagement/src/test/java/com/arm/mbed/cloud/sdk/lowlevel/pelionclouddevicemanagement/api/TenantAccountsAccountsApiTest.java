@@ -21,30 +21,31 @@ public class TenantAccountsAccountsApiTest {
     /**
      * Create a new account.
      *
-     * Create a new account. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
-     * &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;,
-     * \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;:
-     * \&quot;example_admin@myaccount.info\&quot;, \&quot;country\&quot;: \&quot;United Kingdom\&quot;,
-     * \&quot;end_market\&quot;: \&quot;Smart City\&quot;, \&quot;address_line1\&quot;: \&quot;110 Fulbourn Rd\&quot;,
-     * \&quot;city\&quot;: \&quot;Cambridge\&quot;, \&quot;contact\&quot;: \&quot;J. Doe\&quot;, \&quot;company\&quot;:
-     * \&quot;Arm\&quot;}&#39; &#x60;&#x60;&#x60;
+     * Create a new account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;display_name\&quot;:
+     * \&quot;MyAccount1\&quot;, \&quot;aliases\&quot;: [ \&quot;my-account\&quot; ], \&quot;admin_name\&quot;:
+     * \&quot;accountAdmin1\&quot;, \&quot;email\&quot;: \&quot;example_admin@myaccount.info\&quot;,
+     * \&quot;country\&quot;: \&quot;United Kingdom\&quot;, \&quot;end_market\&quot;: \&quot;Smart City\&quot;,
+     * \&quot;address_line1\&quot;: \&quot;110 Fulbourn Rd\&quot;, \&quot;city\&quot;: \&quot;Cambridge\&quot;,
+     * \&quot;contact\&quot;: \&quot;J. Doe\&quot;, \&quot;company\&quot;: \&quot;Arm\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void createAccountTest() {
         AccountCreationReq body = null;
         String action = null;
-        // AccountInfo response = api.createAccount(body, action);
+        // AccountCreationResp response = api.createAccount(body, action);
 
         // TODO: test validations
     }
 
     /**
-     * Get account info.
+     * Get account information.
      *
-     * Retrieve detailed information about an account. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve detailed information about an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountInfoTest() {
@@ -59,9 +60,10 @@ public class TenantAccountsAccountsApiTest {
     /**
      * Get all accounts.
      *
-     * Returns an array of account objects, optionally filtered by status and tier level. **Example:**
-     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Retrieve an array of tenant accounts, optionally filtered by status and tier level. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void getAllAccountsTest() {
@@ -87,10 +89,10 @@ public class TenantAccountsAccountsApiTest {
     /**
      * Update attributes of an existing account.
      *
-     * Update an account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;:
-     * \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
+     * Update an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateAccountTest() {

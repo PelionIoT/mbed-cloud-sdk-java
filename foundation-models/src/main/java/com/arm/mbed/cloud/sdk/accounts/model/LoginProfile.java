@@ -28,6 +28,11 @@ public class LoginProfile implements SdkModel {
     private static final long serialVersionUID = -244427560121579L;
 
     /**
+     * The ID of the user in the identity provider's service.
+     */
+    private final String foreignId;
+
+    /**
      * ID of the identity provider.
      */
     private String id;
@@ -50,6 +55,8 @@ public class LoginProfile implements SdkModel {
      * <p>
      * Note: Should not be used. Use {@link #LoginProfile()} instead.
      * 
+     * @param foreignId
+     *            The ID of the user in the identity provider's service.
      * @param id
      *            ID of the identity provider.
      * @param loginProfileType
@@ -58,8 +65,9 @@ public class LoginProfile implements SdkModel {
      *            Name of the identity provider.
      */
     @Internal
-    public LoginProfile(String id, LoginProfileType loginProfileType, String name) {
+    public LoginProfile(String foreignId, String id, LoginProfileType loginProfileType, String name) {
         super();
+        this.foreignId = foreignId;
         this.loginProfileType = loginProfileType;
         setId(id);
         setName(name);
@@ -78,7 +86,8 @@ public class LoginProfile implements SdkModel {
      */
     @Internal
     public LoginProfile(LoginProfile loginProfile) {
-        this(loginProfile == null ? (String) null : loginProfile.id,
+        this(loginProfile == null ? (String) null : loginProfile.foreignId,
+             loginProfile == null ? (String) null : loginProfile.id,
              loginProfile == null ? LoginProfileType.getDefault() : loginProfile.loginProfileType,
              loginProfile == null ? (String) null : loginProfile.name);
     }
@@ -87,7 +96,7 @@ public class LoginProfile implements SdkModel {
      * Constructor.
      */
     public LoginProfile() {
-        this((String) null, LoginProfileType.getDefault(), (String) null);
+        this((String) null, (String) null, LoginProfileType.getDefault(), (String) null);
     }
 
     /**
@@ -113,12 +122,23 @@ public class LoginProfile implements SdkModel {
      * <p>
      * Note: Should not be used. Use {@link #LoginProfile()} instead.
      * 
+     * @param foreignId
+     *            The ID of the user in the identity provider's service.
      * @param loginProfileType
      *            Identity provider type.
      */
     @Internal
-    public LoginProfile(LoginProfileType loginProfileType) {
-        this((String) null, loginProfileType, (String) null);
+    public LoginProfile(String foreignId, LoginProfileType loginProfileType) {
+        this(foreignId, (String) null, loginProfileType, (String) null);
+    }
+
+    /**
+     * Gets the id of the user in the identity provider's service.
+     * 
+     * @return foreignId
+     */
+    public String getForeignId() {
+        return foreignId;
     }
 
     /**
@@ -209,7 +229,8 @@ public class LoginProfile implements SdkModel {
      */
     @Override
     public String toString() {
-        return "LoginProfile [id=" + id + ", loginProfileType=" + loginProfileType + ", name=" + name + "]";
+        return "LoginProfile [foreignId=" + foreignId + ", id=" + id + ", loginProfileType=" + loginProfileType
+               + ", name=" + name + "]";
     }
 
     /**
@@ -224,6 +245,7 @@ public class LoginProfile implements SdkModel {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((foreignId == null) ? 0 : foreignId.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((loginProfileType == null) ? 0 : loginProfileType.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -267,6 +289,13 @@ public class LoginProfile implements SdkModel {
         }
         final LoginProfile other = (LoginProfile) obj;
         if (!other.canEqual(this)) {
+            return false;
+        }
+        if (foreignId == null) {
+            if (other.foreignId != null) {
+                return false;
+            }
+        } else if (!foreignId.equals(other.foreignId)) {
             return false;
         }
         if (id == null) {

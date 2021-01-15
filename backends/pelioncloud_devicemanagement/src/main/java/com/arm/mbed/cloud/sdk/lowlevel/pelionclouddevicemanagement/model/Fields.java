@@ -55,11 +55,11 @@ public class Fields implements Serializable {
     }
 
     /**
-     * The field name in the request for which the validation has failed.
+     * The field name in the failed validation request.
      * 
      * @return name
      **/
-    @ApiModelProperty(value = "The field name in the request for which the validation has failed.")
+    @ApiModelProperty(value = "The field name in the failed validation request.")
     public String getName() {
         return name;
     }

@@ -250,11 +250,12 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A flag indicating whether mandatory two-factor authentication (TOTP) is enabled.
+     * A flag indicating whether two-factor authentication (TOTP) is enabled. An account administrator can disable it,
+     * but cannot enable it for other users.
      * 
      * @return isTotpEnabled
      **/
-    @ApiModelProperty(value = "A flag indicating whether mandatory two-factor authentication (TOTP) is enabled.")
+    @ApiModelProperty(value = "A flag indicating whether two-factor authentication (TOTP) is enabled. An account administrator can disable it, but cannot enable it for other users.")
     public Boolean isIsTotpEnabled() {
         return isTotpEnabled;
     }

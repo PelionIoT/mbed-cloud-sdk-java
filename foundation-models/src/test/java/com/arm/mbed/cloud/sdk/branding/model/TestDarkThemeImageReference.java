@@ -25,13 +25,13 @@ public class TestDarkThemeImageReference {
                                                                                               .getString());
             assertNotNull(darkthemeimagereference);
             assertTrue(darkthemeimagereference.isDefault());
-            darkthemeimagereference = DarkThemeImageReference.getValue("BRAND_LOGO_EMAIL");
+            darkthemeimagereference = DarkThemeImageReference.getValue("APP_LOGO_LANDSCAPE");
             assertNotNull(darkthemeimagereference);
             assertTrue(darkthemeimagereference.isDefault());
-            darkthemeimagereference = DarkThemeImageReference.getValue("brand_logo_landscape");
+            darkthemeimagereference = DarkThemeImageReference.getValue("app_logo_portrait");
             assertNotNull(darkthemeimagereference);
             assertFalse(darkthemeimagereference.isDefault());
-            darkthemeimagereference = DarkThemeImageReference.getValue("df1d030c-ddf7-4bf3-858f-4bd19ee101de");
+            darkthemeimagereference = DarkThemeImageReference.getValue("a3657fc9-418f-4de7-9ae6-5843c04777f3");
             assertNotNull(darkthemeimagereference);
             assertTrue(darkthemeimagereference.isDefault());
         } catch (Exception exception) {
