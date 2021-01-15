@@ -1,9 +1,8 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -15,11 +14,11 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 public class EchoResourceDesired implements SdkModel {
     private static final long serialVersionUID = 1L;
 
-    private DateTime desiredAt;
+    private Date desiredAt;
 
     private BigDecimal status;
 
-    private DateTime statusUpdatedAt;
+    private Date statusUpdatedAt;
 
     private String value;
 
@@ -35,7 +34,7 @@ public class EchoResourceDesired implements SdkModel {
      *            The desired value in base64 encoded format.
      * 
      */
-    public EchoResourceDesired(DateTime desiredAt, BigDecimal status, DateTime statusUpdatedAt, String value) {
+    public EchoResourceDesired(Date desiredAt, BigDecimal status, Date statusUpdatedAt, String value) {
         super();
         this.desiredAt = desiredAt;
         this.status = status;
@@ -57,11 +56,11 @@ public class EchoResourceDesired implements SdkModel {
         return true;
     }
 
-    public DateTime getDesiredAt() {
+    public Date getDesiredAt() {
         return desiredAt;
     }
 
-    public void setDesiredAt(DateTime desiredAt) {
+    public void setDesiredAt(Date desiredAt) {
         this.desiredAt = desiredAt;
     }
 
@@ -73,11 +72,11 @@ public class EchoResourceDesired implements SdkModel {
         this.status = status;
     }
 
-    public DateTime getStatusUpdatedAt() {
+    public Date getStatusUpdatedAt() {
         return statusUpdatedAt;
     }
 
-    public void setStatusUpdatedAt(DateTime statusUpdatedAt) {
+    public void setStatusUpdatedAt(Date statusUpdatedAt) {
         this.statusUpdatedAt = statusUpdatedAt;
     }
 

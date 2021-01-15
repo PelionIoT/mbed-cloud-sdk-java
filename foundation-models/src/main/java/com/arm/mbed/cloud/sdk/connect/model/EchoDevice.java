@@ -1,9 +1,8 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -16,21 +15,21 @@ public class EchoDevice implements SdkModel {
 
     private static final long serialVersionUID = 1L;
 
-    private DateTime createdAt;
+    private Date createdAt;
 
     private String deviceId;
 
     private String endpointName;
 
-    private DateTime lastDesiredAt;
+    private Date lastDesiredAt;
 
-    private DateTime lastReportedAt;
+    private Date lastReportedAt;
 
     private String object;
 
     private List<EchoResource> resources;
 
-    private DateTime updatedAt;
+    private Date updatedAt;
 
     /**
      * @param createdAt
@@ -50,8 +49,8 @@ public class EchoDevice implements SdkModel {
      * @param updatedAt
      *            The time of last registration event of a Device Echo object.
      */
-    public EchoDevice(DateTime createdAt, String deviceId, String endpointName, DateTime lastDesiredAt,
-                      DateTime lastReportedAt, String object, List<EchoResource> resources, DateTime updatedAt) {
+    public EchoDevice(Date createdAt, String deviceId, String endpointName, Date lastDesiredAt, Date lastReportedAt,
+                      String object, List<EchoResource> resources, Date updatedAt) {
         super();
         this.createdAt = createdAt;
         this.deviceId = deviceId;
@@ -78,11 +77,11 @@ public class EchoDevice implements SdkModel {
         return true;
     }
 
-    public DateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(DateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -102,19 +101,19 @@ public class EchoDevice implements SdkModel {
         this.endpointName = endpointName;
     }
 
-    public DateTime getLastDesiredAt() {
+    public Date getLastDesiredAt() {
         return lastDesiredAt;
     }
 
-    public void setLastDesiredAt(DateTime lastDesiredAt) {
+    public void setLastDesiredAt(Date lastDesiredAt) {
         this.lastDesiredAt = lastDesiredAt;
     }
 
-    public DateTime getLastReportedAt() {
+    public Date getLastReportedAt() {
         return lastReportedAt;
     }
 
-    public void setLastReportedAt(DateTime lastReportedAt) {
+    public void setLastReportedAt(Date lastReportedAt) {
         this.lastReportedAt = lastReportedAt;
     }
 
@@ -134,11 +133,11 @@ public class EchoDevice implements SdkModel {
         this.resources = resources;
     }
 
-    public DateTime getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(DateTime updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 

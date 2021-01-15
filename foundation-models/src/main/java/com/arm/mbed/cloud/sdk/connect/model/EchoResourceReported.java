@@ -1,8 +1,7 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
+import java.util.Date;
 import java.util.Objects;
-
-import org.joda.time.DateTime;
 
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -11,9 +10,9 @@ public class EchoResourceReported implements SdkModel {
 
     private String contentType;
 
-    private DateTime expiresAt;
+    private Date expiresAt;
 
-    private DateTime reportedAt;
+    private Date reportedAt;
 
     private String value;
 
@@ -30,7 +29,7 @@ public class EchoResourceReported implements SdkModel {
      *            The reported value in base64 encoded format.
      * 
      */
-    public EchoResourceReported(String contentType, DateTime expiresAt, DateTime reportedAt, String value) {
+    public EchoResourceReported(String contentType, Date expiresAt, Date reportedAt, String value) {
         super();
         this.contentType = contentType;
         this.expiresAt = expiresAt;
@@ -60,19 +59,19 @@ public class EchoResourceReported implements SdkModel {
         this.contentType = contentType;
     }
 
-    public DateTime getExpiresAt() {
+    public Date getExpiresAt() {
         return expiresAt;
     }
 
-    public void setExpiresAt(DateTime expiresAt) {
+    public void setExpiresAt(Date expiresAt) {
         this.expiresAt = expiresAt;
     }
 
-    public DateTime getReportedAt() {
+    public Date getReportedAt() {
         return reportedAt;
     }
 
-    public void setReportedAt(DateTime reportedAt) {
+    public void setReportedAt(Date reportedAt) {
         this.reportedAt = reportedAt;
     }
 
