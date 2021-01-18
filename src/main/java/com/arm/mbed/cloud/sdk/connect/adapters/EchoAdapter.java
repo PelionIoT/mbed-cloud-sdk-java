@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.connect.model.EchoDevice;
 import com.arm.mbed.cloud.sdk.connect.model.EchoResource;
@@ -32,10 +33,12 @@ public final class EchoAdapter {
         if (apiEchoDevice == null || deviceId == null || deviceId.isEmpty()) {
             return null;
         }
-        return new EchoDevice(apiEchoDevice.getCreatedAt(), apiEchoDevice.getDeviceId(),
-                              apiEchoDevice.getEndpointName(), apiEchoDevice.getLastDesiredAt(),
-                              apiEchoDevice.getLastReportedAt(), apiEchoDevice.getObject(),
-                              mapResourceList(deviceId, apiEchoDevice.getResources()), apiEchoDevice.getUpdatedAt());
+        return new EchoDevice(TranslationUtils.toDate(apiEchoDevice.getCreatedAt()), apiEchoDevice.getDeviceId(),
+                              apiEchoDevice.getEndpointName(),
+                              TranslationUtils.toDate(apiEchoDevice.getLastDesiredAt()),
+                              TranslationUtils.toDate(apiEchoDevice.getLastReportedAt()), apiEchoDevice.getObject(),
+                              mapResourceList(deviceId, apiEchoDevice.getResources()),
+                              TranslationUtils.toDate(apiEchoDevice.getUpdatedAt()));
     }
 
     /**
@@ -75,8 +78,10 @@ public final class EchoAdapter {
             return null;
         }
 
-        return new EchoResourceDesired(apiEchoResourceDesired.getDesiredAt(), apiEchoResourceDesired.getStatus(),
-                                       apiEchoResourceDesired.getStatusUpdatedAt(), apiEchoResourceDesired.getValue());
+        return new EchoResourceDesired(TranslationUtils.toDate(apiEchoResourceDesired.getDesiredAt()),
+                                       apiEchoResourceDesired.getStatus(),
+                                       TranslationUtils.toDate(apiEchoResourceDesired.getStatusUpdatedAt()),
+                                       apiEchoResourceDesired.getValue());
     }
 
     /**
@@ -96,7 +101,8 @@ public final class EchoAdapter {
         }
 
         return new EchoResourceReported(apiEchoResourceReported.getContentType(),
-                                        apiEchoResourceReported.getExpiresAt(), apiEchoResourceReported.getReportedAt(),
+                                        TranslationUtils.toDate(apiEchoResourceReported.getExpiresAt()),
+                                        TranslationUtils.toDate(apiEchoResourceReported.getReportedAt()),
                                         apiEchoResourceReported.getValue());
     }
 
