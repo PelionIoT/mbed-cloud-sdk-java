@@ -1872,6 +1872,29 @@ public class Connect extends AbstractModule {
     }
 
     /**
+     * Delete the Device Echo object.
+     * <p>
+     *
+     * @param device
+     *            Device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable void deleteDeviceEcho(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        final String finalDeviceId = device.getId();
+
+        CloudCaller.call(this, "deleteDeviceEcho()", null, new CloudCall<Void>() {
+            @Override
+            public Call<Void> call() {
+                return endpoint.getDeviceEcho().deleteDeviceEchoObject(finalDeviceId);
+            }
+        });
+    }
+
+    /**
      * 
      * Implementation of the notification manager.
      *
