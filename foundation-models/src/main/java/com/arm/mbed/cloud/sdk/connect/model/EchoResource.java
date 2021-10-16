@@ -16,6 +16,8 @@ public class EchoResource implements SdkModel {
     private String resourcePath;
 
     private Boolean subscribed;
+    
+    private String deviceId;
 
     /**
      * @param desired
@@ -87,10 +89,18 @@ public class EchoResource implements SdkModel {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
+    
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(desired, reported, resourcePath, subscribed);
+        return Objects.hash(desired, reported, resourcePath, subscribed, deviceId);
     }
 
     @Override
@@ -106,15 +116,15 @@ public class EchoResource implements SdkModel {
         }
         final EchoResource other = (EchoResource) obj;
         return Objects.equals(desired, other.desired) && Objects.equals(reported, other.reported)
-               && Objects.equals(resourcePath, other.resourcePath) && Objects.equals(subscribed, other.subscribed);
+               && Objects.equals(resourcePath, other.resourcePath) && Objects.equals(subscribed, other.subscribed) && Objects.equals(deviceId, other.deviceId);
     }
 
     @Override
     public String toString() {
         return "{\"desired\":\"" + desired + "\", \"reported\":\"" + reported + "\", \"resourcePath\":\"" + resourcePath
-               + "\", \"subscribed\":\"" + subscribed + "\"}";
+        		+ "\", \"subscribed\":\"" + subscribed+ "\", \"deviceId\":\"" + deviceId + "\"}";
     }
-
+    
     @Override
     public String getId() {
         // TODO Auto-generated method stub
@@ -126,5 +136,4 @@ public class EchoResource implements SdkModel {
         // TODO Auto-generated method stub
 
     }
-
 }
