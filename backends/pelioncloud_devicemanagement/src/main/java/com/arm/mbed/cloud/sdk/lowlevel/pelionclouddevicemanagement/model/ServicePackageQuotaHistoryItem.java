@@ -56,7 +56,9 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
 
         PACKAGE_RENEWAL("package_renewal"),
 
-        PACKAGE_TERMINATION("package_termination");
+        PACKAGE_TERMINATION("package_termination"),
+
+        PACKAGE_TOKENS_EDIT("package_tokens_edit");
 
         private String value;
 
@@ -188,12 +190,12 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
     }
 
     /**
-     * Reservation details if reason is &#x60;reservation&#x60;, &#x60;reservation_releasem&#x60; or
+     * Reservation details if reason is &#x60;reservation&#x60;, &#x60;reservation_release&#x60; or
      * &#x60;reservation_termination&#x60;.
      * 
      * @return reservation
      **/
-    @ApiModelProperty(value = "Reservation details if reason is `reservation`, `reservation_releasem` or `reservation_termination`.")
+    @ApiModelProperty(value = "Reservation details if reason is `reservation`, `reservation_release` or `reservation_termination`.")
     public ServicePackageQuotaHistoryReservation getReservation() {
         return reservation;
     }
@@ -208,12 +210,12 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
     }
 
     /**
-     * Service package details if reason is &#x60;package_creation&#x60;, &#x60;package_renewal&#x60; or
-     * &#x60;package_termination&#x60;.
+     * Service package details if reason is &#x60;package_creation&#x60;, &#x60;package_renewal&#x60;,
+     * &#x60;package_termination&#x60;, or &#x60;package_tokens_edit&#x60;.
      * 
      * @return servicePackage
      **/
-    @ApiModelProperty(value = "Service package details if reason is `package_creation`, `package_renewal` or `package_termination`.")
+    @ApiModelProperty(value = "Service package details if reason is `package_creation`, `package_renewal`, `package_termination`, or `package_tokens_edit`.")
     public ServicePackageQuotaHistoryServicePackage getServicePackage() {
         return servicePackage;
     }

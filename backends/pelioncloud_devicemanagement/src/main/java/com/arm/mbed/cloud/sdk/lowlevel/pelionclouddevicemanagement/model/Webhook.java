@@ -30,7 +30,7 @@ public class Webhook implements Serializable {
     private Map<String, String> headers = null;
 
     @SerializedName("serialization")
-    private Object serialization = null;
+    private SerializationConfigData serialization = null;
 
     @SerializedName("url")
     private String url = null;
@@ -63,22 +63,22 @@ public class Webhook implements Serializable {
         this.headers = headers;
     }
 
-    public Webhook serialization(Object serialization) {
+    public Webhook serialization(SerializationConfigData serialization) {
         this.serialization = serialization;
         return this;
     }
 
     /**
-     * Serialization configuration for a channel.
+     * Get serialization
      * 
      * @return serialization
      **/
-    @ApiModelProperty(value = "Serialization configuration for a channel.")
-    public Object getSerialization() {
+    @ApiModelProperty(value = "")
+    public SerializationConfigData getSerialization() {
         return serialization;
     }
 
-    public void setSerialization(Object serialization) {
+    public void setSerialization(SerializationConfigData serialization) {
         this.serialization = serialization;
     }
 

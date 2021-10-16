@@ -80,12 +80,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
+     * 
      * @param options
      *            list options.
      * @return paginator over the list of policy groups
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
         return allPolicyGroups(options, getModel());
     }
@@ -97,6 +104,12 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
+     * 
      * @param options
      *            list options.
      * @param apiKey
@@ -105,6 +118,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options,
                                                   @NonNull ApiKey apiKey) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allPolicyGroups(options, apiKey);
@@ -117,6 +131,12 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
+     * 
      * @param id
      *            The ID of the API key.
      * @param options
@@ -125,6 +145,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public Paginator<PolicyGroup> allPolicyGroups(@NonNull String id,
                                                   @Nullable PolicyGroupListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allPolicyGroups(id, options);
@@ -157,11 +178,18 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#create(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use POST
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys
+     * 
      * @return an added api key
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public ApiKey create() throws MbedCloudException {
         return create(getModel());
     }
@@ -172,6 +200,12 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use POST
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys
+     * 
      * @param apiKey
      *            an api key.
      * @return an added api key
@@ -179,6 +213,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public ApiKey create(@NonNull ApiKey apiKey) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createApiKey(apiKey));
     }
@@ -192,10 +227,17 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#delete(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use DELETE
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public void delete() throws MbedCloudException {
         delete(getModel());
     }
@@ -206,12 +248,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use DELETE
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param apiKey
      *            an api key.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public void delete(@NonNull ApiKey apiKey) throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).deleteApiKey(apiKey);
     }
@@ -222,12 +271,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(String)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use DELETE
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param id
      *            The ID of the API key to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public void delete(@NonNull String id) throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).deleteApiKey(id);
     }
@@ -288,17 +344,23 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myApiKey()}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated.
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).myApiKey());
     }
 
     /**
-     * Get groups of the API key.
+     * Get policy groups of an API key.
      * 
      * 
      * <p>
@@ -307,23 +369,36 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
+     * 
      * @param options
      *            list options.
      * @return the list of policy groups corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
         return policyGroups(options, getModel());
     }
 
     /**
-     * Get groups of the API key.
+     * Get policy groups of an API key.
      * 
      * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
      * 
      * @param options
      *            list options.
@@ -333,18 +408,25 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options,
                                                   @NonNull ApiKey apiKey) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).policyGroups(options, apiKey);
     }
 
     /**
-     * Get groups of the API key.
+     * Get policy groups of an API key.
      * 
      * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/groups
      * 
      * @param id
      *            The ID of the API key.
@@ -354,6 +436,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ListResponse<PolicyGroup> policyGroups(@NonNull String id,
                                                   @Nullable PolicyGroupListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).policyGroups(id, options);
@@ -368,11 +451,18 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#read(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public ApiKey read() throws MbedCloudException {
         return read(getModel());
     }
@@ -383,12 +473,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param apiKey
      *            an api key.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ApiKey read(@NonNull ApiKey apiKey) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readApiKey(apiKey));
     }
@@ -399,6 +496,12 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(String)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param id
      *            The ID of the API key.
      * @return something
@@ -406,6 +509,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public ApiKey read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readApiKey(id));
     }
@@ -419,11 +523,18 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#update(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use PUT
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public ApiKey update() throws MbedCloudException {
         return update(getModel());
     }
@@ -434,6 +545,12 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use PUT
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param apiKey
      *            an api key.
      * @return something
@@ -441,6 +558,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     public ApiKey update(@NonNull ApiKey apiKey) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).updateApiKey(apiKey));
     }
@@ -454,12 +572,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#update(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use PUT
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param id
      *            The ID of the API key.
      * @return an updated api key
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ApiKey update(@NonNull String id) throws MbedCloudException {
         return update(id, getModel());
     }
@@ -471,6 +596,12 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use PUT
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys/{access_key_id}
+     * 
      * @param id
      *            The ID of the API key.
      * @param apiKey
@@ -479,6 +610,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ApiKey update(@NonNull String id, @NonNull ApiKey apiKey) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).updateApiKey(id, apiKey));
     }

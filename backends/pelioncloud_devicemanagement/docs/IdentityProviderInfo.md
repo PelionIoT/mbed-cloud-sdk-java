@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **isDefault** | **Boolean** | Flag indicating whether this is the global default identity provider. |  [optional]
 **name** | **String** | Name of the identity provider. | 
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;identity-provider&#39; | 
+**oidcAttributes** | [**OIDCInfo**](OIDCInfo.md) | OIDC specific attributes. |  [optional]
 **saml2Attributes** | [**SAML2Info**](SAML2Info.md) | SAML2 specific attributes. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the identity provider. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | Identity provider type. | 

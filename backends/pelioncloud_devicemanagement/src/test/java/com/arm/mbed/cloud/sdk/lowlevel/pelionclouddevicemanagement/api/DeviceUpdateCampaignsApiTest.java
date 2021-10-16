@@ -23,8 +23,8 @@ public class DeviceUpdateCampaignsApiTest {
      * Archive a campaign.
      *
      * Archive a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignArchiveTest() {
@@ -37,13 +37,13 @@ public class DeviceUpdateCampaignsApiTest {
     /**
      * Create a campaign
      *
-     * Create an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: &lt;valid access token&gt;&#39;
-     * \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ -d &#39;{ \&quot;campaign_strategy\&quot;:
+     * Create an update campaign. To include a filter for targeted devices, refer to the filter using
+     * &#x60;&lt;filter_id&gt;&#x60; in the message body. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\
+     * -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ -d &#39;{ \&quot;campaign_strategy\&quot;:
      * \&quot;one-shot\&quot;, \&quot;description\&quot;: \&quot;Campaign is for ...\&quot;,
-     * \&quot;device_filter\&quot;: \&quot;id__eq&#x3D;123400000000000000000000000ae45\&quot;, \&quot;name\&quot;:
-     * \&quot;campaign\&quot;, \&quot;root_manifest_id\&quot;: \&quot;5678000000000000000000000000bd98\&quot;, }&#39;
-     * &#x60;&#x60;&#x60;
+     * \&quot;device_filter\&quot;: \&quot;&lt;filter_id&gt;\&quot;, \&quot;name\&quot;: \&quot;campaign\&quot;,
+     * \&quot;root_manifest_id\&quot;: \&quot;56780000000000a5b70000000000bd98\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignCreateTest() {
@@ -57,8 +57,8 @@ public class DeviceUpdateCampaignsApiTest {
      * Delete a campaign
      *
      * Delete an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignDestroyTest() {
@@ -72,8 +72,8 @@ public class DeviceUpdateCampaignsApiTest {
      * Get a list of events grouped by summary
      *
      * Get a list of events grouped by summary. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types
-     * \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignEventTypesListTest() {
@@ -87,10 +87,10 @@ public class DeviceUpdateCampaignsApiTest {
     /**
      * Get an event type for a campaign
      *
-     * Get the count for a specific event type; for example, succeeded, failed, or skipped. &lt;br&gt; **Usage
-     * example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types/12345678901234567890123456789012
-     * \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * Get the count for a specific event type, for example, succeeded, failed or skipped. &lt;br&gt; **Usage example:**
+     * &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignEventTypesRetrieveTest() {
@@ -106,8 +106,8 @@ public class DeviceUpdateCampaignsApiTest {
      * List all campaigns
      *
      * Get update campaigns for devices specified by a filter. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X
-     * GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: &lt;valid access
-     * token&gt;&#39; &#x60;&#x60;&#x60;
+     * GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignListTest() {
@@ -175,8 +175,8 @@ public class DeviceUpdateCampaignsApiTest {
      * List all campaign device metadata
      *
      * Get metadata for all devices in a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata
-     * \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignMetadataListTest() {
@@ -195,8 +195,8 @@ public class DeviceUpdateCampaignsApiTest {
      * Get a campaign device metadata
      *
      * Get update campaign metadata for a specific device. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012
-     * \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignMetadataRetrieveTest() {
@@ -211,11 +211,11 @@ public class DeviceUpdateCampaignsApiTest {
      * Get campaign metrics
      *
      * Get
-     * [information](https://www.pelion.com/docs/device-management/current/updating-firmware/campaign-metrics-in-portal.html)
+     * [information](https://developer.pelion.com/docs/device-management/current/updating-firmware/campaign-metrics-in-portal.html)
      * for a campaign based on **SUCCESS**, **FAIL**, or **SKIPPED** criteria for each device. &lt;br&gt; **Usage
      * example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/metrics \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123467f9012ab567890120000789012/metrics \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignMetricsTest() {
@@ -229,8 +229,8 @@ public class DeviceUpdateCampaignsApiTest {
      * Get a campaign.
      *
      * Get an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignRetrieveTest() {
@@ -244,8 +244,8 @@ public class DeviceUpdateCampaignsApiTest {
      * Start a campaign.
      *
      * Start a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignStartTest() {
@@ -260,8 +260,8 @@ public class DeviceUpdateCampaignsApiTest {
      *
      * Get a list of statistics for a campaign, including the number of devices reporting specific event codes.
      * &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignStatisticsListTest() {
@@ -276,8 +276,8 @@ public class DeviceUpdateCampaignsApiTest {
      *
      * Get the count of successfully updated, skipped, and failed devices. &lt;br&gt; **Usage example:**
      * &#x60;&#x60;&#x60; curl
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012
-     * \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignStatisticsRetrieveTest() {
@@ -292,10 +292,10 @@ public class DeviceUpdateCampaignsApiTest {
      * Stop a campaign.
      *
      * Stop a campaign. Stopping is a process that requires the campaign go through several
-     * [phases](../updating-firmware/running-update-campaigns.html#stopping). &lt;br&gt; **Usage example:**
-     * &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60;
+     * [phases](https://developer.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html).
+     * &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignStopTest() {
@@ -309,11 +309,11 @@ public class DeviceUpdateCampaignsApiTest {
      * Modify a campaign
      *
      * Modify an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\ -H
-     * &#39;Authorization: &lt;valid access token&gt;&#39; \\ d &#39;{ \&quot;description\&quot;: \&quot;Campaign is for
-     * ...\&quot;, \&quot;device_filter\&quot;: \&quot;id__eq&#x3D;123400000000000000000000000ae45\&quot;,
-     * \&quot;name\&quot;: \&quot;campaign\&quot;, \&quot;root_manifest_id\&quot;:
-     * \&quot;5678000000000000000000000000bd98\&quot;, }&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ d &#39;{ \&quot;description\&quot;: \&quot;Campaign is for
+     * ...\&quot;, \&quot;device_filter\&quot;: \&quot;123400000000000000000000000ae45\&quot;, \&quot;name\&quot;:
+     * \&quot;campaign\&quot;, \&quot;root_manifest_id\&quot;: \&quot;5678000000000000000000000000bd98\&quot;, }&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void updateCampaignUpdateTest() {

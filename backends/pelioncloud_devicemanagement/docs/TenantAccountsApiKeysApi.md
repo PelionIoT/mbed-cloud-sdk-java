@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**deleteAccountApiKey**](TenantAccountsApiKeysApi.md#deleteAccountApiKey) | **DELETE** v3/accounts/{account_id}/api-keys/{apikey_id} | Delete the API key.
 [**getAccountApiKey**](TenantAccountsApiKeysApi.md#getAccountApiKey) | **GET** v3/accounts/{account_id}/api-keys/{apikey_id} | Get API key details.
 [**getAllAccountApiKeys**](TenantAccountsApiKeysApi.md#getAllAccountApiKeys) | **GET** v3/accounts/{account_id}/api-keys | Get all API keys.
-[**getGroupsOfAccountApikey**](TenantAccountsApiKeysApi.md#getGroupsOfAccountApikey) | **GET** v3/accounts/{account_id}/api-keys/{apikey_id}/groups | Get groups associated with the API key.
+[**getGroupsOfAccountApikey**](TenantAccountsApiKeysApi.md#getGroupsOfAccountApikey) | **GET** v3/accounts/{account_id}/api-keys/{apikey_id}/groups | Get policy groups of an API key.
 [**removeAccountApiKeyFromGroups**](TenantAccountsApiKeysApi.md#removeAccountApiKeyFromGroups) | **DELETE** v3/accounts/{account_id}/api-keys/{apikey_id}/groups | Remove API key from groups.
 [**removeAccountApiKeyFromListedGroups**](TenantAccountsApiKeysApi.md#removeAccountApiKeyFromListedGroups) | **POST** v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove | Remove API key from groups.
 [**resetAccountApiKeySecret**](TenantAccountsApiKeysApi.md#resetAccountApiKeySecret) | **POST** v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret | Reset the secret key.
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 Add API key to a list of groups.
 
-Add API key to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Add API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 Add API key to a list of groups.
 
-Add an API key to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Add an API key to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 
 Create a new API key.
 
-Create a new API key. There is no default value for the owner ID, and it must be from the same account where the new API key is created.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; &#x60;&#x60;&#x60;
+Create a new API key. There is no default value for the owner ID, and it must be from the same account where the new API key is created. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 Delete the API key.
 
-Delete an API key.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Delete an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -255,7 +255,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-Retrieve API key details.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\  -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve details of an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\  -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 Get all API keys.
 
-Retrieve API keys in an array, optionally filtered by the owner.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of API keys, optionally filtered by the owner. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -334,8 +334,8 @@ Bearer.setApiKey("YOUR API KEY");
 TenantAccountsApiKeysApi apiInstance = new TenantAccountsApiKeysApi();
 String accountId = "accountId_example"; // String | Account ID.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 String keyEq = "keyEq_example"; // String | API key filter. Do not include the private portion of the API key (the last 32 characters).
 String ownerEq = "ownerEq_example"; // String | Owner name filter.
@@ -354,8 +354,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| Account ID. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
  **keyEq** | **String**| API key filter. Do not include the private portion of the API key (the last 32 characters). | [optional]
  **ownerEq** | **String**| Owner name filter. | [optional]
@@ -377,9 +377,9 @@ Name | Type | Description  | Notes
 # **getGroupsOfAccountApikey**
 > GroupSummaryList getGroupsOfAccountApikey(accountId, apikeyId, limit, after, order, include)
 
-Get groups associated with the API key.
+Get policy groups of an API key.
 
-Retrieve groups associated with the API key.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of policy groups associated with an API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -402,8 +402,8 @@ TenantAccountsApiKeysApi apiInstance = new TenantAccountsApiKeysApi();
 String accountId = "accountId_example"; // String | Account ID.
 String apikeyId = "apikeyId_example"; // String | The ID of the API key.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 try {
     GroupSummaryList result = apiInstance.getGroupsOfAccountApikey(accountId, apikeyId, limit, after, order, include);
@@ -421,8 +421,8 @@ Name | Type | Description  | Notes
  **accountId** | **String**| Account ID. |
  **apikeyId** | **String**| The ID of the API key. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
 
 ### Return type
@@ -444,7 +444,7 @@ Name | Type | Description  | Notes
 
 Remove API key from groups.
 
-Remove API key from groups.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 
 Remove API key from groups.
 
-Remove an API key from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove an API key from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -562,7 +562,7 @@ Name | Type | Description  | Notes
 
 Reset the secret key.
 
-Reset the secret key of the API key.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Reset the secret key of the API key. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -621,7 +621,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-Update API key details.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; &#x60;&#x60;&#x60;
+Update API key details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java

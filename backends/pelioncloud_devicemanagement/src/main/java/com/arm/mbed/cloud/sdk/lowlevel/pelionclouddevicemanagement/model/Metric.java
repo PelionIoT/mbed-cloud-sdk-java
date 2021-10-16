@@ -85,13 +85,12 @@ public class Metric implements Serializable {
     }
 
     /**
-     * The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight
-     * Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to
-     * Machine Server.
+     * The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning an Lw2M2M
+     * client to a state where it can initiate a management session to a new LwM2M server.
      * 
      * @return bootstrapsFailed
      **/
-    @ApiModelProperty(value = "The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+    @ApiModelProperty(value = "The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning an Lw2M2M client to a state where it can initiate a management session to a new LwM2M server.")
     public Long getBootstrapsFailed() {
         return bootstrapsFailed;
     }
@@ -106,13 +105,12 @@ public class Metric implements Serializable {
     }
 
     /**
-     * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a
-     * Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight
-     * Machine to Machine Server.
+     * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning an Lw2M2M
+     * client to a state where it can initiate a management session to a new LwM2M server.
      * 
      * @return bootstrapsPending
      **/
-    @ApiModelProperty(value = "The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+    @ApiModelProperty(value = "The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning an Lw2M2M client to a state where it can initiate a management session to a new LwM2M server.")
     public Long getBootstrapsPending() {
         return bootstrapsPending;
     }
@@ -128,12 +126,12 @@ public class Metric implements Serializable {
 
     /**
      * The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a
-     * Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight
-     * Machine to Machine Server.
+     * lightweight machine-to-machine (LwM2M) client to a state where it can initiate a management session to a new
+     * LwM2M Server.
      * 
      * @return bootstrapsSuccessful
      **/
-    @ApiModelProperty(value = "The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+    @ApiModelProperty(value = "The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a lightweight machine-to-machine (LwM2M) client to a state where it can initiate a management session to a new LwM2M Server.")
     public Long getBootstrapsSuccessful() {
         return bootstrapsSuccessful;
     }
@@ -148,15 +146,14 @@ public class Metric implements Serializable {
     }
 
     /**
-     * The number of failed [Connect API](/docs/current/service-api-references/device-management-connect.html) requests
+     * The number of failed [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) requests
      * that have been performed using the account. This metric does not consider the response from the device, it
      * includes only the responses to the HTTP requests used to manage the device. This metric includes only messages
-     * handled by the Connect service, it does not include any HTTP errors returned by firewall as result of malformed
-     * messages.
+     * handled by the Connect service, not any HTTP errors returned by the firewall as a result of incorrect messages.
      * 
      * @return connectRestApiError
      **/
-    @ApiModelProperty(value = "The number of failed [Connect API](/docs/current/service-api-references/device-management-connect.html) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device. This metric includes only messages handled by the Connect service, it does not include any HTTP errors returned by firewall as result of malformed messages.")
+    @ApiModelProperty(value = "The number of failed [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device. This metric includes only messages handled by the Connect service, not any HTTP errors returned by the firewall as a result of incorrect messages.")
     public Long getConnectRestApiError() {
         return connectRestApiError;
     }
@@ -171,13 +168,13 @@ public class Metric implements Serializable {
     }
 
     /**
-     * The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html)
-     * requests that have been performed using the account. This metric does not consider the response from the device,
-     * it includes only the responses to the HTTP requests used to manage the device.
+     * The number of successful [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) requests
+     * that have been performed using the account. This metric does not consider the response from the device, only the
+     * responses to the HTTP requests used to manage the device.
      * 
      * @return connectRestApiSuccess
      **/
-    @ApiModelProperty(value = "The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device.")
+    @ApiModelProperty(value = "The number of successful [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) requests that have been performed using the account. This metric does not consider the response from the device, only the responses to the HTTP requests used to manage the device.")
     public Long getConnectRestApiSuccess() {
         return connectRestApiSuccess;
     }
@@ -194,11 +191,11 @@ public class Metric implements Serializable {
     /**
      * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of
      * removing the device registration from the Device Management Connect registry. The deregistration is usually
-     * initiated by the device. Device Management Connect no longer handles requests for a deregistered device.
+     * initiated by the device. Device Management Connect no longer handles requests for deregistered devices.
      * 
      * @return deletedRegistrations
      **/
-    @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Device Management Connect registry. The deregistration is usually initiated by the device. Device Management Connect no longer handles requests for a deregistered device.")
+    @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Device Management Connect registry. The deregistration is usually initiated by the device. Device Management Connect no longer handles requests for deregistered devices.")
     public Long getDeletedRegistrations() {
         return deletedRegistrations;
     }
@@ -216,11 +213,11 @@ public class Metric implements Serializable {
      * **(Beta)** The number of notifications received by the Device Management Connect service from the devices linked
      * to the account. The device pushes notifications to Device Management Connect when you have successfully
      * subscribed to the device resources using [Connect
-     * API](/docs/current/service-api-references/device-management-connect.html) endpoints.
+     * API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.
      * 
      * @return deviceObservations
      **/
-    @ApiModelProperty(value = "**(Beta)** The number of notifications received by the Device Management Connect service from the devices linked to the account. The device pushes notifications to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
+    @ApiModelProperty(value = "**(Beta)** The number of notifications received by the Device Management Connect service from the devices linked to the account. The device pushes notifications to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.")
     public Long getDeviceObservations() {
         return deviceObservations;
     }
@@ -237,12 +234,11 @@ public class Metric implements Serializable {
     /**
      * **(Beta)** The number of failed proxy requests from the Device Management Connect service to devices linked to
      * the account. Device Management Connect makes proxy requests to devices when you try to read or write values to
-     * device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html)
-     * endpoints.
+     * device resources using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.
      * 
      * @return deviceProxyRequestError
      **/
-    @ApiModelProperty(value = "**(Beta)** The number of failed proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
+    @ApiModelProperty(value = "**(Beta)** The number of failed proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.")
     public Long getDeviceProxyRequestError() {
         return deviceProxyRequestError;
     }
@@ -259,12 +255,11 @@ public class Metric implements Serializable {
     /**
      * **(Beta)** The number of successful proxy requests from the Device Management Connect service to devices linked
      * to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to
-     * device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html)
-     * endpoints.
+     * device resources using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.
      * 
      * @return deviceProxyRequestSuccess
      **/
-    @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
+    @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.")
     public Long getDeviceProxyRequestSuccess() {
         return deviceProxyRequestSuccess;
     }
@@ -281,12 +276,12 @@ public class Metric implements Serializable {
     /**
      * **(Beta)** The number of failed subscription requests from the Device Management Connect service to devices
      * linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe
-     * to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+     * to a resource path using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/)
      * endpoints.
      * 
      * @return deviceSubscriptionRequestError
      **/
-    @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
+    @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.")
     public Long getDeviceSubscriptionRequestError() {
         return deviceSubscriptionRequestError;
     }
@@ -303,12 +298,12 @@ public class Metric implements Serializable {
     /**
      * **(Beta)** The number of successful subscription requests from the Device Management Connect service to devices
      * linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe
-     * to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html)
+     * to a resource path using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/)
      * endpoints.
      * 
      * @return deviceSubscriptionRequestSuccess
      **/
-    @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
+    @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](https://developer.pelion.com/docs/device-management-api/connect/) endpoints.")
     public Long getDeviceSubscriptionRequestSuccess() {
         return deviceSubscriptionRequestSuccess;
     }
@@ -323,13 +318,13 @@ public class Metric implements Serializable {
     }
 
     /**
-     * The number of expired registrations linked to the account. Device Management Connect removes the device
-     * registrations when the devices cannot update their registration before the expiry of the lifetime. Device
-     * Management Connect no longer handles requests for a device whose registration has expired already.
+     * The number of expired registrations linked to the account. Device Management Connect removes a registration when
+     * the device cannot update its registration before lifetime expiry. Device Management Connect no longer handles
+     * requests for devices with already expired registrations.
      * 
      * @return expiredRegistrations
      **/
-    @ApiModelProperty(value = "The number of expired registrations linked to the account. Device Management Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Device Management Connect no longer handles requests for a device whose registration has expired already.")
+    @ApiModelProperty(value = "The number of expired registrations linked to the account. Device Management Connect removes a registration when the device cannot update its registration before lifetime expiry. Device Management Connect no longer handles requests for devices with already expired registrations.")
     public Long getExpiredRegistrations() {
         return expiredRegistrations;
     }
@@ -345,13 +340,13 @@ public class Metric implements Serializable {
 
     /**
      * The number of full registrations linked to the account. Full registration is the process of registering a device
-     * with Device Management Connect by providing its lifetime and capabilities such as the resource structure.The
-     * registered status of the device does not guarantee that the device is active and accessible from Device
-     * Management Connect at any point of time.
+     * with Device Management Connect by providing its lifetime and capabilities, such as resource structure. Device
+     * registered status does not guarantee that the device is active and accessible from Device Management Connect at
+     * any point of time.
      * 
      * @return fullRegistrations
      **/
-    @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with Device Management Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Device Management Connect at any point of time.")
+    @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with Device Management Connect by providing its lifetime and capabilities, such as resource structure. Device registered status does not guarantee that the device is active and accessible from Device Management Connect at any point of time.")
     public Long getFullRegistrations() {
         return fullRegistrations;
     }
@@ -367,13 +362,13 @@ public class Metric implements Serializable {
 
     /**
      * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or
-     * TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is
-     * required for establishing a connection with Device Management Connect for any operaton such as registration,
-     * registration update and deregistration.
+     * TLS client and server to establish secret keys. A successful TLS handshake is required for establishing a
+     * connection with Device Management Connect for any operation such as registration, registration update, and
+     * deregistration.
      * 
      * @return handshakesSuccessful
      **/
-    @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Device Management Connect for any operaton such as registration, registration update and deregistration.")
+    @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish secret keys. A successful TLS handshake is required for establishing a connection with Device Management Connect for any operation such as registration, registration update, and deregistration.")
     public Long getHandshakesSuccessful() {
         return handshakesSuccessful;
     }
@@ -450,12 +445,12 @@ public class Metric implements Serializable {
     /**
      * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of
      * data processed by Device Management. It can be either sent by the device (device --&gt; Device Management) or
-     * received by the device (Device Management --&gt; device). A transaction does not include IP, TCP or UDP, TLS or
-     * DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
+     * received by the device (Device Management --&gt; device). A transaction does not include IP, TCP or UDP, or TLS
+     * or DTLS packet overhead. It contains only the packet payload (full CoAP packet including CoAP headers).
      * 
      * @return transactions
      **/
-    @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Device Management. It can be either sent by the device (device --> Device Management) or received by the device (Device Management --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).")
+    @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Device Management. It can be either sent by the device (device --> Device Management) or received by the device (Device Management --> device). A transaction does not include IP, TCP or UDP, or TLS or DTLS packet overhead. It contains only the packet payload (full CoAP packet including CoAP headers).")
     public Long getTransactions() {
         return transactions;
     }

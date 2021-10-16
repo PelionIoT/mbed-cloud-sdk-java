@@ -14,12 +14,14 @@ package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * SerializationConfigObjectV2
+ * Serialization configuration object according to configuration type.
  */
+@ApiModel(description = "Serialization configuration object according to configuration type.")
 
 public class SerializationConfigObjectV2 implements Serializable {
     private static final long serialVersionUID = 1L;

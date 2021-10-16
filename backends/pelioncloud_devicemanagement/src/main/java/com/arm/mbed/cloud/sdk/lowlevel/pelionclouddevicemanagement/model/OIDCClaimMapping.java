@@ -82,7 +82,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return emailVerified
      **/
-    @ApiModelProperty(value = "Custom claim name for 'email_verified'.")
+    @ApiModelProperty(example = "email_verified", value = "Custom claim name for 'email_verified'.")
     public String getEmailVerified() {
         return emailVerified;
     }
@@ -101,7 +101,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return familyName
      **/
-    @ApiModelProperty(value = "Custom claim name for 'family_name'.")
+    @ApiModelProperty(example = "family_name", value = "Custom claim name for 'family_name'.")
     public String getFamilyName() {
         return familyName;
     }
@@ -120,7 +120,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return givenName
      **/
-    @ApiModelProperty(value = "Custom claim name for 'given_name'.")
+    @ApiModelProperty(example = "given_name", value = "Custom claim name for 'given_name'.")
     public String getGivenName() {
         return givenName;
     }
@@ -139,7 +139,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return name
      **/
-    @ApiModelProperty(value = "Custom claim name for 'name'.")
+    @ApiModelProperty(example = "name", value = "Custom claim name for 'name'.")
     public String getName() {
         return name;
     }
@@ -158,7 +158,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return phoneNumber
      **/
-    @ApiModelProperty(value = "Custom claim name for 'phone_number'.")
+    @ApiModelProperty(example = "phone_number", value = "Custom claim name for 'phone_number'.")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -177,7 +177,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return sub
      **/
-    @ApiModelProperty(value = "Custom claim name for 'sub'.")
+    @ApiModelProperty(example = "sub", value = "Custom claim name for 'sub'.")
     public String getSub() {
         return sub;
     }
@@ -196,7 +196,7 @@ public class OIDCClaimMapping implements Serializable {
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(value = "Custom claim name for 'updated_at'.")
+    @ApiModelProperty(example = "updated_at", value = "Custom claim name for 'updated_at'.")
     public String getUpdatedAt() {
         return updatedAt;
     }

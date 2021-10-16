@@ -48,6 +48,12 @@ public class Device implements SdkModel {
     private String caId;
 
     /**
+     * Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
+     * limited to 128 characters. Updating this field replaces existing contents.
+     */
+    private final Map<String, String> componentAttributes;
+
+    /**
      * The expiration date of the certificate used to connect to LwM2M server.
      */
     private Date connectorExpirationDate;
@@ -99,7 +105,8 @@ public class Device implements SdkModel {
     private String deviceKey;
 
     /**
-     * The endpoint name given to the device.
+     * The endpoint name given to the device. The endpoint_name is from the device certificate and is set by factory
+     * tool.
      */
     private final String endpointName;
 
@@ -124,7 +131,7 @@ public class Device implements SdkModel {
     private final List<String> groups;
 
     /**
-     * The ID of the host gateway, if appropriate.
+     * The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      */
     private String hostGateway;
 
@@ -169,7 +176,9 @@ public class Device implements SdkModel {
     private final Date lastSystemSuspendedUpdatedAt;
 
     /**
-     * The lifecycle status of the device.
+     * The lifecycle status of the device. * Enabled: The device is allowed to connect to Pelion Device Management. *
+     * Blocked: The device is prevented from connecting to Pelion Device Management. Device can be, for example,
+     * 'suspended'.
      */
     private final DeviceLifecycleStatus lifecycleStatus;
 
@@ -184,32 +193,47 @@ public class Device implements SdkModel {
     private final Date manifestTimestamp;
 
     /**
-     * The ID of the channel used to communicate with the device.
+     * NOT USED: The ID of the channel used to communicate with the device.
      */
     private DeviceMechanism mechanism;
 
     /**
-     * The address of the connector to use.
+     * NOT USED: The address of the connector to use.
      */
     private String mechanismUrl;
 
     /**
-     * The name of the device.
+     * The name given by the web application for the device. Device itself provides only the endpoint_name.
      */
     private String name;
 
     /**
-     * Is the device suspended by the operator?.
+     * Private network identifier. Used to group nodes connected to a specific border router.
+     */
+    private final String netId;
+
+    /**
+     * Device has been suspended by operator.
      */
     private final boolean operatorSuspended;
 
     /**
-     * The serial number of the device.
+     * The [serial
+     * number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
+     * of the device. The serial number is injected by the factory tool during manufacturing.
      */
     private String serialNumber;
 
     /**
-     * The current state of the device.
+     * The current state of the device. * Unenrolled: The device has been created, but has not yet bootstrapped or
+     * connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the first time. This state is
+     * set only while bootstrapping is in progress. For example, an external CA gives an error, and the device tries to
+     * bootstrap again after few seconds. * Bootstrapped: The device has bootstrapped, and has credentials to connect to
+     * Device Management. * Registered: The device has registered with Pelion Device Management. [Device
+     * commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device sends
+     * events for
+     * [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     * resources. * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     private DeviceState state;
 
@@ -219,7 +243,7 @@ public class Device implements SdkModel {
     private final boolean systemSuspended;
 
     /**
-     * The time the object was updated.
+     * The time this data object was updated.
      */
     private final Date updatedAt;
 
@@ -246,6 +270,9 @@ public class Device implements SdkModel {
      *            The timestamp of the device's most recent bootstrap process.
      * @param caId
      *            The certificate issuer's ID.
+     * @param componentAttributes
+     *            Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values
+     *            are limited to 128 characters. Updating this field replaces existing contents.
      * @param connectorExpirationDate
      *            The expiration date of the certificate used to connect to LwM2M server.
      * @param createdAt
@@ -271,7 +298,8 @@ public class Device implements SdkModel {
      * @param deviceKey
      *            The fingerprint of the device certificate.
      * @param endpointName
-     *            The endpoint name given to the device.
+     *            The endpoint name given to the device. The endpoint_name is from the device certificate and is set by
+     *            factory tool.
      * @param endpointType
      *            The endpoint type of the device. For example, the device is a gateway.
      * @param enrolmentListTimestamp
@@ -281,7 +309,7 @@ public class Device implements SdkModel {
      * @param groups
      *            An array containing an ID of each group this device belongs to.
      * @param hostGateway
-     *            The ID of the host gateway, if appropriate.
+     *            The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @param issuerFingerprint
@@ -299,47 +327,63 @@ public class Device implements SdkModel {
      * @param lastSystemSuspendedUpdatedAt
      *            The timestamp of the most recent system block activity.
      * @param lifecycleStatus
-     *            The lifecycle status of the device.
+     *            The lifecycle status of the device. * Enabled: The device is allowed to connect to Pelion Device
+     *            Management. * Blocked: The device is prevented from connecting to Pelion Device Management. Device can
+     *            be, for example, 'suspended'.
      * @param manifest
      *            DEPRECATED: The URL for the current device manifest.
      * @param manifestTimestamp
      *            The timestamp of the current manifest version.
      * @param mechanism
-     *            The ID of the channel used to communicate with the device.
+     *            NOT USED: The ID of the channel used to communicate with the device.
      * @param mechanismUrl
-     *            The address of the connector to use.
+     *            NOT USED: The address of the connector to use.
      * @param name
-     *            The name of the device.
+     *            The name given by the web application for the device. Device itself provides only the endpoint_name.
+     * @param netId
+     *            Private network identifier. Used to group nodes connected to a specific border router.
      * @param operatorSuspended
-     *            Is the device suspended by the operator?.
+     *            Device has been suspended by operator.
      * @param serialNumber
-     *            The serial number of the device.
+     *            The [serial
+     *            number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
+     *            of the device. The serial number is injected by the factory tool during manufacturing.
      * @param state
-     *            The current state of the device.
+     *            The current state of the device. * Unenrolled: The device has been created, but has not yet
+     *            bootstrapped or connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the
+     *            first time. This state is set only while bootstrapping is in progress. For example, an external CA
+     *            gives an error, and the device tries to bootstrap again after few seconds. * Bootstrapped: The device
+     *            has bootstrapped, and has credentials to connect to Device Management. * Registered: The device has
+     *            registered with Pelion Device Management. [Device
+     *            commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device
+     *            sends events for
+     *            [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     *            resources. * Deregistered: The device has requested deregistration, or its registration has expired.
      * @param systemSuspended
      *            Is the device suspended by the system?.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time this data object was updated.
      * @param vendorId
      *            The device vendor ID.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public Device(String accountId, boolean autoUpdate, Date bootstrapExpirationDate, Date bootstrappedTimestamp,
-                  String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
-                  DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
-                  @DefaultValue("0") int deviceExecutionMode, String deviceKey, String endpointName,
-                  String endpointType, Date enrolmentListTimestamp, String firmwareChecksum, List<String> groups,
-                  String hostGateway, String id, String issuerFingerprint, String lastOperatorSuspendedCategory,
-                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
-                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
-                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, String manifest,
-                  Date manifestTimestamp, DeviceMechanism mechanism, String mechanismUrl, String name,
-                  boolean operatorSuspended, String serialNumber, DeviceState state, boolean systemSuspended,
-                  Date updatedAt, String vendorId) {
+                  String caId, Map<String, String> componentAttributes, Date connectorExpirationDate, Date createdAt,
+                  Map<String, String> customAttributes, DeviceDeployedState deployedState, String deployment,
+                  String description, String deviceClass, @DefaultValue("0") int deviceExecutionMode, String deviceKey,
+                  String endpointName, String endpointType, Date enrolmentListTimestamp, String firmwareChecksum,
+                  List<String> groups, String hostGateway, String id, String issuerFingerprint,
+                  String lastOperatorSuspendedCategory, String lastOperatorSuspendedDescription,
+                  Date lastOperatorSuspendedUpdatedAt, String lastSystemSuspendedCategory,
+                  String lastSystemSuspendedDescription, Date lastSystemSuspendedUpdatedAt,
+                  DeviceLifecycleStatus lifecycleStatus, String manifest, Date manifestTimestamp,
+                  DeviceMechanism mechanism, String mechanismUrl, String name, String netId, boolean operatorSuspended,
+                  String serialNumber, DeviceState state, boolean systemSuspended, Date updatedAt, String vendorId) {
         super();
         this.accountId = accountId;
         this.bootstrappedTimestamp = bootstrappedTimestamp;
+        this.componentAttributes = componentAttributes;
         this.createdAt = createdAt;
         this.deployedState = deployedState;
         this.endpointName = endpointName;
@@ -354,6 +398,7 @@ public class Device implements SdkModel {
         this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
         this.lifecycleStatus = lifecycleStatus;
         this.manifestTimestamp = manifestTimestamp;
+        this.netId = netId;
         this.operatorSuspended = operatorSuspended;
         this.systemSuspended = systemSuspended;
         this.updatedAt = updatedAt;
@@ -396,6 +441,7 @@ public class Device implements SdkModel {
         this(device == null ? (String) null : device.accountId, device != null && device.autoUpdate,
              device == null ? new Date() : device.bootstrapExpirationDate,
              device == null ? new Date() : device.bootstrappedTimestamp, device == null ? (String) null : device.caId,
+             device == null ? (Map<String, String>) null : device.componentAttributes,
              device == null ? new Date() : device.connectorExpirationDate,
              device == null ? new Date() : device.createdAt,
              device == null ? (Map<String, String>) null : device.customAttributes,
@@ -418,7 +464,8 @@ public class Device implements SdkModel {
              device == null ? (String) null : device.manifest, device == null ? new Date() : device.manifestTimestamp,
              device == null ? DeviceMechanism.getDefault() : device.mechanism,
              device == null ? (String) null : device.mechanismUrl, device == null ? (String) null : device.name,
-             device != null && device.operatorSuspended, device == null ? (String) null : device.serialNumber,
+             device == null ? (String) null : device.netId, device != null && device.operatorSuspended,
+             device == null ? (String) null : device.serialNumber,
              device == null ? DeviceState.getDefault() : device.state, device != null && device.systemSuspended,
              device == null ? new Date() : device.updatedAt, device == null ? (String) null : device.vendorId);
     }
@@ -427,13 +474,13 @@ public class Device implements SdkModel {
      * Constructor.
      */
     public Device() {
-        this((String) null, false, new Date(), new Date(), (String) null, new Date(), new Date(),
-             (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
-             0, (String) null, (String) null, (String) null, new Date(), (String) null, (List<String>) null,
-             (String) null, (String) null, (String) null, (String) null, (String) null, new Date(), (String) null,
-             (String) null, new Date(), DeviceLifecycleStatus.getDefault(), (String) null, new Date(),
-             DeviceMechanism.getDefault(), (String) null, (String) null, false, (String) null, DeviceState.getDefault(),
-             false, new Date(), (String) null);
+        this((String) null, false, new Date(), new Date(), (String) null, (Map<String, String>) null, new Date(),
+             new Date(), (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null,
+             (String) null, 0, (String) null, (String) null, (String) null, new Date(), (String) null,
+             (List<String>) null, (String) null, (String) null, (String) null, (String) null, (String) null, new Date(),
+             (String) null, (String) null, new Date(), DeviceLifecycleStatus.getDefault(), (String) null, new Date(),
+             DeviceMechanism.getDefault(), (String) null, (String) null, (String) null, false, (String) null,
+             DeviceState.getDefault(), false, new Date(), (String) null);
     }
 
     /**
@@ -463,12 +510,16 @@ public class Device implements SdkModel {
      *            The ID of the associated account.
      * @param bootstrappedTimestamp
      *            The timestamp of the device's most recent bootstrap process.
+     * @param componentAttributes
+     *            Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values
+     *            are limited to 128 characters. Updating this field replaces existing contents.
      * @param createdAt
      *            The timestamp of when the device was created in the device directory.
      * @param deployedState
      *            DEPRECATED: The state of the device's deployment.
      * @param endpointName
-     *            The endpoint name given to the device.
+     *            The endpoint name given to the device. The endpoint_name is from the device certificate and is set by
+     *            factory tool.
      * @param enrolmentListTimestamp
      *            The claim date/time.
      * @param firmwareChecksum
@@ -488,33 +539,37 @@ public class Device implements SdkModel {
      * @param lastSystemSuspendedUpdatedAt
      *            The timestamp of the most recent system block activity.
      * @param lifecycleStatus
-     *            The lifecycle status of the device.
+     *            The lifecycle status of the device. * Enabled: The device is allowed to connect to Pelion Device
+     *            Management. * Blocked: The device is prevented from connecting to Pelion Device Management. Device can
+     *            be, for example, 'suspended'.
      * @param manifestTimestamp
      *            The timestamp of the current manifest version.
+     * @param netId
+     *            Private network identifier. Used to group nodes connected to a specific border router.
      * @param operatorSuspended
-     *            Is the device suspended by the operator?.
+     *            Device has been suspended by operator.
      * @param systemSuspended
      *            Is the device suspended by the system?.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time this data object was updated.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public Device(String accountId, Date bootstrappedTimestamp, Date createdAt, DeviceDeployedState deployedState,
-                  String endpointName, Date enrolmentListTimestamp, String firmwareChecksum, List<String> groups,
-                  String lastOperatorSuspendedCategory, String lastOperatorSuspendedDescription,
-                  Date lastOperatorSuspendedUpdatedAt, String lastSystemSuspendedCategory,
-                  String lastSystemSuspendedDescription, Date lastSystemSuspendedUpdatedAt,
-                  DeviceLifecycleStatus lifecycleStatus, Date manifestTimestamp, boolean operatorSuspended,
-                  boolean systemSuspended, Date updatedAt) {
-        this(accountId, false, new Date(), bootstrappedTimestamp, (String) null, new Date(), createdAt,
-             (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, 0, (String) null,
-             endpointName, (String) null, enrolmentListTimestamp, firmwareChecksum, groups, (String) null,
-             (String) null, (String) null, lastOperatorSuspendedCategory, lastOperatorSuspendedDescription,
-             lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory, lastSystemSuspendedDescription,
-             lastSystemSuspendedUpdatedAt, lifecycleStatus, (String) null, manifestTimestamp,
-             DeviceMechanism.getDefault(), (String) null, (String) null, operatorSuspended, (String) null,
-             DeviceState.getDefault(), systemSuspended, updatedAt, (String) null);
+    public Device(String accountId, Date bootstrappedTimestamp, Map<String, String> componentAttributes, Date createdAt,
+                  DeviceDeployedState deployedState, String endpointName, Date enrolmentListTimestamp,
+                  String firmwareChecksum, List<String> groups, String lastOperatorSuspendedCategory,
+                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
+                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
+                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, Date manifestTimestamp,
+                  String netId, boolean operatorSuspended, boolean systemSuspended, Date updatedAt) {
+        this(accountId, false, new Date(), bootstrappedTimestamp, (String) null, componentAttributes, new Date(),
+             createdAt, (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, 0,
+             (String) null, endpointName, (String) null, enrolmentListTimestamp, firmwareChecksum, groups,
+             (String) null, (String) null, (String) null, lastOperatorSuspendedCategory,
+             lastOperatorSuspendedDescription, lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory,
+             lastSystemSuspendedDescription, lastSystemSuspendedUpdatedAt, lifecycleStatus, (String) null,
+             manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null, netId, operatorSuspended,
+             (String) null, DeviceState.getDefault(), systemSuspended, updatedAt, (String) null);
     }
 
     /**
@@ -603,6 +658,16 @@ public class Device implements SdkModel {
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isCaIdValid() {
         return (caId == null || caId.length() <= 500);
+    }
+
+    /**
+     * Gets up to ten custom key-value attributes. note that keys cannot begin with a number. both keys and values are
+     * limited to 128 characters. updating this field replaces existing contents.
+     * 
+     * @return componentAttributes
+     */
+    public Map<String, String> getComponentAttributes() {
+        return componentAttributes;
     }
 
     /**
@@ -825,7 +890,8 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the endpoint name given to the device.
+     * Gets the endpoint name given to the device. the endpoint_name is from the device certificate and is set by
+     * factory tool.
      * 
      * @return endpointName
      */
@@ -893,7 +959,7 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the id of the host gateway, if appropriate.
+     * Gets the id of the host gateway, if appropriate. a device behind edge has this host_gateway set.
      * 
      * @return hostGateway
      */
@@ -902,10 +968,10 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the id of the host gateway, if appropriate.
+     * Sets the id of the host gateway, if appropriate. a device behind edge has this host_gateway set.
      * 
      * @param hostGateway
-     *            The ID of the host gateway, if appropriate.
+     *            The ID of the host gateway, if appropriate. A device behind Edge has this host_gateway set.
      */
     public void setHostGateway(String hostGateway) {
         this.hostGateway = hostGateway;
@@ -1033,7 +1099,9 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the lifecycle status of the device.
+     * Gets the lifecycle status of the device. * enabled: the device is allowed to connect to pelion device management.
+     * * blocked: the device is prevented from connecting to pelion device management. device can be, for example,
+     * 'suspended'.
      * 
      * @return lifecycleStatus
      */
@@ -1070,7 +1138,7 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the id of the channel used to communicate with the device.
+     * Gets not used: the id of the channel used to communicate with the device.
      * 
      * @return mechanism
      */
@@ -1079,23 +1147,23 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the id of the channel used to communicate with the device.
+     * Sets not used: the id of the channel used to communicate with the device.
      * 
      * @param mechanism
-     *            The ID of the channel used to communicate with the device.
+     *            NOT USED: The ID of the channel used to communicate with the device.
      */
     public void setMechanism(DeviceMechanism mechanism) {
         this.mechanism = mechanism;
     }
 
     /**
-     * Sets the id of the channel used to communicate with the device.
+     * Sets not used: the id of the channel used to communicate with the device.
      * 
      * <p>
      * Similar to {@link #setMechanism(com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism)}
      * 
      * @param mechanism
-     *            The ID of the channel used to communicate with the device.
+     *            NOT USED: The ID of the channel used to communicate with the device.
      */
     @Internal
     public void setMechanism(String mechanism) {
@@ -1103,7 +1171,7 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the address of the connector to use.
+     * Gets not used: the address of the connector to use.
      * 
      * @return mechanismUrl
      */
@@ -1112,17 +1180,17 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the address of the connector to use.
+     * Sets not used: the address of the connector to use.
      * 
      * @param mechanismUrl
-     *            The address of the connector to use.
+     *            NOT USED: The address of the connector to use.
      */
     public void setMechanismUrl(String mechanismUrl) {
         this.mechanismUrl = mechanismUrl;
     }
 
     /**
-     * Gets the name of the device.
+     * Gets the name given by the web application for the device. device itself provides only the endpoint_name.
      * 
      * @return name
      */
@@ -1131,13 +1199,13 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the name of the device.
+     * Sets the name given by the web application for the device. device itself provides only the endpoint_name.
      * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
      * @param name
-     *            The name of the device.
+     *            The name given by the web application for the device. Device itself provides only the endpoint_name.
      */
     public void setName(String name) {
         this.name = name;
@@ -1154,7 +1222,16 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets is the device suspended by the operator?.
+     * Gets private network identifier. used to group nodes connected to a specific border router.
+     * 
+     * @return netId
+     */
+    public String getNetId() {
+        return netId;
+    }
+
+    /**
+     * Gets device has been suspended by operator.
      * 
      * @return operatorSuspended
      */
@@ -1163,7 +1240,9 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the serial number of the device.
+     * Gets the [serial
+     * number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
+     * of the device. the serial number is injected by the factory tool during manufacturing.
      * 
      * @return serialNumber
      */
@@ -1172,17 +1251,29 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the serial number of the device.
+     * Sets the [serial
+     * number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
+     * of the device. the serial number is injected by the factory tool during manufacturing.
      * 
      * @param serialNumber
-     *            The serial number of the device.
+     *            The [serial
+     *            number](https://developer.pelion.com/docs/device-management-provision/latest/provisioning-info/lwm2m-device-object.html#serial-number)
+     *            of the device. The serial number is injected by the factory tool during manufacturing.
      */
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
     /**
-     * Gets the current state of the device.
+     * Gets the current state of the device. * unenrolled: the device has been created, but has not yet bootstrapped or
+     * connected to device management. * cloud_enrolling: the device is bootstrapping for the first time. this state is
+     * set only while bootstrapping is in progress. for example, an external ca gives an error, and the device tries to
+     * bootstrap again after few seconds. * bootstrapped: the device has bootstrapped, and has credentials to connect to
+     * device management. * registered: the device has registered with pelion device management. [device
+     * commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. the device sends
+     * events for
+     * [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     * resources. * deregistered: the device has requested deregistration, or its registration has expired.
      * 
      * @return state
      */
@@ -1191,23 +1282,57 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the current state of the device.
+     * Sets the current state of the device. * unenrolled: the device has been created, but has not yet bootstrapped or
+     * connected to device management. * cloud_enrolling: the device is bootstrapping for the first time. this state is
+     * set only while bootstrapping is in progress. for example, an external ca gives an error, and the device tries to
+     * bootstrap again after few seconds. * bootstrapped: the device has bootstrapped, and has credentials to connect to
+     * device management. * registered: the device has registered with pelion device management. [device
+     * commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. the device sends
+     * events for
+     * [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     * resources. * deregistered: the device has requested deregistration, or its registration has expired.
      * 
      * @param state
-     *            The current state of the device.
+     *            The current state of the device. * Unenrolled: The device has been created, but has not yet
+     *            bootstrapped or connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the
+     *            first time. This state is set only while bootstrapping is in progress. For example, an external CA
+     *            gives an error, and the device tries to bootstrap again after few seconds. * Bootstrapped: The device
+     *            has bootstrapped, and has credentials to connect to Device Management. * Registered: The device has
+     *            registered with Pelion Device Management. [Device
+     *            commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device
+     *            sends events for
+     *            [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     *            resources. * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     public void setState(DeviceState state) {
         this.state = state;
     }
 
     /**
-     * Sets the current state of the device.
+     * Sets the current state of the device. * unenrolled: the device has been created, but has not yet bootstrapped or
+     * connected to device management. * cloud_enrolling: the device is bootstrapping for the first time. this state is
+     * set only while bootstrapping is in progress. for example, an external ca gives an error, and the device tries to
+     * bootstrap again after few seconds. * bootstrapped: the device has bootstrapped, and has credentials to connect to
+     * device management. * registered: the device has registered with pelion device management. [device
+     * commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. the device sends
+     * events for
+     * [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     * resources. * deregistered: the device has requested deregistration, or its registration has expired.
      * 
      * <p>
      * Similar to {@link #setState(com.arm.mbed.cloud.sdk.devices.model.DeviceState)}
      * 
      * @param state
-     *            The current state of the device.
+     *            The current state of the device. * Unenrolled: The device has been created, but has not yet
+     *            bootstrapped or connected to Device Management. * Cloud_enrolling: The device is bootstrapping for the
+     *            first time. This state is set only while bootstrapping is in progress. For example, an external CA
+     *            gives an error, and the device tries to bootstrap again after few seconds. * Bootstrapped: The device
+     *            has bootstrapped, and has credentials to connect to Device Management. * Registered: The device has
+     *            registered with Pelion Device Management. [Device
+     *            commands](https://developer.pelion.com/docs/device-management-api/connect/) can be queued. The device
+     *            sends events for
+     *            [subscribed](https://developer.pelion.com/docs/device-management/current/resources/handle-resource-webapp.html)
+     *            resources. * Deregistered: The device has requested deregistration, or its registration has expired.
      */
     @Internal
     public void setState(String state) {
@@ -1224,7 +1349,7 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the time the object was updated.
+     * Gets the time this data object was updated.
      * 
      * @return updatedAt
      */
@@ -1263,19 +1388,20 @@ public class Device implements SdkModel {
     public String toString() {
         return "Device [accountId=" + accountId + ", autoUpdate=" + autoUpdate + ", bootstrapExpirationDate="
                + bootstrapExpirationDate + ", bootstrappedTimestamp=" + bootstrappedTimestamp + ", caId=" + caId
-               + ", connectorExpirationDate=" + connectorExpirationDate + ", createdAt=" + createdAt
-               + ", customAttributes=" + customAttributes + ", deployedState=" + deployedState + ", deployment="
-               + deployment + ", description=" + description + ", deviceClass=" + deviceClass + ", deviceExecutionMode="
-               + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
-               + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
-               + firmwareChecksum + ", groups=" + groups + ", hostGateway=" + hostGateway + ", id=" + id
-               + ", issuerFingerprint=" + issuerFingerprint + ", lastOperatorSuspendedCategory="
-               + lastOperatorSuspendedCategory + ", lastOperatorSuspendedDescription="
-               + lastOperatorSuspendedDescription + ", lastOperatorSuspendedUpdatedAt=" + lastOperatorSuspendedUpdatedAt
-               + ", lastSystemSuspendedCategory=" + lastSystemSuspendedCategory + ", lastSystemSuspendedDescription="
-               + lastSystemSuspendedDescription + ", lastSystemSuspendedUpdatedAt=" + lastSystemSuspendedUpdatedAt
-               + ", lifecycleStatus=" + lifecycleStatus + ", manifest=" + manifest + ", manifestTimestamp="
-               + manifestTimestamp + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name
+               + ", componentAttributes=" + componentAttributes + ", connectorExpirationDate=" + connectorExpirationDate
+               + ", createdAt=" + createdAt + ", customAttributes=" + customAttributes + ", deployedState="
+               + deployedState + ", deployment=" + deployment + ", description=" + description + ", deviceClass="
+               + deviceClass + ", deviceExecutionMode=" + deviceExecutionMode + ", deviceKey=" + deviceKey
+               + ", endpointName=" + endpointName + ", endpointType=" + endpointType + ", enrolmentListTimestamp="
+               + enrolmentListTimestamp + ", firmwareChecksum=" + firmwareChecksum + ", groups=" + groups
+               + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint=" + issuerFingerprint
+               + ", lastOperatorSuspendedCategory=" + lastOperatorSuspendedCategory
+               + ", lastOperatorSuspendedDescription=" + lastOperatorSuspendedDescription
+               + ", lastOperatorSuspendedUpdatedAt=" + lastOperatorSuspendedUpdatedAt + ", lastSystemSuspendedCategory="
+               + lastSystemSuspendedCategory + ", lastSystemSuspendedDescription=" + lastSystemSuspendedDescription
+               + ", lastSystemSuspendedUpdatedAt=" + lastSystemSuspendedUpdatedAt + ", lifecycleStatus="
+               + lifecycleStatus + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
+               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name + ", netId=" + netId
                + ", operatorSuspended=" + operatorSuspended + ", serialNumber=" + serialNumber + ", state=" + state
                + ", systemSuspended=" + systemSuspended + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
     }
@@ -1297,6 +1423,7 @@ public class Device implements SdkModel {
         result = prime * result + ((bootstrapExpirationDate == null) ? 0 : bootstrapExpirationDate.hashCode());
         result = prime * result + ((bootstrappedTimestamp == null) ? 0 : bootstrappedTimestamp.hashCode());
         result = prime * result + ((caId == null) ? 0 : caId.hashCode());
+        result = prime * result + ((componentAttributes == null) ? 0 : componentAttributes.hashCode());
         result = prime * result + ((connectorExpirationDate == null) ? 0 : connectorExpirationDate.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((customAttributes == null) ? 0 : customAttributes.hashCode());
@@ -1331,6 +1458,7 @@ public class Device implements SdkModel {
         result = prime * result + ((mechanism == null) ? 0 : mechanism.hashCode());
         result = prime * result + ((mechanismUrl == null) ? 0 : mechanismUrl.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((netId == null) ? 0 : netId.hashCode());
         result = prime * result + Objects.hashCode(Boolean.valueOf(operatorSuspended));
         result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
@@ -1409,6 +1537,13 @@ public class Device implements SdkModel {
                 return false;
             }
         } else if (!caId.equals(other.caId)) {
+            return false;
+        }
+        if (componentAttributes == null) {
+            if (other.componentAttributes != null) {
+                return false;
+            }
+        } else if (!componentAttributes.equals(other.componentAttributes)) {
             return false;
         }
         if (connectorExpirationDate == null) {
@@ -1596,6 +1731,13 @@ public class Device implements SdkModel {
                 return false;
             }
         } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (netId == null) {
+            if (other.netId != null) {
+                return false;
+            }
+        } else if (!netId.equals(other.netId)) {
             return false;
         }
         if (operatorSuspended != other.operatorSuspended) {

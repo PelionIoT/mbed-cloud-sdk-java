@@ -24,7 +24,9 @@ public class AccountPolicyGroupsApiTest {
      *
      * Add API keys to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; :
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void addApiKeysToGroupTest() {
@@ -39,8 +41,10 @@ public class AccountPolicyGroupsApiTest {
      * Add API Keys to the group.
      *
      * Add API keys to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/add \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; :
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void addListedApiKeysToGroupTest() {
@@ -52,11 +56,33 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
+     * Add applications to the group.
+     *
+     * Add applications to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications/remove \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;applications\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addListedApplicationsToGroupTest() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.addListedApplicationsToGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
      * Add users to the group.
      *
-     * Add users to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Add users to the group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void addListedUsersToGroup_Test() {
@@ -70,9 +96,10 @@ public class AccountPolicyGroupsApiTest {
     /**
      * Add members to a group.
      *
-     * Add users and API keys to a group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;users\&quot;:
+     * Add users and API keys to a group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\
+     * -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;users\&quot;:
      * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]}&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -88,9 +115,12 @@ public class AccountPolicyGroupsApiTest {
     /**
      * Add users to the group.
      *
-     * Add users to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Add users to the group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void addUsersToGroup_Test() {
@@ -104,10 +134,10 @@ public class AccountPolicyGroupsApiTest {
     /**
      * Create a new group.
      *
-     * Create a new group. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
-     * &#39;content-type: application/json&#39; -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39;
-     * &#x60;&#x60;&#x60;
+     * Create a new group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; -d &#39;{\&quot;name\&quot;:
+     * \&quot;MyGroup1\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void createGroupTest() {
@@ -120,9 +150,9 @@ public class AccountPolicyGroupsApiTest {
     /**
      * Delete a group.
      *
-     * Delete a group. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Delete a group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void deleteGroupTest() {
@@ -133,10 +163,10 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
-     * Get all group information.
+     * Get policy groups.
      *
-     * Retrieve all group information. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * Retrieve an array of policy groups. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -152,11 +182,11 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
-     * Get the API keys of a group.
+     * Get the API keys of a policy group.
      *
-     * Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve an array of API keys associated with a policy group. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getApiKeysOfGroupTest() {
@@ -171,11 +201,30 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
-     * Get group information.
+     * Get the applications of a policy group.
      *
-     * Retrieve general information about a group. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve an array of applications associated with a policy group. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void getApplicationsOfGroupTest() {
+        String groupId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // ApplicationList response = api.getApplicationsOfGroup(groupId, limit, after, order, include);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get a policy group.
+     *
+     * Retrieve a policy group. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getGroupSummaryTest() {
@@ -186,11 +235,12 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
-     * Get users of a group.
+     * Get users of a policy group.
      *
-     * Retrieve users of a group with details. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve an array of users associated with a policy group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getUsersOfGroupTest() {
@@ -213,8 +263,8 @@ public class AccountPolicyGroupsApiTest {
      *
      * Remove API keys from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -231,8 +281,8 @@ public class AccountPolicyGroupsApiTest {
      *
      * Remove API keys from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;apikeys\&quot; :
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -245,12 +295,32 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
+     * Remove applications from a group.
+     *
+     * Remove applications from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications/remove \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;applications\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeListedApplicationsFromGroupTest() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.removeListedApplicationsFromGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
      * Remove users from a group.
      *
-     * Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Remove users from a policy group. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -265,10 +335,11 @@ public class AccountPolicyGroupsApiTest {
     /**
      * Remove users from a group.
      *
-     * Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * Manage policy groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;] }&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -283,10 +354,10 @@ public class AccountPolicyGroupsApiTest {
     /**
      * Update the group name.
      *
-     * Update a group name. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;:
-     * \&quot;TestGroup2\&quot;}&#39; &#x60;&#x60;&#x60;
+     * Update a group name. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateGroupNameTest() {

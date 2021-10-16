@@ -57,30 +57,30 @@ public class ArtifactsGenerator extends AbstractGenerator {
         for (final ModelAdapter adapter : artifacts.getAdapterModels()) {
             new ModelGenerator(sourceDestinationDirectory, adapter).generate();
         }
-        logger.logInfo("Generating endpoints classes");
-        for (final ModelEndpoints endpoints : artifacts.getProcessedEndpoints()) {
-            new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
-        }
-        logger.logInfo("Generating module classes");
-        for (final ModelModule endpoints : artifacts.getProcessedModules()) {
-            new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
-        }
-        logger.logInfo("Generating Pelion other classes");
-        for (final Model model : artifacts.getProcessedNonPojoModels()) {
-            new ModelGenerator(sourceDestinationDirectory, model).generate();
-        }
-        for (final Model model : artifacts.getModuleFactory()) {
-            new ModelGenerator(primarySourceDestinationDirectory, model).generate();
-        }
-        logger.logInfo("Generating unit tests");
-        for (final ModelTest unittest : artifacts.getNonPojoUnitTests()) {
-            unittest.generateTests();
-            new ModelTestGenerator(testDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
-        }
-        for (final ModelTest unittest : artifacts.getModuleFactoryUnitTests()) {
-            unittest.generateTests();
-            new ModelTestGenerator(primaryTestDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
-        }
+        // logger.logInfo("Generating endpoints classes");
+        // for (final ModelEndpoints endpoints : artifacts.getProcessedEndpoints()) {
+        // new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
+        // }
+        // logger.logInfo("Generating module classes");
+        // for (final ModelModule endpoints : artifacts.getProcessedModules()) {
+        // new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
+        // }
+        // logger.logInfo("Generating Pelion other classes");
+        // for (final Model model : artifacts.getProcessedNonPojoModels()) {
+        // new ModelGenerator(sourceDestinationDirectory, model).generate();
+        // }
+        // for (final Model model : artifacts.getModuleFactory()) {
+        // new ModelGenerator(primarySourceDestinationDirectory, model).generate();
+        // }
+        // logger.logInfo("Generating unit tests");
+        // for (final ModelTest unittest : artifacts.getNonPojoUnitTests()) {
+        // unittest.generateTests();
+        // new ModelTestGenerator(testDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
+        // }
+        // for (final ModelTest unittest : artifacts.getModuleFactoryUnitTests()) {
+        // unittest.generateTests();
+        // new ModelTestGenerator(primaryTestDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
+        // }
 
     }
 

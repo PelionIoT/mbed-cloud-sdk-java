@@ -19,10 +19,10 @@ public class TestIdentityProviderListOptions {
     @Test
     public void testClone() {
         try {
-            IdentityProviderListOptions identityproviderlistoptions1 = new IdentityProviderListOptions(Integer.valueOf(32),
-                                                                                                       Long.valueOf(126),
+            IdentityProviderListOptions identityproviderlistoptions1 = new IdentityProviderListOptions(Integer.valueOf(-109),
+                                                                                                       Long.valueOf(-81),
                                                                                                        Order.getDefault(),
-                                                                                                       "ff96ce8b-a1f6-4a4f-b58b-3ce84e48d530",
+                                                                                                       "eec10f51-c627-45c7-9d79-761bd98e6f21",
                                                                                                        null, null);
             IdentityProviderListOptions identityproviderlistoptions2 = identityproviderlistoptions1.clone();
             assertNotNull(identityproviderlistoptions1);
@@ -41,15 +41,15 @@ public class TestIdentityProviderListOptions {
     @Test
     public void testHashCode() {
         try {
-            IdentityProviderListOptions identityproviderlistoptions1 = new IdentityProviderListOptions(Integer.valueOf(-104),
-                                                                                                       Long.valueOf(101),
+            IdentityProviderListOptions identityproviderlistoptions1 = new IdentityProviderListOptions(Integer.valueOf(61),
+                                                                                                       Long.valueOf(110),
                                                                                                        Order.getDefault(),
-                                                                                                       "b9d02487-86b9-43eb-b4a8-409c434ce34d",
+                                                                                                       "b98dce66-90e5-4015-aac1-3ce49f8d3afb",
                                                                                                        null, null);
-            IdentityProviderListOptions identityproviderlistoptions2 = new IdentityProviderListOptions(Integer.valueOf(-104),
-                                                                                                       Long.valueOf(101),
+            IdentityProviderListOptions identityproviderlistoptions2 = new IdentityProviderListOptions(Integer.valueOf(61),
+                                                                                                       Long.valueOf(110),
                                                                                                        Order.getDefault(),
-                                                                                                       "b9d02487-86b9-43eb-b4a8-409c434ce34d",
+                                                                                                       "b98dce66-90e5-4015-aac1-3ce49f8d3afb",
                                                                                                        null, null);
             assertNotNull(identityproviderlistoptions1);
             assertNotNull(identityproviderlistoptions2);
@@ -72,20 +72,20 @@ public class TestIdentityProviderListOptions {
     @Test
     public void testEquals() {
         try {
-            IdentityProviderListOptions identityproviderlistoptions1 = new IdentityProviderListOptions(Integer.valueOf(41),
-                                                                                                       Long.valueOf(-97),
+            IdentityProviderListOptions identityproviderlistoptions1 = new IdentityProviderListOptions(Integer.valueOf(-65),
+                                                                                                       Long.valueOf(26),
                                                                                                        Order.getDefault(),
-                                                                                                       "4239e087-141b-469a-b1be-f722b89b1359",
+                                                                                                       "4d9e7301-4fb1-428e-88eb-ab487987297e",
                                                                                                        null, null);
-            IdentityProviderListOptions identityproviderlistoptions2 = new IdentityProviderListOptions(Integer.valueOf(41),
-                                                                                                       Long.valueOf(-97),
+            IdentityProviderListOptions identityproviderlistoptions2 = new IdentityProviderListOptions(Integer.valueOf(-65),
+                                                                                                       Long.valueOf(26),
                                                                                                        Order.getDefault(),
-                                                                                                       "4239e087-141b-469a-b1be-f722b89b1359",
+                                                                                                       "4d9e7301-4fb1-428e-88eb-ab487987297e",
                                                                                                        null, null);
-            IdentityProviderListOptions identityproviderlistoptions3 = new IdentityProviderListOptions(Integer.valueOf(-28),
-                                                                                                       Long.valueOf(-31),
+            IdentityProviderListOptions identityproviderlistoptions3 = new IdentityProviderListOptions(Integer.valueOf(42),
+                                                                                                       Long.valueOf(67),
                                                                                                        Order.getDefault(),
-                                                                                                       "65dc9b3e-1b38-48a6-aa89-420f37da8437",
+                                                                                                       "9bc31234-1776-44ee-b650-3452a986e7ba",
                                                                                                        null, null);
             assertNotNull(identityproviderlistoptions1);
             assertNotNull(identityproviderlistoptions2);

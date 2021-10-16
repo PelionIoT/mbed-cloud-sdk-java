@@ -9,8 +9,9 @@ Method | HTTP request | Description
 [**createAccountUser**](TenantAccountsUsersApi.md#createAccountUser) | **POST** v3/accounts/{account_id}/users | Create a new user.
 [**deleteAccountUser**](TenantAccountsUsersApi.md#deleteAccountUser) | **DELETE** v3/accounts/{account_id}/users/{user_id} | Delete a user.
 [**getAccountUser**](TenantAccountsUsersApi.md#getAccountUser) | **GET** v3/accounts/{account_id}/users/{user_id} | Details of the user.
-[**getAllAccountUsers**](TenantAccountsUsersApi.md#getAllAccountUsers) | **GET** v3/accounts/{account_id}/users | Get the details of all users.
-[**getGroupsOfAccountUser**](TenantAccountsUsersApi.md#getGroupsOfAccountUser) | **GET** v3/accounts/{account_id}/users/{user_id}/groups | Get user&#39;s groups.
+[**getAllAccountUsers**](TenantAccountsUsersApi.md#getAllAccountUsers) | **GET** v3/accounts/{account_id}/users | Get users.
+[**getGroupsOfAccountUser**](TenantAccountsUsersApi.md#getGroupsOfAccountUser) | **GET** v3/accounts/{account_id}/users/{user_id}/groups | Get policy groups for a user.
+[**removeAccountUserFromAccount**](TenantAccountsUsersApi.md#removeAccountUserFromAccount) | **POST** v3/accounts/{account_id}/users/{user_id}/remove | Remove user from the account.
 [**removeAccountUserFromGroups**](TenantAccountsUsersApi.md#removeAccountUserFromGroups) | **DELETE** v3/accounts/{account_id}/users/{user_id}/groups | Remove user from groups.
 [**removeAccountUserFromListedGroups**](TenantAccountsUsersApi.md#removeAccountUserFromListedGroups) | **POST** v3/accounts/{account_id}/users/{user_id}/groups/remove | Remove user from groups.
 [**updateAccountUser**](TenantAccountsUsersApi.md#updateAccountUser) | **PUT** v3/accounts/{account_id}/users/{user_id} | Update user details.
@@ -23,7 +24,7 @@ Method | HTTP request | Description
 
 Add user to a list of groups.
 
-Add user to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Add user to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -82,7 +83,7 @@ Name | Type | Description  | Notes
 
 Add user to a list of groups.
 
-Add a user to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/add \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Add a user to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/add \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -141,7 +142,7 @@ Name | Type | Description  | Notes
 
 Create a new user.
 
-Create or invite a new user to the account. Only email address is used; other attributes are set in the second step.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
+Create or invite a new user to the account. Only email address is used; other attributes are set in the second step. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -200,7 +201,7 @@ Name | Type | Description  | Notes
 
 Delete a user.
 
-Delete a user.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Delete a user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -257,7 +258,7 @@ Name | Type | Description  | Notes
 
 Details of the user.
 
-Retrieve user details.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve user details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -312,9 +313,9 @@ Name | Type | Description  | Notes
 # **getAllAccountUsers**
 > UserInfoRespList getAllAccountUsers(accountId, limit, after, order, include, emailEq, statusEq, statusIn, statusNin, loginProfilesEq)
 
-Get the details of all users.
+Get users.
 
-Retrieve details of all users.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of users. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -336,8 +337,8 @@ Bearer.setApiKey("YOUR API KEY");
 TenantAccountsUsersApi apiInstance = new TenantAccountsUsersApi();
 String accountId = "accountId_example"; // String | Account ID.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 String emailEq = "emailEq_example"; // String | Filter for email address.
 String statusEq = "statusEq_example"; // String | Filter for status.
@@ -359,8 +360,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| Account ID. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
  **emailEq** | **String**| Filter for email address. | [optional]
  **statusEq** | **String**| Filter for status. | [optional]
@@ -385,9 +386,9 @@ Name | Type | Description  | Notes
 # **getGroupsOfAccountUser**
 > GroupSummaryList getGroupsOfAccountUser(accountId, userId, limit, after, order, include)
 
-Get user&#39;s groups.
+Get policy groups for a user.
 
-Retrieve user&#39;s groups.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of policy groups associated with a user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -410,8 +411,8 @@ TenantAccountsUsersApi apiInstance = new TenantAccountsUsersApi();
 String accountId = "accountId_example"; // String | Account ID.
 String userId = "userId_example"; // String | The ID of the user.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 try {
     GroupSummaryList result = apiInstance.getGroupsOfAccountUser(accountId, userId, limit, after, order, include);
@@ -429,13 +430,70 @@ Name | Type | Description  | Notes
  **accountId** | **String**| Account ID. |
  **userId** | **String**| The ID of the user. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
 
 ### Return type
 
 [**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="removeAccountUserFromAccount"></a>
+# **removeAccountUserFromAccount**
+> Void removeAccountUserFromAccount(accountId, userId)
+
+Remove user from the account.
+
+Remove user from the account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUsersApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TenantAccountsUsersApi apiInstance = new TenantAccountsUsersApi();
+String accountId = "accountId_example"; // String | The ID of the account.
+String userId = "userId_example"; // String | The ID of the user to remove from the account.
+try {
+    Void result = apiInstance.removeAccountUserFromAccount(accountId, userId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TenantAccountsUsersApi#removeAccountUserFromAccount");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| The ID of the account. |
+ **userId** | **String**| The ID of the user to remove from the account. |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
@@ -452,7 +510,7 @@ Name | Type | Description  | Notes
 
 Remove user from groups.
 
-Remove user from groups.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove user from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -511,7 +569,7 @@ Name | Type | Description  | Notes
 
 Remove user from groups.
 
-Remove a user from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+Remove a user from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/remove \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -570,7 +628,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-Update user details.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; &#x60;&#x60;&#x60;
+Update user details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -629,7 +687,7 @@ Name | Type | Description  | Notes
 
 Validate the user email.
 
-Validate user email.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Validate user email. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java

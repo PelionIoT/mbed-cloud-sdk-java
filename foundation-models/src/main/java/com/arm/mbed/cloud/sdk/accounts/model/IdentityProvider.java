@@ -69,6 +69,11 @@ public class IdentityProvider implements SdkModel {
     private String name;
 
     /**
+     * Represents OIDC specific attributes.
+     */
+    private OidcRequest oidcAttributes;
+
+    /**
      * Represents SAML2 specific attributes in responses.
      */
     private Object saml2Attributes;
@@ -105,6 +110,8 @@ public class IdentityProvider implements SdkModel {
      *            Flag indicating whether this is the global default identity provider.
      * @param name
      *            Name of the identity provider.
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
      * @param saml2Attributes
      *            Represents SAML2 specific attributes in responses.
      * @param status
@@ -116,7 +123,8 @@ public class IdentityProvider implements SdkModel {
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public IdentityProvider(String accountId, Date createdAt, String description, String id,
                             IdentityProviderType identityProviderType, boolean isDefault, String name,
-                            Object saml2Attributes, IdentityProviderStatus status, Date updatedAt) {
+                            OidcRequest oidcAttributes, Object saml2Attributes, IdentityProviderStatus status,
+                            Date updatedAt) {
         super();
         this.accountId = accountId;
         this.createdAt = createdAt;
@@ -126,6 +134,7 @@ public class IdentityProvider implements SdkModel {
         setId(id);
         setIdentityProviderType(identityProviderType);
         setName(name);
+        setOidcAttributes(oidcAttributes);
         setSaml2Attributes(saml2Attributes);
         setStatus(status);
     }
@@ -150,6 +159,7 @@ public class IdentityProvider implements SdkModel {
              identityProvider == null ? IdentityProviderType.getDefault() : identityProvider.identityProviderType,
              identityProvider != null && identityProvider.isDefault,
              identityProvider == null ? (String) null : identityProvider.name,
+             identityProvider == null ? (OidcRequest) null : identityProvider.oidcAttributes,
              identityProvider == null ? (Object) null : identityProvider.saml2Attributes,
              identityProvider == null ? IdentityProviderStatus.getDefault() : identityProvider.status,
              identityProvider == null ? new Date() : identityProvider.updatedAt);
@@ -160,7 +170,7 @@ public class IdentityProvider implements SdkModel {
      */
     public IdentityProvider() {
         this((String) null, new Date(), (String) null, (String) null, IdentityProviderType.getDefault(), false,
-             (String) null, (Object) null, IdentityProviderStatus.getDefault(), new Date());
+             (String) null, (OidcRequest) null, (Object) null, IdentityProviderStatus.getDefault(), new Date());
     }
 
     /**
@@ -198,7 +208,7 @@ public class IdentityProvider implements SdkModel {
     @Internal
     public IdentityProvider(String accountId, Date createdAt, boolean isDefault, Date updatedAt) {
         this(accountId, createdAt, (String) null, (String) null, IdentityProviderType.getDefault(), isDefault,
-             (String) null, (Object) null, IdentityProviderStatus.getDefault(), updatedAt);
+             (String) null, (OidcRequest) null, (Object) null, IdentityProviderStatus.getDefault(), updatedAt);
     }
 
     /**
@@ -214,8 +224,8 @@ public class IdentityProvider implements SdkModel {
      *            Name of the identity provider.
      */
     public IdentityProvider(IdentityProviderType identityProviderType, String name) {
-        this((String) null, new Date(), (String) null, (String) null, identityProviderType, false, name, (Object) null,
-             IdentityProviderStatus.getDefault(), new Date());
+        this((String) null, new Date(), (String) null, (String) null, identityProviderType, false, name,
+             (OidcRequest) null, (Object) null, IdentityProviderStatus.getDefault(), new Date());
     }
 
     /**
@@ -406,6 +416,25 @@ public class IdentityProvider implements SdkModel {
     }
 
     /**
+     * Gets represents oidc specific attributes.
+     * 
+     * @return oidcAttributes
+     */
+    public OidcRequest getOidcAttributes() {
+        return oidcAttributes;
+    }
+
+    /**
+     * Sets represents oidc specific attributes.
+     * 
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     */
+    public void setOidcAttributes(OidcRequest oidcAttributes) {
+        this.oidcAttributes = oidcAttributes;
+    }
+
+    /**
      * Gets represents saml2 specific attributes in responses.
      * 
      * @return saml2Attributes
@@ -493,8 +522,8 @@ public class IdentityProvider implements SdkModel {
     public String toString() {
         return "IdentityProvider [accountId=" + accountId + ", createdAt=" + createdAt + ", description=" + description
                + ", id=" + id + ", identityProviderType=" + identityProviderType + ", isDefault=" + isDefault
-               + ", name=" + name + ", saml2Attributes=" + saml2Attributes + ", status=" + status + ", updatedAt="
-               + updatedAt + "]";
+               + ", name=" + name + ", oidcAttributes=" + oidcAttributes + ", saml2Attributes=" + saml2Attributes
+               + ", status=" + status + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -516,6 +545,7 @@ public class IdentityProvider implements SdkModel {
         result = prime * result + ((identityProviderType == null) ? 0 : identityProviderType.hashCode());
         result = prime * result + Objects.hashCode(Boolean.valueOf(isDefault));
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((oidcAttributes == null) ? 0 : oidcAttributes.hashCode());
         result = prime * result + ((saml2Attributes == null) ? 0 : saml2Attributes.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -601,6 +631,13 @@ public class IdentityProvider implements SdkModel {
                 return false;
             }
         } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (oidcAttributes == null) {
+            if (other.oidcAttributes != null) {
+                return false;
+            }
+        } else if (!oidcAttributes.equals(other.oidcAttributes)) {
             return false;
         }
         if (saml2Attributes == null) {

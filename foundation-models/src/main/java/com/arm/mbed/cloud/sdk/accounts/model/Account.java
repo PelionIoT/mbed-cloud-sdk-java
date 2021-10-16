@@ -50,7 +50,13 @@ public class Account implements SdkModel {
 
     /**
      * The admin API key created for this account. Present only in the response for account creation.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Tue Sep 01 08:00:00 CST 2020 and will be removed by Wed Sep 01
+     *             08:00:00 CST 2021. This field is deprecated, do not use it anymore.
      */
+    @Deprecated
     private final String adminKey;
 
     /**
@@ -64,7 +70,7 @@ public class Account implements SdkModel {
     private String adminPassword;
 
     /**
-     * An array of aliases.
+     * An array of aliases for the tenant account ID. The aliases must be globally unique.
      */
     private List<String> aliases;
 
@@ -77,7 +83,7 @@ public class Account implements SdkModel {
     /**
      * Business model history for this account.
      */
-    private final List<Object> businessModelHistory;
+    private final List<BusinessModelHistory> businessModelHistory;
 
     /**
      * The city part of the postal address.
@@ -85,7 +91,7 @@ public class Account implements SdkModel {
     private String city;
 
     /**
-     * The name of the company.
+     * The name of the company used in billing.
      */
     private String company;
 
@@ -120,7 +126,7 @@ public class Account implements SdkModel {
     private String customerNumber;
 
     /**
-     * The display name for the account.
+     * The display name for the tenant account.
      */
     private String displayName;
 
@@ -160,15 +166,15 @@ public class Account implements SdkModel {
     /**
      * List of account limitation objects.
      */
-    private final List<Object> limitations;
+    private final List<AccountLimitation> limitations;
 
     /**
-     * List of limits as key-value pairs if requested.
+     * DEPRECATED: Replaced by the limitations parameter.
      * 
      * <p>
      * 
-     * @deprecated This field has been deprecated since Tue Aug 27 13:03:58 BST 2019 and will be removed by Thu Aug 27
-     *             13:03:58 BST 2020. Superseded by the limitations parameter.
+     * @deprecated This field has been deprecated since Tue Aug 27 20:03:58 CST 2019 and will be removed by Thu Aug 27
+     *             20:03:58 CST 2020. Replaced by the limitations parameter.
      */
     @Deprecated
     private final Map<String, String> limits;
@@ -256,6 +262,11 @@ public class Account implements SdkModel {
     private final String tier;
 
     /**
+     * Tier history for this account.
+     */
+    private final List<TierHistory> tierHistory;
+
+    /**
      * Last update UTC time RFC3339.
      */
     private final Date updatedAt;
@@ -295,7 +306,7 @@ public class Account implements SdkModel {
      *            The password of the admin user created for this account. Present only in the response for account
      *            creation.
      * @param aliases
-     *            An array of aliases.
+     *            An array of aliases for the tenant account ID. The aliases must be globally unique.
      * @param businessModel
      *            Business model for this account. Manageable by the root admin only.
      * @param businessModelHistory
@@ -303,7 +314,7 @@ public class Account implements SdkModel {
      * @param city
      *            The city part of the postal address.
      * @param company
-     *            The name of the company.
+     *            The name of the company used in billing.
      * @param contact
      *            The name of the contact person for this account.
      * @param contractNumber
@@ -317,7 +328,7 @@ public class Account implements SdkModel {
      * @param customerNumber
      *            Customer number of the customer.
      * @param displayName
-     *            The display name for the account.
+     *            The display name for the tenant account.
      * @param email
      *            The company email address for this account.
      * @param endMarket
@@ -333,7 +344,7 @@ public class Account implements SdkModel {
      * @param limitations
      *            List of account limitation objects.
      * @param limits
-     *            List of limits as key-value pairs if requested.
+     *            DEPRECATED: Replaced by the limitations parameter.
      * @param mfaStatus
      *            The enforcement status of multi-factor authentication, either `enforced` or `optional`.
      * @param notificationEmails
@@ -367,6 +378,8 @@ public class Account implements SdkModel {
      * @param tier
      *            The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other
      *            values are reserved for the future.
+     * @param tierHistory
+     *            Tier history for this account.
      * @param updatedAt
      *            Last update UTC time RFC3339.
      * @param upgradedAt
@@ -377,16 +390,16 @@ public class Account implements SdkModel {
     public Account(String addressLine1, String addressLine2, String adminEmail, String adminFullName, String adminId,
                    String adminKey, String adminName, String adminPassword, List<String> aliases,
                    @DefaultValue("active_device_business_model") AccountBusinessModel businessModel,
-                   List<Object> businessModelHistory, String city, String company, String contact,
+                   List<BusinessModelHistory> businessModelHistory, String city, String company, String contact,
                    String contractNumber, String country, Date createdAt, Map<String, String> customFields,
                    String customerNumber, String displayName, String email, String endMarket, Date expiration,
                    @DefaultValue("1") int expirationWarningThreshold, String id, @DefaultValue("1") int idleTimeout,
-                   List<Object> limitations, Map<String, String> limits, AccountMfaStatus mfaStatus,
+                   List<AccountLimitation> limitations, Map<String, String> limits, AccountMfaStatus mfaStatus,
                    List<String> notificationEmails, ParentAccount parentAccount, String parentId,
                    PasswordPolicy passwordPolicy, @DefaultValue("1") int passwordRecoveryExpiration, String phoneNumber,
                    List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
-                   String state, AccountStatus status, String templateId, String tier, Date updatedAt,
-                   Date upgradedAt) {
+                   String state, AccountStatus status, String templateId, String tier, List<TierHistory> tierHistory,
+                   Date updatedAt, Date upgradedAt) {
         super();
         this.adminId = adminId;
         this.adminKey = adminKey;
@@ -403,6 +416,7 @@ public class Account implements SdkModel {
         this.status = status;
         this.templateId = templateId;
         this.tier = tier;
+        this.tierHistory = tierHistory;
         this.updatedAt = updatedAt;
         this.upgradedAt = upgradedAt;
         setAddressLine1(addressLine1);
@@ -457,7 +471,7 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.adminPassword,
              account == null ? (List<String>) null : account.aliases,
              account == null ? AccountBusinessModel.getValue("active_device_business_model") : account.businessModel,
-             account == null ? (List<Object>) null : account.businessModelHistory,
+             account == null ? (List<BusinessModelHistory>) null : account.businessModelHistory,
              account == null ? (String) null : account.city, account == null ? (String) null : account.company,
              account == null ? (String) null : account.contact,
              account == null ? (String) null : account.contractNumber,
@@ -467,7 +481,8 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
              account == null ? (String) null : account.endMarket, account == null ? new Date() : account.expiration,
              account == null ? 1 : account.expirationWarningThreshold, account == null ? (String) null : account.id,
-             account == null ? 1 : account.idleTimeout, account == null ? (List<Object>) null : account.limitations,
+             account == null ? 1 : account.idleTimeout,
+             account == null ? (List<AccountLimitation>) null : account.limitations,
              account == null ? (Map<String, String>) null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
              account == null ? (List<String>) null : account.notificationEmails,
@@ -482,6 +497,7 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.salesContact, account == null ? (String) null : account.state,
              account == null ? AccountStatus.getDefault() : account.status,
              account == null ? (String) null : account.templateId, account == null ? (String) null : account.tier,
+             account == null ? (List<TierHistory>) null : account.tierHistory,
              account == null ? new Date() : account.updatedAt, account == null ? new Date() : account.upgradedAt);
     }
 
@@ -491,12 +507,13 @@ public class Account implements SdkModel {
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, (List<String>) null, AccountBusinessModel.getValue("active_device_business_model"),
-             (List<Object>) null, (String) null, (String) null, (String) null, (String) null, (String) null, new Date(),
-             (Map<String, String>) null, (String) null, (String) null, (String) null, (String) null, new Date(), 1,
-             (String) null, 1, (List<Object>) null, (Map<String, String>) null, AccountMfaStatus.getDefault(),
-             (List<String>) null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 1, (String) null,
-             (List<Policy>) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             AccountStatus.getDefault(), (String) null, (String) null, new Date(), new Date());
+             (List<BusinessModelHistory>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, new Date(), (Map<String, String>) null, (String) null, (String) null, (String) null,
+             (String) null, new Date(), 1, (String) null, 1, (List<AccountLimitation>) null, (Map<String, String>) null,
+             AccountMfaStatus.getDefault(), (List<String>) null, (ParentAccount) null, (String) null,
+             (PasswordPolicy) null, 1, (String) null, (List<Policy>) null, (String) null, (String) null, (String) null,
+             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
+             (List<TierHistory>) null, new Date(), new Date());
     }
 
     /**
@@ -536,7 +553,7 @@ public class Account implements SdkModel {
      * @param limitations
      *            List of account limitation objects.
      * @param limits
-     *            List of limits as key-value pairs if requested.
+     *            DEPRECATED: Replaced by the limitations parameter.
      * @param parentAccount
      *            Represents parent account contact details in responses.
      * @param parentId
@@ -554,6 +571,8 @@ public class Account implements SdkModel {
      * @param tier
      *            The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other
      *            values are reserved for the future.
+     * @param tierHistory
+     *            Tier history for this account.
      * @param updatedAt
      *            Last update UTC time RFC3339.
      * @param upgradedAt
@@ -561,17 +580,18 @@ public class Account implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public Account(String adminId, String adminKey, List<Object> businessModelHistory, Date createdAt, Date expiration,
-                   List<Object> limitations, Map<String, String> limits, ParentAccount parentAccount, String parentId,
-                   List<Policy> policies, String reason, String referenceNote, AccountStatus status, String templateId,
-                   String tier, Date updatedAt, Date upgradedAt) {
+    public Account(String adminId, String adminKey, List<BusinessModelHistory> businessModelHistory, Date createdAt,
+                   Date expiration, List<AccountLimitation> limitations, Map<String, String> limits,
+                   ParentAccount parentAccount, String parentId, List<Policy> policies, String reason,
+                   String referenceNote, AccountStatus status, String templateId, String tier,
+                   List<TierHistory> tierHistory, Date updatedAt, Date upgradedAt) {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
              (String) null, (List<String>) null, AccountBusinessModel.getValue("active_device_business_model"),
              businessModelHistory, (String) null, (String) null, (String) null, (String) null, (String) null, createdAt,
              (Map<String, String>) null, (String) null, (String) null, (String) null, (String) null, expiration, 1,
              (String) null, 1, limitations, limits, AccountMfaStatus.getDefault(), (List<String>) null, parentAccount,
              parentId, (PasswordPolicy) null, 1, (String) null, policies, (String) null, reason, referenceNote,
-             (String) null, (String) null, status, templateId, tier, updatedAt, upgradedAt);
+             (String) null, (String) null, status, templateId, tier, tierHistory, updatedAt, upgradedAt);
     }
 
     /**
@@ -718,8 +738,14 @@ public class Account implements SdkModel {
     /**
      * Gets the admin api key created for this account. present only in the response for account creation.
      * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Tue Sep 01 08:00:00 CST 2020 and will be removed by Wed Sep 01
+     *             08:00:00 CST 2021. This field is deprecated, do not use it anymore.
+     * 
      * @return adminKey
      */
+    @Deprecated
     public String getAdminKey() {
         return adminKey;
     }
@@ -778,7 +804,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets an array of aliases.
+     * Gets an array of aliases for the tenant account id. the aliases must be globally unique.
      * 
      * @return aliases
      */
@@ -787,13 +813,13 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets an array of aliases.
+     * Sets an array of aliases for the tenant account id. the aliases must be globally unique.
      * 
      * <p>
      * Note: the number of elements has to be less than or equal to {@code 10} to be valid
      * 
      * @param aliases
-     *            An array of aliases.
+     *            An array of aliases for the tenant account ID. The aliases must be globally unique.
      */
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
@@ -847,7 +873,7 @@ public class Account implements SdkModel {
      * 
      * @return businessModelHistory
      */
-    public List<Object> getBusinessModelHistory() {
+    public List<BusinessModelHistory> getBusinessModelHistory() {
         return businessModelHistory;
     }
 
@@ -884,7 +910,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the name of the company.
+     * Gets the name of the company used in billing.
      * 
      * @return company
      */
@@ -893,13 +919,13 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the name of the company.
+     * Sets the name of the company used in billing.
      * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param company
-     *            The name of the company.
+     *            The name of the company used in billing.
      */
     public void setCompany(String company) {
         this.company = company;
@@ -1046,7 +1072,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the display name for the account.
+     * Gets the display name for the tenant account.
      * 
      * @return displayName
      */
@@ -1055,13 +1081,13 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the display name for the account.
+     * Sets the display name for the tenant account.
      * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param displayName
-     *            The display name for the account.
+     *            The display name for the tenant account.
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
@@ -1271,17 +1297,17 @@ public class Account implements SdkModel {
      * 
      * @return limitations
      */
-    public List<Object> getLimitations() {
+    public List<AccountLimitation> getLimitations() {
         return limitations;
     }
 
     /**
-     * Gets list of limits as key-value pairs if requested.
+     * Gets deprecated: replaced by the limitations parameter.
      * 
      * <p>
      * 
-     * @deprecated This field has been deprecated since Tue Aug 27 13:03:58 BST 2019 and will be removed by Thu Aug 27
-     *             13:03:58 BST 2020. Superseded by the limitations parameter.
+     * @deprecated This field has been deprecated since Tue Aug 27 20:03:58 CST 2019 and will be removed by Thu Aug 27
+     *             20:03:58 CST 2020. Replaced by the limitations parameter.
      * 
      * @return limits
      */
@@ -1597,6 +1623,15 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets tier history for this account.
+     * 
+     * @return tierHistory
+     */
+    public List<TierHistory> getTierHistory() {
+        return tierHistory;
+    }
+
+    /**
      * Gets last update utc time rfc3339.
      * 
      * @return updatedAt
@@ -1638,7 +1673,8 @@ public class Account implements SdkModel {
                + passwordRecoveryExpiration + ", phoneNumber=" + phoneNumber + ", policies=" + policies
                + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
                + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
-               + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
+               + templateId + ", tier=" + tier + ", tierHistory=" + tierHistory + ", updatedAt=" + updatedAt
+               + ", upgradedAt=" + upgradedAt + "]";
     }
 
     /**
@@ -1697,6 +1733,7 @@ public class Account implements SdkModel {
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((templateId == null) ? 0 : templateId.hashCode());
         result = prime * result + ((tier == null) ? 0 : tier.hashCode());
+        result = prime * result + ((tierHistory == null) ? 0 : tierHistory.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         result = prime * result + ((upgradedAt == null) ? 0 : upgradedAt.hashCode());
         return result;
@@ -2024,6 +2061,13 @@ public class Account implements SdkModel {
                 return false;
             }
         } else if (!tier.equals(other.tier)) {
+            return false;
+        }
+        if (tierHistory == null) {
+            if (other.tierHistory != null) {
+                return false;
+            }
+        } else if (!tierHistory.equals(other.tierHistory)) {
             return false;
         }
         if (updatedAt == null) {

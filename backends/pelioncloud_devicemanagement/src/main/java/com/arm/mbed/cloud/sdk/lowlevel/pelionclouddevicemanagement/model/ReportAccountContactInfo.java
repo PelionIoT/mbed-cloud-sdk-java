@@ -13,9 +13,14 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -32,6 +37,59 @@ public class ReportAccountContactInfo implements Serializable {
     @SerializedName("address_line2")
     private String addressLine2 = null;
 
+    @SerializedName("alias")
+    private String alias = null;
+
+    /**
+     * The business model selected for the account to generate the billing reports.
+     */
+    @JsonAdapter(BusinessModelEnum.Adapter.class)
+    public enum BusinessModelEnum {
+        ACTIVE_DEVICE_BUSINESS_MODEL("active_device_business_model"),
+
+        API_CALLS_1_BUSINESS_MODEL("api_calls_1_business_model");
+
+        private String value;
+
+        BusinessModelEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static BusinessModelEnum fromValue(String text) {
+            for (BusinessModelEnum b : BusinessModelEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<BusinessModelEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final BusinessModelEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public BusinessModelEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return BusinessModelEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
+    @SerializedName("business_model")
+    private BusinessModelEnum businessModel = null;
+
     @SerializedName("city")
     private String city = null;
 
@@ -43,6 +101,9 @@ public class ReportAccountContactInfo implements Serializable {
 
     @SerializedName("country")
     private String country = null;
+
+    @SerializedName("customer_subtenant_id")
+    private String customerSubtenantId = null;
 
     @SerializedName("email")
     private String email = null;
@@ -95,6 +156,44 @@ public class ReportAccountContactInfo implements Serializable {
 
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
+    }
+
+    public ReportAccountContactInfo alias(String alias) {
+        this.alias = alias;
+        return this;
+    }
+
+    /**
+     * Get alias
+     * 
+     * @return alias
+     **/
+    @ApiModelProperty(value = "")
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public ReportAccountContactInfo businessModel(BusinessModelEnum businessModel) {
+        this.businessModel = businessModel;
+        return this;
+    }
+
+    /**
+     * The business model selected for the account to generate the billing reports.
+     * 
+     * @return businessModel
+     **/
+    @ApiModelProperty(value = "The business model selected for the account to generate the billing reports.")
+    public BusinessModelEnum getBusinessModel() {
+        return businessModel;
+    }
+
+    public void setBusinessModel(BusinessModelEnum businessModel) {
+        this.businessModel = businessModel;
     }
 
     public ReportAccountContactInfo city(String city) {
@@ -171,6 +270,25 @@ public class ReportAccountContactInfo implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public ReportAccountContactInfo customerSubtenantId(String customerSubtenantId) {
+        this.customerSubtenantId = customerSubtenantId;
+        return this;
+    }
+
+    /**
+     * Account tenant ID, valid only for tenants.
+     * 
+     * @return customerSubtenantId
+     **/
+    @ApiModelProperty(value = "Account tenant ID, valid only for tenants.")
+    public String getCustomerSubtenantId() {
+        return customerSubtenantId;
+    }
+
+    public void setCustomerSubtenantId(String customerSubtenantId) {
+        this.customerSubtenantId = customerSubtenantId;
     }
 
     public ReportAccountContactInfo email(String email) {
@@ -279,10 +397,13 @@ public class ReportAccountContactInfo implements Serializable {
         ReportAccountContactInfo reportAccountContactInfo = (ReportAccountContactInfo) o;
         return Objects.equals(this.addressLine1, reportAccountContactInfo.addressLine1)
                && Objects.equals(this.addressLine2, reportAccountContactInfo.addressLine2)
+               && Objects.equals(this.alias, reportAccountContactInfo.alias)
+               && Objects.equals(this.businessModel, reportAccountContactInfo.businessModel)
                && Objects.equals(this.city, reportAccountContactInfo.city)
                && Objects.equals(this.company, reportAccountContactInfo.company)
                && Objects.equals(this.contact, reportAccountContactInfo.contact)
                && Objects.equals(this.country, reportAccountContactInfo.country)
+               && Objects.equals(this.customerSubtenantId, reportAccountContactInfo.customerSubtenantId)
                && Objects.equals(this.email, reportAccountContactInfo.email)
                && Objects.equals(this.id, reportAccountContactInfo.id)
                && Objects.equals(this.phoneNumber, reportAccountContactInfo.phoneNumber)
@@ -292,8 +413,8 @@ public class ReportAccountContactInfo implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(addressLine1, addressLine2, city, company, contact, country, email, id, phoneNumber,
-                            postalCode, state);
+        return Objects.hash(addressLine1, addressLine2, alias, businessModel, city, company, contact, country,
+                            customerSubtenantId, email, id, phoneNumber, postalCode, state);
     }
 
     @Override
@@ -303,10 +424,13 @@ public class ReportAccountContactInfo implements Serializable {
 
         sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
         sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
+        sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
+        sb.append("    businessModel: ").append(toIndentedString(businessModel)).append("\n");
         sb.append("    city: ").append(toIndentedString(city)).append("\n");
         sb.append("    company: ").append(toIndentedString(company)).append("\n");
         sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
         sb.append("    country: ").append(toIndentedString(country)).append("\n");
+        sb.append("    customerSubtenantId: ").append(toIndentedString(customerSubtenantId)).append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");

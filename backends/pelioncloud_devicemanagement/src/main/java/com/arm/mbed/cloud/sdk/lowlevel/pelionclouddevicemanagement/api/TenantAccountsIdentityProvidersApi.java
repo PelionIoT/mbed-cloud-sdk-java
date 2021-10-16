@@ -13,7 +13,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Identit
 
 public interface TenantAccountsIdentityProvidersApi {
     /**
-     * Create a new identity provider. Create a new identity provider.
+     * Create a new identity provider. Create a new identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators.
      * 
      * @param accountId
      *            Account ID. (required)
@@ -33,7 +34,8 @@ public interface TenantAccountsIdentityProvidersApi {
                                       @retrofit2.http.Query("discovery") Boolean discovery);
 
     /**
-     * Delete an identity provider by ID. Delete an identity provider by ID.
+     * Delete an identity provider by ID. Delete an identity provider by ID. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators.
      * 
      * @param accountId
      *            Account ID. (required)
@@ -48,7 +50,8 @@ public interface TenantAccountsIdentityProvidersApi {
                                                            encoded = true) String identityProviderId);
 
     /**
-     * Delete the service provider certificate. Delete a service provider certificate.
+     * Delete the service provider certificate. Delete a service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators.
      * 
      * @param accountId
      *            Account ID. (required)
@@ -65,6 +68,7 @@ public interface TenantAccountsIdentityProvidersApi {
 
     /**
      * Generate a new service provider certificate. Generate a new service provider certificate.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      * 
      * @param accountId
      *            Account ID. (required)
@@ -83,7 +87,8 @@ public interface TenantAccountsIdentityProvidersApi {
                                      @retrofit2.http.Body CertificateGenerationReq body);
 
     /**
-     * Retrieve identity provider by ID. Manage identity providers of a tenant account.
+     * Get an identity provider. Retrieve an identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators.
      * 
      * @param accountId
      *            Account ID. (required)
@@ -98,17 +103,17 @@ public interface TenantAccountsIdentityProvidersApi {
                                                         encoded = true) String identityProviderId);
 
     /**
-     * Get all identity providers. Retrieve identity providers in an array.
+     * Get all identity providers. Retrieve an array of identity providers. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators.
      * 
      * @param accountId
      *            The ID of the account. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @return Call&lt;IdentityProviderList&gt;
@@ -123,7 +128,8 @@ public interface TenantAccountsIdentityProvidersApi {
                                        @retrofit2.http.Query("include") String include);
 
     /**
-     * Refreshes the OIDC signing keys. Refreshes an OIDC IdP&#39;s signing keys.
+     * Refresh the OIDC signing keys. Refresh an OIDC IdP&#39;s signing keys. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators.
      * 
      * @param accountId
      *            The ID of the account to be managed. (required)
@@ -139,7 +145,8 @@ public interface TenantAccountsIdentityProvidersApi {
                                                 encoded = true) String identityProviderId);
 
     /**
-     * Update an existing identity provider. Update an existing identity provider.
+     * Update an existing identity provider. Update an existing identity provider. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators.
      * 
      * @param accountId
      *            Account ID. (required)

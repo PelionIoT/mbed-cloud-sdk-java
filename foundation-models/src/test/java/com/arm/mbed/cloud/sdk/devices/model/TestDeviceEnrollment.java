@@ -19,13 +19,13 @@ public class TestDeviceEnrollment {
     @Test
     public void testClone() {
         try {
-            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("c580b553-39a6-4564-8327-8d5f88123e4e",
-                                                                      new Date(1574704667064L),
-                                                                      new Date(1574704666932L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                      "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                      new Date(1574704663147L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
+            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("c4f78826-35a5-4b22-8ee5-17e6c8e57be4",
+                                                                      new Date(1610683993507L),
+                                                                      new Date(1610683989223L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                      "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                      new Date(1610683992443L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
             DeviceEnrollment deviceenrollment2 = deviceenrollment1.clone();
             assertNotNull(deviceenrollment1);
             assertNotNull(deviceenrollment2);
@@ -43,20 +43,20 @@ public class TestDeviceEnrollment {
     @Test
     public void testHashCode() {
         try {
-            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("9a7c8a77-a5bd-4e0a-9d15-81f19af5c98c",
-                                                                      new Date(1574704666261L),
-                                                                      new Date(1574704664811L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                      "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                      new Date(1574704668765L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
-            DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("9a7c8a77-a5bd-4e0a-9d15-81f19af5c98c",
-                                                                      new Date(1574704666261L),
-                                                                      new Date(1574704664811L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                      "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                      new Date(1574704668765L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
+            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("26d7e1a9-d15b-42b0-b477-bbba5b502ef4",
+                                                                      new Date(1610683991980L),
+                                                                      new Date(1610683985691L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                      "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                      new Date(1610683987954L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
+            DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("26d7e1a9-d15b-42b0-b477-bbba5b502ef4",
+                                                                      new Date(1610683991980L),
+                                                                      new Date(1610683985691L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                      "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                      new Date(1610683987954L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
             assertNotNull(deviceenrollment1);
             assertNotNull(deviceenrollment2);
             assertNotSame(deviceenrollment2, deviceenrollment1);
@@ -77,19 +77,19 @@ public class TestDeviceEnrollment {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeviceEnrollment deviceenrollment = new DeviceEnrollment("b476b7bd-6d21-42a1-8599-201fbcb1591e",
-                                                                 new Date(1574704665541L), new Date(1574704664012L),
-                                                                 "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                 "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                 new Date(1574704669813L),
-                                                                 "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
+        DeviceEnrollment deviceenrollment = new DeviceEnrollment("a3a73d80-d679-4565-a004-c04f90484071",
+                                                                 new Date(1610683992522L), new Date(1610683988635L),
+                                                                 "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                 "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                 new Date(1610683994215L),
+                                                                 "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
         assertTrue(deviceenrollment.isValid());
-        DeviceEnrollment deviceenrollmentInvalid = new DeviceEnrollment("c9977291-fb08-4661-843e-084aeac83e24",
-                                                                        new Date(1574704666088L),
-                                                                        new Date(1574704666305L),
-                                                                        "cn;PwKRGqqℵJT쬶x$$PJRvw`RTJRcꕟGGu鉙J`\u0005C>W\\\\T5N_vNPG5xRcTc\u0007XAiJquWwJP",
-                                                                        null, new Date(1574704667798L),
-                                                                        "cn;PwKRGqqℵJT쬶x$$PJRvw`RTJRcꕟGGu鉙J`\u0005C>W\\\\T5N_vNPG5xRcTc\u0007XAiJquWwJP");
+        DeviceEnrollment deviceenrollmentInvalid = new DeviceEnrollment("cefeead4-6661-4eda-aee4-c6db16406565",
+                                                                        new Date(1610683992831L),
+                                                                        new Date(1610683987746L),
+                                                                        "RCwB2W>weRCM][eZRQBEEtc8;cM8M^<뵆]wTXEweBwHeM#UCJ_wBe2Cc=8eCe?$$KM",
+                                                                        null, new Date(1610683992883L),
+                                                                        "RCwB2W>weRCM][eZRQBEEtc8;cM8M^<뵆]wTXEweBwHeM#UCJ_wBe2Cc=8eCe?$$KM");
         assertFalse(deviceenrollmentInvalid.isValid());
     }
 
@@ -100,27 +100,27 @@ public class TestDeviceEnrollment {
     @Test
     public void testEquals() {
         try {
-            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("97eb1ba8-dd95-4ee4-a928-058b563da3f5",
-                                                                      new Date(1574704667156L),
-                                                                      new Date(1574704665528L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                      "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                      new Date(1574704669506L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
-            DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("97eb1ba8-dd95-4ee4-a928-058b563da3f5",
-                                                                      new Date(1574704667156L),
-                                                                      new Date(1574704665528L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                      "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                      new Date(1574704669506L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
-            DeviceEnrollment deviceenrollment3 = new DeviceEnrollment("3b79b76a-46c4-41b5-8410-81f8cfcdba13",
-                                                                      new Date(1574704660948L),
-                                                                      new Date(1574704666557L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI",
-                                                                      "A-tE885pqtq42cQE2sSP6b:u:Z5970hU32i9R8Z9J4eyDP4bxdc7SCUn5e30jG0Z5r3JONO7tWuhh1NVcpdd6w5vU1FeP539o",
-                                                                      new Date(1574704667225L),
-                                                                      "9mbY48OQ22Hrd0H371V1SIDyLElF8pUI");
+            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("a238b432-3026-4ab9-b6e8-a6f41a1d4fbc",
+                                                                      new Date(1610683990342L),
+                                                                      new Date(1610683988428L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                      "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                      new Date(1610683988040L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
+            DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("a238b432-3026-4ab9-b6e8-a6f41a1d4fbc",
+                                                                      new Date(1610683990342L),
+                                                                      new Date(1610683988428L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                      "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                      new Date(1610683988040L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
+            DeviceEnrollment deviceenrollment3 = new DeviceEnrollment("4a3c1d93-6818-4636-9d5f-589c6a7bf834",
+                                                                      new Date(1610683990380L),
+                                                                      new Date(1610683990785L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4",
+                                                                      "A-g9al6k5oEcqu5bkRDl4hY1cjzc997:Tn2pR:1rY49ybb2LtdNoypU6L7j1G507lguVb:Q51s0Z2NimdUwah7R6d76HsYUkg",
+                                                                      new Date(1610683986763L),
+                                                                      "v9PPaz1f91YA6aS0uxuDdby3N77O5LL4");
             assertNotNull(deviceenrollment1);
             assertNotNull(deviceenrollment2);
             assertNotNull(deviceenrollment3);

@@ -19,10 +19,10 @@ public class TestSubtenantIdentityProviderListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions1 = new SubtenantIdentityProviderListOptions(Integer.valueOf(115),
-                                                                                                                                  Long.valueOf(-105),
+            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions1 = new SubtenantIdentityProviderListOptions(Integer.valueOf(3),
+                                                                                                                                  Long.valueOf(88),
                                                                                                                                   Order.getDefault(),
-                                                                                                                                  "b17f717b-ea07-4b1f-8f6b-5b0d4d727a72",
+                                                                                                                                  "81e235df-22f2-48f4-b62e-4eddb9c31928",
                                                                                                                                   null,
                                                                                                                                   null);
             SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions2 = subtenantidentityproviderlistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestSubtenantIdentityProviderListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions1 = new SubtenantIdentityProviderListOptions(Integer.valueOf(35),
-                                                                                                                                  Long.valueOf(-90),
+            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions1 = new SubtenantIdentityProviderListOptions(Integer.valueOf(36),
+                                                                                                                                  Long.valueOf(-121),
                                                                                                                                   Order.getDefault(),
-                                                                                                                                  "e8d0da9c-c88b-45fe-89e9-6509741aef23",
+                                                                                                                                  "5bf31e61-6cff-4e39-86a7-abb3aea8a916",
                                                                                                                                   null,
                                                                                                                                   null);
-            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions2 = new SubtenantIdentityProviderListOptions(Integer.valueOf(35),
-                                                                                                                                  Long.valueOf(-90),
+            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions2 = new SubtenantIdentityProviderListOptions(Integer.valueOf(36),
+                                                                                                                                  Long.valueOf(-121),
                                                                                                                                   Order.getDefault(),
-                                                                                                                                  "e8d0da9c-c88b-45fe-89e9-6509741aef23",
+                                                                                                                                  "5bf31e61-6cff-4e39-86a7-abb3aea8a916",
                                                                                                                                   null,
                                                                                                                                   null);
             assertNotNull(subtenantidentityproviderlistoptions1);
@@ -76,22 +76,22 @@ public class TestSubtenantIdentityProviderListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions1 = new SubtenantIdentityProviderListOptions(Integer.valueOf(-107),
-                                                                                                                                  Long.valueOf(-106),
+            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions1 = new SubtenantIdentityProviderListOptions(Integer.valueOf(-22),
+                                                                                                                                  Long.valueOf(57),
                                                                                                                                   Order.getDefault(),
-                                                                                                                                  "9c749b49-2a71-49ee-b068-ee815fec79e8",
+                                                                                                                                  "92e1c975-6860-4e7b-b88c-638f0efe732f",
                                                                                                                                   null,
                                                                                                                                   null);
-            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions2 = new SubtenantIdentityProviderListOptions(Integer.valueOf(-107),
-                                                                                                                                  Long.valueOf(-106),
+            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions2 = new SubtenantIdentityProviderListOptions(Integer.valueOf(-22),
+                                                                                                                                  Long.valueOf(57),
                                                                                                                                   Order.getDefault(),
-                                                                                                                                  "9c749b49-2a71-49ee-b068-ee815fec79e8",
+                                                                                                                                  "92e1c975-6860-4e7b-b88c-638f0efe732f",
                                                                                                                                   null,
                                                                                                                                   null);
-            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions3 = new SubtenantIdentityProviderListOptions(Integer.valueOf(15),
-                                                                                                                                  Long.valueOf(-102),
+            SubtenantIdentityProviderListOptions subtenantidentityproviderlistoptions3 = new SubtenantIdentityProviderListOptions(Integer.valueOf(80),
+                                                                                                                                  Long.valueOf(47),
                                                                                                                                   Order.getDefault(),
-                                                                                                                                  "f8eb9baa-588d-4be4-be98-06a336c36a73",
+                                                                                                                                  "5fe9ea2f-9a59-4321-8ca8-f10b37e0c5fc",
                                                                                                                                   null,
                                                                                                                                   null);
             assertNotNull(subtenantidentityproviderlistoptions1);

@@ -17,9 +17,9 @@ public class AccountEmailNotificationLogsApiTest {
     }
 
     /**
-     * Get notification events for an account.
+     * Get logs of email notifications.
      *
-     * Retrieve notifications for an account.
+     * Retrieve an array of email notification logs.
      */
     @Test
     public void getNofificationEntriesTest() {
@@ -27,6 +27,19 @@ public class AccountEmailNotificationLogsApiTest {
         String after = null;
         String order = null;
         // NotificationEntryList response = api.getNofificationEntries(limit, after, order);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get an email notification.
+     *
+     * Retrieve an email notification log entry.
+     */
+    @Test
+    public void getNofificationEntryTest() {
+        String notificationId = null;
+        // NotificationEntry response = api.getNofificationEntry(notificationId);
 
         // TODO: test validations
     }

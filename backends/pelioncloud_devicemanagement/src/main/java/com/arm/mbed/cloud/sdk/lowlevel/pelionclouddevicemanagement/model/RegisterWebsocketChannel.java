@@ -25,24 +25,24 @@ public class RegisterWebsocketChannel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("serialization")
-    private Object serialization = null;
+    private SerializationConfigData serialization = null;
 
-    public RegisterWebsocketChannel serialization(Object serialization) {
+    public RegisterWebsocketChannel serialization(SerializationConfigData serialization) {
         this.serialization = serialization;
         return this;
     }
 
     /**
-     * Serialization configuration for a channel
+     * Get serialization
      * 
      * @return serialization
      **/
-    @ApiModelProperty(value = "Serialization configuration for a channel")
-    public Object getSerialization() {
+    @ApiModelProperty(value = "")
+    public SerializationConfigData getSerialization() {
         return serialization;
     }
 
-    public void setSerialization(Object serialization) {
+    public void setSerialization(SerializationConfigData serialization) {
         this.serialization = serialization;
     }
 

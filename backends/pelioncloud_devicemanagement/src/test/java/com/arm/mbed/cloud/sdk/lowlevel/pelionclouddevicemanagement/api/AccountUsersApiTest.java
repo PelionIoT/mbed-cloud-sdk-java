@@ -24,9 +24,9 @@ public class AccountUsersApiTest {
     /**
      * Add user to a list of groups.
      *
-     * Add user to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Add user to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -42,9 +42,9 @@ public class AccountUsersApiTest {
     /**
      * Add user to a list of groups.
      *
-     * Add user to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/add \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Add user to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/add \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -60,11 +60,11 @@ public class AccountUsersApiTest {
     /**
      * Create a new user.
      *
-     * Create or invite a new user to the account. Only email address is used; other attributes are set in the second
-     * step. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/users?action&#x3D;invite \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;:
-     * \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
+     * Create or invite a new user to the account. The invited user has to accept the invitation by clicking the link in
+     * the invitation email. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action&#x3D;invite \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
      */
     @Test
     public void createUserTest() {
@@ -78,9 +78,9 @@ public class AccountUsersApiTest {
     /**
      * Delete a user.
      *
-     * Delete a user. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * Delete a user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void deleteUserTest() {
@@ -91,11 +91,11 @@ public class AccountUsersApiTest {
     }
 
     /**
-     * Get the details of all users.
+     * Get users.
      *
-     * Retrieve the details of all users. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * Retrieve an array of users. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/users \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAllUsersTest() {
@@ -115,11 +115,12 @@ public class AccountUsersApiTest {
     }
 
     /**
-     * Get groups of the user.
+     * Get policy groups for a user.
      *
-     * Retrieve groups of the user. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve an array of policy groups associated with a user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getGroupsOfUserTest() {
@@ -134,26 +135,11 @@ public class AccountUsersApiTest {
     }
 
     /**
-     * Details of the current user.
-     *
-     * Retrieve the details of the logged-in user.
-     */
-    @Test
-    public void getMyUserTest() {
-        String scratchCodes = null;
-        String properties = null;
-        String include = null;
-        // UserInfoResp response = api.getMyUser(scratchCodes, properties, include);
-
-        // TODO: test validations
-    }
-
-    /**
      * Details of a user.
      *
-     * Retrieve the details of a user. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * Retrieve the details of a user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getUserTest() {
@@ -164,11 +150,26 @@ public class AccountUsersApiTest {
     }
 
     /**
+     * Remove user from the account.
+     *
+     * Remove user from the account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/remove \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeUserFromAccountTest() {
+        String userId = null;
+        // Void response = api.removeUserFromAccount(userId);
+
+        // TODO: test validations
+    }
+
+    /**
      * Remove user from groups.
      *
-     * Remove user from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Remove user from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -184,9 +185,9 @@ public class AccountUsersApiTest {
     /**
      * Remove user from groups.
      *
-     * Remove user from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/remove \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Remove user from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/remove \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      */
@@ -202,25 +203,10 @@ public class AccountUsersApiTest {
     /**
      * Update user details.
      *
-     * Update user details. **Example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me
-     * \\ -H &#39;Authorization: Bearer &lt;token&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
-     * &#39;{\&quot;full_name\&quot;: \&quot;fullname\&quot;}&#39; &#x60;&#x60;&#x60;
-     */
-    @Test
-    public void updateMyUserTest() {
-        UserUpdateReq body = null;
-        // UserInfoResp response = api.updateMyUser(body);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Update user details.
-     *
-     * Update user details **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\
-     * -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39;
-     * &#x60;&#x60;&#x60;
+     * Update user details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;username\&quot;:
+     * \&quot;myusername\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateUserTest() {

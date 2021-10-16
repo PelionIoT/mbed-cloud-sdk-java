@@ -18,8 +18,8 @@ public class TestIdentityProviderPublicKey {
     @Test
     public void testClone() {
         try {
-            IdentityProviderPublicKey identityproviderpublickey1 = new IdentityProviderPublicKey("686710b5-1308-4a73-96fa-fafc7fb4ed31",
-                                                                                                 "95cfb1bf-a393-44b4-9f88-9721a7d4359e");
+            IdentityProviderPublicKey identityproviderpublickey1 = new IdentityProviderPublicKey("41684f43-0be9-4334-98ad-520cd21cdfbc",
+                                                                                                 "f1285e8f-3e07-474b-80f5-869c2a91fa01");
             IdentityProviderPublicKey identityproviderpublickey2 = identityproviderpublickey1.clone();
             assertNotNull(identityproviderpublickey1);
             assertNotNull(identityproviderpublickey2);
@@ -37,10 +37,10 @@ public class TestIdentityProviderPublicKey {
     @Test
     public void testHashCode() {
         try {
-            IdentityProviderPublicKey identityproviderpublickey1 = new IdentityProviderPublicKey("796f6d21-55db-4f38-a9b8-69fb74fdc3d0",
-                                                                                                 "df00a3a6-8c00-4d45-bcb8-11f547940d2f");
-            IdentityProviderPublicKey identityproviderpublickey2 = new IdentityProviderPublicKey("796f6d21-55db-4f38-a9b8-69fb74fdc3d0",
-                                                                                                 "df00a3a6-8c00-4d45-bcb8-11f547940d2f");
+            IdentityProviderPublicKey identityproviderpublickey1 = new IdentityProviderPublicKey("a72ee846-39ed-4a79-81fa-71576373a63a",
+                                                                                                 "11a3b475-6067-436a-8c9c-68191ce19ba5");
+            IdentityProviderPublicKey identityproviderpublickey2 = new IdentityProviderPublicKey("a72ee846-39ed-4a79-81fa-71576373a63a",
+                                                                                                 "11a3b475-6067-436a-8c9c-68191ce19ba5");
             assertNotNull(identityproviderpublickey1);
             assertNotNull(identityproviderpublickey2);
             assertNotSame(identityproviderpublickey2, identityproviderpublickey1);
@@ -61,8 +61,8 @@ public class TestIdentityProviderPublicKey {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        IdentityProviderPublicKey identityproviderpublickey = new IdentityProviderPublicKey("941aa002-53c7-4618-9c6d-316cfb3236a8",
-                                                                                            "299deff9-8a7b-4abf-85de-790aec7e6da4");
+        IdentityProviderPublicKey identityproviderpublickey = new IdentityProviderPublicKey("d16ce93a-de27-43c2-b915-2b83ffc46575",
+                                                                                            "692f1ba1-7a45-4f56-887c-477f9e6e6ffa");
         assertTrue(identityproviderpublickey.isValid());
     }
 
@@ -73,12 +73,12 @@ public class TestIdentityProviderPublicKey {
     @Test
     public void testEquals() {
         try {
-            IdentityProviderPublicKey identityproviderpublickey1 = new IdentityProviderPublicKey("06737639-913c-4c58-9d11-08a8e545ee3d",
-                                                                                                 "8ce09d19-49d1-4057-8d45-493aaba6137a");
-            IdentityProviderPublicKey identityproviderpublickey2 = new IdentityProviderPublicKey("06737639-913c-4c58-9d11-08a8e545ee3d",
-                                                                                                 "8ce09d19-49d1-4057-8d45-493aaba6137a");
-            IdentityProviderPublicKey identityproviderpublickey3 = new IdentityProviderPublicKey("d58f373a-1782-43fd-884d-478b00eb34ac",
-                                                                                                 "acef7c48-6105-42b4-bedf-15575cfcfa0d");
+            IdentityProviderPublicKey identityproviderpublickey1 = new IdentityProviderPublicKey("850ac8bb-6332-4cc9-8afa-f6cfcb0d2d14",
+                                                                                                 "a1d9c06f-c28d-4d32-abd7-4ae3c0657cfc");
+            IdentityProviderPublicKey identityproviderpublickey2 = new IdentityProviderPublicKey("850ac8bb-6332-4cc9-8afa-f6cfcb0d2d14",
+                                                                                                 "a1d9c06f-c28d-4d32-abd7-4ae3c0657cfc");
+            IdentityProviderPublicKey identityproviderpublickey3 = new IdentityProviderPublicKey("6ea7381e-2407-4366-a510-9c2856f55438",
+                                                                                                 "a5b30c94-432f-4e98-91be-11f6c2f7bec7");
             assertNotNull(identityproviderpublickey1);
             assertNotNull(identityproviderpublickey2);
             assertNotNull(identityproviderpublickey3);

@@ -41,11 +41,13 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+import com.arm.mbed.cloud.sdk.connect.adapters.EchoAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.AbstractMetricsListOptions;
+import com.arm.mbed.cloud.sdk.connect.model.EchoDevice;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
@@ -1840,6 +1842,56 @@ public class Connect extends AbstractModule {
     @API
     public CloudNotificationManager notifications() throws MbedCloudException {
         return new NotificationManager(this);
+    }
+
+    /**
+     * Get the Device Echo object.
+     * <p>
+     *
+     * @param device
+     *            Device.
+     * @return the Device Echo object.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable EchoDevice getDeviceEcho(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        final String finalDeviceId = device.getId();
+
+        return CloudCaller.call(this, "getDeviceEcho()", EchoAdapter.getMapper(finalDeviceId),
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EchoDevice>() {
+
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EchoDevice>
+                                           call() {
+                                        return endpoint.getDeviceEcho().getDeviceEchoObject(finalDeviceId);
+                                    }
+                                });
+    }
+
+    /**
+     * Delete the Device Echo object.
+     * <p>
+     *
+     * @param device
+     *            Device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable void deleteDeviceEcho(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        final String finalDeviceId = device.getId();
+
+        CloudCaller.call(this, "deleteDeviceEcho()", null, new CloudCall<Void>() {
+            @Override
+            public Call<Void> call() {
+                return endpoint.getDeviceEcho().deleteDeviceEchoObject(finalDeviceId);
+            }
+        });
     }
 
     /**

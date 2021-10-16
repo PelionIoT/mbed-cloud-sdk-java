@@ -53,8 +53,14 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
     protected final int deviceExecutionMode;
 
     /**
-     * If true, signature is not required. Default value false.
+     * DEPRECATED: Certificate is used in enrollment mode. Default value is false.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Sun Nov 01 08:00:00 CST 2020 and will be removed by Mon Nov 01
+     *             08:00:00 CST 2021. This field is deprecated, do not use it anymore.
      */
+    @Deprecated
     protected boolean enrollmentMode;
 
     /**
@@ -130,7 +136,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      * @param deviceExecutionMode
      *            Device execution mode where 1 means a developer certificate.
      * @param enrollmentMode
-     *            If true, signature is not required. Default value false.
+     *            DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      * @param id
      *            Entity ID.
      * @param issuer
@@ -395,20 +401,32 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Gets if true, signature is not required. default value false.
+     * Gets deprecated: certificate is used in enrollment mode. default value is false.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Sun Nov 01 08:00:00 CST 2020 and will be removed by Mon Nov 01
+     *             08:00:00 CST 2021. This field is deprecated, do not use it anymore.
      * 
      * @return enrollmentMode
      */
+    @Deprecated
     public boolean isEnrollmentMode() {
         return enrollmentMode;
     }
 
     /**
-     * Sets if true, signature is not required. default value false.
+     * Sets deprecated: certificate is used in enrollment mode. default value is false.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Sun Nov 01 08:00:00 CST 2020 and will be removed by Mon Nov 01
+     *             08:00:00 CST 2021. This field is deprecated, do not use it anymore.
      * 
      * @param enrollmentMode
-     *            If true, signature is not required. Default value false.
+     *            DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      */
+    @Deprecated
     public void setEnrollmentMode(boolean enrollmentMode) {
         this.enrollmentMode = enrollmentMode;
     }

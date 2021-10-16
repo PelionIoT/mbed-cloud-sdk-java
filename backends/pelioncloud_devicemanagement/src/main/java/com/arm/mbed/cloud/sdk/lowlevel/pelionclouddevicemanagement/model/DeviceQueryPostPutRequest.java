@@ -55,11 +55,14 @@ public class DeviceQueryPostPutRequest implements Serializable {
     }
 
     /**
-     * The device query.
+     * The device query to store. A query is made of key/value pairs separated by ampersands (&#x60;&amp;&#x60;). The
+     * key defines the field name to filter by when applying the query. Refer to the endpoint documentation before
+     * applying a filter, as supported fields vary between endpoints.
      * 
      * @return query
      **/
-    @ApiModelProperty(required = true, value = "The device query.")
+    @ApiModelProperty(required = true,
+                      value = "The device query to store. A query is made of key/value pairs separated by ampersands (`&`). The key defines the field name to filter by when applying the query. Refer to the endpoint documentation before applying a filter, as supported fields vary between endpoints.")
     public String getQuery() {
         return query;
     }

@@ -31,7 +31,7 @@ public class TestIdentityProviderAlgorithm {
             identityprovideralgorithm = IdentityProviderAlgorithm.getValue("EC256");
             assertNotNull(identityprovideralgorithm);
             assertFalse(identityprovideralgorithm.isDefault());
-            identityprovideralgorithm = IdentityProviderAlgorithm.getValue("46073f8d-2e9e-4c40-a79a-cade488591a1");
+            identityprovideralgorithm = IdentityProviderAlgorithm.getValue("8c621f69-4665-4650-b3b1-2da802189061");
             assertNotNull(identityprovideralgorithm);
             assertTrue(identityprovideralgorithm.isDefault());
         } catch (Exception exception) {

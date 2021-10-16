@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
@@ -26,7 +27,6 @@ import com.arm.mbed.cloud.sdk.devices.adapters.DeviceAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentBulkCreateAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentBulkDeleteAdapter;
-import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentDenialAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEventsAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceGroupAdapter;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
@@ -42,9 +42,7 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceGroup;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DevicesEndpoints;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BlackListedDeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BulkResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DenialAttemptsResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
@@ -97,12 +95,6 @@ public class Devices extends AbstractModule {
      */
     @Internal
     private static final String TAG_DEVICE_ENROLLMENT_BULK_DELETE = "deviceEnrollmentBulkDelete";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
-    private static final String TAG_DEVICE_ENROLLMENT_DENIAL_ID = "deviceEnrollmentDenialId";
 
     /**
      * Parameter name.
@@ -228,7 +220,7 @@ public class Devices extends AbstractModule {
      * 
      * 
      * <p>
-     * Add one device to a group.
+     * Add one device to a group. A device can be in multiple groups.
      * 
      * @param deviceId
      *            a string
@@ -269,7 +261,7 @@ public class Devices extends AbstractModule {
      * 
      * 
      * <p>
-     * Add one device to a group.
+     * Add one device to a group. A device can be in multiple groups.
      * 
      * @param deviceGroupId
      *            The ID of the group.
@@ -396,7 +388,8 @@ public class Devices extends AbstractModule {
      * Adds a device.
      * 
      * <p>
-     * Create a new device.
+     * Create a new device in Device Management. Usually you do not need to create a device this way, as it is
+     * automatically created when it bootstraps or connects to Device Management.
      * 
      * @param device
      *            a device.
@@ -430,8 +423,8 @@ public class Devices extends AbstractModule {
      * 
      * <p>
      * When the device connects to the bootstrap server and provides the enrollment ID, it is assigned to your account.
-     * [br] **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \
-     * https://api.us-east-1.mbedcloud.com/v3/device-enrollments \ -d '{"enrollment_identity":
+     * [br] **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [access_key]' \ -H 'content-type:
+     * application/json' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \ -d '{"enrollment_identity":
      * "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5"}' ```
      * 
      * @param enrollmentIdentity
@@ -456,7 +449,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EnrollmentIdentity> call() {
-                                        return endpoints.getPublicApiApi()
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
                                                         .createDeviceEnrollment(DeviceEnrollmentAdapter.reverseMapAddRequest(finalEnrollmentIdentity));
                                     }
                                 }, true);
@@ -468,7 +461,7 @@ public class Devices extends AbstractModule {
      * <p>
      * With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.
      * 
-     * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -F
+     * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [access_key]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads
      * 
@@ -532,7 +525,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<BulkResponse> call() {
-                                        return endpoints.getPublicApiApi()
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
                                                         .createBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
                                                                                                                finalEnrollmentIdentities));
                                     }
@@ -595,10 +588,12 @@ public class Devices extends AbstractModule {
      * 
      * <p>
      * Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a
-     * production certicate returns a 400 response.
+     * production certificate returns a 400 response.
      * 
      * @param id
-     *            The ID of the device.
+     *            The [Device
+     *            ID](https://developer.pelion.com/docs/device-management/current/connecting/device-identity.html)
+     *            created by Device Management.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -642,8 +637,8 @@ public class Devices extends AbstractModule {
      * <p>
      * To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to
      * delete the enrollment and factory reset the device. For more information, see [Transferring ownership using
-     * First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html). [br] **Example:** ```
-     * curl -X DELETE \ -H 'Authorization: Bearer [api_key]' \
+     * First-to-Claim](https://developer.pelion.com/docs/device-management/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).
+     * [br] **Example:** ``` curl -X DELETE \ -H 'Authorization: Bearer [access_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
      * 
      * @param id
@@ -663,7 +658,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getPublicApiApi().deleteDeviceEnrollment(finalId);
+                return endpoints.getDeviceOwnershipEnrollmentsApi().deleteDeviceEnrollment(finalId);
             }
         });
     }
@@ -674,7 +669,7 @@ public class Devices extends AbstractModule {
      * <p>
      * With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.
      * 
-     * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -F
+     * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [access_key]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes
      * 
@@ -703,7 +698,7 @@ public class Devices extends AbstractModule {
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
      * is ignored. A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
      * Invalid version identifier.
-     * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too-short
+     * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23, Too-short
      * identity. "", Empty quotation marks are an invalid identity. "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
      * inside quotation marks is not trimmed, causing an error.
@@ -737,7 +732,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<BulkResponse> call() {
-                                        return endpoints.getPublicApiApi()
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
                                                         .deleteBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
                                                                                                                finalEnrollmentIdentities));
                                     }
@@ -765,7 +760,7 @@ public class Devices extends AbstractModule {
      * Deletes a device group.
      * 
      * <p>
-     * Delete a group.
+     * Delete a group. This deletes the group, but not the devices in the group.
      * 
      * @param id
      *            The ID of the group.
@@ -819,7 +814,7 @@ public class Devices extends AbstractModule {
      * 
      * 
      * <p>
-     * Get a page of devices.
+     * Get a page of devices in a specified group.
      * 
      * @param id
      *            a string
@@ -1111,6 +1106,14 @@ public class Devices extends AbstractModule {
                                                                                                                       finalOptions),
                                                                               ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
                                                                                                                          finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                                         finalOptions),
                                                                               ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
                                                                                                                          finalOptions),
                                                                               ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
@@ -1168,41 +1171,6 @@ public class Devices extends AbstractModule {
     @Internal
     public String getModuleName() {
         return "Devices";
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of device enrollment denials matching filter options.
-     * 
-     * <p>
-     * Gets an iterator over all device enrollment denials matching filter options.
-     * 
-     * @param options
-     *            list options.
-     * @return paginator over the list of device enrollment denials
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public Paginator<DeviceEnrollmentDenial>
-           listAllDeviceEnrollmentDenials(@Nullable DeviceEnrollmentDenialListOptions options) throws MbedCloudException {
-        final DeviceEnrollmentDenialListOptions finalOptions = (options == null) ? new DeviceEnrollmentDenialListOptions()
-                                                                                 : options;
-        return new Paginator<DeviceEnrollmentDenial>(finalOptions, new PageRequester<DeviceEnrollmentDenial>() {
-            /**
-             * Makes one page request.
-             * 
-             * @param options
-             *            a list options.
-             * @return Corresponding page requester
-             * @throws MbedCloudException
-             *             if an error occurs during the process.
-             */
-            @Override
-            public ListResponse<DeviceEnrollmentDenial> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listDeviceEnrollmentDenials((DeviceEnrollmentDenialListOptions) options);
-            }
-        });
     }
 
     /**
@@ -1345,59 +1313,14 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Lists device enrollment denials matching filter options.
-     * 
-     * <p>
-     * This produces a list of failed attempts to bootstrap using a particular certificate which is blacklisted
-     * (trusted_certificate). Returned list can be filtered by endpoint name. Trusted certificate ID filter is required.
-     * 
-     * **Example usage:** ``` curl -X GET -H 'Authorization: Bearer [valid access token]' \
-     * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&amp;endpoint_name__eq={endpoint_name}
-     * ```
-     * 
-     * @param options
-     *            list options.
-     * @return the list of device enrollment denials corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ListResponse<DeviceEnrollmentDenial>
-           listDeviceEnrollmentDenials(@Nullable DeviceEnrollmentDenialListOptions options) throws MbedCloudException {
-        final DeviceEnrollmentDenialListOptions finalOptions = (options == null) ? new DeviceEnrollmentDenialListOptions()
-                                                                                 : options;
-        return CloudCaller.call(this, "listDeviceEnrollmentDenials()", DeviceEnrollmentDenialAdapter.getListMapper(),
-                                new CloudRequest.CloudCall<DenialAttemptsResponse>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<DenialAttemptsResponse> call() {
-                                        return endpoints.getEnrollmentDenialsApi()
-                                                        .listEnrollmentDenialAttempts(ListOptionsEncoder.encodeSingleEqualFilter(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_TRUSTED_CERTIFICATE_ID,
-                                                                                                                                 finalOptions),
-                                                                                      ListOptionsEncoder.encodeSingleEqualFilter(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
-                                                                                                                                 finalOptions),
-                                                                                      finalOptions.getAfter(),
-                                                                                      finalOptions.getOrder()
-                                                                                                  .toString(),
-                                                                                      finalOptions.getPageSize());
-                                    }
-                                });
-    }
-
-    /**
      * Lists device enrollments matching filter options.
      * 
      * <p>
      * Provides a list of pending and claimed enrollments.
      * 
-     * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [api_key]' \
+     * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [access_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query parameters: ``` curl -X GET \ -H
-     * 'Authorization: Bearer [api_key]' \ 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ```
+     * 'Authorization: Bearer [access_key]' \ 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ```
      * 
      * @param options
      *            list options.
@@ -1420,7 +1343,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EnrollmentIdentities> call() {
-                                        return endpoints.getPublicApiApi()
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
                                                         .getDeviceEnrollments(finalOptions.getPageSize(),
                                                                               finalOptions.getAfter(),
                                                                               finalOptions.getOrder().toString(),
@@ -1433,7 +1356,11 @@ public class Devices extends AbstractModule {
      * Lists device events matching filter options.
      * 
      * <p>
-     * List all device events for an account.
+     * List all or a filtered list of device events for the account. Device events are events significant to operation
+     * or lifetime, such as creation, firmware update, and suspension.
+     * 
+     * To see statistics for device connectivity and usage, use the [Statistics
+     * API](https://developer.pelion.com/docs/device-management-api/connect-statistics/).
      * 
      * **Example:** Following example gets device-events limiting returned results to max 5 events ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \ -H 'Authorization: Bearer [API key]' ``` or to get
@@ -1612,7 +1539,10 @@ public class Devices extends AbstractModule {
      * Lists devices matching filter options.
      * 
      * <p>
-     * List all devices.
+     * List all devices enrolled to Device Management for the account. The URL length must be fewer than 4096
+     * characters. Requests that exceed this limit, such as those including too many query parameters in a filter, fail
+     * with a bad request response. devices with too long list of query parameters, the request is deemed as bad
+     * request.
      * 
      * **Example:** Following example filters devices according to state field and returns only devices in 'registered'
      * state: ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered \ -H
@@ -1641,7 +1571,7 @@ public class Devices extends AbstractModule {
                                         return endpoints.getDeviceDirectoryDevicesApi()
                                                         .deviceList(finalOptions.getPageSize(),
                                                                     finalOptions.getOrder().toString(),
-                                                                    finalOptions.getAfter(),
+                                                                    finalOptions.getAfter(), null,
                                                                     ListOptionsEncoder.encodeInclude(finalOptions),
                                                                     ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
                                                                                                                finalOptions),
@@ -1903,6 +1833,14 @@ public class Devices extends AbstractModule {
                                                                                                             finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
                                                                                                                finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_NET_ID,
+                                                                                                               finalOptions),
                                                                     ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
                                                                                                                finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
@@ -1964,7 +1902,10 @@ public class Devices extends AbstractModule {
      * Gets a device.
      * 
      * <p>
-     * Retrieve information about a specific device.
+     * Retrieve information about a specific device. This API returns
+     * [DeviceData](https://developer.pelion.com/docs/device-management-api/device-directory/). If you want to see the
+     * structure of resources in the device or the actual resource values, use the [Connect
+     * API](https://developer.pelion.com/docs/device-management-api/connect/).
      * 
      * **Example:** Following example must be updated with the device's ID to the URL. The id is from of
      * "01667c6e992c00000000000100100370" ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/[device_ID] \
@@ -2020,7 +1961,7 @@ public class Devices extends AbstractModule {
      * <p>
      * Check detailed enrollment info, for example, date of claim or expiration date.
      * 
-     * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [api_key]' \
+     * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [access_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
      * 
      * @param id
@@ -2043,7 +1984,8 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EnrollmentIdentity> call() {
-                                        return endpoints.getPublicApiApi().getDeviceEnrollment(finalId);
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
+                                                        .getDeviceEnrollment(finalId);
                                     }
                                 });
     }
@@ -2089,7 +2031,7 @@ public class Devices extends AbstractModule {
      * identity is already claimed in the mbed Cloud.",""
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
      * identity is already claimed in the mbed Cloud.","" ``` **Example:** ``` curl -X GET \ -H 'Authorization: Bearer
-     * [api_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
+     * [access_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
      * 
      * @param id
      *            Bulk ID. Bulk ID
@@ -2111,7 +2053,8 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<BulkResponse> call() {
-                                        return endpoints.getPublicApiApi().getBulkDeviceEnrollment(finalId);
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
+                                                        .getBulkDeviceEnrollment(finalId);
                                     }
                                 });
     }
@@ -2157,7 +2100,7 @@ public class Devices extends AbstractModule {
      * identity is already claimed in the mbed Cloud.",""
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
      * identity is already claimed in the mbed Cloud.","" ``` **Example:** ``` curl -X GET \ -H 'Authorization: Bearer
-     * [api_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
+     * [access_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
      * 
      * @param id
      *            Bulk ID. Bulk ID
@@ -2179,43 +2122,8 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<BulkResponse> call() {
-                                        return endpoints.getPublicApiApi().getBulkDeviceEnrollmentDelete(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a device enrollment denial.
-     * 
-     * <p>
-     * Query for a single attempt to bootstrap with a blacklisted certificate by ID.
-     * 
-     * **Example usage:** ``` curl -X GET -H 'Authorization: Bearer [valid access token]' \
-     * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials/{device_enrollment_denial_id} ```
-     * 
-     * @param deviceEnrollmentDenialId
-     *            id of the recorded failed bootstrap attempt. id of the recorded failed bootstrap attempt
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentDenial
-           readDeviceEnrollmentDenial(@NonNull String deviceEnrollmentDenialId) throws MbedCloudException {
-        checkNotNull(deviceEnrollmentDenialId, TAG_DEVICE_ENROLLMENT_DENIAL_ID);
-        final String finalDeviceEnrollmentDenialId = deviceEnrollmentDenialId;
-        return CloudCaller.call(this, "readDeviceEnrollmentDenial()", DeviceEnrollmentDenialAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BlackListedDeviceData>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BlackListedDeviceData> call() {
-                                        return endpoints.getEnrollmentDenialsApi()
-                                                        .getEnrollmentDenialAttempt(finalDeviceEnrollmentDenialId);
+                                        return endpoints.getDeviceOwnershipEnrollmentsApi()
+                                                        .getBulkDeviceEnrollmentDelete(finalId);
                                     }
                                 });
     }
@@ -2243,9 +2151,10 @@ public class Devices extends AbstractModule {
      * Gets a device events.
      * 
      * <p>
-     * Retrieve a specific device event.
+     * "Retrieve a specific device event. See '/v3/device-events/' for information on device events, and how to get the
+     * device_event_id."
      * 
-     * **Example:** To fetch a specific event you can use the 'id' field form the '/v3/device-events'. Form of
+     * **Example:** To fetch a specific event you can use the 'id' field from '/v3/device-events'. Form of
      * '016c03d40a4e000000000001001003b4' ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/device-events/[device_event_id] \ -H 'Authorization: Bearer [API key]' ```
      * 
@@ -2297,7 +2206,9 @@ public class Devices extends AbstractModule {
      * Gets a device group.
      * 
      * <p>
-     * Get a group.
+     * Returns [DeviceGroup](https://developer.pelion.com/docs/device-management-api/device-directory/) info what
+     * contains info of the group, for example, name and updated date. To list the devices in the gr oup, use
+     * '/v3/device-groups/{device-group-id}/devices/'.
      * 
      * @param id
      *            The group ID.
@@ -2475,7 +2386,7 @@ public class Devices extends AbstractModule {
      * 
      * ``` curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
-     * \ -H 'Authorization: Bearer [api_key]' \ -H 'content-length: 0' ```
+     * \ -H 'Authorization: Bearer [access_key]' \ -H 'content-length: 0' ```
      * 
      * @param certificateName
      *            The certificate name.
@@ -2595,7 +2506,7 @@ public class Devices extends AbstractModule {
      * Modifies a device group.
      * 
      * <p>
-     * Modify the attributes of a group.
+     * Modify the attributes of a group, such as the description.
      * 
      * @param id
      *            The group ID.
@@ -2628,5 +2539,21 @@ public class Devices extends AbstractModule {
                                                                      DeviceGroupAdapter.reverseMapUpdateRequest(finalGroup));
                                     }
                                 }, true);
+    }
+
+    @API
+    @Nullable
+    @NotImplemented
+    public DeviceEnrollmentDenial readDeviceEnrollmentDenial(String deviceEnrollmentDenialId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @API
+    @Nullable
+    @NotImplemented
+    public ListResponse<DeviceEnrollmentDenial> listDeviceEnrollmentDenials(DeviceEnrollmentDenialListOptions options) {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

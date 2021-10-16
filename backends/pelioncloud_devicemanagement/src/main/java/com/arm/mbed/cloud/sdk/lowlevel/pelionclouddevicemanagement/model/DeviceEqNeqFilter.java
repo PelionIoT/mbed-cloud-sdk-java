@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import java.io.Serializable;
 
 /**
@@ -34,7 +35,7 @@ public class DeviceEqNeqFilter implements Serializable {
     private Boolean autoUpdate = null;
 
     @SerializedName("bootstrap_expiration_date")
-    private DateTime bootstrapExpirationDate = null;
+    private LocalDate bootstrapExpirationDate = null;
 
     @SerializedName("bootstrapped_timestamp")
     private DateTime bootstrappedTimestamp = null;
@@ -42,8 +43,11 @@ public class DeviceEqNeqFilter implements Serializable {
     @SerializedName("ca_id")
     private String caId = null;
 
+    @SerializedName("component_attributes")
+    private Map<String, String> componentAttributes = null;
+
     @SerializedName("connector_expiration_date")
-    private DateTime connectorExpirationDate = null;
+    private LocalDate connectorExpirationDate = null;
 
     @SerializedName("created_at")
     private DateTime createdAt = null;
@@ -155,7 +159,7 @@ public class DeviceEqNeqFilter implements Serializable {
         this.autoUpdate = autoUpdate;
     }
 
-    public DeviceEqNeqFilter bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+    public DeviceEqNeqFilter bootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
         this.bootstrapExpirationDate = bootstrapExpirationDate;
         return this;
     }
@@ -165,12 +169,12 @@ public class DeviceEqNeqFilter implements Serializable {
      * 
      * @return bootstrapExpirationDate
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
-    public DateTime getBootstrapExpirationDate() {
+    @ApiModelProperty(example = "2017-05-22", value = "")
+    public LocalDate getBootstrapExpirationDate() {
         return bootstrapExpirationDate;
     }
 
-    public void setBootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+    public void setBootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
         this.bootstrapExpirationDate = bootstrapExpirationDate;
     }
 
@@ -212,7 +216,34 @@ public class DeviceEqNeqFilter implements Serializable {
         this.caId = caId;
     }
 
-    public DeviceEqNeqFilter connectorExpirationDate(DateTime connectorExpirationDate) {
+    public DeviceEqNeqFilter componentAttributes(Map<String, String> componentAttributes) {
+        this.componentAttributes = componentAttributes;
+        return this;
+    }
+
+    public DeviceEqNeqFilter putComponentAttributesItem(String key, String componentAttributesItem) {
+        if (this.componentAttributes == null) {
+            this.componentAttributes = new HashMap<String, String>();
+        }
+        this.componentAttributes.put(key, componentAttributesItem);
+        return this;
+    }
+
+    /**
+     * Get componentAttributes
+     * 
+     * @return componentAttributes
+     **/
+    @ApiModelProperty(value = "")
+    public Map<String, String> getComponentAttributes() {
+        return componentAttributes;
+    }
+
+    public void setComponentAttributes(Map<String, String> componentAttributes) {
+        this.componentAttributes = componentAttributes;
+    }
+
+    public DeviceEqNeqFilter connectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
         return this;
     }
@@ -222,12 +253,12 @@ public class DeviceEqNeqFilter implements Serializable {
      * 
      * @return connectorExpirationDate
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
-    public DateTime getConnectorExpirationDate() {
+    @ApiModelProperty(example = "2017-05-22", value = "")
+    public LocalDate getConnectorExpirationDate() {
         return connectorExpirationDate;
     }
 
-    public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+    public void setConnectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
     }
 
@@ -709,6 +740,7 @@ public class DeviceEqNeqFilter implements Serializable {
                && Objects.equals(this.bootstrapExpirationDate, deviceEqNeqFilter.bootstrapExpirationDate)
                && Objects.equals(this.bootstrappedTimestamp, deviceEqNeqFilter.bootstrappedTimestamp)
                && Objects.equals(this.caId, deviceEqNeqFilter.caId)
+               && Objects.equals(this.componentAttributes, deviceEqNeqFilter.componentAttributes)
                && Objects.equals(this.connectorExpirationDate, deviceEqNeqFilter.connectorExpirationDate)
                && Objects.equals(this.createdAt, deviceEqNeqFilter.createdAt)
                && Objects.equals(this.customAttributes, deviceEqNeqFilter.customAttributes)
@@ -739,9 +771,9 @@ public class DeviceEqNeqFilter implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId,
-                            connectorExpirationDate, createdAt, customAttributes, deployedState, deployment,
-                            description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType,
-                            enrolmentListTimestamp, etag, firmwareChecksum, hostGateway, id, manifest,
+                            componentAttributes, connectorExpirationDate, createdAt, customAttributes, deployedState,
+                            deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName,
+                            endpointType, enrolmentListTimestamp, etag, firmwareChecksum, hostGateway, id, manifest,
                             manifestTimestamp, mechanism, mechanismUrl, name, serialNumber, state, updatedAt, vendorId);
     }
 
@@ -755,6 +787,7 @@ public class DeviceEqNeqFilter implements Serializable {
         sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
         sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");
         sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
+        sb.append("    componentAttributes: ").append(toIndentedString(componentAttributes)).append("\n");
         sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");

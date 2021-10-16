@@ -192,11 +192,11 @@ public class TrustedCertificateReq implements Serializable {
     }
 
     /**
-     * Certificate is used in enrollment mode. Default value is false.
+     * DEPRECATED: Certificate is used in enrollment mode. Default value is false.
      * 
      * @return enrollmentMode
      **/
-    @ApiModelProperty(value = "Certificate is used in enrollment mode. Default value is false.")
+    @ApiModelProperty(value = "DEPRECATED: Certificate is used in enrollment mode. Default value is false.")
     public Boolean isEnrollmentMode() {
         return enrollmentMode;
     }

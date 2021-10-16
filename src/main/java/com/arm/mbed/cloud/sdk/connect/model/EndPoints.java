@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceEchoApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceRequestsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.EndpointsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.NotificationsApi;
@@ -23,6 +24,7 @@ public class EndPoints extends AbstractEndpoints {
     private final ResourcesApi resources;
     private final SubscriptionsApi subscriptions;
     private final StatisticsApi statistic;
+    private final DeviceEchoApi deviceEcho;
 
     /**
      * Constructor.
@@ -39,6 +41,7 @@ public class EndPoints extends AbstractEndpoints {
         this.resources = initialiseService(ResourcesApi.class);
         this.subscriptions = initialiseService(SubscriptionsApi.class);
         this.statistic = initialiseService(StatisticsApi.class);
+        this.deviceEcho = initialiseService(DeviceEchoApi.class);
     }
 
     public DeviceRequestsApi getAsync() {
@@ -63,6 +66,10 @@ public class EndPoints extends AbstractEndpoints {
 
     public StatisticsApi getStatistic() {
         return statistic;
+    }
+
+    public DeviceEchoApi getDeviceEcho() {
+        return deviceEcho;
     }
 
     public ConnectionOptions getConnectionConfiguration() {

@@ -19,14 +19,15 @@ public class TestIdentityProvider {
     @Test
     public void testClone() {
         try {
-            IdentityProvider identityprovider1 = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      new Date(1574704662460L),
-                                                                      "c68bc645-f9b9-4fe2-adcc-875f264cb31b",
-                                                                      "4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      IdentityProviderType.getDefault(), true,
-                                                                      "a0557d65-1b87-4515-bd90-dd0a4a514f75", null,
+            IdentityProvider identityprovider1 = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      new Date(1610683991680L),
+                                                                      "e33650b5-4100-42c8-bf55-5eaadb61a070",
+                                                                      "3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      IdentityProviderType.getDefault(), false,
+                                                                      "089500b5-ec26-4bda-a215-61b7b1e9ab35",
+                                                                      new OidcRequest(), null,
                                                                       IdentityProviderStatus.getDefault(),
-                                                                      new Date(1574704665151L));
+                                                                      new Date(1610683991607L));
             IdentityProvider identityprovider2 = identityprovider1.clone();
             assertNotNull(identityprovider1);
             assertNotNull(identityprovider2);
@@ -44,22 +45,24 @@ public class TestIdentityProvider {
     @Test
     public void testHashCode() {
         try {
-            IdentityProvider identityprovider1 = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      new Date(1574704670047L),
-                                                                      "dee1e9ea-5e94-4495-9993-560ab81646f4",
-                                                                      "4f267f967f7d1f5e3fa0d6abaccdb4bf",
+            IdentityProvider identityprovider1 = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      new Date(1610683987208L),
+                                                                      "c1cc198d-f5e5-45bd-84ce-0b3fff93eb49",
+                                                                      "3b2c98a6b0d3341e5184f0f766dde798",
                                                                       IdentityProviderType.getDefault(), true,
-                                                                      "05c97109-f3d9-4c5a-be23-b8003e1f11d6", null,
+                                                                      "c375bfb0-6d42-4c15-8f45-c31ab68b7bb1",
+                                                                      new OidcRequest(), null,
                                                                       IdentityProviderStatus.getDefault(),
-                                                                      new Date(1574704670086L));
-            IdentityProvider identityprovider2 = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      new Date(1574704670047L),
-                                                                      "dee1e9ea-5e94-4495-9993-560ab81646f4",
-                                                                      "4f267f967f7d1f5e3fa0d6abaccdb4bf",
+                                                                      new Date(1610683988559L));
+            IdentityProvider identityprovider2 = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      new Date(1610683987208L),
+                                                                      "c1cc198d-f5e5-45bd-84ce-0b3fff93eb49",
+                                                                      "3b2c98a6b0d3341e5184f0f766dde798",
                                                                       IdentityProviderType.getDefault(), true,
-                                                                      "05c97109-f3d9-4c5a-be23-b8003e1f11d6", null,
+                                                                      "c375bfb0-6d42-4c15-8f45-c31ab68b7bb1",
+                                                                      new OidcRequest(), null,
                                                                       IdentityProviderStatus.getDefault(),
-                                                                      new Date(1574704670086L));
+                                                                      new Date(1610683988559L));
             assertNotNull(identityprovider1);
             assertNotNull(identityprovider2);
             assertNotSame(identityprovider2, identityprovider1);
@@ -80,22 +83,23 @@ public class TestIdentityProvider {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        IdentityProvider identityprovider = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                 new Date(1574704661609L),
-                                                                 "dbf91603-caee-43dd-82a4-02c7a2f4a589",
-                                                                 "4f267f967f7d1f5e3fa0d6abaccdb4bf",
+        IdentityProvider identityprovider = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                 new Date(1610683987325L),
+                                                                 "b0219c14-d678-4682-84de-61f1eecbb3ce",
+                                                                 "3b2c98a6b0d3341e5184f0f766dde798",
                                                                  IdentityProviderType.getDefault(), true,
-                                                                 "0f55bd53-ce95-44d8-b3be-c71ab2747f38", null,
+                                                                 "a6b69a68-e049-4e2a-97db-8f28b9bf9c05",
+                                                                 new OidcRequest(), null,
                                                                  IdentityProviderStatus.getDefault(),
-                                                                 new Date(1574704668016L));
+                                                                 new Date(1610683994059L));
         assertTrue(identityprovider.isValid());
-        IdentityProvider identityproviderInvalid = new IdentityProvider("8â?ˆè¡ŒBC8GHç§™%8â­?\u0004R88í?º8å°¸8EUT\\\\+R\u00138è¥¯\u0007B\u001eå—´àµ´;N8î¶¤8ã¹Œ\u000eï’›=á–±88Tî¬·8å¡›8?888ïŽ§å°¼8çŽµ/W?K",
-                                                                        new Date(1574704668800L),
-                                                                        "0609be55-5ee8-49af-8e08-dc4cf564d79547a13095-4915-42c3-8723-2923a583b0d701e44bb8-e3f4-42e9-a3aa-e8c48c1c15c8c9855d53-20a7-4946-bfa2-1eed17262e9858b964a6-44f1-4377-a6a2-aabc8715790a1ce5c56c-1715-4ce7-b9c8-8ca7269e24b65f87a0e2-6c8b-42af-b70e-1f8a133ca22ac7ce489b-acb5-4d56-993f-e36ceb9381b8ebee7048-508b-493f-b8de-6d2d68c3670bbaceb0c0-a0e5-4fd7-a376-10166beca6a95ab28dbd-6b7a-484e-bfd0-827e344f62f70ce493c3-52f1-49fc-95fa-935b4f689a5063745d56-5713-4eda-8f83-135f0659de8b204d1884-1514-4542-a5bf-36c6f23bd311",
-                                                                        "8â?ˆè¡ŒBC8GHç§™%8â­?\u0004R88í?º8å°¸8EUT\\\\+R\u00138è¥¯\u0007B\u001eå—´àµ´;N8î¶¤8ã¹Œ\u000eï’›=á–±88Tî¬·8å¡›8?888ïŽ§å°¼8çŽµ/W?K",
-                                                                        null, true, null, null,
+        IdentityProvider identityproviderInvalid = new IdentityProvider("\u001aëº³@ê©µ@çª¥VUD\u000eA.L=GZâ¼”ä?ºW \u0011\u000fæ•ƒæ³?<R>ëœ²â„??â?£T/<-ç¸­ ì¨Š\u0007Y'ìª¹å?²î—»//,ä”‘X,Q\u000báª”Sê?˜à¸¾=í”—(,ä?–^\u000e",
+                                                                        new Date(1610683986063L),
+                                                                        "f560af8b-7a25-42f1-b121-2579f055ddb85b9427a6-7bce-4287-a4e9-36132de9ed501c32f2df-f6f8-4c05-a288-0a8ce73ebad05fd215aa-de0a-4968-8caa-b8f7215bbbcbbd2116de-028a-4042-bdb8-1da9aaf7ecf248fa8283-110f-4196-a849-93e95582d25caea24444-4661-497c-af7c-e39ff01116e6218eff79-80dc-4ffe-aad0-ebd705d1727618b1def1-cbd1-4877-a3c1-d9da25926aa0d82ab97b-845a-4c1d-a7a7-41a456da2f70e9f45612-916d-4e0d-aa92-b0b0ad84ff7bc08af02f-795f-4ad0-96a5-1c144657a245fcd15683-4457-414b-b882-dd30ed34e302f023b232-616d-4ca4-8f91-fb79e3a21d8e",
+                                                                        "\u001aëº³@ê©µ@çª¥VUD\u000eA.L=GZâ¼”ä?ºW \u0011\u000fæ•ƒæ³?<R>ëœ²â„??â?£T/<-ç¸­ ì¨Š\u0007Y'ìª¹å?²î—»//,ä”‘X,Q\u000báª”Sê?˜à¸¾=í”—(,ä?–^\u000e",
+                                                                        null, false, null, new OidcRequest(), null,
                                                                         IdentityProviderStatus.getDefault(),
-                                                                        new Date(1574704668537L));
+                                                                        new Date(1610683994480L));
         assertFalse(identityproviderInvalid.isValid());
     }
 
@@ -106,30 +110,33 @@ public class TestIdentityProvider {
     @Test
     public void testEquals() {
         try {
-            IdentityProvider identityprovider1 = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      new Date(1574704662562L),
-                                                                      "2eb18fe9-56fe-4591-b333-5867fc2c35fb",
-                                                                      "4f267f967f7d1f5e3fa0d6abaccdb4bf",
+            IdentityProvider identityprovider1 = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      new Date(1610683990853L),
+                                                                      "780844e2-e76b-4bc6-927b-6c0c8b67dea6",
+                                                                      "3b2c98a6b0d3341e5184f0f766dde798",
                                                                       IdentityProviderType.getDefault(), false,
-                                                                      "7a301106-a9ad-413e-bfeb-d7d3b078e5ef", null,
+                                                                      "b3ea330b-c302-42c8-8ff9-f3e60478ea04",
+                                                                      new OidcRequest(), null,
                                                                       IdentityProviderStatus.getDefault(),
-                                                                      new Date(1574704664949L));
-            IdentityProvider identityprovider2 = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      new Date(1574704662562L),
-                                                                      "2eb18fe9-56fe-4591-b333-5867fc2c35fb",
-                                                                      "4f267f967f7d1f5e3fa0d6abaccdb4bf",
+                                                                      new Date(1610683986077L));
+            IdentityProvider identityprovider2 = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      new Date(1610683990853L),
+                                                                      "780844e2-e76b-4bc6-927b-6c0c8b67dea6",
+                                                                      "3b2c98a6b0d3341e5184f0f766dde798",
                                                                       IdentityProviderType.getDefault(), false,
-                                                                      "7a301106-a9ad-413e-bfeb-d7d3b078e5ef", null,
+                                                                      "b3ea330b-c302-42c8-8ff9-f3e60478ea04",
+                                                                      new OidcRequest(), null,
                                                                       IdentityProviderStatus.getDefault(),
-                                                                      new Date(1574704664949L));
-            IdentityProvider identityprovider3 = new IdentityProvider("4f267f967f7d1f5e3fa0d6abaccdb4bf",
-                                                                      new Date(1574704664680L),
-                                                                      "e04e7cad-0418-4c9a-ba85-a07bdc2bd03d",
-                                                                      "4f267f967f7d1f5e3fa0d6abaccdb4bf",
+                                                                      new Date(1610683986077L));
+            IdentityProvider identityprovider3 = new IdentityProvider("3b2c98a6b0d3341e5184f0f766dde798",
+                                                                      new Date(1610683994948L),
+                                                                      "ccf28137-5ced-4e0f-887f-f3a45cacc7e7",
+                                                                      "3b2c98a6b0d3341e5184f0f766dde798",
                                                                       IdentityProviderType.getDefault(), false,
-                                                                      "745de16a-270a-4dd6-856c-32af31254de2", null,
+                                                                      "5a6fb1f2-b6b9-4720-ae4e-ecdb2d709bbc",
+                                                                      new OidcRequest(), null,
                                                                       IdentityProviderStatus.getDefault(),
-                                                                      new Date(1574704661242L));
+                                                                      new Date(1610683992351L));
             assertNotNull(identityprovider1);
             assertNotNull(identityprovider2);
             assertNotNull(identityprovider3);

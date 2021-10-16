@@ -43,7 +43,7 @@ public class ApiKeyUpdateReq implements Serializable {
     private String owner = null;
 
     /**
-     * The status of the API key.
+     * The status of the API key. Only the owner of the API key or an administrator can update the status of an API key.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
@@ -106,11 +106,11 @@ public class ApiKeyUpdateReq implements Serializable {
     }
 
     /**
-     * A list of group IDs this API key belongs to.
+     * A list of group IDs this API key belongs to. Only an administrator can update the group membership of an API key.
      * 
      * @return groups
      **/
-    @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
+    @ApiModelProperty(value = "A list of group IDs this API key belongs to. Only an administrator can update the group membership of an API key.")
     public List<String> getGroups() {
         return groups;
     }
@@ -129,7 +129,7 @@ public class ApiKeyUpdateReq implements Serializable {
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "The display name for the API key.")
+    @ApiModelProperty(value = "The display name for the API key.")
     public String getName() {
         return name;
     }
@@ -144,11 +144,11 @@ public class ApiKeyUpdateReq implements Serializable {
     }
 
     /**
-     * The owner of this API key.
+     * The owner of this API key. Only an administrator can update the owner of an API key.
      * 
      * @return owner
      **/
-    @ApiModelProperty(value = "The owner of this API key.")
+    @ApiModelProperty(value = "The owner of this API key. Only an administrator can update the owner of an API key.")
     public String getOwner() {
         return owner;
     }
@@ -163,11 +163,11 @@ public class ApiKeyUpdateReq implements Serializable {
     }
 
     /**
-     * The status of the API key.
+     * The status of the API key. Only the owner of the API key or an administrator can update the status of an API key.
      * 
      * @return status
      **/
-    @ApiModelProperty(value = "The status of the API key.")
+    @ApiModelProperty(value = "The status of the API key. Only the owner of the API key or an administrator can update the status of an API key.")
     public StatusEnum getStatus() {
         return status;
     }

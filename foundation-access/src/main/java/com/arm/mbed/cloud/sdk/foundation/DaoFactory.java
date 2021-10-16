@@ -12,9 +12,7 @@ import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao;
 import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderDao;
-import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao;
-import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationDao;
 import com.arm.mbed.cloud.sdk.accounts.model.UserDao;
@@ -43,8 +41,6 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDao;
-import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialDao;
-import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListDao;
@@ -485,30 +481,6 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets a device enrollment denial dao.
-     * 
-     * @return a device enrollment denial dao
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @SuppressWarnings("resource")
-    public DeviceEnrollmentDenialDao getDeviceEnrollmentDenialDao() throws MbedCloudException {
-        return new DeviceEnrollmentDenialDao().configureAndGet(context);
-    }
-
-    /**
-     * Gets a device enrollment denial list dao.
-     * 
-     * @return a device enrollment denial list dao
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @SuppressWarnings("resource")
-    public DeviceEnrollmentDenialListDao getDeviceEnrollmentDenialListDao() throws MbedCloudException {
-        return new DeviceEnrollmentDenialListDao().configureAndGet(context);
-    }
-
-    /**
      * Gets a device enrollment list dao.
      * 
      * @return a device enrollment list dao
@@ -809,18 +781,6 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets a subtenant identity provider list dao.
-     * 
-     * @return a subtenant identity provider list dao
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @SuppressWarnings("resource")
-    public SubtenantIdentityProviderListDao getSubtenantIdentityProviderListDao() throws MbedCloudException {
-        return new SubtenantIdentityProviderListDao().configureAndGet(context);
-    }
-
-    /**
      * Gets a subtenant light theme color dao.
      * 
      * @return a subtenant light theme color dao
@@ -854,18 +814,6 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public SubtenantPolicyGroupDao getSubtenantPolicyGroupDao() throws MbedCloudException {
         return new SubtenantPolicyGroupDao().configureAndGet(context);
-    }
-
-    /**
-     * Gets a subtenant policy group list dao.
-     * 
-     * @return a subtenant policy group list dao
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @SuppressWarnings("resource")
-    public SubtenantPolicyGroupListDao getSubtenantPolicyGroupListDao() throws MbedCloudException {
-        return new SubtenantPolicyGroupListDao().configureAndGet(context);
     }
 
     /**

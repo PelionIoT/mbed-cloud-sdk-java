@@ -22,7 +22,7 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Create a new identity provider.
      *
-     * Create a new identity provider.
+     * Create a new identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void createIdentityProviderTest() {
@@ -36,7 +36,7 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Delete an identity provider by ID.
      *
-     * Delete an identity provider by ID.
+     * Delete an identity provider by ID. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void deleteIdentityProviderTest() {
@@ -49,7 +49,7 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Delete the service provider certificate.
      *
-     * Delete a service provider certificate.
+     * Delete a service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void deleteSpCertificateTest() {
@@ -62,7 +62,8 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Generate a new service provider certificate.
      *
-     * Generate a new service provider certificate.
+     * Generate a new service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators.
      */
     @Test
     public void generateSpCertificateTest() {
@@ -76,7 +77,7 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Get all identity providers.
      *
-     * Retrieve identity providers in an array.
+     * Retrieve an array of identity providers. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void getAllIdentityProvidersTest() {
@@ -90,9 +91,9 @@ public class AccountIdentityProvidersApiTest {
     }
 
     /**
-     * Get identity provider by ID.
+     * Get identity provider.
      *
-     * Retrieve by ID.
+     * Retrieve an identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void getIdentityProviderTest() {
@@ -105,7 +106,7 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Refreshes the OIDC signing keys.
      *
-     * Refreshes an OIDC IdP&#39;s signing keys.
+     * Refreshes an OIDC IdP&#39;s signing keys. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void refreshJwksTest() {
@@ -118,7 +119,7 @@ public class AccountIdentityProvidersApiTest {
     /**
      * Update an existing identity provider.
      *
-     * Update an existing identity provider.
+     * Update an existing identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void updateIdentityProviderTest() {

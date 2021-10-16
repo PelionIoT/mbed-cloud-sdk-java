@@ -78,11 +78,13 @@ public class DeviceDataPutRequest implements Serializable {
     }
 
     /**
-     * The certificate issuer&#39;s ID.
+     * The certificate issuer&#39;s ID. WARNING: This value comes from the device, and should not be changed via the
+     * API.
      * 
      * @return caId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
+    @ApiModelProperty(example = "00000000000000000000000000000000",
+                      value = "The certificate issuer's ID. WARNING: This value comes from the device, and should not be changed via the API.")
     public String getCaId() {
         return caId;
     }
@@ -145,12 +147,13 @@ public class DeviceDataPutRequest implements Serializable {
     }
 
     /**
-     * The fingerprint of the device certificate.
+     * The fingerprint of the device certificate. WARNING: This value comes from the device, and should not be changed
+     * via the API.
      * 
      * @return deviceKey
      **/
     @ApiModelProperty(example = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00",
-                      value = "The fingerprint of the device certificate.")
+                      value = "The fingerprint of the device certificate. WARNING: This value comes from the device, and should not be changed via the API.")
     public String getDeviceKey() {
         return deviceKey;
     }
@@ -160,12 +163,13 @@ public class DeviceDataPutRequest implements Serializable {
     }
 
     /**
-     * The endpoint name given to the device.
+     * The endpoint name given to the device. WARNING: This value comes from the device, and should not be changed via
+     * the API.
      * 
      * @return endpointName
      **/
     @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000",
-                      value = "The endpoint name given to the device.")
+                      value = "The endpoint name given to the device. WARNING: This value comes from the device, and should not be changed via the API.")
     public String getEndpointName() {
         return endpointName;
     }

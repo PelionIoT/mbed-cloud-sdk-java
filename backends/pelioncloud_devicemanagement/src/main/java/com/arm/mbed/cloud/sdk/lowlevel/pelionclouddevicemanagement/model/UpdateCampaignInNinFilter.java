@@ -166,7 +166,7 @@ public class UpdateCampaignInNinFilter implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "")
     public String getId() {
         return id;
     }
@@ -204,7 +204,7 @@ public class UpdateCampaignInNinFilter implements Serializable {
      * 
      * @return rootManifestId
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(example = "015c6029f6f9000000000001001000f4", value = "")
     public String getRootManifestId() {
         return rootManifestId;
     }

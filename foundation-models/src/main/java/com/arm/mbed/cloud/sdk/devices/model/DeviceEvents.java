@@ -25,8 +25,8 @@ public class DeviceEvents implements SdkModel {
      * 
      * <p>
      * 
-     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 GMT 2019 and will be removed by Wed Jan 15
-     *             14:55:20 GMT 2020. This field is not used.
+     * @deprecated This field has been deprecated since Tue Jan 15 22:55:20 CST 2019 and will be removed by Wed Jan 15
+     *             22:55:20 CST 2020. This field is not used.
      */
     @Deprecated
     private final Map<String, Object> changes;
@@ -62,7 +62,7 @@ public class DeviceEvents implements SdkModel {
     private final String eventType;
 
     /**
-     * Category code which groups the event type by a summary category.
+     * Category code that groups the event type by a summary category.
      */
     private final String eventTypeCategory;
 
@@ -104,7 +104,7 @@ public class DeviceEvents implements SdkModel {
      * @param eventType
      *            Event code.
      * @param eventTypeCategory
-     *            Category code which groups the event type by a summary category.
+     *            Category code that groups the event type by a summary category.
      * @param eventTypeDescription
      *            Generic description of the event.
      * @param id
@@ -202,7 +202,7 @@ public class DeviceEvents implements SdkModel {
      * @param eventType
      *            Event code.
      * @param eventTypeCategory
-     *            Category code which groups the event type by a summary category.
+     *            Category code that groups the event type by a summary category.
      * @param eventTypeDescription
      *            Generic description of the event.
      * @param stateChange
@@ -222,8 +222,8 @@ public class DeviceEvents implements SdkModel {
      * 
      * <p>
      * 
-     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 GMT 2019 and will be removed by Wed Jan 15
-     *             14:55:20 GMT 2020. This field is not used.
+     * @deprecated This field has been deprecated since Tue Jan 15 22:55:20 CST 2019 and will be removed by Wed Jan 15
+     *             22:55:20 CST 2020. This field is not used.
      * 
      * @return changes
      */
@@ -287,7 +287,7 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Gets category code which groups the event type by a summary category.
+     * Gets category code that groups the event type by a summary category.
      * 
      * @return eventTypeCategory
      */

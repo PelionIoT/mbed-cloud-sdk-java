@@ -16,9 +16,10 @@ import java.util.List;
 
 public interface TenantAccountsUsersApi {
     /**
-     * Add user to a list of groups. Add user to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add user to a list of groups. Add user to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -38,9 +39,10 @@ public interface TenantAccountsUsersApi {
                                @retrofit2.http.Body List<String> body);
 
     /**
-     * Add user to a list of groups. Add a user to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Add user to a list of groups. Add a user to groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/add \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -61,10 +63,10 @@ public interface TenantAccountsUsersApi {
 
     /**
      * Create a new user. Create or invite a new user to the account. Only email address is used; other attributes are
-     * set in the second step. **Example:** &#x60;&#x60;&#x60; curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;:
-     * \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
+     * set in the second step. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -81,9 +83,10 @@ public interface TenantAccountsUsersApi {
                                          @retrofit2.http.Query("action") String action);
 
     /**
-     * Delete a user. Delete a user. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Delete a user. Delete a user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -96,9 +99,10 @@ public interface TenantAccountsUsersApi {
                                  @retrofit2.http.Path(value = "user_id", encoded = true) String userId);
 
     /**
-     * Details of the user. Retrieve user details. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Details of the user. Retrieve user details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -111,19 +115,18 @@ public interface TenantAccountsUsersApi {
                                       @retrofit2.http.Path(value = "user_id", encoded = true) String userId);
 
     /**
-     * Get the details of all users. Retrieve details of all users. **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Get users. Retrieve an array of users. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \\
+     * -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @param emailEq
@@ -150,9 +153,10 @@ public interface TenantAccountsUsersApi {
                            @retrofit2.http.Query("login_profiles__eq") String loginProfilesEq);
 
     /**
-     * Get user&#39;s groups. Retrieve user&#39;s groups. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Get policy groups for a user. Retrieve an array of policy groups associated with a user. &lt;b&gt;Note:&lt;/b&gt;
+     * This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -161,10 +165,9 @@ public interface TenantAccountsUsersApi {
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
      *            Comma-separated additional data to return. Currently supported: total_count. (optional)
      * @return Call&lt;GroupSummaryList&gt;
@@ -178,9 +181,26 @@ public interface TenantAccountsUsersApi {
                                @retrofit2.http.Query("include") String include);
 
     /**
-     * Remove user from groups. Remove user from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Remove user from the account. Remove user from the account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted
+     * to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/remove \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param userId
+     *            The ID of the user to remove from the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @POST("v3/accounts/{account_id}/users/{user_id}/remove")
+    Call<Void> removeAccountUserFromAccount(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                            @retrofit2.http.Path(value = "user_id", encoded = true) String userId);
+
+    /**
+     * Remove user from groups. Remove user from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -200,9 +220,10 @@ public interface TenantAccountsUsersApi {
                                     @retrofit2.http.Body List<String> body);
 
     /**
-     * Remove user from groups. Remove a user from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Remove user from groups. Remove a user from groups. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/remove \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
      * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -222,9 +243,10 @@ public interface TenantAccountsUsersApi {
                                           @retrofit2.http.Body GroupIdList body);
 
     /**
-     * Update user details. Update user details. **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * Update user details. Update user details. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;username\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;username\&quot;:
      * \&quot;myusername\&quot;}&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
@@ -242,9 +264,10 @@ public interface TenantAccountsUsersApi {
                                          @retrofit2.http.Body UserUpdateReq body);
 
     /**
-     * Validate the user email. Validate user email. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Validate the user email. Validate user email. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)

@@ -91,6 +91,12 @@ public final class SubtenantLightThemeImageAdapter {
                 return SubtenantLightThemeImageReference.BRAND_LOGO_LANDSCAPE;
             case BRAND_LOGO_EMAIL:
                 return SubtenantLightThemeImageReference.BRAND_LOGO_EMAIL;
+            case APP_LOGO_LANDSCAPE:
+                return SubtenantLightThemeImageReference.APP_LOGO_LANDSCAPE;
+            case APP_LOGO_PORTRAIT:
+                return SubtenantLightThemeImageReference.APP_LOGO_PORTRAIT;
+            case APP_LOGO_SQUARE:
+                return SubtenantLightThemeImageReference.APP_LOGO_SQUARE;
             case DESKTOP_BACKGROUND_LANDSCAPE:
                 return SubtenantLightThemeImageReference.DESKTOP_BACKGROUND_LANDSCAPE;
             case DESKTOP_BACKGROUND_SQUARE:

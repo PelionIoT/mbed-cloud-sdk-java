@@ -208,11 +208,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * An array of aliases.
+     * An array of aliases for the tenant account ID. The aliases must be globally unique.
      * 
      * @return aliases
      **/
-    @ApiModelProperty(value = "An array of aliases.")
+    @ApiModelProperty(value = "An array of aliases for the tenant account ID. The aliases must be globally unique.")
     public List<String> getAliases() {
         return aliases;
     }
@@ -266,12 +266,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The name of the company. Required for commercial accounts only.
+     * The name of the company used in billing. Required for commercial accounts only.
      * 
      * @return company
      **/
     @ApiModelProperty(example = "ARM Holdings Plc",
-                      value = "The name of the company. Required for commercial accounts only.")
+                      value = "The name of the company used in billing. Required for commercial accounts only.")
     public String getCompany() {
         return company;
     }
@@ -306,11 +306,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * Contract number of the customer.
+     * Contract number of the customer. An administrator can set this property on tenant accounts only.
      * 
      * @return contractNumber
      **/
-    @ApiModelProperty(value = "Contract number of the customer.")
+    @ApiModelProperty(value = "Contract number of the customer. An administrator can set this property on tenant accounts only.")
     public String getContractNumber() {
         return contractNumber;
     }
@@ -372,11 +372,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * Customer number of the customer.
+     * Customer number of the customer. An administrator can set this property on tenant accounts only.
      * 
      * @return customerNumber
      **/
-    @ApiModelProperty(value = "Customer number of the customer.")
+    @ApiModelProperty(value = "Customer number of the customer. An administrator can set this property on tenant accounts only.")
     public String getCustomerNumber() {
         return customerNumber;
     }
@@ -391,11 +391,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The display name for the account.
+     * The display name for the tenant account.
      * 
      * @return displayName
      **/
-    @ApiModelProperty(example = "ARM", value = "The display name for the account.")
+    @ApiModelProperty(example = "ARM", value = "The display name for the tenant account.")
     public String getDisplayName() {
         return displayName;
     }

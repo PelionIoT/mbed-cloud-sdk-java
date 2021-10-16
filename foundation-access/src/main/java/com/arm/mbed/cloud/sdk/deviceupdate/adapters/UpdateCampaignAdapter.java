@@ -52,6 +52,8 @@ public final class UpdateCampaignAdapter {
         updateCampaignPostRequest.setDeviceFilter(toBeMapped.getDeviceFilter());
         updateCampaignPostRequest.setName(toBeMapped.getName());
         updateCampaignPostRequest.setRootManifestId(toBeMapped.getRootManifestId());
+        // No field equivalent to state in UpdateCampaignPostRequest was found in UpdateCampaign
+        updateCampaignPostRequest.setWhen(TranslationUtils.toDateTime(toBeMapped.getWhen()));
         return updateCampaignPostRequest;
     }
 
@@ -79,8 +81,7 @@ public final class UpdateCampaignAdapter {
                                                                  TranslationUtils.toDate(toBeMapped.getStartingAt()),
                                                                  TranslationUtils.toDate(toBeMapped.getStoppedAt()),
                                                                  TranslationUtils.toDate(toBeMapped.getStoppingAt()),
-                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
-                                                                 TranslationUtils.toDate(toBeMapped.getWhen()));
+                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         updateCampaign.setApprovalRequired(TranslationUtils.toBool(toBeMapped.isApprovalRequired()));
         updateCampaign.setAutostop(TranslationUtils.toBool(toBeMapped.isAutostop()));
         updateCampaign.setAutostopSuccessPercent(TranslationUtils.toLong(toBeMapped.getAutostopSuccessPercent()));
@@ -92,6 +93,7 @@ public final class UpdateCampaignAdapter {
         updateCampaign.setId(toBeMapped.getId());
         updateCampaign.setName(toBeMapped.getName());
         updateCampaign.setRootManifestId(toBeMapped.getRootManifestId());
+        updateCampaign.setWhen(TranslationUtils.toDate(toBeMapped.getWhen()));
         return updateCampaign;
     }
 
@@ -248,6 +250,8 @@ public final class UpdateCampaignAdapter {
         updateCampaignPutRequest.setDeviceFilter(toBeMapped.getDeviceFilter());
         updateCampaignPutRequest.setName(toBeMapped.getName());
         updateCampaignPutRequest.setRootManifestId(toBeMapped.getRootManifestId());
+        // No field equivalent to state in UpdateCampaignPutRequest was found in UpdateCampaign
+        updateCampaignPutRequest.setWhen(TranslationUtils.toDateTime(toBeMapped.getWhen()));
         return updateCampaignPutRequest;
     }
 

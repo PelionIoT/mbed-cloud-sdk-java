@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * Billing report for subtenant account.
+ * Billing report for tenant account.
  */
-@ApiModel(description = "Billing report for subtenant account.")
+@ApiModel(description = "Billing report for tenant account.")
 
 public class SubtenantAccountReport implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,11 +41,11 @@ public class SubtenantAccountReport implements Serializable {
     }
 
     /**
-     * Subtenant account contact information.
+     * Tenant account contact information.
      * 
      * @return account
      **/
-    @ApiModelProperty(required = true, value = "Subtenant account contact information.")
+    @ApiModelProperty(required = true, value = "Tenant account contact information.")
     public SubtenantReportAccountContactInfo getAccount() {
         return account;
     }
@@ -79,11 +79,11 @@ public class SubtenantAccountReport implements Serializable {
     }
 
     /**
-     * Report service package for subtenant account.
+     * service package report for the tenant.
      * 
      * @return servicePackage
      **/
-    @ApiModelProperty(value = "Report service package for subtenant account.")
+    @ApiModelProperty(value = "service package report for the tenant.")
     public SubtenantServicePackageReport getServicePackage() {
         return servicePackage;
     }

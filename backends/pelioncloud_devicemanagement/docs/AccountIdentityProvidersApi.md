@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**deleteSpCertificate**](AccountIdentityProvidersApi.md#deleteSpCertificate) | **POST** v3/identity-providers/{identity_provider_id}/delete-sp-certificate | Delete the service provider certificate.
 [**generateSpCertificate**](AccountIdentityProvidersApi.md#generateSpCertificate) | **POST** v3/identity-providers/{identity_provider_id}/generate-sp-certificate | Generate a new service provider certificate.
 [**getAllIdentityProviders**](AccountIdentityProvidersApi.md#getAllIdentityProviders) | **GET** v3/identity-providers | Get all identity providers.
-[**getIdentityProvider**](AccountIdentityProvidersApi.md#getIdentityProvider) | **GET** v3/identity-providers/{identity_provider_id} | Get identity provider by ID.
+[**getIdentityProvider**](AccountIdentityProvidersApi.md#getIdentityProvider) | **GET** v3/identity-providers/{identity_provider_id} | Get identity provider.
 [**refreshJwks**](AccountIdentityProvidersApi.md#refreshJwks) | **POST** v3/identity-providers/{identity_provider_id}/refresh-jwks | Refreshes the OIDC signing keys.
 [**updateIdentityProvider**](AccountIdentityProvidersApi.md#updateIdentityProvider) | **PUT** v3/identity-providers/{identity_provider_id} | Update an existing identity provider.
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 Create a new identity provider.
 
-Create a new identity provider.
+Create a new identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 Delete an identity provider by ID.
 
-Delete an identity provider by ID.
+Delete an identity provider by ID. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 Delete the service provider certificate.
 
-Delete a service provider certificate.
+Delete a service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 
 Generate a new service provider certificate.
 
-Generate a new service provider certificate.
+Generate a new service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 Get all identity providers.
 
-Retrieve identity providers in an array.
+Retrieve an array of identity providers. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -265,8 +265,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 AccountIdentityProvidersApi apiInstance = new AccountIdentityProvidersApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 try {
     IdentityProviderList result = apiInstance.getAllIdentityProviders(limit, after, order, include);
@@ -282,8 +282,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
 
 ### Return type
@@ -303,9 +303,9 @@ Name | Type | Description  | Notes
 # **getIdentityProvider**
 > IdentityProviderInfo getIdentityProvider(identityProviderId)
 
-Get identity provider by ID.
+Get identity provider.
 
-Retrieve by ID.
+Retrieve an identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -360,7 +360,7 @@ Name | Type | Description  | Notes
 
 Refreshes the OIDC signing keys.
 
-Refreshes an OIDC IdP&#39;s signing keys.
+Refreshes an OIDC IdP&#39;s signing keys. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 
 Update an existing identity provider.
 
-Update an existing identity provider.
+Update an existing identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java

@@ -9,9 +9,8 @@ import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceDirectoryDevicesApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceDirectoryEventsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceDirectoryGroupsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceOwnershipEnrollmentsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeviceCertificateRenewalsApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.EnrollmentDenialsApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApiApi;
 
 /**
  * Endpoints for Devices APIs module.
@@ -38,16 +37,10 @@ public class DevicesEndpoints extends AbstractEndpoints {
     private final DeviceSecurityDeviceCertificateRenewalsApi deviceSecurityDeviceCertificateRenewalsApi;
 
     /**
-     * Low level endpoints for public api apis.
+     * Low level endpoints for device ownership enrollments apis.
      */
     @Internal
-    private final PublicApiApi publicApiApi;
-
-    /**
-     * Low level endpoints for enrollment denials apis.
-     */
-    @Internal
-    private final EnrollmentDenialsApi enrollmentDenialsApi;
+    private final DeviceOwnershipEnrollmentsApi deviceOwnershipEnrollmentsApi;
 
     /**
      * Low level endpoints for device directory events apis.
@@ -66,29 +59,18 @@ public class DevicesEndpoints extends AbstractEndpoints {
         this.deviceDirectoryGroupsApi = initialiseService(DeviceDirectoryGroupsApi.class);
         this.deviceDirectoryDevicesApi = initialiseService(DeviceDirectoryDevicesApi.class);
         this.deviceSecurityDeviceCertificateRenewalsApi = initialiseService(DeviceSecurityDeviceCertificateRenewalsApi.class);
-        this.publicApiApi = initialiseService(PublicApiApi.class);
-        this.enrollmentDenialsApi = initialiseService(EnrollmentDenialsApi.class);
+        this.deviceOwnershipEnrollmentsApi = initialiseService(DeviceOwnershipEnrollmentsApi.class);
         this.deviceDirectoryEventsApi = initialiseService(DeviceDirectoryEventsApi.class);
     }
 
     /**
-     * Gets low level endpoints for public api apis.
+     * Gets low level endpoints for device ownership enrollments apis.
      * 
-     * @return publicApiApi
+     * @return deviceOwnershipEnrollmentsApi
      */
     @Internal
-    public PublicApiApi getPublicApiApi() {
-        return publicApiApi;
-    }
-
-    /**
-     * Gets low level endpoints for enrollment denials apis.
-     * 
-     * @return enrollmentDenialsApi
-     */
-    @Internal
-    public EnrollmentDenialsApi getEnrollmentDenialsApi() {
-        return enrollmentDenialsApi;
+    public DeviceOwnershipEnrollmentsApi getDeviceOwnershipEnrollmentsApi() {
+        return deviceOwnershipEnrollmentsApi;
     }
 
     /**

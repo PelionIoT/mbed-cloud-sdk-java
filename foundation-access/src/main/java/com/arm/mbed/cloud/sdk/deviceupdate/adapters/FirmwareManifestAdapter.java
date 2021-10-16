@@ -8,6 +8,8 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifest;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestDeliveredPayloadType;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestSchemaVersion;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifestPage;
 import java.util.List;
 
@@ -42,9 +44,18 @@ public final class FirmwareManifestAdapter {
         final FirmwareManifest firmwareManifest = new FirmwareManifest(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                                        TranslationUtils.toLong(toBeMapped.getDatafileSize()),
                                                                        toBeMapped.getDatafile(),
-                                                                       toBeMapped.getDeviceClass(),
+                                                                       toBeMapped.getDeliveredPayloadDigest(),
+                                                                       TranslationUtils.toLong(toBeMapped.getDeliveredPayloadSize()),
+                                                                       translateToFirmwareManifestDeliveredPayloadType(toBeMapped.getDeliveredPayloadType()),
+                                                                       toBeMapped.getDeliveredPayloadUrl(),
+                                                                       TranslationUtils.toString(toBeMapped.getDeviceClass()),
+                                                                       TranslationUtils.toString(toBeMapped.getDeviceVendor()),
                                                                        toBeMapped.getKeyTable(),
+                                                                       translateToFirmwareManifestSchemaVersion(toBeMapped.getManifestSchemaVersion()),
+                                                                       toBeMapped.getParsedRawManifest(),
+                                                                       toBeMapped.getPrecursorPayloadDigest(),
                                                                        TranslationUtils.toDate(toBeMapped.getTimestamp()),
+                                                                       TranslationUtils.toLong(toBeMapped.getUpdatePriority()),
                                                                        TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         firmwareManifest.setDescription(toBeMapped.getDescription());
         firmwareManifest.setId(toBeMapped.getId());
@@ -183,5 +194,51 @@ public final class FirmwareManifestAdapter {
                 return FirmwareManifestAdapter.mapList(toBeMapped);
             }
         };
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a delivered payload type enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static FirmwareManifestDeliveredPayloadType
+              translateToFirmwareManifestDeliveredPayloadType(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest.DeliveredPayloadTypeEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return FirmwareManifestDeliveredPayloadType.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case FULL:
+                return FirmwareManifestDeliveredPayloadType.FULL;
+            case DELTA:
+                return FirmwareManifestDeliveredPayloadType.DELTA;
+            default:
+                return FirmwareManifestDeliveredPayloadType.getUnknownEnum();
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a manifest schema version enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static FirmwareManifestSchemaVersion
+              translateToFirmwareManifestSchemaVersion(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest.ManifestSchemaVersionEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return FirmwareManifestSchemaVersion.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case _1:
+                return FirmwareManifestSchemaVersion._1;
+            case _3:
+                return FirmwareManifestSchemaVersion._3;
+            default:
+                return FirmwareManifestSchemaVersion.getUnknownEnum();
+        }
     }
 }

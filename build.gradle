@@ -177,6 +177,10 @@ allprojects {
                 println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
         }
     }
+
+    tasks.withType(Javadoc) {
+        options.encoding = "UTF-8"
+    }
     
     def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
     spotless {

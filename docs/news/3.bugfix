@@ -1,1 +1,1 @@
-Fixed some HTTP client deprecations
+Auto restart WebSocket in case of connection error.

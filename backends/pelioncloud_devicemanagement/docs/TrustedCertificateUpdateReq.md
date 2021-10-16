@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **description** | **String** | Human readable description of this certificate. |  [optional]
 **enrollmentMode** | **Boolean** | Certificate is used in enrollment mode. Default value is false. |  [optional]
 **name** | **String** | Certificate name. |  [optional]
-**service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. |  [optional]
+**service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. Service cannot be updated for developer certificates. |  [optional]
 **signature** | **String** | DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 

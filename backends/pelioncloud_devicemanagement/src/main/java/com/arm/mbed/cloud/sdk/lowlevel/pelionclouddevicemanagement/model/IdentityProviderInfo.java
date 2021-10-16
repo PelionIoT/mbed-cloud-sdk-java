@@ -99,6 +99,9 @@ public class IdentityProviderInfo implements Serializable {
     @SerializedName("object")
     private ObjectEnum object = null;
 
+    @SerializedName("oidc_attributes")
+    private OIDCInfo oidcAttributes = null;
+
     @SerializedName("saml2_attributes")
     private SAML2Info saml2Attributes = null;
 
@@ -353,6 +356,25 @@ public class IdentityProviderInfo implements Serializable {
         this.object = object;
     }
 
+    public IdentityProviderInfo oidcAttributes(OIDCInfo oidcAttributes) {
+        this.oidcAttributes = oidcAttributes;
+        return this;
+    }
+
+    /**
+     * OIDC specific attributes.
+     * 
+     * @return oidcAttributes
+     **/
+    @ApiModelProperty(value = "OIDC specific attributes.")
+    public OIDCInfo getOidcAttributes() {
+        return oidcAttributes;
+    }
+
+    public void setOidcAttributes(OIDCInfo oidcAttributes) {
+        this.oidcAttributes = oidcAttributes;
+    }
+
     public IdentityProviderInfo saml2Attributes(SAML2Info saml2Attributes) {
         this.saml2Attributes = saml2Attributes;
         return this;
@@ -446,6 +468,7 @@ public class IdentityProviderInfo implements Serializable {
                && Objects.equals(this.isDefault, identityProviderInfo.isDefault)
                && Objects.equals(this.name, identityProviderInfo.name)
                && Objects.equals(this.object, identityProviderInfo.object)
+               && Objects.equals(this.oidcAttributes, identityProviderInfo.oidcAttributes)
                && Objects.equals(this.saml2Attributes, identityProviderInfo.saml2Attributes)
                && Objects.equals(this.status, identityProviderInfo.status)
                && Objects.equals(this.type, identityProviderInfo.type)
@@ -454,8 +477,8 @@ public class IdentityProviderInfo implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, createdAt, description, etag, id, isDefault, name, object, saml2Attributes,
-                            status, type, updatedAt);
+        return Objects.hash(accountId, createdAt, description, etag, id, isDefault, name, object, oidcAttributes,
+                            saml2Attributes, status, type, updatedAt);
     }
 
     @Override
@@ -471,6 +494,7 @@ public class IdentityProviderInfo implements Serializable {
         sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
+        sb.append("    oidcAttributes: ").append(toIndentedString(oidcAttributes)).append("\n");
         sb.append("    saml2Attributes: ").append(toIndentedString(saml2Attributes)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");

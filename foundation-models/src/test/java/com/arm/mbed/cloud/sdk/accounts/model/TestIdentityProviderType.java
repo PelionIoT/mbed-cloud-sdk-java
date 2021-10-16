@@ -30,7 +30,7 @@ public class TestIdentityProviderType {
             identityprovidertype = IdentityProviderType.getValue("NATIVE");
             assertNotNull(identityprovidertype);
             assertFalse(identityprovidertype.isDefault());
-            identityprovidertype = IdentityProviderType.getValue("4a8bf8c5-5953-425b-9d83-6ba553a95725");
+            identityprovidertype = IdentityProviderType.getValue("095f321d-21b6-4611-97d9-dcbbfbfe8a0e");
             assertNotNull(identityprovidertype);
             assertTrue(identityprovidertype.isDefault());
         } catch (Exception exception) {

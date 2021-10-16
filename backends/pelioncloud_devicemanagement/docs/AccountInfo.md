@@ -6,24 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **addressLine1** | **String** | Postal address line 1. |  [optional]
 **addressLine2** | **String** | Postal address line 2. |  [optional]
-**adminEmail** | **String** | The email address of the admin user created for this account. Present only in the response for account creation. |  [optional]
-**adminFullName** | **String** | The full name of the admin user created for this account. Present only in the response for account creation. |  [optional]
-**adminId** | **String** | The ID of the admin user created for this account. Present only in the response for the account creation. |  [optional]
-**adminKey** | **String** | The admin API key created for this account. Present only in the response for account creation. |  [optional]
-**adminName** | **String** | The username of the admin user created for this account. Present only in the response for account creation. |  [optional]
-**adminPassword** | **String** | The password of the admin user created for this account. Present only in the response for account creation. |  [optional]
-**aliases** | **List&lt;String&gt;** | An array of aliases. |  [optional]
+**aliases** | **List&lt;String&gt;** | An array of aliases for the tenant account ID. The aliases must be globally unique. |  [optional]
 **businessModel** | [**BusinessModel**](BusinessModel.md) |  |  [optional]
 **businessModelHistory** | [**List&lt;BusinessModelHistory&gt;**](BusinessModelHistory.md) | Business model history for this account. |  [optional]
 **city** | **String** | The city part of the postal address. |  [optional]
-**company** | **String** | The name of the company. |  [optional]
+**company** | **String** | The name of the company used in billing. |  [optional]
 **contact** | **String** | The name of the contact person for this account. |  [optional]
 **contractNumber** | **String** | Contract number of the customer. |  [optional]
 **country** | **String** | The country part of the postal address. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **customFields** | **Map&lt;String, String&gt;** | Account&#39;s custom properties as key-value pairs. |  [optional]
 **customerNumber** | **String** | Customer number of the customer. |  [optional]
-**displayName** | **String** | The display name for the account. |  [optional]
+**displayName** | **String** | The display name for the tenant account. |  [optional]
 **email** | **String** | The company email address for this account. |  [optional]
 **endMarket** | **String** | Account end market. | 
 **etag** | **String** | API resource entity version. | 
@@ -32,7 +26,7 @@ Name | Type | Description | Notes
 **id** | **String** | Account ID. | 
 **idleTimeout** | **Integer** | The reference token expiration time, in minutes, for this account. |  [optional]
 **limitations** | [**List&lt;AccountLimitation&gt;**](AccountLimitation.md) | List of account limitation objects. |  [optional]
-**limits** | **Map&lt;String, String&gt;** | List of limits as key-value pairs if requested. |  [optional]
+**limits** | **Map&lt;String, String&gt;** | DEPRECATED: Replaced by the limitations parameter. |  [optional]
 **mfaStatus** | [**MfaStatusEnum**](#MfaStatusEnum) | The enforcement status of multi-factor authentication, either &#x60;enforced&#x60; or &#x60;optional&#x60;. |  [optional]
 **notificationEmails** | **List&lt;String&gt;** | A list of notification email addresses. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#x60;account&#x60;. | 
@@ -51,6 +45,7 @@ Name | Type | Description | Notes
 **subAccounts** | [**List&lt;AccountInfo&gt;**](AccountInfo.md) | List of sub accounts. Not available for developer users. |  [optional]
 **templateId** | **String** | Account template ID. |  [optional]
 **tier** | **String** | The tier level of the account; &#x60;0&#x60;: free tier, &#x60;1&#x60;: commercial account, &#x60;2&#x60;: partner tier. Other values are reserved for the future. | 
+**tierHistory** | [**List&lt;TierHistory&gt;**](TierHistory.md) | Tier history for this account. |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
 **upgradedAt** | [**DateTime**](DateTime.md) | Time when upgraded to commercial account in UTC format RFC3339. |  [optional]
 

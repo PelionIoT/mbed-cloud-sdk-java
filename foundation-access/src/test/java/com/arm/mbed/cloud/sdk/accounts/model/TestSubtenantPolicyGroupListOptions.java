@@ -19,10 +19,10 @@ public class TestSubtenantPolicyGroupListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions1 = new SubtenantPolicyGroupListOptions(Integer.valueOf(-110),
-                                                                                                                   Long.valueOf(78),
+            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions1 = new SubtenantPolicyGroupListOptions(Integer.valueOf(-77),
+                                                                                                                   Long.valueOf(-116),
                                                                                                                    Order.getDefault(),
-                                                                                                                   "08618abe-660a-4e54-bad6-818ca0dfef42",
+                                                                                                                   "a336bfe5-8de1-4c02-9a89-1eeca21c3b2d",
                                                                                                                    null,
                                                                                                                    null);
             SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions2 = subtenantpolicygrouplistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestSubtenantPolicyGroupListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions1 = new SubtenantPolicyGroupListOptions(Integer.valueOf(94),
-                                                                                                                   Long.valueOf(71),
+            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions1 = new SubtenantPolicyGroupListOptions(Integer.valueOf(-42),
+                                                                                                                   Long.valueOf(5),
                                                                                                                    Order.getDefault(),
-                                                                                                                   "8dc5a82a-6167-4538-8ded-4ce5f9a7634b",
+                                                                                                                   "b713949c-03d5-4f2f-ac5a-b59997408487",
                                                                                                                    null,
                                                                                                                    null);
-            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions2 = new SubtenantPolicyGroupListOptions(Integer.valueOf(94),
-                                                                                                                   Long.valueOf(71),
+            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions2 = new SubtenantPolicyGroupListOptions(Integer.valueOf(-42),
+                                                                                                                   Long.valueOf(5),
                                                                                                                    Order.getDefault(),
-                                                                                                                   "8dc5a82a-6167-4538-8ded-4ce5f9a7634b",
+                                                                                                                   "b713949c-03d5-4f2f-ac5a-b59997408487",
                                                                                                                    null,
                                                                                                                    null);
             assertNotNull(subtenantpolicygrouplistoptions1);
@@ -75,22 +75,22 @@ public class TestSubtenantPolicyGroupListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions1 = new SubtenantPolicyGroupListOptions(Integer.valueOf(-51),
-                                                                                                                   Long.valueOf(105),
+            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions1 = new SubtenantPolicyGroupListOptions(Integer.valueOf(12),
+                                                                                                                   Long.valueOf(-49),
                                                                                                                    Order.getDefault(),
-                                                                                                                   "efc9e20d-db05-4f2f-b41f-016029d4faff",
+                                                                                                                   "bacfbb56-831b-447c-b4e3-3ed6afaa6d2d",
                                                                                                                    null,
                                                                                                                    null);
-            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions2 = new SubtenantPolicyGroupListOptions(Integer.valueOf(-51),
-                                                                                                                   Long.valueOf(105),
+            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions2 = new SubtenantPolicyGroupListOptions(Integer.valueOf(12),
+                                                                                                                   Long.valueOf(-49),
                                                                                                                    Order.getDefault(),
-                                                                                                                   "efc9e20d-db05-4f2f-b41f-016029d4faff",
+                                                                                                                   "bacfbb56-831b-447c-b4e3-3ed6afaa6d2d",
                                                                                                                    null,
                                                                                                                    null);
-            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions3 = new SubtenantPolicyGroupListOptions(Integer.valueOf(101),
-                                                                                                                   Long.valueOf(87),
+            SubtenantPolicyGroupListOptions subtenantpolicygrouplistoptions3 = new SubtenantPolicyGroupListOptions(Integer.valueOf(124),
+                                                                                                                   Long.valueOf(-31),
                                                                                                                    Order.getDefault(),
-                                                                                                                   "99c3b952-8e9d-4dd1-9075-8be04a5e58e8",
+                                                                                                                   "75a94d2b-29ce-4e0b-a568-8915944d5d1d",
                                                                                                                    null,
                                                                                                                    null);
             assertNotNull(subtenantpolicygrouplistoptions1);

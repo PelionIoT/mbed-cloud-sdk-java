@@ -71,13 +71,13 @@ public class CertificateIssuerUpdateRequest implements Serializable {
     }
 
     /**
-     * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be
+     * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value is
      * empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
      * 
      * @return issuerAttributes
      **/
     @ApiModelProperty(example = "{}",
-                      value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
+                      value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value is empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.")
     public Map<String, String> getIssuerAttributes() {
         return issuerAttributes;
     }
@@ -100,13 +100,13 @@ public class CertificateIssuerUpdateRequest implements Serializable {
     }
 
     /**
-     * The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see
+     * The credentials required to connect to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see
      * definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
      * 
      * @return issuerCredentials
      **/
     @ApiModelProperty(example = "{}",
-                      value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
+                      value = "The credentials required to connect to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.")
     public Map<String, String> getIssuerCredentials() {
         return issuerCredentials;
     }

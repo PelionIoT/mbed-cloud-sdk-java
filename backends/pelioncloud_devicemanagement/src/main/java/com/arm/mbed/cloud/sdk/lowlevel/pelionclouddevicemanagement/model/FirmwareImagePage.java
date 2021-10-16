@@ -193,7 +193,7 @@ public class FirmwareImagePage implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name: always 'list'.")
+    @ApiModelProperty(example = "list", value = "Entity name: always 'list'.")
     public String getObject() {
         return object;
     }

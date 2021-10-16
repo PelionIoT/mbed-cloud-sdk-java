@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * Describes the attributes required to connect to the CFSSL server.
  */
-@ApiModel(description = "Describes the attributes required to connect to the CFSSL server. ")
+@ApiModel(description = "Describes the attributes required to connect to the CFSSL server.")
 
 public class CfsslAttributes implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class CfsslAttributes implements Serializable {
      * 
      * @return cfsslLabel
      **/
-    @ApiModelProperty(value = "The label that is used by CFSSL when creating the certificate. ")
+    @ApiModelProperty(value = "The label that is used by CFSSL when creating the certificate.")
     public String getCfsslLabel() {
         return cfsslLabel;
     }
@@ -60,11 +60,11 @@ public class CfsslAttributes implements Serializable {
     }
 
     /**
-     * The profile that is configured on the CFSSL server and is used by CFSSL when creating the certificate.
+     * The profile that is configured on the CFSSL server and used by CFSSL when creating the certificate.
      * 
      * @return cfsslProfile
      **/
-    @ApiModelProperty(value = "The profile that is configured on the CFSSL server and is used by CFSSL when creating the certificate. ")
+    @ApiModelProperty(value = "The profile that is configured on the CFSSL server and used by CFSSL when creating the certificate.")
     public String getCfsslProfile() {
         return cfsslProfile;
     }
@@ -83,7 +83,8 @@ public class CfsslAttributes implements Serializable {
      * 
      * @return hostUrl
      **/
-    @ApiModelProperty(required = true, value = "The URL to connect to the CFSSL server. ")
+    @ApiModelProperty(example = "http://my.cfssl.service:5555", required = true,
+                      value = "The URL to connect to the CFSSL server.")
     public String getHostUrl() {
         return hostUrl;
     }

@@ -99,11 +99,11 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     }
 
     /**
-     * Are there more results available.
+     * More results are available.
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(example = "false", value = "Are there more results available.")
+    @ApiModelProperty(example = "false", value = "More results are available.")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -118,13 +118,13 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     }
 
     /**
-     * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of
-     * this range are set to the closest limit. minimum: 2 maximum: 1000
+     * The number of results to return (2-1000). Values outside of this range are set to the closest limit. minimum: 2
+     * maximum: 1000
      * 
      * @return limit
      **/
     @ApiModelProperty(example = "50",
-                      value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
+                      value = "The number of results to return (2-1000). Values outside of this range are set to the closest limit.")
     public Integer getLimit() {
         return limit;
     }
@@ -139,11 +139,11 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     }
 
     /**
-     * The type of this API object is a &#x60;list&#x60;.
+     * The type of this API object is &#x60;list&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "list", value = "The type of this API object is a `list`.")
+    @ApiModelProperty(example = "list", value = "The type of this API object is `list`.")
     public String getObject() {
         return object;
     }
@@ -158,11 +158,11 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     }
 
     /**
-     * The creation time based order of the entries.
+     * Record order based on creation time.
      * 
      * @return order
      **/
-    @ApiModelProperty(example = "DESC", value = "The creation time based order of the entries.")
+    @ApiModelProperty(example = "DESC", value = "Record order based on creation time.")
     public String getOrder() {
         return order;
     }

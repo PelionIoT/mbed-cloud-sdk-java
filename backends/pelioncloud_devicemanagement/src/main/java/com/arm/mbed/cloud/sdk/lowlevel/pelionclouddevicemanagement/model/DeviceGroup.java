@@ -60,11 +60,11 @@ public class DeviceGroup implements Serializable {
     }
 
     /**
-     * The time the campaign was created.
+     * The time the group was created.
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was created.")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the group was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -222,11 +222,11 @@ public class DeviceGroup implements Serializable {
     }
 
     /**
-     * The time the object was updated.
+     * The time this object was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated.")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time this object was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }

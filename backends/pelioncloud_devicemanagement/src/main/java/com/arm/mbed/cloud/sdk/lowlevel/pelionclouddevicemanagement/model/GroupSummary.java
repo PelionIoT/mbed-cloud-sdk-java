@@ -38,6 +38,9 @@ public class GroupSummary implements Serializable {
     @SerializedName("apikey_count")
     private Integer apikeyCount = null;
 
+    @SerializedName("application_count")
+    private Integer applicationCount = null;
+
     @SerializedName("created_at")
     private DateTime createdAt = null;
 
@@ -141,6 +144,25 @@ public class GroupSummary implements Serializable {
 
     public void setApikeyCount(Integer apikeyCount) {
         this.apikeyCount = apikeyCount;
+    }
+
+    public GroupSummary applicationCount(Integer applicationCount) {
+        this.applicationCount = applicationCount;
+        return this;
+    }
+
+    /**
+     * The number of applications in this group.
+     * 
+     * @return applicationCount
+     **/
+    @ApiModelProperty(example = "0", value = "The number of applications in this group.")
+    public Integer getApplicationCount() {
+        return applicationCount;
+    }
+
+    public void setApplicationCount(Integer applicationCount) {
+        this.applicationCount = applicationCount;
     }
 
     public GroupSummary createdAt(DateTime createdAt) {
@@ -287,6 +309,7 @@ public class GroupSummary implements Serializable {
         GroupSummary groupSummary = (GroupSummary) o;
         return Objects.equals(this.accountId, groupSummary.accountId)
                && Objects.equals(this.apikeyCount, groupSummary.apikeyCount)
+               && Objects.equals(this.applicationCount, groupSummary.applicationCount)
                && Objects.equals(this.createdAt, groupSummary.createdAt) && Objects.equals(this.etag, groupSummary.etag)
                && Objects.equals(this.id, groupSummary.id) && Objects.equals(this.name, groupSummary.name)
                && Objects.equals(this.object, groupSummary.object)
@@ -296,7 +319,8 @@ public class GroupSummary implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, apikeyCount, createdAt, etag, id, name, object, updatedAt, userCount);
+        return Objects.hash(accountId, apikeyCount, applicationCount, createdAt, etag, id, name, object, updatedAt,
+                            userCount);
     }
 
     @Override
@@ -306,6 +330,7 @@ public class GroupSummary implements Serializable {
 
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
         sb.append("    apikeyCount: ").append(toIndentedString(apikeyCount)).append("\n");
+        sb.append("    applicationCount: ").append(toIndentedString(applicationCount)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");

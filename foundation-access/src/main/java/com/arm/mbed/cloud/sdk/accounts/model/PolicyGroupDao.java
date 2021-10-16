@@ -80,12 +80,19 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#allApiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated, GET
+     *             https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
+     * 
      * @param options
      *            list options.
      * @return paginator over the list of api keys
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public Paginator<ApiKey> allApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
         return allApiKeys(options, getModel());
     }
@@ -97,6 +104,12 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated, GET
+     *             https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
+     * 
      * @param options
      *            list options.
      * @param policyGroup
@@ -105,6 +118,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public Paginator<ApiKey> allApiKeys(@Nullable ApiKeyListOptions options,
                                         @NonNull PolicyGroup policyGroup) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allApiKeys(options, policyGroup);
@@ -117,6 +131,12 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated, GET
+     *             https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
+     * 
      * @param id
      *            The ID of the group.
      * @param options
@@ -125,6 +145,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public Paginator<ApiKey> allApiKeys(@NonNull String id,
                                         @Nullable ApiKeyListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allApiKeys(id, options);
@@ -189,7 +210,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
     }
 
     /**
-     * Get the API keys of a group.
+     * Get the API keys of a policy group.
      * 
      * 
      * <p>
@@ -198,23 +219,36 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#apiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated, GET
+     *             https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
+     * 
      * @param options
      *            list options.
      * @return the list of api keys corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ListResponse<ApiKey> apiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
         return apiKeys(options, getModel());
     }
 
     /**
-     * Get the API keys of a group.
+     * Get the API keys of a policy group.
      * 
      * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated, GET
+     *             https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
      * 
      * @param options
      *            list options.
@@ -224,18 +258,25 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ListResponse<ApiKey> apiKeys(@Nullable ApiKeyListOptions options,
                                         @NonNull PolicyGroup policyGroup) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).apiKeys(options, policyGroup);
     }
 
     /**
-     * Get the API keys of a group.
+     * Get the API keys of a policy group.
      * 
      * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated, GET
+     *             https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/applications
      * 
      * @param id
      *            The ID of the group.
@@ -245,6 +286,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @Deprecated
     public ListResponse<ApiKey> apiKeys(@NonNull String id,
                                         @Nullable ApiKeyListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).apiKeys(id, options);
@@ -569,7 +611,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
     }
 
     /**
-     * Get users of a group.
+     * Get users of a policy group.
      * 
      * 
      * <p>
@@ -589,7 +631,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
     }
 
     /**
-     * Get users of a group.
+     * Get users of a policy group.
      * 
      * 
      * <p>
@@ -609,7 +651,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Cru
     }
 
     /**
-     * Get users of a group.
+     * Get users of a policy group.
      * 
      * 
      * <p>

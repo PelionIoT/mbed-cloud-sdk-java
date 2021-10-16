@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **deviceId** | **String** |  |  [optional]
 **etag** | [**DateTime**](DateTime.md) |  |  [optional]
 **eventType** | **String** | Event code |  [optional]
-**eventTypeCategory** | **String** | Category code which groups the event type by a summary category. |  [optional]
+**eventTypeCategory** | **String** | Category code that groups the event type by a summary category. |  [optional]
 **eventTypeDescription** | **String** | Generic description of the event. |  [optional]
 **id** | **String** |  | 
 **object** | **String** | The API resource entity. |  [optional]

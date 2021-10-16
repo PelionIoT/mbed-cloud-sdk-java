@@ -321,7 +321,8 @@ public class CampaignDeviceMetadata implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "The entity name: always 'update-campaign-device-metadata'.")
+    @ApiModelProperty(example = "update-campaign-device-metadata",
+                      value = "The entity name: always 'update-campaign-device-metadata'.")
     public String getObject() {
         return object;
     }

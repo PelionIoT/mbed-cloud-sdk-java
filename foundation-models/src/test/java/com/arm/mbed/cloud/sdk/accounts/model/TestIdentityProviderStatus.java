@@ -30,7 +30,7 @@ public class TestIdentityProviderStatus {
             identityproviderstatus = IdentityProviderStatus.getValue("SUSPENDED");
             assertNotNull(identityproviderstatus);
             assertFalse(identityproviderstatus.isDefault());
-            identityproviderstatus = IdentityProviderStatus.getValue("dc544b5a-51e8-4e58-9544-01f2ada21d03");
+            identityproviderstatus = IdentityProviderStatus.getValue("900a628a-88d6-4a29-8d97-2e0ce9d02d69");
             assertNotNull(identityproviderstatus);
             assertTrue(identityproviderstatus.isDefault());
         } catch (Exception exception) {

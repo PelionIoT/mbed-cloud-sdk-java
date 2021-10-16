@@ -43,7 +43,7 @@ public class ApiKeyInfoReq implements Serializable {
     private String owner = null;
 
     /**
-     * The status of the API key.
+     * The status of the API key. Only an administrator can set the status of an API key.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
@@ -106,11 +106,12 @@ public class ApiKeyInfoReq implements Serializable {
     }
 
     /**
-     * A list of group IDs this API key belongs to.
+     * A list of group IDs this API key belongs to. Adding an API key to the &#39;Administrators&#39; group is
+     * restricted to administrators.
      * 
      * @return groups
      **/
-    @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
+    @ApiModelProperty(value = "A list of group IDs this API key belongs to. Adding an API key to the 'Administrators' group is restricted to administrators.")
     public List<String> getGroups() {
         return groups;
     }
@@ -144,11 +145,11 @@ public class ApiKeyInfoReq implements Serializable {
     }
 
     /**
-     * The owner of this API key.
+     * The owner of this API key. Only an administrator can set the owner of an API key.
      * 
      * @return owner
      **/
-    @ApiModelProperty(value = "The owner of this API key.")
+    @ApiModelProperty(value = "The owner of this API key. Only an administrator can set the owner of an API key.")
     public String getOwner() {
         return owner;
     }
@@ -163,11 +164,11 @@ public class ApiKeyInfoReq implements Serializable {
     }
 
     /**
-     * The status of the API key.
+     * The status of the API key. Only an administrator can set the status of an API key.
      * 
      * @return status
      **/
-    @ApiModelProperty(value = "The status of the API key.")
+    @ApiModelProperty(value = "The status of the API key. Only an administrator can set the status of an API key.")
     public StatusEnum getStatus() {
         return status;
     }

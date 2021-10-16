@@ -11,9 +11,10 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInv
 
 public interface TenantAccountsUserInvitationsApi {
     /**
-     * Create a user invitation. Invite a new or existing user. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Create a user invitation. Invite a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;:
      * \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
      * 
      * @param accountId
@@ -29,10 +30,10 @@ public interface TenantAccountsUserInvitationsApi {
                                 @retrofit2.http.Body UserInvitationReq body);
 
     /**
-     * Delete a user invitation. Delete an active user invitation sent to a new or existing user. **Example:**
-     * &#x60;&#x60;&#x60; curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Delete a user invitation. Delete an active user invitation sent to a new or existing user.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -47,9 +48,9 @@ public interface TenantAccountsUserInvitationsApi {
 
     /**
      * Details of a user invitation. Retrieve details of an active user invitation sent for a new or existing user.
-     * **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X
+     * GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -63,20 +64,19 @@ public interface TenantAccountsUserInvitationsApi {
                              @retrofit2.http.Path(value = "invitation_id", encoded = true) String invitationId);
 
     /**
-     * Get the details of all user invitations. Retrieve details of all active user invitations sent for new or existing
-     * users. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Get user invitations. Retrieve an array of active user invitations. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after
-     *            The entity ID to fetch after the given one. (optional)
+     *            The entity ID to retrieve after the given one. (optional)
      * @param order
-     *            Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. (optional, default to
-     *            ASC)
+     *            Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param loginProfilesEq
      *            Filter to retrieve user invitations by a specified login profile. (optional)
      * @return Call&lt;UserInvitationRespList&gt;

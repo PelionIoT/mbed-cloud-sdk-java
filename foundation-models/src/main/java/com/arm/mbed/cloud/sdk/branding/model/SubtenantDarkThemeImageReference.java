@@ -13,6 +13,12 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
  */
 @Preamble(description = "Subtenant dark theme image reference.")
 public enum SubtenantDarkThemeImageReference implements SdkEnum {
+    APP_LOGO_LANDSCAPE("app_logo_landscape"),
+
+    APP_LOGO_PORTRAIT("app_logo_portrait"),
+
+    APP_LOGO_SQUARE("app_logo_square"),
+
     BRAND_LOGO_EMAIL("brand_logo_email"),
 
     BRAND_LOGO_LANDSCAPE("brand_logo_landscape"),
@@ -99,7 +105,7 @@ public enum SubtenantDarkThemeImageReference implements SdkEnum {
      */
     @Internal
     @Required
-    @DefaultValue("BRAND_LOGO_EMAIL")
+    @DefaultValue("APP_LOGO_LANDSCAPE")
     private final String string;
 
     /**
@@ -109,7 +115,7 @@ public enum SubtenantDarkThemeImageReference implements SdkEnum {
      *            string representation.
      */
     @Internal
-    SubtenantDarkThemeImageReference(@DefaultValue("BRAND_LOGO_EMAIL") String string) {
+    SubtenantDarkThemeImageReference(@DefaultValue("APP_LOGO_LANDSCAPE") String string) {
         this.string = string;
     }
 
@@ -169,7 +175,7 @@ public enum SubtenantDarkThemeImageReference implements SdkEnum {
      * @return default subtenant dark theme image reference
      */
     public static SubtenantDarkThemeImageReference getDefault() {
-        return BRAND_LOGO_EMAIL;
+        return APP_LOGO_LANDSCAPE;
     }
 
     /**

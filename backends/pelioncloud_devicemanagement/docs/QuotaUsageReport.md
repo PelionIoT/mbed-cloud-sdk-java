@@ -20,6 +20,7 @@ RESERVATION_TERMINATION | &quot;reservation_termination&quot;
 PACKAGE_RENEWAL | &quot;package_renewal&quot;
 PACKAGE_CREATION | &quot;package_creation&quot;
 PACKAGE_TERMINATION | &quot;package_termination&quot;
+PACKAGE_TOKENS_EDIT | &quot;package_tokens_edit&quot;
 
 
 

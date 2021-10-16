@@ -176,7 +176,7 @@ public class FirmwareImageEqNeqFilter implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "")
     public String getId() {
         return id;
     }

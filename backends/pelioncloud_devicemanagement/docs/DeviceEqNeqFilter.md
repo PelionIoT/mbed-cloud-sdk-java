@@ -6,10 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accountId** | **String** |  |  [optional]
 **autoUpdate** | **Boolean** |  |  [optional]
-**bootstrapExpirationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**bootstrapExpirationDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
 **bootstrappedTimestamp** | [**DateTime**](DateTime.md) |  |  [optional]
 **caId** | **String** |  |  [optional]
-**connectorExpirationDate** | [**DateTime**](DateTime.md) |  |  [optional]
+**componentAttributes** | **Map&lt;String, String&gt;** |  |  [optional]
+**connectorExpirationDate** | [**LocalDate**](LocalDate.md) |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **customAttributes** | **Map&lt;String, String&gt;** |  |  [optional]
 **deployedState** | **String** |  |  [optional]

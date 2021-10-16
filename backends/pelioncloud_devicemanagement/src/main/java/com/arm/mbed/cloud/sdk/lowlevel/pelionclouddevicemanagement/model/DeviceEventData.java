@@ -241,12 +241,12 @@ public class DeviceEventData implements Serializable {
     }
 
     /**
-     * Category code which groups the event type by a summary category.
+     * Category code that groups the event type by a summary category.
      * 
      * @return eventTypeCategory
      **/
     @ApiModelProperty(example = "FAIL_MANIFEST_REJECTED",
-                      value = "Category code which groups the event type by a summary category.")
+                      value = "Category code that groups the event type by a summary category.")
     public String getEventTypeCategory() {
         return eventTypeCategory;
     }

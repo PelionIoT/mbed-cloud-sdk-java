@@ -29,7 +29,7 @@ public class ServicePackageReport implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("aggregated_quota_usage")
-    private List<AggregatedQuotaUsageReport> aggregatedQuotaUsage = new ArrayList<AggregatedQuotaUsageReport>();
+    private List<AggregatedQuotaUsageReport> aggregatedQuotaUsage = null;
 
     @SerializedName("metadata")
     private ServicePackageMetadata metadata = null;
@@ -43,6 +43,9 @@ public class ServicePackageReport implements Serializable {
     }
 
     public ServicePackageReport addAggregatedQuotaUsageItem(AggregatedQuotaUsageReport aggregatedQuotaUsageItem) {
+        if (this.aggregatedQuotaUsage == null) {
+            this.aggregatedQuotaUsage = new ArrayList<AggregatedQuotaUsageReport>();
+        }
         this.aggregatedQuotaUsage.add(aggregatedQuotaUsageItem);
         return this;
     }
@@ -52,7 +55,7 @@ public class ServicePackageReport implements Serializable {
      * 
      * @return aggregatedQuotaUsage
      **/
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(value = "")
     public List<AggregatedQuotaUsageReport> getAggregatedQuotaUsage() {
         return aggregatedQuotaUsage;
     }
@@ -71,7 +74,7 @@ public class ServicePackageReport implements Serializable {
      * 
      * @return metadata
      **/
-    @ApiModelProperty(required = true, value = "`Null` if service package has expired.")
+    @ApiModelProperty(value = "`Null` if service package has expired.")
     public ServicePackageMetadata getMetadata() {
         return metadata;
     }

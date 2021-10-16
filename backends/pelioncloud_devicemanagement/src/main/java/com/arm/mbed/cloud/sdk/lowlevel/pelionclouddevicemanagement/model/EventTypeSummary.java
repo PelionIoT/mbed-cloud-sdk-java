@@ -160,7 +160,7 @@ public class EventTypeSummary implements Serializable {
      * 
      * @return campaignId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "ID of the associated campaign.")
+    @ApiModelProperty(example = "016e652be6710000000000010010013d", value = "ID of the associated campaign.")
     public String getCampaignId() {
         return campaignId;
     }
@@ -236,7 +236,7 @@ public class EventTypeSummary implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name: always 'summary_status'.")
+    @ApiModelProperty(example = "summary_status", value = "Entity name: always 'summary_status'.")
     public String getObject() {
         return object;
     }

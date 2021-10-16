@@ -18,11 +18,11 @@ public class AccountProfileApiTest {
     }
 
     /**
-     * Get account info.
+     * Get account information.
      *
-     * Retrieve detailed information about the account. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Retrieve information about the account. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getMyAccountInfoTest() {
@@ -36,10 +36,10 @@ public class AccountProfileApiTest {
     /**
      * Updates attributes of the account.
      *
-     * Update the account. **Example:** &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/me \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H
-     * &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39;
-     * &#x60;&#x60;&#x60;
+     * Update the account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators. **Example:**
+     * &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me \\ -H &#39;Authorization:
+     * Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void updateMyAccountTest() {

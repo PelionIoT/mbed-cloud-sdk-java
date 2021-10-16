@@ -72,7 +72,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     protected String description;
 
     /**
-     * The filter for the devices the campaign is targeting at.
+     * The filter for the devices the campaign targets. Refer to this using the filter ID.
      */
     @Required
     protected String deviceFilter;
@@ -136,7 +136,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      * The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has
      * elapsed.
      */
-    protected final Date when;
+    protected Date when;
 
     /**
      * Internal constructor.
@@ -167,7 +167,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      * @param description
      *            An optional description of the campaign.
      * @param deviceFilter
-     *            The filter for the devices the campaign is targeting at.
+     *            The filter for the devices the campaign targets. Refer to this using the filter ID.
      * @param finished
      *            The time the campaign finished.
      * @param id
@@ -216,7 +216,6 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
         this.stoppedAt = stoppedAt;
         this.stoppingAt = stoppingAt;
         this.updatedAt = updatedAt;
-        this.when = when;
         setApprovalRequired(approvalRequired);
         setAutostop(autostop);
         setAutostopSuccessPercent(autostopSuccessPercent);
@@ -226,6 +225,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
         setId(id);
         setName(name);
         setRootManifestId(rootManifestId);
+        setWhen(when);
     }
 
     /**
@@ -323,18 +323,15 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      *            The time the campaign will be stopped.
      * @param updatedAt
      *            The time the entity was updated.
-     * @param when
-     *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
-     *            time has elapsed.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public AbstractUpdateCampaign(Date activeAt, Date archivedAt, String autostopReason, Date createdAt, Date finished,
                                   UpdateCampaignPhase phase, String rootManifestUrl, Date startedAt, Date startingAt,
-                                  Date stoppedAt, Date stoppingAt, Date updatedAt, Date when) {
+                                  Date stoppedAt, Date stoppingAt, Date updatedAt) {
         this(activeAt, false, archivedAt, false, autostopReason, 0.0, UpdateCampaignStrategy.getValue("one-shot"),
              createdAt, (String) null, (String) null, finished, (String) null, (String) null, phase, (String) null,
-             rootManifestUrl, startedAt, startingAt, stoppedAt, stoppingAt, updatedAt, when);
+             rootManifestUrl, startedAt, startingAt, stoppedAt, stoppingAt, updatedAt, new Date());
     }
 
     /**
@@ -506,7 +503,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Gets the filter for the devices the campaign is targeting at.
+     * Gets the filter for the devices the campaign targets. refer to this using the filter id.
      * 
      * @return deviceFilter
      */
@@ -515,10 +512,10 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Sets the filter for the devices the campaign is targeting at.
+     * Sets the filter for the devices the campaign targets. refer to this using the filter id.
      * 
      * @param deviceFilter
-     *            The filter for the devices the campaign is targeting at.
+     *            The filter for the devices the campaign targets. Refer to this using the filter ID.
      */
     @Required
     public void setDeviceFilter(String deviceFilter) {
@@ -557,6 +554,9 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     /**
      * Sets the campaign id.
      * 
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
+     * 
      * @param id
      *            The campaign ID.
      */
@@ -570,6 +570,8 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      * 
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
      * 
      * @param updateCampaignId
      *            The campaign ID.
@@ -577,6 +579,16 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     @Internal
     public void setUpdateCampaignId(String updateCampaignId) {
         setId(updateCampaignId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[A-Fa-f0-9]{32}"));
     }
 
     /**
@@ -701,6 +713,18 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      */
     public Date getWhen() {
         return when;
+    }
+
+    /**
+     * Sets the scheduled start time for the campaign. the campaign will start within 1 minute when then start time has
+     * elapsed.
+     * 
+     * @param when
+     *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
+     *            time has elapsed.
+     */
+    public void setWhen(Date when) {
+        this.when = when;
     }
 
     /**
@@ -958,6 +982,6 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isDescriptionValid() && isDeviceFilterValid() && isNameValid();
+        return isDescriptionValid() && isDeviceFilterValid() && isIdValid() && isNameValid();
     }
 }

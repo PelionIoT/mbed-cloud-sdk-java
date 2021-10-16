@@ -293,6 +293,9 @@ public class CampaignDeviceMetadata implements SdkModel {
     /**
      * Sets the metadata record id.
      * 
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
+     * 
      * @param id
      *            The metadata record ID.
      */
@@ -306,6 +309,8 @@ public class CampaignDeviceMetadata implements SdkModel {
      * 
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
      * 
      * @param campaignDeviceMetadataId
      *            The metadata record ID.
@@ -313,6 +318,16 @@ public class CampaignDeviceMetadata implements SdkModel {
     @Internal
     public void setCampaignDeviceMetadataId(String campaignDeviceMetadataId) {
         setId(campaignDeviceMetadataId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[A-Fa-f0-9]{32}"));
     }
 
     /**
@@ -526,7 +541,7 @@ public class CampaignDeviceMetadata implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isCampaignIdValid();
+        return isCampaignIdValid() && isIdValid();
     }
 
     /**

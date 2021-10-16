@@ -20,9 +20,10 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Revert an image to dark theme default.
      *
-     * Revert an account branding image to dark theme default. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Revert an account branding image to dark theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void clearDarkImageTest() {
@@ -35,9 +36,10 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Revert an image to light theme default.
      *
-     * Revert an account branding image to light theme default. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Revert an account branding image to light theme default. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void clearLightImageTest() {
@@ -50,8 +52,10 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Delete images in the dark theme.
      *
-     * Delete account dark theme branding images. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete account dark theme branding images. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllDarkImagesTest() {
@@ -63,8 +67,9 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Delete all images.
      *
-     * Delete account branding images for all themes. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-images -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete account branding images for all themes. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllImagesTest() {
@@ -76,8 +81,10 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Delete images in the light theme.
      *
-     * Delete account light theme branding images. **Example usage:** &#x60;curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * Delete account light theme branding images. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39;&#x60;
      */
     @Test
     public void deleteAllLightImagesTest() {
@@ -90,8 +97,8 @@ public class UserInterfaceConfigurationImagesApiTest {
      * Get metadata of all dark theme images.
      *
      * Retrieve metadata for all dark theme branding images. **Example:** &#x60;curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
-     * &#x60;&#x60;&#x60;
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAllDarkImageDataTest() {
@@ -105,7 +112,7 @@ public class UserInterfaceConfigurationImagesApiTest {
      *
      * Retrieve the metadata of all light theme branding images. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/branding-images/light \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAllLightImageDataTest() {
@@ -119,7 +126,7 @@ public class UserInterfaceConfigurationImagesApiTest {
      *
      * Retrieve metadata for one account dark theme branding image. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getDarkImageDataTest() {
@@ -134,7 +141,7 @@ public class UserInterfaceConfigurationImagesApiTest {
      *
      * Retrieve metadata for one account light theme branding image. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getLightImageDataTest() {
@@ -147,9 +154,10 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Upload a dark theme image.
      *
-     * Upload a new account branding image in the dark theme in PNG or JPEG format. **Example:** &#x60;&#x60;&#x60; curl
-     * -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
+     * Upload a new account branding image in the dark theme in PNG or JPEG format. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -165,6 +173,7 @@ public class UserInterfaceConfigurationImagesApiTest {
      * Upload a dark theme image.
      *
      * Upload a new account branding image as form data in the dark theme in PNG or JPEG format.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void uploadDarkImageMultipartTest() {
@@ -178,9 +187,10 @@ public class UserInterfaceConfigurationImagesApiTest {
     /**
      * Upload a light theme image.
      *
-     * Upload a new account light theme branding image in PNG or JPEG format. **Example:** &#x60;&#x60;&#x60; curl -X
-     * POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload \\ -H &#39;Authorization:
-     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
+     * Upload a new account light theme branding image in PNG or JPEG format. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: image/png&#39; --data-binary &#39;@myimage.png&#39;
      * &#x60;&#x60;&#x60;
      */
     @Test
@@ -196,6 +206,7 @@ public class UserInterfaceConfigurationImagesApiTest {
      * Upload a light theme image.
      *
      * Upload a new account branding image as form data in the light theme in PNG or JPEG format.
+     * &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void uploadLightImageMultipartTest() {

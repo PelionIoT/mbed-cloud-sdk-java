@@ -33,17 +33,20 @@ public class WebsocketChannel implements Serializable {
     private Integer queueSize = null;
 
     @SerializedName("serialization")
-    private Object serialization = null;
+    private SerializationConfigData serialization = null;
 
     /**
-     * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The state is
-     * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed.
+     * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The status is
+     * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed and &#39;unknown&#39; when
+     * the server cannot determine it.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
         CONNECTED("connected"),
 
-        DISCONNECTED("disconnected");
+        DISCONNECTED("disconnected"),
+
+        UNKNOWN("unknown");
 
         private String value;
 
@@ -92,11 +95,13 @@ public class WebsocketChannel implements Serializable {
     }
 
     /**
-     * Number of events in the channel&#39;s event queue waiting to be delivered.
+     * Number of events in the channel&#39;s event queue waiting to be delivered. If the server cannot determine the
+     * queue size the value will be set to &#x60;-1&#x60;.
      * 
      * @return queueSize
      **/
-    @ApiModelProperty(example = "0", value = "Number of events in the channel's event queue waiting to be delivered.")
+    @ApiModelProperty(example = "0",
+                      value = "Number of events in the channel's event queue waiting to be delivered. If the server cannot determine the queue size the value will be set to `-1`.")
     public Integer getQueueSize() {
         return queueSize;
     }
@@ -105,22 +110,22 @@ public class WebsocketChannel implements Serializable {
         this.queueSize = queueSize;
     }
 
-    public WebsocketChannel serialization(Object serialization) {
+    public WebsocketChannel serialization(SerializationConfigData serialization) {
         this.serialization = serialization;
         return this;
     }
 
     /**
-     * Serialization configuration for a channel.
+     * Get serialization
      * 
      * @return serialization
      **/
-    @ApiModelProperty(value = "Serialization configuration for a channel.")
-    public Object getSerialization() {
+    @ApiModelProperty(value = "")
+    public SerializationConfigData getSerialization() {
         return serialization;
     }
 
-    public void setSerialization(Object serialization) {
+    public void setSerialization(SerializationConfigData serialization) {
         this.serialization = serialization;
     }
 
@@ -130,13 +135,14 @@ public class WebsocketChannel implements Serializable {
     }
 
     /**
-     * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The state is
-     * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed.
+     * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The status is
+     * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed and &#39;unknown&#39; when
+     * the server cannot determine it.
      * 
      * @return status
      **/
     @ApiModelProperty(example = "disconnected",
-                      value = "Channel status is 'connected' when the channel has an active WebSocket bound to it. The state is 'disconnected' when either the channel or the WebSocket bound to it is closed.")
+                      value = "Channel status is 'connected' when the channel has an active WebSocket bound to it. The status is 'disconnected' when either the channel or the WebSocket bound to it is closed and 'unknown' when the server cannot determine it.")
     public StatusEnum getStatus() {
         return status;
     }

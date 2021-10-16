@@ -170,6 +170,12 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listApiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
      * 
+     * <p>
+     * 
+     * @deprecated This method has been deprecated since Sat Aug 01 08:00:00 CST 2020 and will be removed by Sun Aug 01
+     *             08:00:00 CST 2021. This endpoint is deprecated. Use GET
+     *             https://api.us-east-1.mbedcloud.com/v3/applications/{application_id}/access-keys
+     * 
      * @param options
      *            list options.
      * @return one page of api keys
@@ -177,6 +183,7 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      *             if an error occurs during the process.
      */
     @Override
+    @Deprecated
     protected ListResponse<ApiKey> requestOnePage(ApiKeyListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).listApiKeys(options);
     }

@@ -115,11 +115,11 @@ public class ErrorResponse implements Serializable {
     }
 
     /**
-     * Response type, always \&quot;error\&quot;.
+     * Response type: always &#x60;error&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Response type, always \"error\".")
+    @ApiModelProperty(value = "Response type: always `error`.")
     public String getObject() {
         return object;
     }

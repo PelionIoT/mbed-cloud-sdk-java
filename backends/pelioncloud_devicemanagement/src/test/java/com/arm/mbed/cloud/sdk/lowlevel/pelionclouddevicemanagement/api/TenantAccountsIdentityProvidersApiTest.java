@@ -22,7 +22,7 @@ public class TenantAccountsIdentityProvidersApiTest {
     /**
      * Create a new identity provider.
      *
-     * Create a new identity provider.
+     * Create a new identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void createAccountIdentityProviderTest() {
@@ -37,7 +37,7 @@ public class TenantAccountsIdentityProvidersApiTest {
     /**
      * Delete an identity provider by ID.
      *
-     * Delete an identity provider by ID.
+     * Delete an identity provider by ID. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void deleteAccountIdentityProviderTest() {
@@ -51,7 +51,7 @@ public class TenantAccountsIdentityProvidersApiTest {
     /**
      * Delete the service provider certificate.
      *
-     * Delete a service provider certificate.
+     * Delete a service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void deleteAccountSpCertificateTest() {
@@ -65,7 +65,8 @@ public class TenantAccountsIdentityProvidersApiTest {
     /**
      * Generate a new service provider certificate.
      *
-     * Generate a new service provider certificate.
+     * Generate a new service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators.
      */
     @Test
     public void generateAccountSpCertificateTest() {
@@ -78,9 +79,9 @@ public class TenantAccountsIdentityProvidersApiTest {
     }
 
     /**
-     * Retrieve identity provider by ID.
+     * Get an identity provider.
      *
-     * Manage identity providers of a tenant account.
+     * Retrieve an identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void getAccountIdentityProviderTest() {
@@ -94,7 +95,7 @@ public class TenantAccountsIdentityProvidersApiTest {
     /**
      * Get all identity providers.
      *
-     * Retrieve identity providers in an array.
+     * Retrieve an array of identity providers. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void getAllAccountIdentityProvidersTest() {
@@ -109,9 +110,9 @@ public class TenantAccountsIdentityProvidersApiTest {
     }
 
     /**
-     * Refreshes the OIDC signing keys.
+     * Refresh the OIDC signing keys.
      *
-     * Refreshes an OIDC IdP&#39;s signing keys.
+     * Refresh an OIDC IdP&#39;s signing keys. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void refreshAccountJwksTest() {
@@ -125,7 +126,7 @@ public class TenantAccountsIdentityProvidersApiTest {
     /**
      * Update an existing identity provider.
      *
-     * Update an existing identity provider.
+     * Update an existing identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
      */
     @Test
     public void updateAccountIdentityProviderTest() {

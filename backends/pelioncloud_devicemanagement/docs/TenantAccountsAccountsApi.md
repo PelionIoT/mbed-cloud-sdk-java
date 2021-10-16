@@ -5,18 +5,18 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createAccount**](TenantAccountsAccountsApi.md#createAccount) | **POST** v3/accounts | Create a new account.
-[**getAccountInfo**](TenantAccountsAccountsApi.md#getAccountInfo) | **GET** v3/accounts/{account_id} | Get account info.
+[**getAccountInfo**](TenantAccountsAccountsApi.md#getAccountInfo) | **GET** v3/accounts/{account_id} | Get account information.
 [**getAllAccounts**](TenantAccountsAccountsApi.md#getAllAccounts) | **GET** v3/accounts | Get all accounts.
 [**updateAccount**](TenantAccountsAccountsApi.md#updateAccount) | **PUT** v3/accounts/{account_id} | Update attributes of an existing account.
 
 
 <a name="createAccount"></a>
 # **createAccount**
-> AccountInfo createAccount(body, action)
+> AccountCreationResp createAccount(body, action)
 
 Create a new account.
 
-Create a new account.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;, \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;: \&quot;example_admin@myaccount.info\&quot;, \&quot;country\&quot;: \&quot;United Kingdom\&quot;, \&quot;end_market\&quot;: \&quot;Smart City\&quot;, \&quot;address_line1\&quot;: \&quot;110 Fulbourn Rd\&quot;, \&quot;city\&quot;: \&quot;Cambridge\&quot;, \&quot;contact\&quot;: \&quot;J. Doe\&quot;, \&quot;company\&quot;: \&quot;Arm\&quot;}&#39; &#x60;&#x60;&#x60;
+Create a new account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;, \&quot;aliases\&quot;: [ \&quot;my-account\&quot; ], \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;: \&quot;example_admin@myaccount.info\&quot;, \&quot;country\&quot;: \&quot;United Kingdom\&quot;, \&quot;end_market\&quot;: \&quot;Smart City\&quot;, \&quot;address_line1\&quot;: \&quot;110 Fulbourn Rd\&quot;, \&quot;city\&quot;: \&quot;Cambridge\&quot;, \&quot;contact\&quot;: \&quot;J. Doe\&quot;, \&quot;company\&quot;: \&quot;Arm\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -39,7 +39,7 @@ TenantAccountsAccountsApi apiInstance = new TenantAccountsAccountsApi();
 AccountCreationReq body = new AccountCreationReq(); // AccountCreationReq | Details of the account to create.
 String action = "create"; // String | Action, either `create` or `enroll`. <ul> <li>`create` creates the account where its admin user has ACTIVE status if `admin_password` was defined in the request, or RESET status if no `admin_password` was defined. If the user already exists, its status is not modified. </li> <li>`enroll` creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish enrollment or notify the existing user about the new account is sent to the `admin_email` defined in the request. </li></ul>
 try {
-    AccountInfo result = apiInstance.createAccount(body, action);
+    AccountCreationResp result = apiInstance.createAccount(body, action);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantAccountsAccountsApi#createAccount");
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountInfo**](AccountInfo.md)
+[**AccountCreationResp**](AccountCreationResp.md)
 
 ### Authorization
 
@@ -71,9 +71,9 @@ Name | Type | Description  | Notes
 # **getAccountInfo**
 > AccountInfo getAccountInfo(accountId, include, properties)
 
-Get account info.
+Get account information.
 
-Retrieve detailed information about an account.  **Example:**  &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve detailed information about an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:**  &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -93,7 +93,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantAccountsAccountsApi apiInstance = new TenantAccountsAccountsApi();
-String accountId = "accountId_example"; // String | The ID of the account to fetch.
+String accountId = "accountId_example"; // String | The ID of the account to retrieve.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history.
 String properties = "properties_example"; // String | Property name to return from account-specific properties.
 try {
@@ -109,7 +109,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| The ID of the account to fetch. |
+ **accountId** | **String**| The ID of the account to retrieve. |
  **include** | **String**| Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history. | [optional]
  **properties** | **String**| Property name to return from account-specific properties. | [optional]
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 Get all accounts.
 
-Returns an array of account objects, optionally filtered by status and tier level.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve an array of tenant accounts, optionally filtered by status and tier level. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -160,7 +160,7 @@ String parentEq = "parentEq_example"; // String | An optional filter for parent 
 String endMarketEq = "endMarketEq_example"; // String | An optional filter for account end market.
 String countryLike = "countryLike_example"; // String | An optional filter for account country. Finds all matches where the filter value is a case-insensitive substring of the result. Example: country__like=LAND matches Ireland.
 Integer limit = 1000; // Integer | The number of results to return (2-1000). Default 1000.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
 String order = "ASC"; // String | Record order. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history.
 String format = "format_example"; // String | Format information for the query response. Supported: format=breakdown.
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
  **endMarketEq** | **String**| An optional filter for account end market. | [optional]
  **countryLike** | **String**| An optional filter for account country. Finds all matches where the filter value is a case-insensitive substring of the result. Example: country__like&#x3D;LAND matches Ireland. | [optional]
  **limit** | **Integer**| The number of results to return (2-1000). Default 1000. | [optional] [default to 1000]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
  **order** | **String**| Record order. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history. | [optional]
  **format** | **String**| Format information for the query response. Supported: format&#x3D;breakdown. | [optional]
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 
 Update attributes of an existing account.
 
-Update an account.  **Example:**  &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
+Update an account. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.  **Example:**  &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \\ -H &#39;Authorization: Bearer &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java

@@ -20,8 +20,7 @@ public class CertificateIssuerConfig implements SdkModel {
     private static final long serialVersionUID = 1579411600351820L;
 
     /**
-     * The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     * 
+     * Certificate issuer ID. Null if Device Management internal HSM is used.
      */
     @Required
     private String certificateIssuerId;
@@ -32,8 +31,7 @@ public class CertificateIssuerConfig implements SdkModel {
     private final Date createdAt;
 
     /**
-     * The ID of the certificate issuer configuration.
-     * 
+     * Certificate issuer ID. configuration.
      */
     private String id;
 
@@ -57,13 +55,11 @@ public class CertificateIssuerConfig implements SdkModel {
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
      * @param certificateIssuerId
-     *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     * 
+     *            Certificate issuer ID. Null if Device Management internal HSM is used.
      * @param createdAt
      *            Created UTC time RFC3339.
      * @param id
-     *            The ID of the certificate issuer configuration.
-     * 
+     *            Certificate issuer ID. configuration.
      * @param reference
      *            The certificate name to which the certificate issuer configuration applies.
      * @param updatedAt
@@ -115,8 +111,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * <p>
      * 
      * @param id
-     *            The ID of the certificate issuer configuration.
-     * 
+     *            Certificate issuer ID. configuration.
      */
     public CertificateIssuerConfig(String id) {
         this();
@@ -149,8 +144,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * <p>
      * 
      * @param certificateIssuerId
-     *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     * 
+     *            Certificate issuer ID. Null if Device Management internal HSM is used.
      * @param reference
      *            The certificate name to which the certificate issuer configuration applies.
      */
@@ -159,7 +153,7 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Gets the id of the certificate issuer. null if device management internal hsm is used.
+     * Gets certificate issuer id. null if device management internal hsm is used.
      * 
      * @return certificateIssuerId
      */
@@ -168,11 +162,10 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Sets the id of the certificate issuer. null if device management internal hsm is used.
+     * Sets certificate issuer id. null if device management internal hsm is used.
      * 
      * @param certificateIssuerId
-     *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     * 
+     *            Certificate issuer ID. Null if Device Management internal HSM is used.
      */
     @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
@@ -199,7 +192,7 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Gets the id of the certificate issuer configuration.
+     * Gets certificate issuer id. configuration.
      * 
      * @return id
      */
@@ -209,11 +202,10 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Sets the id of the certificate issuer configuration.
+     * Sets certificate issuer id. configuration.
      * 
      * @param id
-     *            The ID of the certificate issuer configuration.
-     * 
+     *            Certificate issuer ID. configuration.
      */
     @Override
     public void setId(String id) {
@@ -221,14 +213,13 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Sets the id of the certificate issuer configuration.
+     * Sets certificate issuer id. configuration.
      * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
      * @param certificateIssuerConfigId
-     *            The ID of the certificate issuer configuration.
-     * 
+     *            Certificate issuer ID. configuration.
      */
     @Internal
     public void setCertificateIssuerConfigId(String certificateIssuerConfigId) {

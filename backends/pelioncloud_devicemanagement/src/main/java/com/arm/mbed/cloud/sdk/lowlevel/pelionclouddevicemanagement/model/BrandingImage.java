@@ -91,6 +91,12 @@ public class BrandingImage implements Serializable {
 
         BRAND_LOGO_EMAIL("brand_logo_email"),
 
+        APP_LOGO_LANDSCAPE("app_logo_landscape"),
+
+        APP_LOGO_PORTRAIT("app_logo_portrait"),
+
+        APP_LOGO_SQUARE("app_logo_square"),
+
         DESKTOP_BACKGROUND_LANDSCAPE("desktop_background_landscape"),
 
         DESKTOP_BACKGROUND_SQUARE("desktop_background_square"),

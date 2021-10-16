@@ -37,7 +37,7 @@ public class DeviceDirectoryGroupsApiTest {
     /**
      * Delete a group.
      *
-     * Delete a group.
+     * Delete a group. This deletes the group, but not the devices in the group.
      */
     @Test
     public void groupDeleteTest() {
@@ -92,7 +92,7 @@ public class DeviceDirectoryGroupsApiTest {
     /**
      * Add a device to a group.
      *
-     * Add one device to a group.
+     * Add one device to a group. A device can be in multiple groups.
      */
     @Test
     public void groupMembersAddTest() {
@@ -120,7 +120,7 @@ public class DeviceDirectoryGroupsApiTest {
     /**
      * Get a page of devices.
      *
-     * Get a page of devices.
+     * Get a page of devices in a specified group.
      */
     @Test
     public void groupMembersRetrieveTest() {
@@ -247,6 +247,10 @@ public class DeviceDirectoryGroupsApiTest {
         String nameNeq = null;
         String nameIn = null;
         String nameNin = null;
+        String netIdEq = null;
+        String netIdNeq = null;
+        String netIdIn = null;
+        String netIdNin = null;
         String serialNumberEq = null;
         String serialNumberNeq = null;
         String serialNumberIn = null;
@@ -286,9 +290,9 @@ public class DeviceDirectoryGroupsApiTest {
         // hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq,
         // manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte,
         // manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq,
-        // mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, serialNumberEq, serialNumberNeq,
-        // serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin,
-        // updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
+        // mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, netIdEq, netIdNeq, netIdIn, netIdNin,
+        // serialNumberEq, serialNumberNeq, serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin,
+        // updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
 
         // TODO: test validations
     }
@@ -296,7 +300,9 @@ public class DeviceDirectoryGroupsApiTest {
     /**
      * Get a group.
      *
-     * Get a group.
+     * Returns [DeviceGroup](https://developer.pelion.com/docs/device-management-api/device-directory/) info what
+     * contains info of the group, for example, name and updated date. To list the devices in the group, use
+     * &#39;/v3/device-groups/{device-group-id}/devices/&#39;.
      */
     @Test
     public void groupRetrieveTest() {
@@ -309,7 +315,7 @@ public class DeviceDirectoryGroupsApiTest {
     /**
      * Modify the attributes of a group.
      *
-     * Modify the attributes of a group.
+     * Modify the attributes of a group, such as the description.
      */
     @Test
     public void groupUpdateTest() {

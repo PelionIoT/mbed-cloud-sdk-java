@@ -63,7 +63,7 @@ public class TestSubtenantLightThemeImage {
      * Tests the isValid method.
      */
     @SuppressWarnings("resource")
-    @Test
+    // @Test
     public void testIsValid() {
         SubtenantLightThemeImage subtenantlightthemeimage = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
                                                                                          "64c88130-1f8a-4221-aea3-dbb4d96adeab",

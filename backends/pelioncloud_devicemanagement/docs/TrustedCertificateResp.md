@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **description** | **String** | Human readable description of this certificate. |  [optional]
 **deviceExecutionMode** | **Integer** | Device execution mode where 1 means a developer certificate. |  [optional]
-**enrollmentMode** | **Boolean** | If true, signature is not required. Default value false. |  [optional]
+**enrollmentMode** | **Boolean** | DEPRECATED: Certificate is used in enrollment mode. Default value is false. |  [optional]
 **etag** | **String** | API resource entity version. | 
 **id** | **String** | Entity ID. | 
 **issuer** | **String** | Issuer of the certificate. | 

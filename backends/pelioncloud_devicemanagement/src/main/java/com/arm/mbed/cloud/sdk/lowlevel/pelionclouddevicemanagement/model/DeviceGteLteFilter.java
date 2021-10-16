@@ -16,6 +16,7 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import java.io.Serializable;
 
 /**
@@ -26,13 +27,13 @@ public class DeviceGteLteFilter implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("bootstrap_expiration_date")
-    private DateTime bootstrapExpirationDate = null;
+    private LocalDate bootstrapExpirationDate = null;
 
     @SerializedName("bootstrapped_timestamp")
     private DateTime bootstrappedTimestamp = null;
 
     @SerializedName("connector_expiration_date")
-    private DateTime connectorExpirationDate = null;
+    private LocalDate connectorExpirationDate = null;
 
     @SerializedName("created_at")
     private DateTime createdAt = null;
@@ -49,7 +50,7 @@ public class DeviceGteLteFilter implements Serializable {
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
 
-    public DeviceGteLteFilter bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+    public DeviceGteLteFilter bootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
         this.bootstrapExpirationDate = bootstrapExpirationDate;
         return this;
     }
@@ -59,12 +60,12 @@ public class DeviceGteLteFilter implements Serializable {
      * 
      * @return bootstrapExpirationDate
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
-    public DateTime getBootstrapExpirationDate() {
+    @ApiModelProperty(example = "2017-05-22", value = "")
+    public LocalDate getBootstrapExpirationDate() {
         return bootstrapExpirationDate;
     }
 
-    public void setBootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+    public void setBootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
         this.bootstrapExpirationDate = bootstrapExpirationDate;
     }
 
@@ -87,7 +88,7 @@ public class DeviceGteLteFilter implements Serializable {
         this.bootstrappedTimestamp = bootstrappedTimestamp;
     }
 
-    public DeviceGteLteFilter connectorExpirationDate(DateTime connectorExpirationDate) {
+    public DeviceGteLteFilter connectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
         return this;
     }
@@ -97,12 +98,12 @@ public class DeviceGteLteFilter implements Serializable {
      * 
      * @return connectorExpirationDate
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
-    public DateTime getConnectorExpirationDate() {
+    @ApiModelProperty(example = "2017-05-22", value = "")
+    public LocalDate getConnectorExpirationDate() {
         return connectorExpirationDate;
     }
 
-    public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+    public void setConnectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
     }
 

@@ -124,13 +124,14 @@ public class ResourcesData implements Serializable {
 
     /**
      * Application-specific resource type that describes this resource. It is created by the [client side
-     * application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable
-     * name for the resource. Multiple resource types may be included, separated by a space.
+     * application](https://developer.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html).
+     * Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a
+     * space.
      * 
      * @return rt
      **/
     @ApiModelProperty(example = "light_sensor",
-                      value = "Application-specific resource type that describes this resource. It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a space.")
+                      value = "Application-specific resource type that describes this resource. It is created by the [client side application](https://developer.pelion.com/docs/device-management/current/resources/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a space.")
     public String getRt() {
         return rt;
     }

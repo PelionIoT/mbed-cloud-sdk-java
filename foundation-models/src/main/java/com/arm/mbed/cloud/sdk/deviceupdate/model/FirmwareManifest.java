@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.deviceupdate.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Hashtable;
@@ -36,14 +37,34 @@ public class FirmwareManifest implements SdkModel {
     private final Date createdAt;
 
     /**
-     * The size of the datafile in bytes.
+     * The size of the firmware manifest in bytes.
      */
     private final long datafileSize;
 
     /**
-     * The URL of the firmware manifest binary.
+     * The URL of the ASN.1 DER-encoded firmware manifest binary.
      */
     private final String datafileUrl;
+
+    /**
+     * Digest (SHA256, hex-encoded) of the payload to deliver to the device.
+     */
+    private final String deliveredPayloadDigest;
+
+    /**
+     * The size in bytes of the payload to deliver to the device.
+     */
+    private final long deliveredPayloadSize;
+
+    /**
+     * Type of the payload to deliver to the device (full or delta image).
+     */
+    private final FirmwareManifestDeliveredPayloadType deliveredPayloadType;
+
+    /**
+     * The URL of the payload to deliver to the device.
+     */
+    private final String deliveredPayloadUrl;
 
     /**
      * The description of the firmware manifest.
@@ -51,9 +72,14 @@ public class FirmwareManifest implements SdkModel {
     private String description;
 
     /**
-     * The class of the device.
+     * The device class ID.
      */
     private final String deviceClass;
+
+    /**
+     * The device vendor ID.
+     */
+    private final String deviceVendor;
 
     /**
      * The firmware manifest ID.
@@ -66,14 +92,38 @@ public class FirmwareManifest implements SdkModel {
     private final String keyTableUrl;
 
     /**
-     * The name of the object.
+     * Version of the manifest schema (1 or 3).
      */
+    private final FirmwareManifestSchemaVersion manifestSchemaVersion;
+
+    /**
+     * The name of the manifest.
+     */
+    @Required
     private String name;
+
+    /**
+     * Raw manifest in JSON format, parsed from ASN.1 DER encoding. Fields may change. Backwards compatibility is not
+     * guaranteed. Recommended for debugging only.
+     * 
+     */
+    private final Object parsedRawManifest;
+
+    /**
+     * Digest (SHA256, hex-encoded) of the currently installed payload.
+     */
+    private final String precursorPayloadDigest;
 
     /**
      * The firmware manifest version as a timestamp.
      */
     private final Date timestamp;
+
+    /**
+     * Update priority, passed to the application callback when an update is performed. Allows the application to make
+     * application-specific decisions.
+     */
+    private final long updatePriority;
 
     /**
      * The time the entity was updated.
@@ -91,36 +141,69 @@ public class FirmwareManifest implements SdkModel {
      * @param createdAt
      *            The time the entity was created.
      * @param datafileSize
-     *            The size of the datafile in bytes.
+     *            The size of the firmware manifest in bytes.
      * @param datafileUrl
-     *            The URL of the firmware manifest binary.
+     *            The URL of the ASN.1 DER-encoded firmware manifest binary.
+     * @param deliveredPayloadDigest
+     *            Digest (SHA256, hex-encoded) of the payload to deliver to the device.
+     * @param deliveredPayloadSize
+     *            The size in bytes of the payload to deliver to the device.
+     * @param deliveredPayloadType
+     *            Type of the payload to deliver to the device (full or delta image).
+     * @param deliveredPayloadUrl
+     *            The URL of the payload to deliver to the device.
      * @param description
      *            The description of the firmware manifest.
      * @param deviceClass
-     *            The class of the device.
+     *            The device class ID.
+     * @param deviceVendor
+     *            The device vendor ID.
      * @param id
      *            The firmware manifest ID.
      * @param keyTableUrl
      *            The key table of pre-shared keys for devices.
+     * @param manifestSchemaVersion
+     *            Version of the manifest schema (1 or 3).
      * @param name
-     *            The name of the object.
+     *            The name of the manifest.
+     * @param parsedRawManifest
+     *            Raw manifest in JSON format, parsed from ASN.1 DER encoding. Fields may change. Backwards
+     *            compatibility is not guaranteed. Recommended for debugging only.
+     * 
+     * @param precursorPayloadDigest
+     *            Digest (SHA256, hex-encoded) of the currently installed payload.
      * @param timestamp
      *            The firmware manifest version as a timestamp.
+     * @param updatePriority
+     *            Update priority, passed to the application callback when an update is performed. Allows the
+     *            application to make application-specific decisions.
      * @param updatedAt
      *            The time the entity was updated.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public FirmwareManifest(Date createdAt, long datafileSize, String datafileUrl, String description,
-                            String deviceClass, String id, String keyTableUrl, String name, Date timestamp,
-                            Date updatedAt) {
+    public FirmwareManifest(Date createdAt, long datafileSize, String datafileUrl, String deliveredPayloadDigest,
+                            long deliveredPayloadSize, FirmwareManifestDeliveredPayloadType deliveredPayloadType,
+                            String deliveredPayloadUrl, String description, String deviceClass, String deviceVendor,
+                            String id, String keyTableUrl, FirmwareManifestSchemaVersion manifestSchemaVersion,
+                            String name, Object parsedRawManifest, String precursorPayloadDigest, Date timestamp,
+                            long updatePriority, Date updatedAt) {
         super();
         this.createdAt = createdAt;
         this.datafileSize = datafileSize;
         this.datafileUrl = datafileUrl;
+        this.deliveredPayloadDigest = deliveredPayloadDigest;
+        this.deliveredPayloadSize = deliveredPayloadSize;
+        this.deliveredPayloadType = deliveredPayloadType;
+        this.deliveredPayloadUrl = deliveredPayloadUrl;
         this.deviceClass = deviceClass;
+        this.deviceVendor = deviceVendor;
         this.keyTableUrl = keyTableUrl;
+        this.manifestSchemaVersion = manifestSchemaVersion;
+        this.parsedRawManifest = parsedRawManifest;
+        this.precursorPayloadDigest = precursorPayloadDigest;
         this.timestamp = timestamp;
+        this.updatePriority = updatePriority;
         this.updatedAt = updatedAt;
         setDescription(description);
         setId(id);
@@ -143,12 +226,23 @@ public class FirmwareManifest implements SdkModel {
         this(firmwareManifest == null ? new Date() : firmwareManifest.createdAt,
              firmwareManifest == null ? 0 : firmwareManifest.datafileSize,
              firmwareManifest == null ? (String) null : firmwareManifest.datafileUrl,
+             firmwareManifest == null ? (String) null : firmwareManifest.deliveredPayloadDigest,
+             firmwareManifest == null ? 0 : firmwareManifest.deliveredPayloadSize,
+             firmwareManifest == null ? FirmwareManifestDeliveredPayloadType.getDefault()
+                                      : firmwareManifest.deliveredPayloadType,
+             firmwareManifest == null ? (String) null : firmwareManifest.deliveredPayloadUrl,
              firmwareManifest == null ? (String) null : firmwareManifest.description,
              firmwareManifest == null ? (String) null : firmwareManifest.deviceClass,
+             firmwareManifest == null ? (String) null : firmwareManifest.deviceVendor,
              firmwareManifest == null ? (String) null : firmwareManifest.id,
              firmwareManifest == null ? (String) null : firmwareManifest.keyTableUrl,
+             firmwareManifest == null ? FirmwareManifestSchemaVersion.getDefault()
+                                      : firmwareManifest.manifestSchemaVersion,
              firmwareManifest == null ? (String) null : firmwareManifest.name,
+             firmwareManifest == null ? (Object) null : firmwareManifest.parsedRawManifest,
+             firmwareManifest == null ? (String) null : firmwareManifest.precursorPayloadDigest,
              firmwareManifest == null ? new Date() : firmwareManifest.timestamp,
+             firmwareManifest == null ? 0 : firmwareManifest.updatePriority,
              firmwareManifest == null ? new Date() : firmwareManifest.updatedAt);
     }
 
@@ -156,8 +250,10 @@ public class FirmwareManifest implements SdkModel {
      * Constructor.
      */
     public FirmwareManifest() {
-        this(new Date(), 0, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             new Date(), new Date());
+        this(new Date(), 0, (String) null, (String) null, 0, FirmwareManifestDeliveredPayloadType.getDefault(),
+             (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
+             FirmwareManifestSchemaVersion.getDefault(), (String) null, (Object) null, (String) null, new Date(), 0,
+             new Date());
     }
 
     /**
@@ -186,23 +282,50 @@ public class FirmwareManifest implements SdkModel {
      * @param createdAt
      *            The time the entity was created.
      * @param datafileSize
-     *            The size of the datafile in bytes.
+     *            The size of the firmware manifest in bytes.
      * @param datafileUrl
-     *            The URL of the firmware manifest binary.
+     *            The URL of the ASN.1 DER-encoded firmware manifest binary.
+     * @param deliveredPayloadDigest
+     *            Digest (SHA256, hex-encoded) of the payload to deliver to the device.
+     * @param deliveredPayloadSize
+     *            The size in bytes of the payload to deliver to the device.
+     * @param deliveredPayloadType
+     *            Type of the payload to deliver to the device (full or delta image).
+     * @param deliveredPayloadUrl
+     *            The URL of the payload to deliver to the device.
      * @param deviceClass
-     *            The class of the device.
+     *            The device class ID.
+     * @param deviceVendor
+     *            The device vendor ID.
      * @param keyTableUrl
      *            The key table of pre-shared keys for devices.
+     * @param manifestSchemaVersion
+     *            Version of the manifest schema (1 or 3).
+     * @param parsedRawManifest
+     *            Raw manifest in JSON format, parsed from ASN.1 DER encoding. Fields may change. Backwards
+     *            compatibility is not guaranteed. Recommended for debugging only.
+     * 
+     * @param precursorPayloadDigest
+     *            Digest (SHA256, hex-encoded) of the currently installed payload.
      * @param timestamp
      *            The firmware manifest version as a timestamp.
+     * @param updatePriority
+     *            Update priority, passed to the application callback when an update is performed. Allows the
+     *            application to make application-specific decisions.
      * @param updatedAt
      *            The time the entity was updated.
      */
     @Internal
-    public FirmwareManifest(Date createdAt, long datafileSize, String datafileUrl, String deviceClass,
-                            String keyTableUrl, Date timestamp, Date updatedAt) {
-        this(createdAt, datafileSize, datafileUrl, (String) null, deviceClass, (String) null, keyTableUrl,
-             (String) null, timestamp, updatedAt);
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public FirmwareManifest(Date createdAt, long datafileSize, String datafileUrl, String deliveredPayloadDigest,
+                            long deliveredPayloadSize, FirmwareManifestDeliveredPayloadType deliveredPayloadType,
+                            String deliveredPayloadUrl, String deviceClass, String deviceVendor, String keyTableUrl,
+                            FirmwareManifestSchemaVersion manifestSchemaVersion, Object parsedRawManifest,
+                            String precursorPayloadDigest, Date timestamp, long updatePriority, Date updatedAt) {
+        this(createdAt, datafileSize, datafileUrl, deliveredPayloadDigest, deliveredPayloadSize, deliveredPayloadType,
+             deliveredPayloadUrl, (String) null, deviceClass, deviceVendor, (String) null, keyTableUrl,
+             manifestSchemaVersion, (String) null, parsedRawManifest, precursorPayloadDigest, timestamp, updatePriority,
+             updatedAt);
     }
 
     /**
@@ -215,7 +338,7 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the size of the datafile in bytes.
+     * Gets the size of the firmware manifest in bytes.
      * 
      * @return datafileSize
      */
@@ -224,12 +347,48 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the url of the firmware manifest binary.
+     * Gets the url of the asn.1 der-encoded firmware manifest binary.
      * 
      * @return datafileUrl
      */
     public String getDatafileUrl() {
         return datafileUrl;
+    }
+
+    /**
+     * Gets digest (sha256, hex-encoded) of the payload to deliver to the device.
+     * 
+     * @return deliveredPayloadDigest
+     */
+    public String getDeliveredPayloadDigest() {
+        return deliveredPayloadDigest;
+    }
+
+    /**
+     * Gets the size in bytes of the payload to deliver to the device.
+     * 
+     * @return deliveredPayloadSize
+     */
+    public long getDeliveredPayloadSize() {
+        return deliveredPayloadSize;
+    }
+
+    /**
+     * Gets type of the payload to deliver to the device (full or delta image).
+     * 
+     * @return deliveredPayloadType
+     */
+    public FirmwareManifestDeliveredPayloadType getDeliveredPayloadType() {
+        return deliveredPayloadType;
+    }
+
+    /**
+     * Gets the url of the payload to deliver to the device.
+     * 
+     * @return deliveredPayloadUrl
+     */
+    public String getDeliveredPayloadUrl() {
+        return deliveredPayloadUrl;
     }
 
     /**
@@ -265,12 +424,21 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the class of the device.
+     * Gets the device class id.
      * 
      * @return deviceClass
      */
     public String getDeviceClass() {
         return deviceClass;
+    }
+
+    /**
+     * Gets the device vendor id.
+     * 
+     * @return deviceVendor
+     */
+    public String getDeviceVendor() {
+        return deviceVendor;
     }
 
     /**
@@ -286,6 +454,9 @@ public class FirmwareManifest implements SdkModel {
     /**
      * Sets the firmware manifest id.
      * 
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
+     * 
      * @param id
      *            The firmware manifest ID.
      */
@@ -299,6 +470,8 @@ public class FirmwareManifest implements SdkModel {
      * 
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[A-Fa-f0-9]{32}/} to be valid
      * 
      * @param firmwareManifestId
      *            The firmware manifest ID.
@@ -306,6 +479,16 @@ public class FirmwareManifest implements SdkModel {
     @Internal
     public void setFirmwareManifestId(String firmwareManifestId) {
         setId(firmwareManifestId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[A-Fa-f0-9]{32}"));
     }
 
     /**
@@ -318,7 +501,16 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the name of the object.
+     * Gets version of the manifest schema (1 or 3).
+     * 
+     * @return manifestSchemaVersion
+     */
+    public FirmwareManifestSchemaVersion getManifestSchemaVersion() {
+        return manifestSchemaVersion;
+    }
+
+    /**
+     * Gets the name of the manifest.
      * 
      * @return name
      */
@@ -327,14 +519,15 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Sets the name of the object.
+     * Sets the name of the manifest.
      * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
      * @param name
-     *            The name of the object.
+     *            The name of the manifest.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -346,7 +539,26 @@ public class FirmwareManifest implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isNameValid() {
-        return (name == null || name.length() <= 128);
+        return name != null && (name.length() <= 128);
+    }
+
+    /**
+     * Gets raw manifest in json format, parsed from asn.1 der encoding. fields may change. backwards compatibility is
+     * not guaranteed. recommended for debugging only.
+     * 
+     * @return parsedRawManifest
+     */
+    public Object getParsedRawManifest() {
+        return parsedRawManifest;
+    }
+
+    /**
+     * Gets digest (sha256, hex-encoded) of the currently installed payload.
+     * 
+     * @return precursorPayloadDigest
+     */
+    public String getPrecursorPayloadDigest() {
+        return precursorPayloadDigest;
     }
 
     /**
@@ -356,6 +568,16 @@ public class FirmwareManifest implements SdkModel {
      */
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    /**
+     * Gets update priority, passed to the application callback when an update is performed. allows the application to
+     * make application-specific decisions.
+     * 
+     * @return updatePriority
+     */
+    public long getUpdatePriority() {
+        return updatePriority;
     }
 
     /**
@@ -394,9 +616,13 @@ public class FirmwareManifest implements SdkModel {
     @Override
     public String toString() {
         return "FirmwareManifest [createdAt=" + createdAt + ", datafileSize=" + datafileSize + ", datafileUrl="
-               + datafileUrl + ", description=" + description + ", deviceClass=" + deviceClass + ", id=" + id
-               + ", keyTableUrl=" + keyTableUrl + ", name=" + name + ", timestamp=" + timestamp + ", updatedAt="
-               + updatedAt + "]";
+               + datafileUrl + ", deliveredPayloadDigest=" + deliveredPayloadDigest + ", deliveredPayloadSize="
+               + deliveredPayloadSize + ", deliveredPayloadType=" + deliveredPayloadType + ", deliveredPayloadUrl="
+               + deliveredPayloadUrl + ", description=" + description + ", deviceClass=" + deviceClass
+               + ", deviceVendor=" + deviceVendor + ", id=" + id + ", keyTableUrl=" + keyTableUrl
+               + ", manifestSchemaVersion=" + manifestSchemaVersion + ", name=" + name + ", parsedRawManifest="
+               + parsedRawManifest + ", precursorPayloadDigest=" + precursorPayloadDigest + ", timestamp=" + timestamp
+               + ", updatePriority=" + updatePriority + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -414,12 +640,21 @@ public class FirmwareManifest implements SdkModel {
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + Objects.hashCode(Long.valueOf(datafileSize));
         result = prime * result + ((datafileUrl == null) ? 0 : datafileUrl.hashCode());
+        result = prime * result + ((deliveredPayloadDigest == null) ? 0 : deliveredPayloadDigest.hashCode());
+        result = prime * result + Objects.hashCode(Long.valueOf(deliveredPayloadSize));
+        result = prime * result + ((deliveredPayloadType == null) ? 0 : deliveredPayloadType.hashCode());
+        result = prime * result + ((deliveredPayloadUrl == null) ? 0 : deliveredPayloadUrl.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((deviceClass == null) ? 0 : deviceClass.hashCode());
+        result = prime * result + ((deviceVendor == null) ? 0 : deviceVendor.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((keyTableUrl == null) ? 0 : keyTableUrl.hashCode());
+        result = prime * result + ((manifestSchemaVersion == null) ? 0 : manifestSchemaVersion.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((parsedRawManifest == null) ? 0 : parsedRawManifest.hashCode());
+        result = prime * result + ((precursorPayloadDigest == null) ? 0 : precursorPayloadDigest.hashCode());
         result = prime * result + ((timestamp == null) ? 0 : timestamp.hashCode());
+        result = prime * result + Objects.hashCode(Long.valueOf(updatePriority));
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         return result;
     }
@@ -481,6 +716,26 @@ public class FirmwareManifest implements SdkModel {
         } else if (!datafileUrl.equals(other.datafileUrl)) {
             return false;
         }
+        if (deliveredPayloadDigest == null) {
+            if (other.deliveredPayloadDigest != null) {
+                return false;
+            }
+        } else if (!deliveredPayloadDigest.equals(other.deliveredPayloadDigest)) {
+            return false;
+        }
+        if (deliveredPayloadSize != other.deliveredPayloadSize) {
+            return false;
+        }
+        if (deliveredPayloadType != other.deliveredPayloadType) {
+            return false;
+        }
+        if (deliveredPayloadUrl == null) {
+            if (other.deliveredPayloadUrl != null) {
+                return false;
+            }
+        } else if (!deliveredPayloadUrl.equals(other.deliveredPayloadUrl)) {
+            return false;
+        }
         if (description == null) {
             if (other.description != null) {
                 return false;
@@ -493,6 +748,13 @@ public class FirmwareManifest implements SdkModel {
                 return false;
             }
         } else if (!deviceClass.equals(other.deviceClass)) {
+            return false;
+        }
+        if (deviceVendor == null) {
+            if (other.deviceVendor != null) {
+                return false;
+            }
+        } else if (!deviceVendor.equals(other.deviceVendor)) {
             return false;
         }
         if (id == null) {
@@ -509,6 +771,9 @@ public class FirmwareManifest implements SdkModel {
         } else if (!keyTableUrl.equals(other.keyTableUrl)) {
             return false;
         }
+        if (manifestSchemaVersion != other.manifestSchemaVersion) {
+            return false;
+        }
         if (name == null) {
             if (other.name != null) {
                 return false;
@@ -516,11 +781,28 @@ public class FirmwareManifest implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
+        if (parsedRawManifest == null) {
+            if (other.parsedRawManifest != null) {
+                return false;
+            }
+        } else if (!parsedRawManifest.equals(other.parsedRawManifest)) {
+            return false;
+        }
+        if (precursorPayloadDigest == null) {
+            if (other.precursorPayloadDigest != null) {
+                return false;
+            }
+        } else if (!precursorPayloadDigest.equals(other.precursorPayloadDigest)) {
+            return false;
+        }
         if (timestamp == null) {
             if (other.timestamp != null) {
                 return false;
             }
         } else if (!timestamp.equals(other.timestamp)) {
+            return false;
+        }
+        if (updatePriority != other.updatePriority) {
             return false;
         }
         if (updatedAt == null) {
@@ -543,7 +825,7 @@ public class FirmwareManifest implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isDescriptionValid() && isNameValid();
+        return isDescriptionValid() && isIdValid() && isNameValid();
     }
 
     /**

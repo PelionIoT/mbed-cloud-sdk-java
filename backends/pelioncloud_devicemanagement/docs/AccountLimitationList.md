@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**after** | **String** | The entity ID to fetch after the given one. |  [optional]
+**after** | **String** | The entity ID to retrieve after the given one. |  [optional]
 **data** | [**List&lt;AccountLimitation&gt;**](AccountLimitation.md) | A list of entities. | 
 **hasMore** | **Boolean** | Flag indicating whether there is more results. | 
 **limit** | **Integer** | The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60; | 

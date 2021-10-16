@@ -93,6 +93,9 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     @SerializedName("object")
     private ObjectEnum object = null;
 
+    @SerializedName("order")
+    private String order = null;
+
     @SerializedName("total_count")
     private Integer totalCount = null;
 
@@ -164,12 +167,11 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * Maximum number of quota history entries contained in one paged response. minimum: 2 maximum: 1000
+     * Maximum number of quota history entries in one paged response. minimum: 2 maximum: 1000
      * 
      * @return limit
      **/
-    @ApiModelProperty(required = true,
-                      value = "Maximum number of quota history entries contained in one paged response.")
+    @ApiModelProperty(required = true, value = "Maximum number of quota history entries in one paged response.")
     public Integer getLimit() {
         return limit;
     }
@@ -195,6 +197,25 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
 
     public void setObject(ObjectEnum object) {
         this.object = object;
+    }
+
+    public ServicePackageQuotaHistoryResponse order(String order) {
+        this.order = order;
+        return this;
+    }
+
+    /**
+     * History item record order based on creation time.
+     * 
+     * @return order
+     **/
+    @ApiModelProperty(required = true, value = "History item record order based on creation time.")
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
     }
 
     public ServicePackageQuotaHistoryResponse totalCount(Integer totalCount) {
@@ -230,12 +251,13 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
                && Objects.equals(this.hasMore, servicePackageQuotaHistoryResponse.hasMore)
                && Objects.equals(this.limit, servicePackageQuotaHistoryResponse.limit)
                && Objects.equals(this.object, servicePackageQuotaHistoryResponse.object)
+               && Objects.equals(this.order, servicePackageQuotaHistoryResponse.order)
                && Objects.equals(this.totalCount, servicePackageQuotaHistoryResponse.totalCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(after, data, hasMore, limit, object, totalCount);
+        return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
     }
 
     @Override
@@ -248,6 +270,7 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
         sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
         sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
+        sb.append("    order: ").append(toIndentedString(order)).append("\n");
         sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
         sb.append("}");
         return sb.toString();

@@ -197,6 +197,12 @@ public final class DarkThemeImageAdapter {
                 return DarkThemeImageReference.BRAND_LOGO_LANDSCAPE;
             case BRAND_LOGO_EMAIL:
                 return DarkThemeImageReference.BRAND_LOGO_EMAIL;
+            case APP_LOGO_LANDSCAPE:
+                return DarkThemeImageReference.APP_LOGO_LANDSCAPE;
+            case APP_LOGO_PORTRAIT:
+                return DarkThemeImageReference.APP_LOGO_PORTRAIT;
+            case APP_LOGO_SQUARE:
+                return DarkThemeImageReference.APP_LOGO_SQUARE;
             case DESKTOP_BACKGROUND_LANDSCAPE:
                 return DarkThemeImageReference.DESKTOP_BACKGROUND_LANDSCAPE;
             case DESKTOP_BACKGROUND_SQUARE:

@@ -21,7 +21,7 @@ public class DeviceGroup implements SdkModel {
     private static final long serialVersionUID = 1596529818452293L;
 
     /**
-     * The time the campaign was created.
+     * The time the group was created.
      */
     private final Date createdAt;
 
@@ -52,7 +52,7 @@ public class DeviceGroup implements SdkModel {
     private String name;
 
     /**
-     * The time the object was updated.
+     * The time this object was updated.
      */
     private final Date updatedAt;
 
@@ -65,7 +65,7 @@ public class DeviceGroup implements SdkModel {
      * Note: Should not be used. Use {@link #DeviceGroup()} instead.
      * 
      * @param createdAt
-     *            The time the campaign was created.
+     *            The time the group was created.
      * @param customAttributes
      *            Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited
      *            to 128 characters. Updating this field replaces existing contents.
@@ -78,7 +78,7 @@ public class DeviceGroup implements SdkModel {
      * @param name
      *            Name of the group.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time this object was updated.
      */
     @Internal
     public DeviceGroup(Date createdAt, Map<String, String> customAttributes, String description, int devicesCount,
@@ -145,11 +145,11 @@ public class DeviceGroup implements SdkModel {
      * Note: Should not be used. Use {@link #DeviceGroup()} instead.
      * 
      * @param createdAt
-     *            The time the campaign was created.
+     *            The time the group was created.
      * @param devicesCount
      *            The number of devices in this group.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time this object was updated.
      */
     @Internal
     public DeviceGroup(Date createdAt, int devicesCount, Date updatedAt) {
@@ -158,7 +158,7 @@ public class DeviceGroup implements SdkModel {
     }
 
     /**
-     * Gets the time the campaign was created.
+     * Gets the time the group was created.
      * 
      * @return createdAt
      */
@@ -214,7 +214,7 @@ public class DeviceGroup implements SdkModel {
      * Sets the description of the group.
      * 
      * <p>
-     * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
+     * Note: the length of the string has to be less than or equal to {@code 1024} to be valid
      * 
      * @param description
      *            The description of the group.
@@ -230,7 +230,7 @@ public class DeviceGroup implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isDescriptionValid() {
-        return (description == null || description.length() <= 2000);
+        return (description == null || description.length() <= 1024);
     }
 
     /**
@@ -310,7 +310,7 @@ public class DeviceGroup implements SdkModel {
     }
 
     /**
-     * Gets the time the object was updated.
+     * Gets the time this object was updated.
      * 
      * @return updatedAt
      */

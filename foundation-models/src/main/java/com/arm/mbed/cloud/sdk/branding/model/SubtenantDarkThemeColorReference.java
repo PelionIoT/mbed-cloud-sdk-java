@@ -25,6 +25,22 @@ public enum SubtenantDarkThemeColorReference implements SdkEnum {
 
     INFO_FONT_COLOR("info_font_color"),
 
+    MENU_BACKGROUND_COLOR("menu_background_color"),
+
+    MENU_TEXT_COLOR("menu_text_color"),
+
+    NAV_MENU_ACTIVE_BACKGROUND("nav_menu_active_background"),
+
+    NAV_MENU_ACTIVE_BACKGROUND_FONT_COLOR("nav_menu_active_background_font_color"),
+
+    NAV_MENU_BACKGROUND("nav_menu_background"),
+
+    NAV_MENU_BACKGROUND_FONT_COLOR("nav_menu_background_font_color"),
+
+    NAV_MENU_HIGHLIGHT("nav_menu_highlight"),
+
+    NAV_MENU_HIGHLIGHT_FONT_COLOR("nav_menu_highlight_font_color"),
+
     PRIMARY("primary"),
 
     PRIMARY_FONT_COLOR("primary_font_color"),

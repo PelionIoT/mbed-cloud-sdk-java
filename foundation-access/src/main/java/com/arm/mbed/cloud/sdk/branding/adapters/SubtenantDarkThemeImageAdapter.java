@@ -91,6 +91,12 @@ public final class SubtenantDarkThemeImageAdapter {
                 return SubtenantDarkThemeImageReference.BRAND_LOGO_LANDSCAPE;
             case BRAND_LOGO_EMAIL:
                 return SubtenantDarkThemeImageReference.BRAND_LOGO_EMAIL;
+            case APP_LOGO_LANDSCAPE:
+                return SubtenantDarkThemeImageReference.APP_LOGO_LANDSCAPE;
+            case APP_LOGO_PORTRAIT:
+                return SubtenantDarkThemeImageReference.APP_LOGO_PORTRAIT;
+            case APP_LOGO_SQUARE:
+                return SubtenantDarkThemeImageReference.APP_LOGO_SQUARE;
             case DESKTOP_BACKGROUND_LANDSCAPE:
                 return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_LANDSCAPE;
             case DESKTOP_BACKGROUND_SQUARE:

@@ -5,12 +5,15 @@ package com.arm.mbed.cloud.sdk.branding.model;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * Unit tests for Model DarkThemeColor.
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@Ignore
 public class TestDarkThemeColor {
     /**
      * Tests the clone method.

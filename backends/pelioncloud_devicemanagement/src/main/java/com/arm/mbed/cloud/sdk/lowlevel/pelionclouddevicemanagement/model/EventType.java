@@ -62,7 +62,7 @@ public class EventType implements Serializable {
      * 
      * @return campaignId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "ID of the associated campaign.")
+    @ApiModelProperty(example = "016e652be671000000000001001001e5", value = "ID of the associated campaign.")
     public String getCampaignId() {
         return campaignId;
     }
@@ -176,7 +176,7 @@ public class EventType implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name: always 'event-type'.")
+    @ApiModelProperty(example = "event-type", value = "Entity name: always 'event-type'.")
     public String getObject() {
         return object;
     }

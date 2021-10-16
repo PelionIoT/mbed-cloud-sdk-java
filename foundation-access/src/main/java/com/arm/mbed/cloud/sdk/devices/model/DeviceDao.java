@@ -199,7 +199,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(String)}
      * 
      * @param id
-     *            The ID of the device.
+     *            The [Device
+     *            ID](https://developer.pelion.com/docs/device-management/current/connecting/device-identity.html)
+     *            created by Device Management.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */

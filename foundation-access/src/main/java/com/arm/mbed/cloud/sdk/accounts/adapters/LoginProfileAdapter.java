@@ -89,7 +89,8 @@ public final class LoginProfileAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final com.arm.mbed.cloud.sdk.accounts.model.LoginProfile loginProfile = new com.arm.mbed.cloud.sdk.accounts.model.LoginProfile(translateToLoginProfileType(toBeMapped.getType()));
+        final com.arm.mbed.cloud.sdk.accounts.model.LoginProfile loginProfile = new com.arm.mbed.cloud.sdk.accounts.model.LoginProfile(toBeMapped.getForeignId(),
+                                                                                                                                       translateToLoginProfileType(toBeMapped.getType()));
         loginProfile.setId(toBeMapped.getId());
         loginProfile.setName(toBeMapped.getName());
         return loginProfile;

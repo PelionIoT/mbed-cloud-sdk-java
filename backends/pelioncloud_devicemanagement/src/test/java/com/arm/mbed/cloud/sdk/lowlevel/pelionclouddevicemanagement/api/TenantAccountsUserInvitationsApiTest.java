@@ -20,9 +20,10 @@ public class TenantAccountsUserInvitationsApiTest {
     /**
      * Create a user invitation.
      *
-     * Invite a new or existing user. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * Invite a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
+     * **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;:
+     * &lt;access_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d {\&quot;email\&quot;:
      * \&quot;myemail@company.com\&quot;} &#x60;&#x60;&#x60;
      */
     @Test
@@ -37,9 +38,10 @@ public class TenantAccountsUserInvitationsApiTest {
     /**
      * Delete a user invitation.
      *
-     * Delete an active user invitation sent to a new or existing user. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * Delete an active user invitation sent to a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This endpoint is
+     * restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void deleteAccountInvitationTest() {
@@ -53,9 +55,10 @@ public class TenantAccountsUserInvitationsApiTest {
     /**
      * Details of a user invitation.
      *
-     * Retrieve details of an active user invitation sent for a new or existing user. **Example:** &#x60;&#x60;&#x60;
-     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Retrieve details of an active user invitation sent for a new or existing user. &lt;b&gt;Note:&lt;/b&gt; This
+     * endpoint is restricted to administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \\ -H
+     * &#39;Authorization: Bearer &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAccountInvitationTest() {
@@ -67,11 +70,12 @@ public class TenantAccountsUserInvitationsApiTest {
     }
 
     /**
-     * Get the details of all user invitations.
+     * Get user invitations.
      *
-     * Retrieve details of all active user invitations sent for new or existing users. **Example:** &#x60;&#x60;&#x60;
-     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations \\ -H
-     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * Retrieve an array of active user invitations. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to
+     * administrators. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations \\ -H &#39;Authorization: Bearer
+     * &lt;access_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getAllAccountInvitationsTest() {

@@ -27,7 +27,7 @@ Method | HTTP request | Description
 
 Archive a campaign.
 
-Archive a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Archive a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc649000000000001001000b8/archive \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 Create a campaign
 
-Create an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ -d &#39;{   \&quot;campaign_strategy\&quot;: \&quot;one-shot\&quot;,   \&quot;description\&quot;: \&quot;Campaign is for ...\&quot;,   \&quot;device_filter\&quot;: \&quot;id__eq&#x3D;123400000000000000000000000ae45\&quot;,   \&quot;name\&quot;: \&quot;campaign\&quot;,   \&quot;root_manifest_id\&quot;: \&quot;5678000000000000000000000000bd98\&quot;, }&#39; &#x60;&#x60;&#x60; 
+Create an update campaign.  To include a filter for targeted devices, refer to the filter using &#x60;&lt;filter_id&gt;&#x60; in the message body. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ -d &#39;{   \&quot;campaign_strategy\&quot;: \&quot;one-shot\&quot;,   \&quot;description\&quot;: \&quot;Campaign is for ...\&quot;,   \&quot;device_filter\&quot;: \&quot;&lt;filter_id&gt;\&quot;,   \&quot;name\&quot;: \&quot;campaign\&quot;,   \&quot;root_manifest_id\&quot;: \&quot;56780000000000a5b70000000000bd98\&quot; }&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 Delete a campaign
 
-Delete an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Delete an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123457f9012ab567890120000789012 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 Get a list of events grouped by summary
 
-Get a list of events grouped by summary. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get a list of events grouped by summary. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/skipped/event_types \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -228,7 +228,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**| The campaign ID. |
- **summaryStatusId** | **String**| The summary status. For example, fail. |
+ **summaryStatusId** | **String**| The summary status. For example, fail. | [enum: fail, success, info, skipped]
 
 ### Return type
 
@@ -249,7 +249,7 @@ Name | Type | Description  | Notes
 
 Get an event type for a campaign
 
-Get the count for a specific event type; for example, succeeded, failed, or skipped. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types/12345678901234567890123456789012 \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get the count for a specific event type, for example, succeeded, failed or skipped. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/success/event_types/sys_112 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -271,7 +271,7 @@ Bearer.setApiKey("YOUR API KEY");
 DeviceUpdateCampaignsApi apiInstance = new DeviceUpdateCampaignsApi();
 String campaignId = "campaignId_example"; // String | The campaign ID.
 String summaryStatusId = "summaryStatusId_example"; // String | The summary status. For example, fail.
-String eventTypeId = "eventTypeId_example"; // String | The event type parameter. For example, UPD4_FAIL_101.
+String eventTypeId = "eventTypeId_example"; // String | The event type parameter. Event types are grouped into the four values of the summary_status, i.e. fail, success, info and skipped. success: SYS_112, UPD4_OK_M1, UPD1_OK_1, UPD4_OK_100, UPD2_OK_19, UPD2_OK_1, UPD2_OK_18 fail: UPD4_FAIL_508, UPD4_FAIL_217, UPD4_FAIL_305, UPD4_FAIL_405, UPD4_FAIL_511, UPD4_FAIL_220, UPD1_FAIL_6, UPD4_FAIL_302, UPD2_FAIL_11, UPD4_FAIL_219, SYS_103, UPD4_FAIL_407, UPD4_FAIL_224, SYS_111, UPD4_FAIL_210, UPD4_FAIL_306, UPD2_FAIL_14, UPD4_FAIL_221, UPD4_FAIL_315, UPD4_FAIL_403, UPD2_FAIL_12, UPD4_FAIL_207, UPD4_FAIL_215, UPD4_FAIL_504, UPD2_FAIL_3, UPD4_FAIL_103, UPD2_FAIL_16, UPD2_FAIL_6, UPD4_FAIL_101, UPD4_FAIL_202, UPD4_FAIL_313, UPD4_FAIL_209, UPD4_FAIL_301, UPD2_FAIL_4, SYS_123, UPD4_FAIL_314, UPD4_FAIL_205, UPD4_FAIL_212, UPD4_FAIL_311, UPD4_FAIL_304, UPD4_FAIL_223, UPD4_FAIL_226, UPD1_FAIL_2, UPD4_FAIL_203, UPD4_FAIL_507, UPD4_FAIL_402, UPD4_FAIL_204, UPD4_FAIL_510, UPD1_FAIL_7, UPD4_FAIL_218, UPD1_FAIL_8, UPD2_FAIL_5, UPD4_FAIL_201, UPD4_FAIL_213, UPD4_FAIL_400, UPD2_FAIL_17, UPD4_FAIL_310, UPD4_FAIL_206, UPD4_FAIL_102, UPD2_FAIL_7, UPD1_FAIL_9, UPD4_FAIL_22, UPD4_FAIL_502, UPD4_FAIL_211, UPD1_FAIL_4, UPD1_FAIL_3, UPD4_FAIL_409, UPD4_FAIL_408, UPD4_FAIL_200, SYS_104, UPD2_FAIL_10, UPD2_FAIL_15, UPD4_FAIL_216, UPD4_FAIL_214, UPD4_FAIL_308, UPD4_FAIL_401, UPD1_FAIL_5, UPD2_FAIL_13, UPD4_FAIL_208, UPD2_FAIL_2, UPD4_FAIL_312, UPD4_FAIL_509, UPD4_FAIL_303, UPD4_FAIL_512, UPD2_FAIL_9, UPD4_FAIL_316, UPD4_FAIL_506, SYS_101, UPD4_FAIL_309, UPD4_FAIL_307, UPD4_FAIL_404, UPD4_FAIL_503, UPD4_FAIL_225, UPD4_FAIL_300, UPD4_FAIL_500, UPD4_FAIL_505, UPD4_FAIL_406, UPD4_FAIL_222, UPD4_FAIL_501, UPD2_FAIL_8, SYS_124 info: UPD1_STATE_0, UPD2_REPORT_HASH, UPD1_REPORT_HASH, UPD2_STATE_5, UPD2_STATE_0, UPD2_STATE_4, UPD2_STATE_3, SYS_107, SYS_105, SYS_106, UPD1_REPORT_VERSION, UPD1_STATE_2, SYS_116, SYS_108, SYS_100, UPD2_STATE_8, UPD2_STATE_7, SYS_120, UPD2_STATE_1, SYS_113, UPD2_STATE_6, UPD2_REPORT_VERSION, SYS_115, UPD2_STATE_2, SYS_114, UPD1_STATE_3, UPD1_STATE_1, SYS_125 skipped: SYS_121, SYS_118, SYS_122, SYS_110, SYS_117 
 try {
     EventType result = apiInstance.updateCampaignEventTypesRetrieve(campaignId, summaryStatusId, eventTypeId);
     System.out.println(result);
@@ -286,8 +286,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**| The campaign ID. |
- **summaryStatusId** | **String**| The summary status. For example, fail. |
- **eventTypeId** | **String**| The event type parameter. For example, UPD4_FAIL_101. |
+ **summaryStatusId** | **String**| The summary status. For example, fail. | [enum: fail, success, info, skipped]
+ **eventTypeId** | **String**| The event type parameter. Event types are grouped into the four values of the summary_status, i.e. fail, success, info and skipped. success: SYS_112, UPD4_OK_M1, UPD1_OK_1, UPD4_OK_100, UPD2_OK_19, UPD2_OK_1, UPD2_OK_18 fail: UPD4_FAIL_508, UPD4_FAIL_217, UPD4_FAIL_305, UPD4_FAIL_405, UPD4_FAIL_511, UPD4_FAIL_220, UPD1_FAIL_6, UPD4_FAIL_302, UPD2_FAIL_11, UPD4_FAIL_219, SYS_103, UPD4_FAIL_407, UPD4_FAIL_224, SYS_111, UPD4_FAIL_210, UPD4_FAIL_306, UPD2_FAIL_14, UPD4_FAIL_221, UPD4_FAIL_315, UPD4_FAIL_403, UPD2_FAIL_12, UPD4_FAIL_207, UPD4_FAIL_215, UPD4_FAIL_504, UPD2_FAIL_3, UPD4_FAIL_103, UPD2_FAIL_16, UPD2_FAIL_6, UPD4_FAIL_101, UPD4_FAIL_202, UPD4_FAIL_313, UPD4_FAIL_209, UPD4_FAIL_301, UPD2_FAIL_4, SYS_123, UPD4_FAIL_314, UPD4_FAIL_205, UPD4_FAIL_212, UPD4_FAIL_311, UPD4_FAIL_304, UPD4_FAIL_223, UPD4_FAIL_226, UPD1_FAIL_2, UPD4_FAIL_203, UPD4_FAIL_507, UPD4_FAIL_402, UPD4_FAIL_204, UPD4_FAIL_510, UPD1_FAIL_7, UPD4_FAIL_218, UPD1_FAIL_8, UPD2_FAIL_5, UPD4_FAIL_201, UPD4_FAIL_213, UPD4_FAIL_400, UPD2_FAIL_17, UPD4_FAIL_310, UPD4_FAIL_206, UPD4_FAIL_102, UPD2_FAIL_7, UPD1_FAIL_9, UPD4_FAIL_22, UPD4_FAIL_502, UPD4_FAIL_211, UPD1_FAIL_4, UPD1_FAIL_3, UPD4_FAIL_409, UPD4_FAIL_408, UPD4_FAIL_200, SYS_104, UPD2_FAIL_10, UPD2_FAIL_15, UPD4_FAIL_216, UPD4_FAIL_214, UPD4_FAIL_308, UPD4_FAIL_401, UPD1_FAIL_5, UPD2_FAIL_13, UPD4_FAIL_208, UPD2_FAIL_2, UPD4_FAIL_312, UPD4_FAIL_509, UPD4_FAIL_303, UPD4_FAIL_512, UPD2_FAIL_9, UPD4_FAIL_316, UPD4_FAIL_506, SYS_101, UPD4_FAIL_309, UPD4_FAIL_307, UPD4_FAIL_404, UPD4_FAIL_503, UPD4_FAIL_225, UPD4_FAIL_300, UPD4_FAIL_500, UPD4_FAIL_505, UPD4_FAIL_406, UPD4_FAIL_222, UPD4_FAIL_501, UPD2_FAIL_8, SYS_124 info: UPD1_STATE_0, UPD2_REPORT_HASH, UPD1_REPORT_HASH, UPD2_STATE_5, UPD2_STATE_0, UPD2_STATE_4, UPD2_STATE_3, SYS_107, SYS_105, SYS_106, UPD1_REPORT_VERSION, UPD1_STATE_2, SYS_116, SYS_108, SYS_100, UPD2_STATE_8, UPD2_STATE_7, SYS_120, UPD2_STATE_1, SYS_113, UPD2_STATE_6, UPD2_REPORT_VERSION, SYS_115, UPD2_STATE_2, SYS_114, UPD1_STATE_3, UPD1_STATE_1, SYS_125 skipped: SYS_121, SYS_118, SYS_122, SYS_110, SYS_117  |
 
 ### Return type
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
 
 List all campaigns
 
-Get update campaigns for devices specified by a filter. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get update campaigns for devices specified by a filter. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -459,7 +459,7 @@ Name | Type | Description  | Notes
 
 List all campaign device metadata
 
-Get metadata for all devices in a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get metadata for all devices in a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56790120000789012/campaign-device-metadata \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 
 Get a campaign device metadata
 
-Get update campaign metadata for a specific device. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012 \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get update campaign metadata for a specific device. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a89900000655cd94fa8/campaign-device-metadata/016e83ddc645000000000001001000f6 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -579,7 +579,7 @@ Name | Type | Description  | Notes
 
 Get campaign metrics
 
-Get [information](https://www.pelion.com/docs/device-management/current/updating-firmware/campaign-metrics-in-portal.html) for a campaign based on **SUCCESS**, **FAIL**, or **SKIPPED** criteria for each device. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/metrics \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get [information](https://developer.pelion.com/docs/device-management/current/updating-firmware/campaign-metrics-in-portal.html) for a campaign based on **SUCCESS**, **FAIL**, or **SKIPPED** criteria for each device. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123467f9012ab567890120000789012/metrics \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -634,7 +634,7 @@ Name | Type | Description  | Notes
 
 Get a campaign.
 
-Get an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56890120000789012 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -689,7 +689,7 @@ Name | Type | Description  | Notes
 
 Start a campaign.
 
-Start a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Start a campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/5d645eaec2315a8900002e655cd94fa8/start \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -744,7 +744,7 @@ Name | Type | Description  | Notes
 
 Get statistics for a campaign
 
-Get a list of statistics for a campaign, including the number of devices reporting specific event codes. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get a list of statistics for a campaign, including the number of devices reporting specific event codes. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/update-campaigns/11234567f9012ab56780120000789012/statistics \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 Get a status summary
 
-Get the count of successfully updated, skipped, and failed devices.  &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012 \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Get the count of successfully updated, skipped, and failed devices. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/fail \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -835,7 +835,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**| The campaign ID. |
- **summaryStatusId** | **String**| The summary status. For example, fail. |
+ **summaryStatusId** | **String**| The summary status. For example, fail. | [enum: fail, success, info, skipped]
 
 ### Return type
 
@@ -856,7 +856,7 @@ Name | Type | Description  | Notes
 
 Stop a campaign.
 
-Stop a campaign. Stopping is a process that requires the campaign go through several [phases](../updating-firmware/running-update-campaigns.html#stopping). &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; &#x60;&#x60;&#x60; 
+Stop a campaign. Stopping is a process that requires the campaign go through several [phases](https://developer.pelion.com/docs/device-management/current/updating-firmware/device-management-update-using-the-apis.html). &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/update-campaigns/016e83ddc645000000000001001000b5/stop \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -911,7 +911,7 @@ Name | Type | Description  | Notes
 
 Modify a campaign
 
-Modify an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \\ -H &#39;Authorization: &lt;valid access token&gt;&#39; \\ d &#39;{   \&quot;description\&quot;: \&quot;Campaign is for ...\&quot;,   \&quot;device_filter\&quot;: \&quot;id__eq&#x3D;123400000000000000000000000ae45\&quot;,   \&quot;name\&quot;: \&quot;campaign\&quot;,   \&quot;root_manifest_id\&quot;: \&quot;5678000000000000000000000000bd98\&quot;, }&#39; &#x60;&#x60;&#x60; 
+Modify an update campaign. &lt;br&gt; **Usage example:** &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v3/update-campaigns/1123007f9012ab567890120000789012 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ d &#39;{   \&quot;description\&quot;: \&quot;Campaign is for ...\&quot;,   \&quot;device_filter\&quot;: \&quot;123400000000000000000000000ae45\&quot;,   \&quot;name\&quot;: \&quot;campaign\&quot;,   \&quot;root_manifest_id\&quot;: \&quot;5678000000000000000000000000bd98\&quot;, }&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java

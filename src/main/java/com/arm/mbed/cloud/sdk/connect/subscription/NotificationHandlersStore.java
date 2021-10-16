@@ -463,7 +463,17 @@ public class NotificationHandlersStore implements Closeable {
                                                                                               execute(Integer code) {
                                                                                            status.getAndSet(WebsocketClient.StatusCode.getStatus(code));
                                                                                        }
-                                                                                   }, null),
+                                                                                   }, new Callback<Throwable>() {
+
+                                                                                       @Override
+                                                                                       public void
+                                                                                              execute(Throwable throwable) {
+                                                                                           logger.logWarn("WebSocket error, restart WebSocket.",
+                                                                                                          throwable);
+                                                                                           restartWebSocketClient();
+                                                                                       }
+
+                                                                                   }),
                                                           module.getLogger());
         }
 
@@ -481,6 +491,11 @@ public class NotificationHandlersStore implements Closeable {
             needsToStop.getAndSet(false);
             currentState.getAndSet(State.START);
             runStateMachine();
+        }
+
+        private void restartWebSocketClient() {
+            close();
+            start();
         }
 
         private void runStateMachine() {

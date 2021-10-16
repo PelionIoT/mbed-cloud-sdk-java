@@ -195,11 +195,11 @@ public class AccountUpdateReq implements Serializable {
     }
 
     /**
-     * An array of aliases.
+     * An array of aliases for the tenant account ID. The aliases must be globally unique.
      * 
      * @return aliases
      **/
-    @ApiModelProperty(value = "An array of aliases.")
+    @ApiModelProperty(value = "An array of aliases for the tenant account ID. The aliases must be globally unique.")
     public List<String> getAliases() {
         return aliases;
     }
@@ -234,12 +234,12 @@ public class AccountUpdateReq implements Serializable {
     }
 
     /**
-     * The name of the company. Required for commercial accounts only.
+     * The name of the company used in billing. Required for commercial accounts only.
      * 
      * @return company
      **/
     @ApiModelProperty(example = "ARM Holdings Plc",
-                      value = "The name of the company. Required for commercial accounts only.")
+                      value = "The name of the company used in billing. Required for commercial accounts only.")
     public String getCompany() {
         return company;
     }
@@ -321,11 +321,11 @@ public class AccountUpdateReq implements Serializable {
     }
 
     /**
-     * The display name for the account.
+     * The display name for the tenant account.
      * 
      * @return displayName
      **/
-    @ApiModelProperty(example = "ARM", value = "The display name for the account.")
+    @ApiModelProperty(example = "ARM", value = "The display name for the tenant account.")
     public String getDisplayName() {
         return displayName;
     }

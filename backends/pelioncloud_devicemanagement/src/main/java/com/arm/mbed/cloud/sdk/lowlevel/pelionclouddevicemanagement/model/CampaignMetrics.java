@@ -94,7 +94,7 @@ public class CampaignMetrics implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name: always 'update-campaign-metrics'.")
+    @ApiModelProperty(example = "update-campaign-metrics", value = "Entity name: always 'update-campaign-metrics'.")
     public String getObject() {
         return object;
     }

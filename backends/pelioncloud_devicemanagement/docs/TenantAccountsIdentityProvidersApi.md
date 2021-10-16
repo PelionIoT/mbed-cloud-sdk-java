@@ -8,9 +8,9 @@ Method | HTTP request | Description
 [**deleteAccountIdentityProvider**](TenantAccountsIdentityProvidersApi.md#deleteAccountIdentityProvider) | **DELETE** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Delete an identity provider by ID.
 [**deleteAccountSpCertificate**](TenantAccountsIdentityProvidersApi.md#deleteAccountSpCertificate) | **POST** v3/accounts/{account_id}/identity-providers/{identity_provider_id}/delete-sp-certificate | Delete the service provider certificate.
 [**generateAccountSpCertificate**](TenantAccountsIdentityProvidersApi.md#generateAccountSpCertificate) | **POST** v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate | Generate a new service provider certificate.
-[**getAccountIdentityProvider**](TenantAccountsIdentityProvidersApi.md#getAccountIdentityProvider) | **GET** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Retrieve identity provider by ID.
+[**getAccountIdentityProvider**](TenantAccountsIdentityProvidersApi.md#getAccountIdentityProvider) | **GET** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Get an identity provider.
 [**getAllAccountIdentityProviders**](TenantAccountsIdentityProvidersApi.md#getAllAccountIdentityProviders) | **GET** v3/accounts/{account_id}/identity-providers | Get all identity providers.
-[**refreshAccountJwks**](TenantAccountsIdentityProvidersApi.md#refreshAccountJwks) | **POST** v3/accounts/{account_id}/identity-providers/{identity_provider_id}/refresh-jwks | Refreshes the OIDC signing keys.
+[**refreshAccountJwks**](TenantAccountsIdentityProvidersApi.md#refreshAccountJwks) | **POST** v3/accounts/{account_id}/identity-providers/{identity_provider_id}/refresh-jwks | Refresh the OIDC signing keys.
 [**updateAccountIdentityProvider**](TenantAccountsIdentityProvidersApi.md#updateAccountIdentityProvider) | **PUT** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Update an existing identity provider.
 
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 Create a new identity provider.
 
-Create a new identity provider.
+Create a new identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 Delete an identity provider by ID.
 
-Delete an identity provider by ID.
+Delete an identity provider by ID. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 Delete the service provider certificate.
 
-Delete a service provider certificate.
+Delete a service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 Generate a new service provider certificate.
 
-Generate a new service provider certificate.
+Generate a new service provider certificate. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -250,9 +250,9 @@ Name | Type | Description  | Notes
 # **getAccountIdentityProvider**
 > IdentityProviderInfo getAccountIdentityProvider(accountId, identityProviderId)
 
-Retrieve identity provider by ID.
+Get an identity provider.
 
-Manage identity providers of a tenant account.
+Retrieve an identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 Get all identity providers.
 
-Retrieve identity providers in an array.
+Retrieve an array of identity providers. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -331,8 +331,8 @@ Bearer.setApiKey("YOUR API KEY");
 TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvidersApi();
 String accountId = "accountId_example"; // String | The ID of the account.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
+String after = "after_example"; // String | The entity ID to retrieve after the given one.
+String order = "ASC"; // String | Record order based on creation. Acceptable values: ASC, DESC. Default: ASC.
 String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 try {
     IdentityProviderList result = apiInstance.getAllAccountIdentityProviders(accountId, limit, after, order, include);
@@ -349,8 +349,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
+ **after** | **String**| The entity ID to retrieve after the given one. | [optional]
+ **order** | **String**| Record order based on creation. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
  **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
 
 ### Return type
@@ -370,9 +370,9 @@ Name | Type | Description  | Notes
 # **refreshAccountJwks**
 > IdentityProviderInfo refreshAccountJwks(accountId, identityProviderId)
 
-Refreshes the OIDC signing keys.
+Refresh the OIDC signing keys.
 
-Refreshes an OIDC IdP&#39;s signing keys.
+Refresh an OIDC IdP&#39;s signing keys. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 
 Update an existing identity provider.
 
-Update an existing identity provider.
+Update an existing identity provider. &lt;b&gt;Note:&lt;/b&gt; This endpoint is restricted to administrators.
 
 ### Example
 ```java

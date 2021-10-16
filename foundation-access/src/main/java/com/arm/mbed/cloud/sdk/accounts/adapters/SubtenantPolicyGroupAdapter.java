@@ -60,6 +60,7 @@ public final class SubtenantPolicyGroupAdapter {
             return null;
         }
         final SubtenantPolicyGroup subtenantPolicyGroup = new SubtenantPolicyGroup(TranslationUtils.toInt(toBeMapped.getApikeyCount()),
+                                                                                   TranslationUtils.toInt(toBeMapped.getApplicationCount()),
                                                                                    TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                                                    TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
                                                                                    TranslationUtils.toInt(toBeMapped.getUserCount()));

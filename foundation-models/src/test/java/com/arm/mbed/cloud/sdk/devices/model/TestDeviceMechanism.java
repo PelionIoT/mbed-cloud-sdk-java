@@ -30,7 +30,7 @@ public class TestDeviceMechanism {
             devicemechanism = DeviceMechanism.getValue("direct");
             assertNotNull(devicemechanism);
             assertFalse(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue("860e9e44-4982-4da7-94db-1135456ca8ba");
+            devicemechanism = DeviceMechanism.getValue("32a48155-8ce4-444f-874f-33313ca4c537");
             assertNotNull(devicemechanism);
             assertTrue(devicemechanism.isDefault());
         } catch (Exception exception) {
